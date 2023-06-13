@@ -1,0 +1,60 @@
+import axios, {AxiosInstance} from "axios";
+import {Animal} from "../model/Animal.ts";
+
+export class AnimalClient {
+    private axiosClient: AxiosInstance;
+
+    constructor() {
+        this.axiosClient = axios.create({
+            baseURL: 'http://localhost:8080/api/animal',
+            headers: {
+                'content-type' : 'application/json'
+            }
+        })
+    }
+
+    public async save(animal: Animal) : Promise<void> {
+        try{
+            return(await this.axiosClient.post(`/register`, animal)).data
+        }
+        catch (error:any){
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async listAll() : Promise<Animal[]> {
+        try {
+            return(await this.axiosClient.get<Animal[]>(`/listall`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async findById(id: number) : Promise<Animal> {
+        try {
+            return(await this.axiosClient.get<Animal>(`/findbyid${id}`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async update(animal: Animal) : Promise<void> {
+        try {
+            return(await this.axiosClient.put(`/update/${animal.id}`, animal)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async disable(id: number) : Promise<void> {
+        try {
+            return(await this.axiosClient.put(`/disable/${id}`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+}
