@@ -15,4 +15,12 @@ export class Caregiver extends AbstractEntity {
     occurrences!: Occurrences;
     animal!: Animal;
     user!: User;
+
+    constructor() {
+        super()
+        this.user = new User
+        this.address = new Address
+        this.occurrences = new Occurrences
+        this.animal = new Animal
+    }
 }

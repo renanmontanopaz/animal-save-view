@@ -36,67 +36,130 @@
             </div>
 
             <div class="field">
-                <label class="label">email</label>
+                <label class="label">Email</label>
                 <div class="control">
                     <input v-model="associate.user.login" class="input" type="text" placeholder="Text input">
                 </div>
             </div>
 
             <div class="field">
-                <label class="label">senha</label>
+                <label class="label">Senha</label>
                 <div class="control">
                     <input v-model="associate.user.password" class="input" type="text" placeholder="Text input">
                 </div>
             </div>
 
             <div class="field">
-                <label class="label">cep</label>
+                <label class="label">Cep</label>
                 <div class="control">
                     <input v-model="associate.address.cep" class="input" type="text" placeholder="Text input">
                 </div>
             </div>
 
             <div class="field">
-                <label class="label">bairro</label>
+                <label class="label">Bairro</label>
                 <div class="control">
                     <input v-model="associate.address.neighborhood" class="input" type="text" placeholder="Text input">
                 </div>
             </div>
 
             <div class="field">
-                <label class="label">rua</label>
+                <label class="label">Rua</label>
                 <div class="control">
                     <input v-model="associate.address.road" class="input" type="text" placeholder="Text input">
                 </div>
             </div>
 
             <div class="field">
-                <label class="label">número</label>
+                <label class="label">Número</label>
                 <div class="control">
                     <input v-model="associate.address.houseNumber" class="input" type="text" placeholder="Text input">
                 </div>
             </div>
         </div>
 
-        <div v-if="select === '2'">
+        <div v-if="select === '3'">
             <div class="field">
-                <label class="label">Teste</label>
+                <label class="label">Name</label>
                 <div class="control">
-                    <input class="input" type="text" placeholder="Text input">
+                    <input v-model="caregiver.firstName" class="input" type="text" placeholder="Text input">
                 </div>
             </div>
 
             <div class="field">
-                <label class="label">Teste</label>
+                <label class="label">Sobrenome</label>
                 <div class="control">
-                    <input class="input" type="text" placeholder="Text input">
+                    <input v-model="caregiver.lastName" class="input" type="text" placeholder="Text input">
                 </div>
             </div>
 
             <div class="field">
-                <label class="label">Teste</label>
+                <label class="label">Contato</label>
                 <div class="control">
-                    <input class="input" type="text" placeholder="Text input">
+                    <input v-model="caregiver.contact" class="input" type="text" placeholder="Text input">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                    <input v-model="caregiver.user.login" class="input" type="text" placeholder="Text input">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Senha</label>
+                <div class="control">
+                    <input v-model="caregiver.user.password" class="input" type="text" placeholder="Text input">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Cep</label>
+                <div class="control">
+                    <input v-model="caregiver.address.cep" class="input" type="text" placeholder="Text input">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Bairro</label>
+                <div class="control">
+                    <input v-model="caregiver.address.neighborhood" class="input" type="text" placeholder="Text input">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Rua</label>
+                <div class="control">
+                    <input v-model="caregiver.address.road" class="input" type="text" placeholder="Text input">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Número</label>
+                <div class="control">
+                    <input v-model="caregiver.address.houseNumber" class="input" type="text" placeholder="Text input">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Espaço físico disponivel</label>
+                <div class="control">
+                    <input v-model="caregiver.physicalSpace" class="input" type="text" placeholder="Text input">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Gastos mensais</label>
+                <div class="control">
+                    <input v-model="caregiver.spending" class="input" type="text" placeholder="Text input">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Capacidade de animais</label>
+                <div class="control">
+                    <input v-model="caregiver.capacityAnimals" class="input" type="text" placeholder="Text input">
                 </div>
             </div>
         </div>
@@ -121,39 +184,49 @@ import { Provider } from '@/model/Provider';
 import { Component } from 'vue-property-decorator';
 import { ProfileType } from '@/model/ProfileType';
 import { AssociateClient } from '@/client/Associate.client';
-import { User } from '@/model/User';
+import { CaregiverClient } from '@/client/Caregiver.client';
 
 @Component
 export default class Register extends Vue {
     private associateClient: AssociateClient = new AssociateClient()
+    private caregiverClient: CaregiverClient = new CaregiverClient()
 
     public associateAtributesList: Associate[] = [];
     public caregiverAtributesList: Caregiver[] = [];
     public providerAtributesList: Provider[] = [];
 
     public associate: Associate = new Associate();
+    public caregiver: Caregiver = new Caregiver();
 
     public select: string = '1';
 
-   
-
     public onClickRegister(): void {
 
-        this.associateClient.save(this.associate).then(
-            success => {
-                console.log('Associado cadastrado com sucesso!!!')
-                this.associate.user = new User()
-                this.associate = new Associate()
-            },
-            error => {
-                console.log(error)
-            }
-        )
+        if (this.select === '1') {
+            this.associateClient.save(this.associate).then(
+                success => {
+                    console.log('Associado cadastrado com sucesso!!!')
+                    this.associate = new Associate()
+                },
+                error => {
+                    console.log(error)
+                }
+            )
+        } else if (this.select === '3') {
+            this.caregiverClient.save(this.caregiver).then(
+                success => {
+                    console.log('Associado cadastrado com sucesso!!!')
+                    this.caregiver = new Caregiver()
+                },
+                error => {
+                    console.log(error)
+                }
+            )
+        }
     }
 
     public changeProfileType(): void {
         const selectProfileType = (<HTMLSelectElement>document.getElementById('selectProfileType')).value;
-        console.log(selectProfileType);
         this.select = selectProfileType;
     }
 
