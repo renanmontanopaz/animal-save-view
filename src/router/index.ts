@@ -14,7 +14,8 @@ const routes: Array<RouteConfig> = [
   {
     path: '/associado',
     name: 'associado',
-    component: Associate
+    component: Associate,
+    meta: { requiresAuth: true, allowedRoles: ['admin','associate'] }
   }
 ]
 
