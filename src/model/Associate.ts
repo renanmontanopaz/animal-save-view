@@ -5,10 +5,13 @@ import {User} from "@/model/User";
 export class Associate extends AbstractEntity {
     firstName!: string;
     lastName!: string;
-    email!: string;
     contact!: string;
-    username!: string;
-    password!: string;
     address!: Address;
     user!: User;
+
+    constructor() {
+        super()
+        this.user = new User
+        this.address = new Address
+    }
 }
