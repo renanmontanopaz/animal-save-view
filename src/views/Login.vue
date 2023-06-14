@@ -1,6 +1,7 @@
 <template>
   <main>
-    <div class="column is-5">
+    <div class="box column is-4" style="justify-content: center; display: flex">
+    <div class="column is-10">
       <div class="field">
         <p class="control has-icons-left has-icons-right">
           <input class="input" type="email" placeholder="Email" v-model="login.login">
@@ -20,18 +21,14 @@
         </span>
         </p>
       </div>
-      <div class="field">
-        <p class="control">
-          <button class="button is-success" type="submit" @click="onClickLogin()">
-            Login
-          </button>
-        </p>
+      <div class="control">
+        <button class="button is-primary" @click="onClickLogin()">Login</button>
       </div>
+    </div>
     </div>
   </main>
 </template>
 <style lang="scss">
-
 main{
   align-items: center;
   justify-content: center;
@@ -66,7 +63,8 @@ export default class Login extends Vue{
     this.userClient.login(this.login).then(
         success => {
           this.token = success
-        }
+        },
+        error => console.log(error)
     )
   }
 }
