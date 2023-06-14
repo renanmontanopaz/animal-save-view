@@ -21,6 +21,7 @@
         </span>
         </p>
       </div>
+      <p class="help is-danger" style="display: none">This email is invalid</p>
       <div class="control">
         <button class="button is-primary" @click="onClickLogin()">Login</button>
       </div>
@@ -39,7 +40,6 @@ main{
 }
 
 .container{
-
 }
 
 </style>
@@ -63,6 +63,7 @@ export default class Login extends Vue{
     this.userClient.login(this.login).then(
         success => {
           this.token = success
+          console.log(this.token)
         },
         error => console.log(error)
     )
