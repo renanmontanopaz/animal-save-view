@@ -62,13 +62,14 @@ import {UserClient} from "@/client/User.client";
 import {Token} from "@/model/Token";
 import {LoginUser} from "@/model/Login";
 import {Message} from "@/model/Message";
-
+import jwt_decode from 'jwt-decode';
 @Component
 export default class Login extends Vue {
   private userClient: UserClient = new UserClient();
   public login: LoginUser = new LoginUser();
   public token: Token = new Token();
   private notificacao: Message = new Message();
+
 
   mounted(): void {
 
@@ -88,7 +89,12 @@ export default class Login extends Vue {
     this.userClient.login(this.login).then(
         success => {
           this.token = success
-          console.log(this.token)
+          //const token2 = success
+          const tokenString = success.toString();
+          const decodedToken: { [key: string]: any } = jwt_decode(tokenString);
+          const userAccess: string  = decodedToken.access;
+
+          console.log(decodedToken); // Imprime o tipo de acesso do usuário
         },
         error => {
           this.showComponent();
@@ -103,4 +109,5 @@ export default class Login extends Vue {
     this.notificacao = new Message()
   }
 }
+
 </script>
