@@ -16,20 +16,20 @@
           <router-link to ='/'> 
             Home
           </router-link> 
-          <router-link to ='/client'> 
+          <router-link to ='/quem-somos'> 
             Quem Somos
           </router-link>
           <router-link to ='/provider'> 
             Parceiros
           </router-link> 
-          <router-link to ='/stock-input'> 
+          <router-link to ='/contact'> 
             Contato
           </router-link>
         </div>
         <div class="navbar-end" id="divTres">
           <div class="navbar-item" id="divDois">
             <div class="buttons">
-              <a class="button is-primary">
+              <a class="button is-primary" href="/register">
                 <strong>Sign up</strong>
               </a>
               <a class="button is-light" href="/login">
