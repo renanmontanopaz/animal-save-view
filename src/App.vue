@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar box" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item">
           <h1>ANIMAL SAVE</h1>
@@ -57,7 +57,7 @@
     padding: 25px 30px;
 
     h1 {
-      font-size: 56px;
+      font-size: 26px;
       font-weight: 800;
       color: black;
     }

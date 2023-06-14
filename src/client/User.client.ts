@@ -1,5 +1,6 @@
 import axios, {AxiosInstance} from "axios";
-import {User} from "@/model/User";
+import {LoginUser} from "@/model/Login";
+import {Token} from "@/model/Token";
 export class UserClient {
     private axiosClient: AxiosInstance;
 
@@ -7,14 +8,14 @@ export class UserClient {
         this.axiosClient = axios.create({
             baseURL: 'http://localhost:8080/api/user',
             headers: {
-                'content-type' : 'application/json'
+                'Content-type' : 'application/json'
             }
         })
     }
 // a client User precisa ser trabalhada nela, pois envolve autenticação
-    public async login(user: User) : Promise<void> {
+    public async login(login: LoginUser) : Promise<Token> {
         try{
-            return(await this.axiosClient.post(`/login`, user)).data
+            return(await this.axiosClient.post(`/login`, login)).data
         }
         catch (error:any){
             return Promise.reject(error.response)
