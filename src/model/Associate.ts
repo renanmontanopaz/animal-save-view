@@ -1,8 +1,8 @@
-import {AbstractEntity} from "./AbstractEntity.ts";
-import {Address} from "./Address.ts";
-import {User} from "./User.ts";
-import {Occurrences} from "./Occurrences.ts";
-import {Aprove} from "./enum/Aprove.ts";
+import {AbstractEntity} from "@/model/AbstractEntity";
+import {Address} from "@/model/Address";
+import {Aprove} from "@/model/enum/Aprove";
+import {Occurrences} from "@/model/Occurrences";
+import {User} from "@/model/User";
 
 export class Associate extends AbstractEntity {
     firstName!: string;

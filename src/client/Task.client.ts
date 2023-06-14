@@ -1,5 +1,5 @@
 import axios, {AxiosInstance} from "axios";
-import {Task} from "../model/Task.ts";
+import {Task} from "@/model/Task";
 
 export class TaskClient {
     private axiosClient: AxiosInstance;

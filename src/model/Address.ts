@@ -1,4 +1,5 @@
-import {AbstractEntity} from "./AbstractEntity.ts";
+import {AbstractEntity} from "@/model/AbstractEntity";
+
 
 export class Address extends AbstractEntity {
     cep!: string;

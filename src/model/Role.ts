@@ -1,4 +1,4 @@
-import {User} from "./User.ts";
+import {User} from "@/model/User";
 
 export class Role {
     id!: number;

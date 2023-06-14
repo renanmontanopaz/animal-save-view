@@ -1,5 +1,5 @@
-import {AbstractEntity} from "./AbstractEntity.ts";
-import {Animal} from "./Animal.ts";
+import {AbstractEntity} from "@/model/AbstractEntity";
+import {Animal} from "@/model/Animal";
 
 export class Vaccination extends AbstractEntity {
     rabies!: boolean;

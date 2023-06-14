@@ -1,8 +1,10 @@
-import {AbstractEntity} from "./AbstractEntity.ts";
-import {Vaccination} from "./Vaccination.ts";
-import {AnimalType} from "./enum/AnimalType.ts";
-import {AnimalSize} from "./enum/AnimalSize.ts";
-import {Caregiver} from "./Caregiver.ts";
+import {AbstractEntity} from "@/model/AbstractEntity";
+import {Caregiver} from "@/model/Caregiver";
+import {AnimalType} from "@/model/enum/AnimalType";
+import {AnimalSize} from "@/model/enum/AnimalSize";
+
+class Vaccination {
+}
 
 export class Animal extends AbstractEntity {
     name!: string;

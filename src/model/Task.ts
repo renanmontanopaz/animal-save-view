@@ -1,5 +1,5 @@
-import {AbstractEntity} from "./AbstractEntity.ts";
-import {Provider} from "./Provider.ts";
+import {AbstractEntity} from "@/model/AbstractEntity";
+import {Provider} from "@/model/Provider";
 
 export class Task extends AbstractEntity {
     name!: string;

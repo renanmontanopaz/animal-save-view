@@ -1,5 +1,5 @@
 import axios, {AxiosInstance} from "axios";
-import {Provider} from "../model/Provider.ts";
+import {Provider} from "@/model/Provider";
 
 export class ProviderClient {
     private axiosClient: AxiosInstance;

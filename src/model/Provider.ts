@@ -1,8 +1,8 @@
-import {AbstractEntity} from "./AbstractEntity.ts";
-import {Address} from "./Address.ts";
-import {User} from "./User.ts";
-import {Aprove} from "./enum/Aprove.ts";
-import {Task} from "./Task.ts";
+import {AbstractEntity} from "@/model/AbstractEntity";
+import {Address} from "@/model/Address";
+import {Task} from "@/model/Task";
+import {Aprove} from "@/model/enum/Aprove";
+import {User} from "@/model/User";
 
 export class Provider extends AbstractEntity {
     firstName!: string;

@@ -25,7 +25,19 @@
           <router-link to ='/stock-input'> 
             Contato
           </router-link>
-        </div>  
+        </div>
+        <div class="navbar-end" id="divTres">
+          <div class="navbar-item" id="divDois">
+            <div class="buttons">
+              <a class="button is-primary">
+                <strong>Sign up</strong>
+              </a>
+              <a class="button is-light" href="/login">
+                Log in
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
     <router-view/>
@@ -68,3 +80,5 @@
     }
   }
 </style>
+<script setup lang="ts">
+</script>

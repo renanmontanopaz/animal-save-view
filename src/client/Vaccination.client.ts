@@ -1,6 +1,5 @@
 import axios, {AxiosInstance} from "axios";
-import {Vaccination} from "../model/Vaccination.ts";
-
+import {Vaccination} from "@/model/Vaccination";
 export class VaccinationClient {
     private axiosClient: AxiosInstance;
 

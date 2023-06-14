@@ -1,6 +1,6 @@
-import {AbstractEntity} from "./AbstractEntity.ts";
-import {User} from "./User.ts";
-import {Situation} from "./enum/Situation.ts";
+import {AbstractEntity} from "@/model/AbstractEntity";
+import {Situation} from "@/model/enum/Situation";
+import {User} from "@/model/User";
 
 export class Occurrences extends AbstractEntity {
     name!: string;

@@ -1,5 +1,6 @@
-import {AbstractEntity} from "./AbstractEntity.ts";
-import {User} from "./User.ts";
+import {AbstractEntity} from "@/model/AbstractEntity";
+import {User} from "@/model/User";
+
 
 export class Admin extends AbstractEntity {
     name!: string;

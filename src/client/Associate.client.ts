@@ -1,5 +1,5 @@
 import axios, {AxiosInstance} from "axios";
-import {Associate} from "../model/Associate.ts";
+import {Associate} from "@/model/Associate";
 
 export class AssociateClient {
     private axiosClient: AxiosInstance;

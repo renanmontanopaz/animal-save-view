@@ -1,6 +1,5 @@
 import axios, {AxiosInstance} from "axios";
-import {Admin} from "../model/Admin.ts";
-
+import {Admin} from "@/model/Admin";
 export class AdminClient {
 
     private axiosClient: AxiosInstance;

@@ -1,5 +1,5 @@
 import axios, {AxiosInstance} from "axios";
-import {Animal} from "../model/Animal.ts";
+import {Animal} from "@/model/Animal";
 
 export class AnimalClient {
     private axiosClient: AxiosInstance;

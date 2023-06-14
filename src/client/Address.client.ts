@@ -1,5 +1,6 @@
 import axios, {AxiosInstance} from "axios";
-import {Address} from "../model/Address.ts";
+import {Address} from "@/model/Address";
+
 export class AddressClient {
     private axiosClient: AxiosInstance;
 

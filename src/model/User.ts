@@ -1,8 +1,8 @@
-import {Admin} from "./Admin.ts";
-import {Caregiver} from "./Caregiver.ts";
-import {Provider} from "./Provider.ts";
-import {Associate} from "./Associate.ts";
-import {Occurrences} from "./Occurrences.ts";
+import {Admin} from "@/model/Admin";
+import {Caregiver} from "@/model/Caregiver";
+import {Provider} from "@/model/Provider";
+import {Associate} from "@/model/Associate";
+import {Occurrences} from "@/model/Occurrences";
 
 export class User {
     id!: number;

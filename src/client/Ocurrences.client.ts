@@ -1,5 +1,5 @@
 import axios, {AxiosInstance} from "axios";
-import {Occurrences} from "../model/Occurrences.ts";
+import {Occurrences} from "@/model/Occurrences";
 
 export class OcurrencesClient {
     private axiosClient: AxiosInstance;
