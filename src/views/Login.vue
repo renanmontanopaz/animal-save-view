@@ -21,9 +21,20 @@
         </span>
         </p>
       </div>
-      <p class="help is-danger" style="display: none">This email is invalid</p>
-      <div class="control">
-        <button class="button is-primary" @click="onClickLogin()">Login</button>
+      <div class="columns" v-if="notificacao.ativo">
+        <div class="column is-12">
+          <div :class="notificacao.classe" v-if="isVisible">
+            <button @click="onClickFecharNotificacao" class="delete" ></button>
+            {{ notificacao.mensagem }}
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <p class="control">
+          <button class="button is-success" @click="onClickLogin">
+            Login
+          </button>
+        </p>
       </div>
     </div>
     </div>
@@ -50,14 +61,28 @@ import {Component} from "vue-property-decorator";
 import {UserClient} from "@/client/User.client";
 import {Token} from "@/model/Token";
 import {LoginUser} from "@/model/Login";
+import {Message} from "@/model/Message";
 
 @Component
-export default class Login extends Vue{
+export default class Login extends Vue {
   private userClient: UserClient = new UserClient();
   public login: LoginUser = new LoginUser();
   public token: Token = new Token();
+  private notificacao: Message = new Message();
 
-  public mounted(): void {}
+  mounted(): void {
+
+  }
+
+  isVisible = false;
+
+  private showComponent(): void {
+    this.isVisible = true;
+
+    setTimeout(() => {
+      this.isVisible = false;
+    }, 4000); // Tempo em milissegundos (5 segundos)
+  }
   private onClickLogin(): void {
     console.log(this.login)
     this.userClient.login(this.login).then(
@@ -65,8 +90,17 @@ export default class Login extends Vue{
           this.token = success
           console.log(this.token)
         },
-        error => console.log(error)
+        error => {
+          this.showComponent();
+          this.notificacao = this.notificacao.new(
+              true, 'notification is-danger', 'Usuário ou senha incorreto'/*+ error.config.data*/
+          )
+        }
     )
+  }
+
+  private onClickFecharNotificacao(): void {
+    this.notificacao = new Message()
   }
 }
 </script>
