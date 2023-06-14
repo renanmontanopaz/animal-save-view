@@ -89,6 +89,7 @@ export default class Login extends Vue {
         success => {
           this.token = success
           console.log(this.token)
+
         },
         error => {
           this.showComponent();
