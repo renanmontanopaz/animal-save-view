@@ -46,13 +46,6 @@ main{
   justify-content: center;
   display: flex;
 }
-.field{
-
-}
-
-.container{
-}
-
 </style>
 <script lang="ts">
 
@@ -68,32 +61,29 @@ export default class Login extends Vue {
   private userClient: UserClient = new UserClient();
   public login: LoginUser = new LoginUser();
   public tokenLogin: Token = new Token();
-  private notificacao: Message = new Message();
-
+  public notificacao: Message = new Message();
 
   mounted(): void {
-
   }
 
   isVisible = false;
 
-  private showComponent(): void {
+  public showComponent(): void {
     this.isVisible = true;
 
     setTimeout(() => {
       this.isVisible = false;
     }, 4000); // Tempo em milissegundos (5 segundos)
   }
-  private onClickLogin(): void {
+  public onClickLogin(): void {
     console.log(this.login)
     this.userClient.login(this.login).then(
         success => {
-          this.tokenLogin = success
-          this.tokenLogin.auth = true
-          const tokenString = success.toString();
+          this.tokenLogin = this.tokenLogin.new(true, `${success}`)
+          const tokenString = this.tokenLogin.token.toString();
           const decodedToken: { [key: string]: any } = jwt_decode(tokenString);
           const userAccess: string  = decodedToken.access;
-
+          console.log(this.tokenLogin)
           console.log(decodedToken); // Imprime o tipo de acesso do usuário
         },
         error => {
@@ -105,7 +95,7 @@ export default class Login extends Vue {
     )
   }
 
-  private onClickFecharNotificacao(): void {
+  public onClickFecharNotificacao(): void {
     this.notificacao = new Message()
   }
 }

@@ -5,8 +5,8 @@ export class Token {
     public new(auth: boolean, token: string): Token {
         const autenticacao : Token = new Token()
 
-        autenticacao.auth = false
-        autenticacao.token = ""
+        autenticacao.auth = auth
+        autenticacao.token = token
         return autenticacao
     }
 }
