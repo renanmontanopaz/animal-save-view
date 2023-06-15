@@ -1,11 +1,17 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Login from "@/views/Login.vue";
+import Register from "@/views/RegisterUsers/Register.vue"
 import Associate from "@/views/associate/Associate.vue";
 
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
+  {
+    path:'/register',
+    name: 'home',
+    component: Register
+  },
   {
     path: '/login',
     name: 'Login',
