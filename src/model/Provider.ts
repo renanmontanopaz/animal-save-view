@@ -11,4 +11,11 @@ export class Provider extends AbstractEntity {
     address!: Address;
     tasks!: Task;
     user!: User;
+
+    constructor() {
+        super()
+        this.user = new User
+        this.address = new Address
+        this.tasks = new Task
+    }
 }
