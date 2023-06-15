@@ -17,16 +17,16 @@
             <div v-if="select === '1'">
                 <div class="aling_inputs">
                     <div class="field">
-                        <label class="label">Name</label>
+                        <label class="label">Nome</label>
                         <div class="control">
-                            <input v-model="associate.firstName" class="input" type="text" placeholder="Text input">
+                            <input v-model="associate.firstName" class="input" type="text" placeholder="Primeiro nome">
                         </div>
                     </div>
 
                     <div class="field">
                         <label class="label">Sobrenome</label>
                         <div class="control">
-                            <input v-model="associate.lastName" class="input" type="text" placeholder="Text input">
+                            <input v-model="associate.lastName" class="input" type="text" placeholder="Sobrenome">
                         </div>
                     </div>
                 </div>
@@ -34,21 +34,21 @@
                 <div class="field">
                     <label class="label">Contato</label>
                     <div class="control">
-                        <input v-model="associate.contact" class="input" type="text" placeholder="Text input">
+                        <input v-model="associate.contact" class="input" type="text" placeholder="Exemplo: (45) 9 0000-0000">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Email</label>
                     <div class="control">
-                        <input v-model="associate.user.login" class="input" type="text" placeholder="Text input">
+                        <input v-model="associate.user.login" class="input" type="text" placeholder="Exemplo: exemplo@gmail.com">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Senha</label>
                     <div class="control">
-                        <input v-model="associate.user.password" class="input" type="text" placeholder="Text input">
+                        <input v-model="associate.user.password" class="input" type="password" placeholder="Mínimo 5 caracteres e máximo de 8 caracteres">
                     </div>
                 </div>
 
@@ -56,7 +56,7 @@
                     <div class="field">
                         <label class="label">Cep</label>
                         <div class="control">
-                            <input v-model="associate.address.cep" class="input" type="text" placeholder="Text input">
+                            <input v-model="associate.address.cep" class="input" type="text" placeholder="Exemplo: 01001-000">
                         </div>
                     </div>
 
@@ -64,7 +64,7 @@
                         <label class="label">Bairro</label>
                         <div class="control">
                             <input v-model="associate.address.neighborhood" class="input" type="text"
-                                placeholder="Text input">
+                                placeholder="Bairro">
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                     <div class="field">
                         <label class="label">Rua</label>
                         <div class="control">
-                            <input v-model="associate.address.road" class="input" type="text" placeholder="Text input">
+                            <input v-model="associate.address.road" class="input" type="text" placeholder="Rua">
                         </div>
                     </div>
 
@@ -81,7 +81,7 @@
                         <label class="label">Número</label>
                         <div class="control">
                             <input v-model="associate.address.houseNumber" class="input" type="text"
-                                placeholder="Text input">
+                                placeholder="Número">
                         </div>
                     </div>
                 </div>
@@ -89,161 +89,165 @@
 
             <div v-if="select === '2'">
                 <div class="field">
-                    <label class="label">Name</label>
+                    <label class="label">Nome</label>
                     <div class="control">
-                        <input v-model="provider.firstName" class="input" type="text" placeholder="Text input">
+                        <input v-model="provider.firstName" class="input" type="text" placeholder="Primeiro nome">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Sobrenome</label>
                     <div class="control">
-                        <input v-model="provider.lastName" class="input" type="text" placeholder="Text input">
+                        <input v-model="provider.lastName" class="input" type="text" placeholder="Sobrenome">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Contato</label>
                     <div class="control">
-                        <input v-model="provider.contact" class="input" type="text" placeholder="Text input">
+                        <input v-model="provider.contact" class="input" type="text" placeholder="Exemplo: (45) 9 0000-0000">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Email</label>
                     <div class="control">
-                        <input v-model="provider.user.login" class="input" type="text" placeholder="Text input">
+                        <input v-model="provider.user.login" class="input" type="text" placeholder="Exemplo: exemplo@gmail.com">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Senha</label>
                     <div class="control">
-                        <input v-model="provider.user.password" class="input" type="text" placeholder="Text input">
+                        <input v-model="provider.user.password" class="input" type="password" placeholder="Mínimo 5 caracteres e máximo de 8 caracteres">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Cep</label>
                     <div class="control">
-                        <input v-model="provider.address.cep" class="input" type="text" placeholder="Text input">
+                        <input v-model="provider.address.cep" class="input" type="text" placeholder="Exemplo: 01001-000">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Bairro</label>
                     <div class="control">
-                        <input v-model="provider.address.neighborhood" class="input" type="text" placeholder="Text input">
+                        <input v-model="provider.address.neighborhood" class="input" type="text" placeholder="Bairro">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Rua</label>
                     <div class="control">
-                        <input v-model="provider.address.road" class="input" type="text" placeholder="Text input">
+                        <input v-model="provider.address.road" class="input" type="text" placeholder="Rua">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Número</label>
                     <div class="control">
-                        <input v-model="provider.address.houseNumber" class="input" type="text" placeholder="Text input">
+                        <input v-model="provider.address.houseNumber" class="input" type="text" placeholder="Número">
                     </div>
                 </div>
             </div>
 
             <div v-if="select === '3'">
                 <div class="field">
-                    <label class="label">Name</label>
+                    <label class="label">Nome</label>
                     <div class="control">
-                        <input v-model="caregiver.firstName" class="input" type="text" placeholder="Text input">
+                        <input v-model="caregiver.firstName" class="input" type="text" placeholder="Primeiro nome">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Sobrenome</label>
                     <div class="control">
-                        <input v-model="caregiver.lastName" class="input" type="text" placeholder="Text input">
+                        <input v-model="caregiver.lastName" class="input" type="text" placeholder="Sobrenome">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Contato</label>
                     <div class="control">
-                        <input v-model="caregiver.contact" class="input" type="text" placeholder="Text input">
+                        <input v-model="caregiver.contact" class="input" type="text" placeholder="Exemplo: (45) 9 0000-0000">
                     </div>
                 </div>
 
                 <div class="field">
-                    <label class="label">Espaço físico disponivel</label>
+                    <label class="label">Espaço físico disponível</label>
                     <div class="control">
-                        <input v-model="caregiver.physicalSpace" class="input" type="text" placeholder="Text input">
+                        <input v-model="caregiver.physicalSpace" class="input" type="text" placeholder="Tamanho do terreno disponível">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Gastos mensais</label>
                     <div class="control">
-                        <input v-model="caregiver.spending" class="input" type="text" placeholder="Text input">
+                        <input v-model="caregiver.spending" class="input" type="text" placeholder="Média de gastos ao mês">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Capacidade de animais</label>
                     <div class="control">
-                        <input v-model="caregiver.capacityAnimals" class="input" type="text" placeholder="Text input">
+                        <input v-model="caregiver.capacityAnimals" class="input" type="text" placeholder="Capacidade máxima de animais">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Email</label>
                     <div class="control">
-                        <input v-model="caregiver.user.login" class="input" type="text" placeholder="Text input">
+                        <input v-model="caregiver.user.login" class="input" type="text" placeholder="Exemplo: exemplo@gmail.com">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Senha</label>
                     <div class="control">
-                        <input v-model="caregiver.user.password" class="input" type="text" placeholder="Text input">
+                        <input v-model="caregiver.user.password" class="input" type="password" placeholder="Mínimo 5 caracteres e máximo de 8 caracteres">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Cep</label>
                     <div class="control">
-                        <input v-model="caregiver.address.cep" class="input" type="text" placeholder="Text input">
+                        <input v-model="caregiver.address.cep" class="input" type="text" placeholder="Exemplo: 01001-000">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Bairro</label>
                     <div class="control">
-                        <input v-model="caregiver.address.neighborhood" class="input" type="text" placeholder="Text input">
+                        <input v-model="caregiver.address.neighborhood" class="input" type="text" placeholder="Bairro">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Rua</label>
                     <div class="control">
-                        <input v-model="caregiver.address.road" class="input" type="text" placeholder="Text input">
+                        <input v-model="caregiver.address.road" class="input" type="text" placeholder="Rua">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Número</label>
                     <div class="control">
-                        <input v-model="caregiver.address.houseNumber" class="input" type="text" placeholder="Text input">
+                        <input v-model="caregiver.address.houseNumber" class="input" type="text" placeholder="Número">
                     </div>
                 </div>
             </div>
 
-            <div class="field is-grouped">
-                <div class="control">
-                    <router-link to="/"><button class="button is-link is-light">Voltar</button></router-link>
+            <div class="aling_buttons">
+                <div class="field is-grouped">
+                    <div class="control">
+                        <router-link to="/"><button class="button is-link is-light">Voltar</button></router-link>
+                    </div>
                 </div>
-                <div class="control">
-                    <button @click="onClickRegister()" class="button is-success is-focused">Salvar</button>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button @click="onClickRegister()" class="button is-success is-focused">Salvar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -352,6 +356,15 @@ main {
     .aling_inputs {
         display: flex;
         gap: 30px;
+    }
+
+    .aling_buttons {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        .button {
+            width: 200px;
+        }
     }
 }
 </style>
