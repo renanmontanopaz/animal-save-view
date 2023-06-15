@@ -11,7 +11,7 @@
           <span aria-hidden="true"></span>
         </a>
       </div>
-      <div id="navbarBasicExample" class="navbar-menu">
+      <div id="navbarBasicExample columns is-5" class="navbar-menu">
         <div class="navbar-start">
           <router-link to ='/'> 
             Home
