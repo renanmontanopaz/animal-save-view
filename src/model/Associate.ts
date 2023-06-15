@@ -6,6 +6,7 @@ export class Associate extends AbstractEntity {
     firstName!: string;
     lastName!: string;
     contact!: string;
+    cpf!: string;
     address!: Address;
     user!: User;
 

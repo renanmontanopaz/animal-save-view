@@ -34,21 +34,31 @@
                 <div class="field">
                     <label class="label">Contato</label>
                     <div class="control">
-                        <input v-model="associate.contact" class="input" type="text" placeholder="Exemplo: (45) 9 0000-0000">
+                        <input v-model="associate.contact" class="input" type="text"
+                            placeholder="Exemplo: (45) 9 0000-0000">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">CPF</label>
+                    <div class="control">
+                        <input v-model="associate.cpf" class="input" type="text" placeholder="Exemplo: 000.000.000-00">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Email</label>
                     <div class="control">
-                        <input v-model="associate.user.login" class="input" type="text" placeholder="Exemplo: exemplo@gmail.com">
+                        <input v-model="associate.user.login" class="input" type="text"
+                            placeholder="Exemplo: exemplo@gmail.com">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Senha</label>
                     <div class="control">
-                        <input v-model="associate.user.password" class="input" type="password" placeholder="Mínimo 5 caracteres e máximo de 8 caracteres">
+                        <input v-model="associate.user.password" class="input" type="password"
+                            placeholder="Mínimo 5 caracteres e máximo de 8 caracteres">
                     </div>
                 </div>
 
@@ -56,15 +66,15 @@
                     <div class="field">
                         <label class="label">Cep</label>
                         <div class="control">
-                            <input v-model="associate.address.cep" class="input" type="text" placeholder="Exemplo: 01001-000">
+                            <input v-model="associate.address.cep" class="input" type="text"
+                                placeholder="Exemplo: 01001-000">
                         </div>
                     </div>
 
                     <div class="field">
                         <label class="label">Bairro</label>
                         <div class="control">
-                            <input v-model="associate.address.neighborhood" class="input" type="text"
-                                placeholder="Bairro">
+                            <input v-model="associate.address.neighborhood" class="input" type="text" placeholder="Bairro">
                         </div>
                     </div>
                 </div>
@@ -80,25 +90,26 @@
                     <div class="field">
                         <label class="label">Número</label>
                         <div class="control">
-                            <input v-model="associate.address.houseNumber" class="input" type="text"
-                                placeholder="Número">
+                            <input v-model="associate.address.houseNumber" class="input" type="text" placeholder="Número">
                         </div>
                     </div>
                 </div>
             </div>
 
             <div v-if="select === '2'">
-                <div class="field">
-                    <label class="label">Nome</label>
-                    <div class="control">
-                        <input v-model="provider.firstName" class="input" type="text" placeholder="Primeiro nome">
+                <div class="aling_inputs">
+                    <div class="field">
+                        <label class="label">Nome</label>
+                        <div class="control">
+                            <input v-model="provider.firstName" class="input" type="text" placeholder="Primeiro nome">
+                        </div>
                     </div>
-                </div>
 
-                <div class="field">
-                    <label class="label">Sobrenome</label>
-                    <div class="control">
-                        <input v-model="provider.lastName" class="input" type="text" placeholder="Sobrenome">
+                    <div class="field">
+                        <label class="label">Sobrenome</label>
+                        <div class="control">
+                            <input v-model="provider.lastName" class="input" type="text" placeholder="Sobrenome">
+                        </div>
                     </div>
                 </div>
 
@@ -110,74 +121,92 @@
                 </div>
 
                 <div class="field">
+                    <label class="label">CNPJ</label>
+                    <div class="control">
+                        <input v-model="provider.cnpj" class="input" type="text" placeholder="Exemplo: 00.000.000/0001-00">
+                    </div>
+                </div>
+
+                <div class="field">
                     <label class="label">Email</label>
                     <div class="control">
-                        <input v-model="provider.user.login" class="input" type="text" placeholder="Exemplo: exemplo@gmail.com">
+                        <input v-model="provider.user.login" class="input" type="text"
+                            placeholder="Exemplo: exemplo@gmail.com">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Senha</label>
                     <div class="control">
-                        <input v-model="provider.user.password" class="input" type="password" placeholder="Mínimo 5 caracteres e máximo de 8 caracteres">
+                        <input v-model="provider.user.password" class="input" type="password"
+                            placeholder="Mínimo 5 caracteres e máximo de 8 caracteres">
                     </div>
                 </div>
 
-                <div class="field">
-                    <label class="label">Cep</label>
-                    <div class="control">
-                        <input v-model="provider.address.cep" class="input" type="text" placeholder="Exemplo: 01001-000">
+                <div class="aling_inputs">
+                    <div class="field">
+                        <label class="label">Cep</label>
+                        <div class="control">
+                            <input v-model="provider.address.cep" class="input" type="text"
+                                placeholder="Exemplo: 01001-000">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Bairro</label>
+                        <div class="control">
+                            <input v-model="provider.address.neighborhood" class="input" type="text" placeholder="Bairro">
+                        </div>
                     </div>
                 </div>
 
-                <div class="field">
-                    <label class="label">Bairro</label>
-                    <div class="control">
-                        <input v-model="provider.address.neighborhood" class="input" type="text" placeholder="Bairro">
+                <div class="aling_inputs">
+                    <div class="field">
+                        <label class="label">Rua</label>
+                        <div class="control">
+                            <input v-model="provider.address.road" class="input" type="text" placeholder="Rua">
+                        </div>
                     </div>
-                </div>
 
-                <div class="field">
-                    <label class="label">Rua</label>
-                    <div class="control">
-                        <input v-model="provider.address.road" class="input" type="text" placeholder="Rua">
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Número</label>
-                    <div class="control">
-                        <input v-model="provider.address.houseNumber" class="input" type="text" placeholder="Número">
+                    <div class="field">
+                        <label class="label">Número</label>
+                        <div class="control">
+                            <input v-model="provider.address.houseNumber" class="input" type="text" placeholder="Número">
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div v-if="select === '3'">
-                <div class="field">
-                    <label class="label">Nome</label>
-                    <div class="control">
-                        <input v-model="caregiver.firstName" class="input" type="text" placeholder="Primeiro nome">
+                <div class="aling_inputs">
+                    <div class="field">
+                        <label class="label">Nome</label>
+                        <div class="control">
+                            <input v-model="caregiver.firstName" class="input" type="text" placeholder="Primeiro nome">
+                        </div>
                     </div>
-                </div>
 
-                <div class="field">
-                    <label class="label">Sobrenome</label>
-                    <div class="control">
-                        <input v-model="caregiver.lastName" class="input" type="text" placeholder="Sobrenome">
+                    <div class="field">
+                        <label class="label">Sobrenome</label>
+                        <div class="control">
+                            <input v-model="caregiver.lastName" class="input" type="text" placeholder="Sobrenome">
+                        </div>
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Contato</label>
                     <div class="control">
-                        <input v-model="caregiver.contact" class="input" type="text" placeholder="Exemplo: (45) 9 0000-0000">
+                        <input v-model="caregiver.contact" class="input" type="text"
+                            placeholder="Exemplo: (45) 9 0000-0000">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Espaço físico disponível</label>
                     <div class="control">
-                        <input v-model="caregiver.physicalSpace" class="input" type="text" placeholder="Tamanho do terreno disponível">
+                        <input v-model="caregiver.physicalSpace" class="input" type="text"
+                            placeholder="Tamanho do terreno disponível">
                     </div>
                 </div>
 
@@ -191,49 +220,57 @@
                 <div class="field">
                     <label class="label">Capacidade de animais</label>
                     <div class="control">
-                        <input v-model="caregiver.capacityAnimals" class="input" type="text" placeholder="Capacidade máxima de animais">
+                        <input v-model="caregiver.capacityAnimals" class="input" type="text"
+                            placeholder="Capacidade máxima de animais">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Email</label>
                     <div class="control">
-                        <input v-model="caregiver.user.login" class="input" type="text" placeholder="Exemplo: exemplo@gmail.com">
+                        <input v-model="caregiver.user.login" class="input" type="text"
+                            placeholder="Exemplo: exemplo@gmail.com">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Senha</label>
                     <div class="control">
-                        <input v-model="caregiver.user.password" class="input" type="password" placeholder="Mínimo 5 caracteres e máximo de 8 caracteres">
+                        <input v-model="caregiver.user.password" class="input" type="password"
+                            placeholder="Mínimo 5 caracteres e máximo de 8 caracteres">
                     </div>
                 </div>
 
-                <div class="field">
-                    <label class="label">Cep</label>
-                    <div class="control">
-                        <input v-model="caregiver.address.cep" class="input" type="text" placeholder="Exemplo: 01001-000">
+                <div class="aling_inputs">
+                    <div class="field">
+                        <label class="label">Cep</label>
+                        <div class="control">
+                            <input v-model="caregiver.address.cep" class="input" type="text"
+                                placeholder="Exemplo: 01001-000">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Bairro</label>
+                        <div class="control">
+                            <input v-model="caregiver.address.neighborhood" class="input" type="text" placeholder="Bairro">
+                        </div>
                     </div>
                 </div>
 
-                <div class="field">
-                    <label class="label">Bairro</label>
-                    <div class="control">
-                        <input v-model="caregiver.address.neighborhood" class="input" type="text" placeholder="Bairro">
+                <div class="aling_inputs">
+                    <div class="field">
+                        <label class="label">Rua</label>
+                        <div class="control">
+                            <input v-model="caregiver.address.road" class="input" type="text" placeholder="Rua">
+                        </div>
                     </div>
-                </div>
 
-                <div class="field">
-                    <label class="label">Rua</label>
-                    <div class="control">
-                        <input v-model="caregiver.address.road" class="input" type="text" placeholder="Rua">
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Número</label>
-                    <div class="control">
-                        <input v-model="caregiver.address.houseNumber" class="input" type="text" placeholder="Número">
+                    <div class="field">
+                        <label class="label">Número</label>
+                        <div class="control">
+                            <input v-model="caregiver.address.houseNumber" class="input" type="text" placeholder="Número">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -362,6 +399,7 @@ main {
         display: flex;
         justify-content: center;
         gap: 30px;
+
         .button {
             width: 200px;
         }
