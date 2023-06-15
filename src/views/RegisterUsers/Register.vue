@@ -360,7 +360,7 @@ export default class Register extends Vue {
         } else if (this.select === '2') {
             this.providerClient.save(this.provider).then(
                 success => {
-                    console.log('Associado cadastrado com sucesso!!!')
+                    console.log('Fornecedor cadastrado com sucesso!!!')
                     this.provider = new Provider()
                 },
                 error => {
@@ -372,7 +372,7 @@ export default class Register extends Vue {
         else if (this.select === '3') {
             this.caregiverClient.save(this.caregiver).then(
                 success => {
-                    console.log('Associado cadastrado com sucesso!!!')
+                    console.log('Protetor cadastrado com sucesso!!!')
                     this.caregiver = new Caregiver()
                 },
                 error => {
