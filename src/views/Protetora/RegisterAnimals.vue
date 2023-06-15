@@ -53,7 +53,7 @@ interface Animal {
   }
 })
 export default class Register extends Vue {
-  public animalTypes = Object.values(AnimalType);
+  public animalTypes = Object.values(AnimalType).filter(value => isNaN(Number(value)));
   public animal: Animal = {
     type: AnimalType.CACHORRO,  // Default type
     name: '',
