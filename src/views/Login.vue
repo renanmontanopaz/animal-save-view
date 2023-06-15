@@ -56,6 +56,7 @@ import {Token} from "@/model/Token";
 import {LoginUser} from "@/model/Login";
 import {Message} from "@/model/Message";
 import jwt_decode from 'jwt-decode';
+
 @Component
 export default class Login extends Vue {
   private userClient: UserClient = new UserClient();
@@ -85,6 +86,7 @@ export default class Login extends Vue {
           const userAccess: string  = decodedToken.access;
           console.log(this.tokenLogin)
           console.log(decodedToken); // Imprime o tipo de acesso do usuário
+          localStorage.setItem('token', this.tokenLogin.token);
         },
         error => {
           this.showComponent();
