@@ -1,19 +1,25 @@
 <template>
   <div class="container">
-    <h1>Register</h1>
+    <h2>Register</h2>
     <form @submit.prevent="onSubmit">
       <div class="field">
-        <label class="label">Name</label>
-        <select v-model="animal.selectedNames" multiple>
-          <option v-for="name in animal.names" :key="name" :value="name">
-            {{ name }}
-          </option>
-        </select>
+        <label class="label">Type</label>
+        <v-select v-model="animal.type" :options="animalTypes"></v-select>
       </div>
 
       <div class="field">
-        <label class="label">Teste</label>
-        <input class="input" type="email" v-model="animal.email">
+        <label class="label">Name</label>
+        <input class="input" type="text" v-model="animal.name">
+      </div>
+
+      <div class="field">
+        <label class="label">Breed</label>
+        <input class="input" type="text" v-model="animal.breed">
+      </div>
+
+      <div class="field">
+        <label class="label">Vaccines Taken</label>
+        <v-select v-model="animal.selectedVaccines" :options="animal.vaccines" multiple></v-select>
       </div>
 
       <div class="field">
@@ -28,19 +34,32 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import vSelect from 'vue-select';
+import { AnimalType } from '@/model/enum/AnimalType';
 
 interface Animal {
-  names: string[];
-  selectedNames: string[];
+  type: AnimalType;
+  name: string;
+  breed: string;
+  vaccines: string[];
+  selectedVaccines: string[];
   email: string;
   password: string;
 }
 
-@Component
+@Component({
+  components: {
+    vSelect,
+  }
+})
 export default class Register extends Vue {
+  public animalTypes = Object.values(AnimalType);
   public animal: Animal = {
-    names: ['Name1', 'Name2', 'Name3'], 
-    selectedNames: [], 
+    type: AnimalType.CACHORRO,  // Default type
+    name: '',
+    breed: '',
+    vaccines: ['Raiva', 'Parvovirose Canina', 'Cinomose', 'Hepatite Canina'],
+    selectedVaccines: [],
     email: '',
     password: '',
   }
@@ -51,3 +70,7 @@ export default class Register extends Vue {
   }
 }
 </script>
+
+<style scoped>
+@import "vue-select/dist/vue-select.css";
+</style>
