@@ -67,7 +67,7 @@ import jwt_decode from 'jwt-decode';
 export default class Login extends Vue {
   private userClient: UserClient = new UserClient();
   public login: LoginUser = new LoginUser();
-  public token: Token = new Token();
+  public tokenLogin: Token = new Token();
   private notificacao: Message = new Message();
 
 
@@ -88,8 +88,8 @@ export default class Login extends Vue {
     console.log(this.login)
     this.userClient.login(this.login).then(
         success => {
-          this.token = success
-          //const token2 = success
+          this.tokenLogin = success
+          this.tokenLogin.auth = true
           const tokenString = success.toString();
           const decodedToken: { [key: string]: any } = jwt_decode(tokenString);
           const userAccess: string  = decodedToken.access;

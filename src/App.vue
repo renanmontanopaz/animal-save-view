@@ -11,18 +11,18 @@
           <span aria-hidden="true"></span>
         </a>
       </div>
-      <div id="navbarBasicExample columns is-5" class="navbar-menu">
+      <div id="navbarBasicExample column is-5" class="navbar-menu">
         <div class="navbar-start">
-          <router-link to ='/'> 
+          <router-link to ='/'>
             Home
           </router-link> 
-          <router-link to ='/client'> 
+          <router-link to ='/client'>
             Quem Somos
           </router-link>
-          <router-link to ='/provider'> 
+          <router-link to ='/provider'>
             Parceiros
           </router-link> 
-          <router-link to ='/stock-input'> 
+          <router-link to ='/stock-input'>
             Contato
           </router-link>
         </div>
@@ -80,5 +80,3 @@
     }
   }
 </style>
-<script setup lang="ts">
-</script>

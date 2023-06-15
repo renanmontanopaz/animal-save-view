@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Login from "@/views/Login.vue";
 import Associate from "@/views/associate/Associate.vue";
+import Administrator from "@/views/administrator/Administrator.vue";
 
 Vue.use(VueRouter)
 
@@ -13,9 +14,15 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/associado',
-    name: 'associado',
+    name: 'Associado',
     component: Associate,
     meta: { requiresAuth: true, allowedRoles: ['admin','associate'] }
+  },
+  {
+    path: '/administrador',
+    name: 'Adminitrador',
+    component: Administrator,
+    meta: {requiresAuth: true, allowedRoles: ['admin']}
   }
 ]
 
