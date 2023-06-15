@@ -4,8 +4,8 @@ import {Task} from "@/model/Task";
 import {User} from "@/model/User";
 
 export class Provider extends AbstractEntity {
-    firstName!: string;
-    lastName!: string;
+    fantasyName!: string;
+    businessName!: string;
     cnpj!: string;
     contact!: string;
     address!: Address;
