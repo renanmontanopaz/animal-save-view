@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <nav class="navbar box" role="navigation" aria-label="main navigation">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item">
-          <h1>ANIMAL SAVE</h1>
+          <img src="./assets/Logo.png">
         </a>
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <a role="button" class="navbar-burger " aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -47,19 +47,14 @@
 <style lang="scss">
   @import "~bulma/bulma.sass";
 
-  #app {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-  }
-
   nav {
-    padding: 25px 30px;
+    padding: auto;
+    background-color: #EBE3CC !important;
+    height: 80px;
 
-    h1 {
-      font-size: 26px;
-      font-weight: 800;
-      color: black;
+    .navbar-item img{
+      width: 150px;
+      height: 80px !important;
     }
 
     .navbar-start {
@@ -68,14 +63,14 @@
       justify-content: center;
       padding: 0 40px;
       gap: 20px;
-      font-size: 18px;
+      font-size: 17px;
     }
 
     a {
         font-weight: bold;
-        color: #2c3e50;
+        color: #002D4C ;
         &.router-link-exact-active {
-        color: #42b983;
+        color: #FBBD08 ;
       }
     }
   }
