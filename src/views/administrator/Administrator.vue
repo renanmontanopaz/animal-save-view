@@ -7,13 +7,13 @@
           <span>{{ tab.label }}</span>
         </a>
       </p>
-      <div class="panel-block" v-if="tabs[0].isActive">
-        <div class="tabela">
-          <table class="table is-bordered is-striped is-narrow is-hoverable">
+      <div class="panel-block" v-if="tabs[0].isActive" style="display: flex; justify-content: center; flex-direction: column">
+        <div class="table-container">
+          <table class="table is-bordered is-striped is-narrow is-hoverable" >
             <thead class="blue">
             <tr style="background: hsl(171deg, 100%, 41%)">
               <th>ID do Usuário</th>
-              <th>Data &nbsp; &nbsp; &nbsp;|&nbsp; &nbsp; &nbsp; Hora</th>
+              <th>Data & Hora</th>
               <th>Nome</th>
               <th>Tipo de Usuário</th>
               <th>Ação</th>
@@ -27,13 +27,16 @@
                 <th>{{item.user.authorities.map((t) =>(t.authority)).join(',')}}</th>
               </th>
               <td v-if="item.user.authorities.map((t) =>(t.authority)).join(',') == 'ROLE_PROVIDER'">
-                <button class="button is-small is-default">Aprovar</button>
+                <button class="button is-small is-link"><strong>Aprovar</strong></button>
+                <button class="button is-small is-danger"><strong>Aprovar</strong></button>
               </td>
               <td v-if="item.user.authorities.map((t) =>(t.authority)).join(',') == 'ROLE_ASSOCIATE'">
-                <button class="button is-small is-default">Aprovar</button>
+                <button class="button is-small is-link"><strong>Aprovar</strong></button>
+                <button class="button is-small is-danger"><strong>Aprovar</strong></button>
               </td>
               <td v-if="item.user.authorities.map((t) =>(t.authority)).join(',') == 'ROLE_CAREGIVER'">
-                <button class="button is-small is-default">Aprovar</button>
+                <button class="button is-small is-link"><strong>Aprovar</strong></button>
+                <button class="button is-small is-danger"><strong>Aprovar</strong></button>
               </td>
             </tr>
             </tbody>
@@ -58,30 +61,24 @@ import { Vue, Component } from 'vue-property-decorator';
 import {Occurrences} from "@/model/Occurrences";
 import {User} from "@/model/User";
 import {AdminClient} from "@/client/Admin.client";
-import {Associate} from "@/model/Associate";
-import {Caregiver} from "@/model/Caregiver";
-import {Provider} from "@/model/Provider";
 import {pendings} from "@/model/Pending";
-import { MdButton, MdContent, MdTabs } from 'vue-material/dist/components'
-import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/theme/default.css'
 
-Vue.use(MdButton)
-Vue.use(MdContent)
-Vue.use(MdTabs)
 interface Tab {
   label: string;
   icon: string;
   isActive: boolean;
   requisicao: string;
 }
-
 @Component
 export default class Administrator extends Vue {
   private occurrencesList: Occurrences[] = []
   public usersList: User[] = []
   public allPending: pendings[] = []
   public adminClient: AdminClient = new AdminClient();
+
+  public mounted(): void{
+    this.onClickRequisicao()
+  }
   tabs: Tab[] = [
     { label: 'Usuários Pendentes', icon: 'fas fa-image', isActive: true,requisicao: "onClickRequisicao()" },
     { label: 'Cadastros Pendentes', icon: 'fas fa-image', isActive: false,requisicao: "" },
@@ -107,6 +104,7 @@ export default class Administrator extends Vue {
         }
     )
   }
+
 }
 
 </script>
