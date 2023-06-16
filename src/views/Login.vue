@@ -77,7 +77,7 @@ export default class Login extends Vue {
     }, 4000); // Tempo em milissegundos (5 segundos)
   }
   public onClickLogin(): void {
-    console.log(this.login)
+    //console.log(this.login)
     this.userClient.login(this.login).then(
         success => {
           this.tokenLogin = this.tokenLogin.new(true, `${success}`)
@@ -86,7 +86,7 @@ export default class Login extends Vue {
           const userAccess: string  = decodedToken.access;
           console.log(this.tokenLogin)
           console.log(decodedToken); // Imprime o tipo de acesso do usuário
-          localStorage.setItem('token', this.tokenLogin.token);
+          localStorage.setItem('token', this.tokenLogin.token)
         },
         error => {
           this.showComponent();

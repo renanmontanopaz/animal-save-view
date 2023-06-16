@@ -21,13 +21,29 @@ const routes: Array<RouteConfig> = [
     path: '/associado',
     name: 'Associado',
     component: Associate,
-    meta: {requiresAuth: true}
+    beforeEnter: function (to, from, next) {
+      const token = localStorage.getItem('token')
+
+      if (!token) {
+        next('/login')
+      } else {
+        next()
+      }
+    },
   },
   {
     path: '/administrador',
     name: 'Adminitrador',
     component: Administrator,
-    meta: {requiresAuth: true}
+    beforeEnter: function (to, from, next) {
+      const token = localStorage.getItem('token')
+      console.log(token)
+      if (!token) {
+        next('/login')
+      } else {
+        next()
+      }
+    },
   }
 ]
 
