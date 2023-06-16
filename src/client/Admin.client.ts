@@ -1,5 +1,9 @@
-import axios, {AxiosInstance} from "axios";
+
 import {Admin} from "@/model/Admin";
+import {types} from "sass";
+import List = types.List;
+import {AxiosInstance} from "axios";
+import axios from "../auth"
 export class AdminClient {
 
     private axiosClient: AxiosInstance;
@@ -38,4 +42,15 @@ export class AdminClient {
             return Promise.reject(error.response)
         }
     }
+
+    public async findAllPending(): Promise<Object> {
+        try {
+            return (await this.axiosClient.get<Object>(`/approves/pending`))
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+
 }

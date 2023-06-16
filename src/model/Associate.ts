@@ -12,7 +12,9 @@ export class Associate extends AbstractEntity {
     username!: string;
     password!: string;
     address!: Address;
-    aprove!: Aprove;
+    approved!: boolean;
+    pending!: boolean;
+    rejected!: boolean;
     occurrences!: Occurrences;
     user!: User;
 }

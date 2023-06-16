@@ -11,6 +11,8 @@ export class Provider extends AbstractEntity {
     contact!: string;
     address!: Address;
     tasks!: Task;
-    aprove!: Aprove;
+    approved!: boolean;
+    pending!: boolean;
+    rejected!: boolean;
     user!: User;
 }
