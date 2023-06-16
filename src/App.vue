@@ -80,9 +80,10 @@ nav {
 
   a {
     font-weight: bold;
-    color: #002D4C ;
+    color: #002D4C;
+
     &.router-link-exact-active {
-      color: #FBBD08 ;
+      color: #FBBD08;
     }
   }
 }
