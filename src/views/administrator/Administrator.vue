@@ -8,6 +8,14 @@
         </a>
       </p>
       <div class="panel-block" v-if="tabs[0].isActive" style="display: flex; justify-content: center; flex-direction: column">
+        <div class="columns" v-if="notificacao.ativo">
+          <div class="column is-12">
+            <div :class="notificacao.classe" v-if="isVisible">
+              <button @click="onClickFecharNotificacao" class="delete" ></button>
+              {{ notificacao.mensagem }}
+            </div>
+          </div>
+        </div>
         <div class="table-container">
           <table class="table is-bordered is-striped is-narrow is-hoverable" >
             <thead class="blue">
@@ -27,22 +35,24 @@
                 <th>{{item.user.authorities.map((t) =>(t.authority)).join(',')}}</th>
               </th>
               <td v-if="item.user.authorities.map((t) =>(t.authority)).join(',') == 'ROLE_PROVIDER'">
-                <button class="button is-small is-link"><strong>Aprovar</strong></button>
-                <button class="button is-small is-danger"><strong>Aprovar</strong></button>
+                <button class="button is-small is-link" @click="updateProvider(item.id)"><strong>Aprovar</strong></button>
+                <button class="button is-small is-danger"><strong>Rejeitar</strong></button>
               </td>
               <td v-if="item.user.authorities.map((t) =>(t.authority)).join(',') == 'ROLE_ASSOCIATE'">
-                <button class="button is-small is-link"><strong>Aprovar</strong></button>
-                <button class="button is-small is-danger"><strong>Aprovar</strong></button>
+                <button class="button is-small is-link" @click="updateAssociate(item.id)"><strong>Aprovar</strong></button>
+                <button class="button is-small is-danger" @click=""><strong>Rejeitar</strong></button>
               </td>
               <td v-if="item.user.authorities.map((t) =>(t.authority)).join(',') == 'ROLE_CAREGIVER'">
-                <button class="button is-small is-link"><strong>Aprovar</strong></button>
-                <button class="button is-small is-danger"><strong>Aprovar</strong></button>
+                <button class="button is-small is-link" @click="updateCaregiver(item.id)"><strong>Aprovar</strong></button>
+                <button class="button is-small is-danger"><strong>Rejeitar</strong></button>
               </td>
             </tr>
             </tbody>
           </table>
         </div>
-
+      </div>
+      <div class="panel-block" v-if="tabs[1].isActive" style="display: flex; justify-content: center; flex-direction: column">
+        <RegisterPublic/>
       </div>
     </article>
   </main>
@@ -57,33 +67,38 @@ a{
 }
 </style>
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
+import {Component, Vue} from 'vue-property-decorator';
 import {Occurrences} from "@/model/Occurrences";
 import {User} from "@/model/User";
 import {AdminClient} from "@/client/Admin.client";
 import {pendings} from "@/model/Pending";
+import {Message} from "@/model/Message";
+import RegisterPublic from "@/views/administrator/RegisterPublic.vue";
 
 interface Tab {
   label: string;
   icon: string;
   isActive: boolean;
-  requisicao: string;
 }
-@Component
+
+@Component({
+  components: {RegisterPublic}
+})
 export default class Administrator extends Vue {
+
   private occurrencesList: Occurrences[] = []
   public usersList: User[] = []
   public allPending: pendings[] = []
   public adminClient: AdminClient = new AdminClient();
-
+  public notificacao: Message = new Message();
+  isVisible = false;
   public mounted(): void{
     this.onClickRequisicao()
   }
   tabs: Tab[] = [
-    { label: 'Usuários Pendentes', icon: 'fas fa-image', isActive: true,requisicao: "onClickRequisicao()" },
-    { label: 'Cadastros Pendentes', icon: 'fas fa-image', isActive: false,requisicao: "" },
-    { label: 'Registro Público', icon: 'fas fa-image', isActive: false,requisicao: "" },
-    { label: 'Gerenciar Usuários', icon: 'fas fa-image', isActive: false,requisicao: "" }
+    { label: 'Usuários Pendentes', icon: 'fas fa-image', isActive: true },
+    { label: 'Registro Público', icon: 'fas fa-image', isActive: false },
+    { label: 'Gerenciar Usuários', icon: 'fas fa-image', isActive: false }
   ];
   activeTab: Tab | null = this.tabs.find(tab => tab.isActive) || null;
   activateTab(tab: Tab): void {
@@ -105,6 +120,60 @@ export default class Administrator extends Vue {
     )
   }
 
-}
+  public updateAssociate(id:number): void {
+    this.adminClient.updateStatusPendingToApproved(id).then(
+        success => {
+          this.showComponent();
+          this.notificacao = this.notificacao.new(
+              true, 'notification is-primary', 'Usuário Aprovado!'/*+ error.config.data*/
+          )
+          this.onClickRequisicao()
+        },
+        error => {
+          console.log(error)
+        }
+    )
+  }
 
+  public updateCaregiver(id:number): void {
+    this.adminClient.updateStatusCaregiverPendingToApproved(id).then(
+        success => {
+          this.showComponent();
+          this.notificacao = this.notificacao.new(
+              true, 'notification is-primary', 'Usuário Aprovado!'/*+ error.config.data*/
+          )
+          this.onClickRequisicao()
+        },
+        error => {
+          console.log(error)
+        }
+    )
+  }
+
+  public updateProvider(id:number): void {
+    this.adminClient.updateStatusProviderPendingToApproved(id).then(
+        success => {
+          this.showComponent();
+          this.notificacao = this.notificacao.new(
+              true, 'notification is-primary', 'Usuário Aprovado!'/*+ error.config.data*/
+          )
+          this.onClickRequisicao()
+        },
+        error => {
+          console.log(error)
+        }
+    )
+  }
+  public showComponent(): void {
+    this.isVisible = true;
+
+    setTimeout(() => {
+      this.isVisible = false;
+    }, 4000); // Tempo em milissegundos (5 segundos)
+  }
+  public onClickFecharNotificacao(): void {
+    this.notificacao = new Message()
+  }
+
+}
 </script>

@@ -1,7 +1,4 @@
-
 import {Admin} from "@/model/Admin";
-import {types} from "sass";
-import List = types.List;
 import {AxiosInstance} from "axios";
 import axios from "../auth"
 import {pendings} from "@/model/Pending";
@@ -53,5 +50,28 @@ export class AdminClient {
         }
     }
 
-
+    public async updateStatusPendingToApproved(id: number): Promise<void> {
+        try {
+            return (await this.axiosClient.put(`/approved/associate/${id}`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+    public async updateStatusCaregiverPendingToApproved(id: number): Promise<void> {
+        try {
+            return (await this.axiosClient.put(`/approved/caregiver/${id}`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+    public async updateStatusProviderPendingToApproved(id: number): Promise<void> {
+        try {
+            return (await this.axiosClient.put(`/approved/provider/${id}`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
 }
