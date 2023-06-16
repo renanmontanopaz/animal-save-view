@@ -63,6 +63,10 @@ nav {
   padding: 15px 20px;
   background-color: #EBE3CC !important;
 
+  .navbar-item {
+    padding-left: 70px;
+  }
+
   h1 {
     font-size: 26px;
     font-weight: 800;
