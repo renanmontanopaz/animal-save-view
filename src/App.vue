@@ -3,9 +3,9 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item">
-          <img src="./assets/Logo.png">
+          <img src="./assets/Logo.png" width="150">
         </a>
-        <a role="button" class="navbar-burger " aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -13,16 +13,16 @@
       </div>
       <div id="navbarBasicExample columns is-5" class="navbar-menu">
         <div class="navbar-start">
-          <router-link to ='/'> 
+          <router-link to='/'>
             Home
-          </router-link> 
-          <router-link to ='/quem-somos'> 
+          </router-link>
+          <router-link to='/quem-somos'>
             Quem Somos
           </router-link>
-          <router-link to ='/provider'> 
+          <router-link to='/provider'>
             Parceiros
-          </router-link> 
-          <router-link to ='/contact'> 
+          </router-link>
+          <router-link to='/contact'>
             Contato
           </router-link>
         </div>
@@ -40,40 +40,52 @@
         </div>
       </div>
     </nav>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <style lang="scss">
-  @import "~bulma/bulma.sass";
+@import "~bulma/bulma.sass";
 
-  nav {
-    padding: auto;
-    background-color: #EBE3CC !important;
-    height: 80px;
+/*
+  #EBE3CC - Branco quase rosa
+  #002D4C - Azul escuro cor da logo
+  #FBBD08 - Amarelo queimado
+*/
 
-    .navbar-item img{
-      width: 150px;
-      height: 80px !important;
-    }
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+}
 
-    .navbar-start {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 40px;
-      gap: 20px;
-      font-size: 17px;
-    }
+nav {
+  padding: 25px 30px;
+  background-color: #EBE3CC !important;
 
-    a {
-        font-weight: bold;
-        color: #002D4C ;
-        &.router-link-exact-active {
-        color: #FBBD08 ;
-      }
+  h1 {
+    font-size: 26px;
+    font-weight: 800;
+    color: black;
+  }
+
+  .navbar-start {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 40px;
+    gap: 20px;
+    font-size: 18px;
+  }
+
+  a {
+    font-weight: bold;
+    color: #002D4C ;
+    &.router-link-exact-active {
+      color: #FBBD08 ;
     }
   }
+}
 </style>
 <script setup lang="ts">
 </script>
