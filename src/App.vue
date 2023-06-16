@@ -3,7 +3,7 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item">
-          <img src="./assets/Logo.png" width="150">
+          <img src="./assets/Logo.png">
         </a>
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
           <span aria-hidden="true"></span>
@@ -12,7 +12,7 @@
         </a>
       </div>
       <div id="navbarBasicExample columns is-5" class="navbar-menu">
-        <div class="navbar-start">
+        <div class="navbar-end">
           <router-link to='/'>
             Home
           </router-link>
@@ -60,7 +60,7 @@
 }
 
 nav {
-  padding: 25px 30px;
+  padding: 15px 20px;
   background-color: #EBE3CC !important;
 
   h1 {
@@ -69,13 +69,13 @@ nav {
     color: black;
   }
 
-  .navbar-start {
+  .navbar-end {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 40px;
-    gap: 20px;
-    font-size: 18px;
+    padding: 0 20px;
+    gap: 70px;
+    font-size: 16px;
   }
 
   a {
