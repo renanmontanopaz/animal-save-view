@@ -4,6 +4,7 @@ import {types} from "sass";
 import List = types.List;
 import {AxiosInstance} from "axios";
 import axios from "../auth"
+import {pendings} from "@/model/Pending";
 export class AdminClient {
 
     private axiosClient: AxiosInstance;
@@ -43,9 +44,9 @@ export class AdminClient {
         }
     }
 
-    public async findAllPending(): Promise<Object> {
+    public async findAllPending(): Promise<pendings[]> {
         try {
-            return (await this.axiosClient.get<Object>(`/approves/pending`))
+            return (await this.axiosClient.get<pendings[]>(`/approves/pending`)).data
         }
         catch (error:any) {
             return Promise.reject(error.response)
