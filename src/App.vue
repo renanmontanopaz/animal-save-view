@@ -5,7 +5,7 @@
         <a class="navbar-item">
           <img src="./assets/Logo.png">
         </a>
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="true" data-target="navbarBasicExample">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -111,12 +111,21 @@ nav {
     button {
       background: #EBE3CC !important;
       border-radius: 15px;
-      border: none;
+      border: 1px solid #002D4C;
       width: 132px;
       height: 42px;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 33px;
+      color: #002D4C;
+
     }
   }
 }
 </style>
 <script setup lang="ts">
+
+
 </script>
