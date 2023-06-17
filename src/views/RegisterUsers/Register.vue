@@ -16,6 +16,17 @@
                 </div>
 
                 <div v-if="select === '1'">
+
+                    <article v-if="notificationSave === true" class="message is-success">
+                        <div class="message-header">
+                            <p>Success</p>
+                            <button class="delete" aria-label="delete"></button>
+                        </div>
+                        <div class="message-body">
+                            Seu cadastro foi enviado para análise, você poderá acessar o sistema assim que for aprovado.
+                        </div>
+                    </article>
+
                     <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Primeiro nome</label>
@@ -412,6 +423,8 @@ export default class Register extends Vue {
 
     public select: string = '1';
 
+    public notificationSave: boolean = false;
+
     public inputFirstName: string = 'input';
     public inputLastName: string = 'input';
     public inputContact: string = 'input';
@@ -618,6 +631,7 @@ export default class Register extends Vue {
                     success => {
                         console.log('Associado cadastrado com sucesso!!!');
                         this.resetInputs();
+                        this.notificationSave = true;
                         this.associate = new Associate();
                     },
                     error => {
@@ -732,6 +746,5 @@ main {
     .aling_buttons {
         max-width: 400px;
     }
-}
-</style>
+}</style>
   
