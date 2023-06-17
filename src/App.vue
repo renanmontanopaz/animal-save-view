@@ -30,7 +30,7 @@
           <div class="navbar-item" id="divDois">
             <div class="buttons">
               <a class="button is-primary" href="/register">
-                <strong>Sign up</strong>
+                Sign up
               </a>
               <a class="button is-light" href="/login">
                 Log in
@@ -98,6 +98,13 @@ nav {
 
     &.router-link-exact-active {
       color: #FBBD08;
+    }
+  }
+
+  .navbar-end {
+    button {
+      background: #EBE3CC;
+      border-radius: 15px;
     }
   }
 }
