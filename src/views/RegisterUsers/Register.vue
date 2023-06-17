@@ -412,8 +412,6 @@ export default class Register extends Vue {
 
     public select: string = '1';
 
-    public errorsAssociate: boolean = false;
-
     public inputFirstName: string = 'input';
     public inputLastName: string = 'input';
     public inputContact: string = 'input';
@@ -436,6 +434,17 @@ export default class Register extends Vue {
         const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
         return phoneNumberRegex.test(this.associate.contact);
     };
+
+    public resetInputs() {
+        this.inputFirstName = 'input';
+        this.inputLastName = 'input';
+        this.inputContact = 'input';
+        this.inputCpf = 'input';
+        this.inputEmail = 'input';
+        this.inputPassword = 'input';
+        this.inputCep = 'input';
+        this.inputNumber = 'input';
+    }
 
     async fetchAddress(): Promise<void> {
         if (this.associate.address.cep.length === 8) {
@@ -593,9 +602,6 @@ export default class Register extends Vue {
             this.validateInputPassword();
             this.validateInputCep();
             this.validateInputNumber();
-            if (this.errorMessageFirstName.length !== 0 || this.errorMessageLastName.length !== 0 || this.errorMessageContact.length !== 0 || this.errorMessageCpf.length !== 0 || this.errorMessageEmail.length !== 0 || this.errorMessagePassword.length !== 0 || this.errorMessageCep.length !== 0 || this.errorMessageNumber.length !== 0) {
-                this.errorsAssociate = true;
-            }
         }
     }
 
@@ -607,33 +613,36 @@ export default class Register extends Vue {
     public onClickRegister(): void {
         this.validateFormAssociate();
         if (this.select === '1') {
-            this.associateClient.save(this.associate).then(
-                success => {
-                    console.log('Associado cadastrado com sucesso!!!')
-                    this.associate = new Associate()
-                },
-                error => {
-                    console.log(error)
-                }
-            )
+            if (this.inputFirstName !== 'input is-danger' && this.inputLastName !== 'input is-danger' && this.inputContact !== 'input is-danger' && this.inputCpf !== 'input is-danger' && this.inputEmail !== 'input is-danger' && this.inputPassword !== 'input is-danger' && this.inputCep !== 'input is-danger' && this.inputNumber !== 'input is-danger') {
+                this.associateClient.save(this.associate).then(
+                    success => {
+                        console.log('Associado cadastrado com sucesso!!!');
+                        this.resetInputs();
+                        this.associate = new Associate();
+                    },
+                    error => {
+                        console.log(error);
+                    }
+                )
+            }
         } else if (this.select === '2') {
             this.providerClient.save(this.provider).then(
                 success => {
-                    console.log('Fornecedor cadastrado com sucesso!!!')
-                    this.provider = new Provider()
+                    console.log('Fornecedor cadastrado com sucesso!!!');
+                    this.provider = new Provider();
                 },
                 error => {
-                    console.log(error)
+                    console.log(error);
                 }
             )
         } else if (this.select === '3') {
             this.caregiverClient.save(this.caregiver).then(
                 success => {
-                    console.log('Protetor cadastrado com sucesso!!!')
-                    this.caregiver = new Caregiver()
+                    console.log('Protetor cadastrado com sucesso!!!');
+                    this.caregiver = new Caregiver();
                 },
                 error => {
-                    console.log(error)
+                    console.log(error);
                 }
             )
         }
