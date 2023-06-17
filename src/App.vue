@@ -29,12 +29,12 @@
         <div class="navbar-end" id="divTres">
           <div class="navbar-item" id="divDois">
             <div class="buttons">
-              <a class="button is-primary" href="/register">
-                Sign up
-              </a>
-              <a class="button is-light" href="/login">
-                Log in
-              </a>
+              <button href="/register">
+                Registrar
+              </button>
+              <button href="/login">
+                Entrar
+              </button>
             </div>
           </div>
         </div>
@@ -102,9 +102,18 @@ nav {
   }
 
   .navbar-end {
+    .navbar-item {
+      .buttons {
+        gap: 30px;
+      }
+    }
+
     button {
-      background: #EBE3CC;
+      background: #EBE3CC !important;
       border-radius: 15px;
+      border: none;
+      width: 132px;
+      height: 42px;
     }
   }
 }
