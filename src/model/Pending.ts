@@ -5,6 +5,8 @@ export interface pendings
     register: Date,
     update: Date,
     firstName: string,
+    businessName: string,
+    fantasyName: string,
     lastName: string,
     contact: number,
     cpf: number,

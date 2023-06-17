@@ -6,9 +6,9 @@ export class OcurrencesClient {
 
     constructor() {
         this.axiosClient = axios.create({
-            baseURL: 'http://localhost:8080/api/occurrences',
+            baseURL: 'http://localhost:8080/api/occurrence',
             headers: {
-                'content-type' : 'application/json'
+                'Content-type' : 'application/json'
             }
         })
     }
@@ -22,12 +22,19 @@ export class OcurrencesClient {
         }
     }
 
-    public async listAll() : Promise<Occurrences[]> {
+    public async listAll(): Promise<Occurrences[]> {
         try {
-            return(await this.axiosClient.get<Occurrences[]>(`/listall`)).data
-        }
-        catch (error:any) {
-            return Promise.reject(error.response)
+            // Criar uma instância separada do Axios sem o cabeçalho de autorização
+            const axiosWithoutToken = axios.create({
+                baseURL: 'http://localhost:8080/api/occurrence',
+                headers: {
+                    'content-type': 'application/json'
+                }
+            });
+
+            return (await axiosWithoutToken.get<Occurrences[]>(`/listall`)).data;
+        } catch (error: any) {
+            return Promise.reject(error.response);
         }
     }
 

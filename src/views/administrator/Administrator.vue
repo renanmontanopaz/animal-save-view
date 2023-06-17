@@ -1,6 +1,6 @@
 <template>
-  <main class="column is-full">
-    <article class="panel is-primary">
+  <main class="content column">
+    <div class="panel is-primary">
       <p class="panel-heading">Gestão de Acesso</p>
       <p class="panel-tabs">
         <a v-for="(tab, index) in tabs" :key="index" :class="{ 'is-active': tab.isActive }" @click="activateTab(tab)">
@@ -31,7 +31,7 @@
             <tr v-for="item in allPending" :key="item.id">
               <td>{{item.id}}</td>
               <th>{{item.register}}
-                <th>{{item.firstName+" "+ item.lastName}}</th>
+                <th>{{item.businessName == null ? item.firstName+" "+ item.lastName : item.businessName}}</th>
                 <th>{{item.user.authorities.map((t) =>(t.authority)).join(',')}}</th>
               </th>
               <td v-if="item.user.authorities.map((t) =>(t.authority)).join(',') == 'ROLE_PROVIDER'">
@@ -51,10 +51,8 @@
           </table>
         </div>
       </div>
-      <div class="panel-block" v-if="tabs[1].isActive" style="display: flex; justify-content: center; flex-direction: column">
-        <RegisterPublic/>
-      </div>
-    </article>
+      <RegisterPublic v-if="tabs[1].isActive"></RegisterPublic>
+    </div>
   </main>
 </template>
 
