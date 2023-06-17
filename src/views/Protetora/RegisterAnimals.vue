@@ -4,22 +4,22 @@
     <form @submit.prevent="onSubmit">
       <div class="field">
         <label class="label">Tipo</label>
-        <v-select v-model="animal.type" :options="animalTypes"></v-select>
+        <v-select v-model="animalMock.type" :options="animalTypes"></v-select>
       </div>
 
       <div class="field">
         <label class="label">Tamanho</label>
-        <v-select v-model="animal.size" :options="animalSizes"></v-select>
+        <v-select v-model="animalMock.size" :options="animalSizes"></v-select>
       </div>
 
       <div class="field">
         <label class="label">Nome</label>
-        <input class="input" type="text" v-model="animal.name" />
+        <input class="input" type="text" v-model="animalMock.name" />
       </div>
 
       <div class="field">
         <label class="label">Raça</label>
-        <input class="input" type="text" v-model="animal.breed" />
+        <input class="input" type="text" v-model="animalMock.breed" />
       </div>
 
       <div class="field">
@@ -27,7 +27,7 @@
         <input
           class="input"
           type="text"
-          v-model="animal.age"
+          v-model="animalMock.age"
           @input="forceNumbersOnly"
         />
       </div>
@@ -35,20 +35,25 @@
       <div class="field">
         <label class="label">Vacinas Tomadas</label>
         <v-select
-          v-model="animal.selectedVaccines"
-          :options="animal.vaccines"
+          v-model="animalMock.selectedVaccines"
+          :options="animalMock.vaccines"
           multiple
         ></v-select>
       </div>
 
       <div class="field">
         <label class="label">Cor</label>
-        <input class="input" type="text" v-model="animal.color" />
+        <input class="input" type="text" v-model="animalMock.color" />
       </div>
 
       <div class="field">
         <label class="label">Observação</label>
-        <input class="input" type="text" v-model="animal.observation" />
+        <input class="input" type="text" v-model="animalMock.observation" />
+      </div>
+
+      <div class="field">
+        <label class="label">ID da Cuidadora Responsável</label>
+        <input class="input" type="text" v-model="animalMock.caregiver.id" />
       </div>
 
       <button class="button is-primary" type="submit">Register</button>
@@ -61,18 +66,13 @@ import { Component, Vue } from "vue-property-decorator";
 import vSelect from "vue-select";
 import { AnimalType } from "@/model/enum/AnimalType";
 import { AnimalSize } from "@/model/enum/AnimalSize";
-
-interface Animal {
-  type: AnimalType;
-  size: AnimalSize;
-  name: string;
-  breed: string;
-  age: string;
-  color: string;
-  vaccines: string[];
-  selectedVaccines: string[];
-  observation: string;
-}
+import { Caregiver } from "@/model/Caregiver";
+import { Address } from "@/model/Address";
+import { Occurrences } from "@/model/Occurrences";
+import { User } from "@/model/User";
+import { Aprove } from "@/model/enum/Aprove";
+import { Animal } from "@/model/Animal";
+import { Vaccination } from "@/model/Vaccination";
 
 @Component({
   components: {
@@ -86,7 +86,7 @@ export default class Register extends Vue {
   public animalSizes = Object.values(AnimalSize).filter((value) =>
     isNaN(Number(value))
   );
-  public animal: Animal = {
+  public animalMock = {
     type: AnimalType.CACHORRO,
     size: AnimalSize.MEDIO,
     name: "",
@@ -96,19 +96,63 @@ export default class Register extends Vue {
     vaccines: ["Raiva", "Parvovirose Canina", "Cinomose", "Hepatite Canina"],
     selectedVaccines: [],
     observation: "",
+    caregiver: {
+      id: "",
+      firstName: "",
+      lastName: "",
+      contact: "",
+      address: {
+        cep: "",
+        neighborhood: "",
+        road: "",
+        houseNumber: "",
+      },
+      physicalSpace: "",
+      spending: "",
+      capacityAnimals: "",
+      aprove: Aprove,
+      occurrences: Occurrences,
+      animal: Animal,
+      user: User,
+    },
   };
 
   public onSubmit() {
-    console.log(this.animal);
+    console.log(this.animalMock);
   }
 
   forceNumbersOnly(event: Event) {
     // Substitui qualquer caractere não numérico por uma string vazia
-    this.animal.age = (event.target as HTMLInputElement).value.replace(
+    this.animalMock.age = (event.target as HTMLInputElement).value.replace(
       /\D/g,
       ""
     );
   }
+  // fromMock(mock: any): Animal {
+
+  //       const animalForm: Partial<Animal> = {}
+
+  //       animalForm.name = mock.name;
+  //       animalForm.breed = mock.breed;
+  //       animalForm.animalType = mock.type;
+  //       animalForm.animalSize = mock.size;
+  //       animalForm.color = mock.color;
+  //       animalForm.age = Number(mock.age);
+  //       animalForm.observation = mock.observation;
+
+  //       animalForm.vaccination = new Vaccination();
+  //       this.vaccination.vaccines = mock.vaccines;
+  //       this.vaccination.selectedVaccines = mock.selectedVaccines;
+
+  //       this.caregiver = new Caregiver();
+  //       // preencher com os dados do mock
+  //       this.caregiver.firstName = mock.caregiver.firstName;
+  //       this.caregiver.lastName = mock.caregiver.lastName;
+  //       this.caregiver.contact = mock.caregiver.contact;
+  //       // etc...
+
+  //       return this;
+  //   }
 }
 </script>
 
