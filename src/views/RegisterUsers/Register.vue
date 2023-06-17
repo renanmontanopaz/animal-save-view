@@ -110,8 +110,7 @@
                         <div class="field">
                             <label class="label">Cep</label>
                             <div class="control">
-                                <input
-                                v-model="associate.address.cep" @blur="validateInputCep" :class="`${inputCep}`"
+                                <input v-model="associate.address.cep" @blur="validateInputCep" :class="`${inputCep}`"
                                     type="number" placeholder="Exemplo: 01001-000">
                                 <p v-if="errorMessageCep">
                                 <ul>
@@ -124,9 +123,7 @@
                         <div class="field">
                             <label class="label">Bairro</label>
                             <div class="control">
-                                <input 
-                                disabled
-                                v-model="associate.address.neighborhood" class="input" type="text"
+                                <input disabled v-model="associate.address.neighborhood" class="input" type="text"
                                     placeholder="Bairro">
                             </div>
                         </div>
@@ -136,19 +133,17 @@
                         <div class="field">
                             <label class="label">Rua</label>
                             <div class="control">
-                                <input 
-                                disabled
-                                v-model="associate.address.road" class="input" type="text" placeholder="Rua">
+                                <input disabled v-model="associate.address.road" class="input" type="text"
+                                    placeholder="Rua">
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Número</label>
                             <div class="control">
-                                <input v-model="associate.address.houseNumber" @blur="validateInputNumber" :class="`${inputNumber}`"
-                                type="number"
-                                    placeholder="Número">
-                                    <p v-if="errorMessageNumber">
+                                <input v-model="associate.address.houseNumber" @blur="validateInputNumber"
+                                    :class="`${inputNumber}`" type="number" placeholder="Número">
+                                <p v-if="errorMessageNumber">
                                 <ul>
                                     <li v-for="error in errorMessageNumber" :key="error">{{ error }}</li>
                                 </ul>
@@ -417,7 +412,7 @@ export default class Register extends Vue {
 
     public select: string = '1';
 
-    public errorsAssociate: string[] = [];
+    public errorsAssociate: boolean = false;
 
     public inputFirstName: string = 'input';
     public inputLastName: string = 'input';
@@ -579,7 +574,7 @@ export default class Register extends Vue {
         if (!this.associate.address.houseNumber) {
             this.errorMessageNumber = ['O campo "Número" é obrigatório!'];
             this.inputNumber = 'input is-danger';
-        } else if (this.associate.address.houseNumber > 100000) {
+        } else if (this.associate.address.houseNumber > 1000000) {
             this.errorMessageNumber = ['O número inserido é invalido!'];
             this.inputNumber = 'input is-danger';
         } else {
@@ -598,6 +593,9 @@ export default class Register extends Vue {
             this.validateInputPassword();
             this.validateInputCep();
             this.validateInputNumber();
+            if (this.errorMessageFirstName.length !== 0 || this.errorMessageLastName.length !== 0 || this.errorMessageContact.length !== 0 || this.errorMessageCpf.length !== 0 || this.errorMessageEmail.length !== 0 || this.errorMessagePassword.length !== 0 || this.errorMessageCep.length !== 0 || this.errorMessageNumber.length !== 0) {
+                this.errorsAssociate = true;
+            }
         }
     }
 
@@ -608,19 +606,16 @@ export default class Register extends Vue {
 
     public onClickRegister(): void {
         this.validateFormAssociate();
-
         if (this.select === '1') {
-            if (this.errorsAssociate.length == 0) {
-                this.associateClient.save(this.associate).then(
-                    success => {
-                        console.log('Associado cadastrado com sucesso!!!')
-                        this.associate = new Associate()
-                    },
-                    error => {
-                        console.log(error)
-                    }
-                )
-            }
+            this.associateClient.save(this.associate).then(
+                success => {
+                    console.log('Associado cadastrado com sucesso!!!')
+                    this.associate = new Associate()
+                },
+                error => {
+                    console.log(error)
+                }
+            )
         } else if (this.select === '2') {
             this.providerClient.save(this.provider).then(
                 success => {
