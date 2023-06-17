@@ -16,14 +16,13 @@
                 </div>
 
                 <div v-if="select === '1'">
-
                     <article v-if="notificationSave" class="message is-success">
                         <div class="message-header">
                             <p>Success</p>
                             <button @click="closeNotification" class="delete" aria-label="delete"></button>
                         </div>
                         <div class="message-body">
-                            Seu cadastro foi enviado para análise, você poderá acessar o sistema assim que for aprovado.
+                            Seu cadastro foi enviado para análise, você poderá acessar o sistema assim que for aprovado. Aguarde uma notificação em seu Email.
                         </div>
                     </article>
 
@@ -381,7 +380,8 @@
                         </div>
 
                         <div class="control">
-                            <button @click="onClickRegister()" class="button is-success is-focused">Cadastrar</button>
+                            <button 
+                            @click="onClickRegister()" class="button is-success is-focused">Cadastrar</button>
                         </div>
                     </div>
                 </div>
@@ -424,6 +424,7 @@ export default class Register extends Vue {
     public select: string = '1';
 
     public notificationSave: boolean = false;
+    public disableButton: boolean = true;
 
     public inputFirstName: string = 'input';
     public inputLastName: string = 'input';
@@ -453,11 +454,6 @@ export default class Register extends Vue {
         { id: 2, name: "Fornecedor(a)" },
         { id: 3, name: "Protetor(a)" },
     ];
-
-    public validatePhoneNumber(phoneNumber: string): boolean {
-        const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
-        return phoneNumberRegex.test(this.associate.contact);
-    };
 
     public resetInputs() {
         this.inputFirstName = 'input';
@@ -534,6 +530,11 @@ export default class Register extends Vue {
         }
     }
 
+    public validatePhoneNumber(phoneNumber: string): boolean {
+        const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
+        return phoneNumberRegex.test(this.associate.contact);
+    };
+
     public validateInputContact() {
         if (this.validatePhoneNumber(this.associate.contact)) {
             this.errorMessageContact = [];
@@ -558,6 +559,24 @@ export default class Register extends Vue {
             this.errorMessageCpf = ['Insira um CPF válido!'];
             this.inputCpf = 'input is-danger';
         }
+    }
+
+    public validateInputNumber() {
+        if (!this.associate.address.houseNumber) {
+            this.errorMessageNumber = ['O campo "Número" é obrigatório!'];
+            this.inputNumber = 'input is-danger';
+        } else if (this.associate.address.houseNumber > 1000000) {
+            this.errorMessageNumber = ['O número inserido é invalido!'];
+            this.inputNumber = 'input is-danger';
+        } else {
+            this.errorMessageNumber = [];
+            this.inputNumber = 'input is-success';
+        }
+    }
+
+    public isValidEmail(email: string): boolean {
+        // Verifique a validade do email usando uma expressão regular ou outra lógica
+        return /\S+@\S+\.\S+/.test(email);
     }
 
     public validateInputEmail() {
@@ -603,19 +622,6 @@ export default class Register extends Vue {
         }
     }
 
-    public validateInputNumber() {
-        if (!this.associate.address.houseNumber) {
-            this.errorMessageNumber = ['O campo "Número" é obrigatório!'];
-            this.inputNumber = 'input is-danger';
-        } else if (this.associate.address.houseNumber > 1000000) {
-            this.errorMessageNumber = ['O número inserido é invalido!'];
-            this.inputNumber = 'input is-danger';
-        } else {
-            this.errorMessageNumber = [];
-            this.inputNumber = 'input is-success';
-        }
-    }
-
     public validateFormAssociate() {
         if (this.select === '1') {
             this.validateInputFirstName();
@@ -627,11 +633,6 @@ export default class Register extends Vue {
             this.validateInputCep();
             this.validateInputNumber();
         }
-    }
-
-    public isValidEmail(email: string): boolean {
-        // Verifique a validade do email usando uma expressão regular ou outra lógica
-        return /\S+@\S+\.\S+/.test(email);
     }
 
     public onClickRegister(): void {
