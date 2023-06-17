@@ -16,13 +16,6 @@
                 </div>
 
                 <div v-if="select === '1'">
-                    <p v-if="errorsAssociate.length">
-                        <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
-                    <ul>
-                        <li v-for="error in errorsAssociate" :key="error">{{ error }}</li>
-                    </ul>
-                    </p>
-
                     <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Primeiro nome</label>
@@ -83,22 +76,32 @@
                         <div class="field">
                             <label class="label">Email</label>
                             <div class="control has-icons-left">
-                                <input v-model="associate.user.login" class="input" type="text"
+                                <input v-model="associate.user.login" :class="`${inputEmail}`" type="text"
                                     placeholder="Exemplo: exemplo@gmail.com">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-user"></i>
                                 </span>
+                                <p v-if="errorMessageEmail">
+                                <ul>
+                                    <li v-for="error in errorMessageEmail" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Senha</label>
                             <div class="control has-icons-left">
-                                <input v-model="associate.user.password" class="input" type="password"
+                                <input v-model="associate.user.password" :class="`${inputPassword}`" type="password"
                                     placeholder="Mín. 5 dig e Máx. 10 dig">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-lock"></i>
                                 </span>
+                                <p v-if="errorMessagePassword">
+                                <ul>
+                                    <li v-for="error in errorMessagePassword" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -435,11 +438,11 @@ export default class Register extends Vue {
                 this.inputFirstName = 'input is-danger';
             }
             else if (this.associate.firstName.length > 15) {
-                this.errorMessageFirstName = ['O campo "Primeiro nome" deve ter no máximo 10 caracteres.'];
+                this.errorMessageFirstName = ['O campo "Primeiro nome" deve ter no máximo 10 caracteres!'];
                 this.inputFirstName = 'input is-danger';
             }
             else if (this.associate.firstName.length <= 2) {
-                this.errorMessageFirstName = ['O campo "Primeiro nome" deve ter no mínimo 3 caracteres.'];
+                this.errorMessageFirstName = ['O campo "Primeiro nome" deve ter no mínimo 3 caracteres!'];
                 this.inputFirstName = 'input is-danger';
             } else {
                 this.errorMessageFirstName = [];
@@ -450,10 +453,10 @@ export default class Register extends Vue {
                 this.errorMessageLastName = ['O campo "Sobrenome" é obrigatório!'];
                 this.inputLastName = 'input is-danger';
             } else if (this.associate.lastName.length > 20) {
-                this.errorMessageLastName = ['O campo "Sobrenome" deve ter no máximo 20 caracteres.'];
+                this.errorMessageLastName = ['O campo "Sobrenome" deve ter no máximo 20 caracteres!'];
                 this.inputLastName = 'input is-danger';
             } else if (this.associate.lastName.length <= 2) {
-                this.errorMessageLastName = ['O campo "Sobrenome" deve ter no mínimo 3 caracteres.'];
+                this.errorMessageLastName = ['O campo "Sobrenome" deve ter no mínimo 3 caracteres!'];
                 this.inputLastName = 'input is-danger';
             } else {
                 this.errorMessageLastName = [];
@@ -467,7 +470,7 @@ export default class Register extends Vue {
                 this.errorMessageContact = ['O campo "Contato" é obrigatório!'];
                 this.inputContact = 'input is-danger';
             } else {
-                this.errorMessageContact = ['Insira no formato: "45 9 0000-0000"!'];
+                this.errorMessageContact = ['Siga o seguinte formato: "45 9 0000-0000"!'];
                 this.inputContact = 'input is-danger';
             }
 
@@ -483,13 +486,28 @@ export default class Register extends Vue {
             }
 
             if (!this.associate.user.login) {
-                this.errorsAssociate.push('O campo "Email" é obrigatório.');
+                this.errorMessageEmail = ['O campo "Email" é obrigatório!'];
+                this.inputEmail = 'input is-danger';
             } else if (!this.isValidEmail(this.associate.user.login)) {
-                this.errorsAssociate.push('Por favor, insira um email válido.');
+                this.errorMessageEmail = ['Insira um email válido!'];
+                this.inputEmail = 'input is-danger';
+            } else {
+                this.errorMessageEmail = [];
+                this.inputEmail = 'input is-success';
             }
 
             if (!this.associate.user.password) {
-                this.errorsAssociate.push('O campo "Senha" é obrigatório.');
+                this.errorMessagePassword = ['O campo "Senha" é obrigatório!'];
+                this.inputPassword = 'input is-danger';
+            } else if (this.associate.user.password.length <= 4) {
+                this.errorMessagePassword = ['O campo "Senha" deve ter no mínimo 5 caracteres!'];
+                this.inputPassword = 'input is-danger';
+            }  else if (this.associate.user.password.length >= 11) {
+                this.errorMessagePassword = ['O campo "Senha" deve ter no máximo 10 caracteres!'];
+                this.inputPassword = 'input is-danger';
+            } else {
+                this.errorMessagePassword = [];
+                this.inputPassword = 'input is-success';
             }
         }
     }
