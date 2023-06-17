@@ -3,7 +3,7 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item">
-          <img src="./assets/Logo.png" width="150">
+          <img src="./assets/Logo.png">
         </a>
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
           <span aria-hidden="true"></span>
@@ -46,6 +46,7 @@
 
 <style lang="scss">
 @import "~bulma/bulma.sass";
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Poppins:ital,wght@0,200;0,400;0,600;1,100&display=swap');
 
 /*
   #EBE3CC - Branco quase rosa
@@ -64,7 +65,12 @@ nav {
   background-color: #EBE3CC !important;
 
   .navbar-item {
-    padding-left: 70px;
+    padding-left: 60px;
+
+    img {
+      max-height: 3em;
+      width: 200px;
+    }
   }
 
   h1 {
@@ -79,7 +85,11 @@ nav {
     justify-content: center;
     padding: 0 20px;
     gap: 70px;
-    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 200;
+    font-size: 18px;
+    line-height: 33px;
   }
 
   a {
