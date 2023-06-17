@@ -17,10 +17,10 @@
 
                 <div v-if="select === '1'">
 
-                    <article v-if="notificationSave === true" class="message is-success">
+                    <article v-if="notificationSave" class="message is-success">
                         <div class="message-header">
                             <p>Success</p>
-                            <button class="delete" aria-label="delete"></button>
+                            <button @click="closeNotification" class="delete" aria-label="delete"></button>
                         </div>
                         <div class="message-body">
                             Seu cadastro foi enviado para análise, você poderá acessar o sistema assim que for aprovado.
@@ -443,6 +443,17 @@ export default class Register extends Vue {
     public errorMessageCep: string[] = [];
     public errorMessageNumber: string[] = [];
 
+    public changeProfileType(): void {
+        const selectProfileType = (<HTMLSelectElement>document.getElementById('selectProfileType')).value;
+        this.select = selectProfileType;
+    }
+
+    public profileTypeSelectList: ProfileType[] = [
+        { id: 1, name: "Associado(a)" },
+        { id: 2, name: "Fornecedor(a)" },
+        { id: 3, name: "Protetor(a)" },
+    ];
+
     public validatePhoneNumber(phoneNumber: string): boolean {
         const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
         return phoneNumberRegex.test(this.associate.contact);
@@ -661,17 +672,9 @@ export default class Register extends Vue {
             )
         }
     }
-
-    public changeProfileType(): void {
-        const selectProfileType = (<HTMLSelectElement>document.getElementById('selectProfileType')).value;
-        this.select = selectProfileType;
+    public closeNotification() {
+        this.notificationSave = false;
     }
-
-    public profileTypeSelectList: ProfileType[] = [
-        { id: 1, name: "Associado(a)" },
-        { id: 2, name: "Fornecedor(a)" },
-        { id: 3, name: "Protetor(a)" },
-    ];
 }
 </script>
   
