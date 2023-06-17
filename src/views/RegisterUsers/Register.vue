@@ -22,7 +22,8 @@
                             <button @click="closeNotification" class="delete" aria-label="delete"></button>
                         </div>
                         <div class="message-body">
-                            Seu cadastro foi enviado para análise, você poderá acessar o sistema assim que for aprovado. Aguarde uma notificação em seu Email.
+                            Seu cadastro foi enviado para análise, você poderá acessar o sistema assim que for aprovado.
+                            Aguarde uma notificação em seu Email.
                         </div>
                     </article>
 
@@ -164,19 +165,41 @@
                 </div>
 
                 <div v-if="select === '2'">
+                    <article v-if="notificationSave" class="message is-success">
+                        <div class="message-header">
+                            <p>Success</p>
+                            <button @click="closeNotification" class="delete" aria-label="delete"></button>
+                        </div>
+                        <div class="message-body">
+                            Seu cadastro foi enviado para análise, você poderá acessar o sistema assim que for aprovado.
+                            Aguarde uma notificação em seu Email.
+                        </div>
+                    </article>
+
                     <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Nome fantasia</label>
                             <div class="control">
-                                <input v-model="provider.fantasyName" class="input" type="text" placeholder="Nome fantasia">
+                                <input v-model="provider.fantasyName" @blur="validateInputNameFantasy"
+                                    :class="`${inputNameFantasy}`" type="text" placeholder="Nome fantasia">
+                                <p v-if="errorMessageNameFantasy">
+                                <ul>
+                                    <li v-for="error in errorMessageNameFantasy" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Nome empresarial</label>
                             <div class="control">
-                                <input v-model="provider.businessName" class="input" type="text"
-                                    placeholder="Nome empresarial">
+                                <input v-model="provider.businessName" @blur="validateInputNameBusiness"
+                                    :class="`${inputNameBusiness}`" type="text" placeholder="Nome empresarial">
+                                <p v-if="errorMessageNameBusiness">
+                                <ul>
+                                    <li v-for="error in errorMessageNameBusiness" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -380,8 +403,7 @@
                         </div>
 
                         <div class="control">
-                            <button 
-                            @click="onClickRegister()" class="button is-success is-focused">Cadastrar</button>
+                            <button @click="onClickRegister()" class="button is-success is-focused">Cadastrar</button>
                         </div>
                     </div>
                 </div>
@@ -424,8 +446,8 @@ export default class Register extends Vue {
     public select: string = '1';
 
     public notificationSave: boolean = false;
-    public disableButton: boolean = true;
 
+    //ASSOCIATE
     public inputFirstName: string = 'input';
     public inputLastName: string = 'input';
     public inputContact: string = 'input';
@@ -435,6 +457,7 @@ export default class Register extends Vue {
     public inputCep: string = 'input';
     public inputNumber: string = 'input';
 
+    //ASSOCIATE
     public errorMessageFirstName: string[] = [];
     public errorMessageLastName: string[] = [];
     public errorMessageContact: string[] = [];
@@ -443,6 +466,16 @@ export default class Register extends Vue {
     public errorMessagePassword: string[] = [];
     public errorMessageCep: string[] = [];
     public errorMessageNumber: string[] = [];
+
+    //PROVIDER
+    public inputNameFantasy: string = 'input';
+    public inputNameBusiness: string = 'input';
+    public inputCnpj: string = 'input';
+
+    //PROVIDER
+    public errorMessageNameFantasy: string[] = [];
+    public errorMessageNameBusiness: string[] = [];
+    public errorMessageCnpj: string[] = [];
 
     public changeProfileType(): void {
         const selectProfileType = (<HTMLSelectElement>document.getElementById('selectProfileType')).value;
@@ -455,7 +488,8 @@ export default class Register extends Vue {
         { id: 3, name: "Protetor(a)" },
     ];
 
-    public resetInputs() {
+    //ASSOCIATE
+    public resetInputsAssociate() {
         this.inputFirstName = 'input';
         this.inputLastName = 'input';
         this.inputContact = 'input';
@@ -466,6 +500,7 @@ export default class Register extends Vue {
         this.inputNumber = 'input';
     }
 
+    //ASSOCIATE
     async fetchAddress(): Promise<void> {
         if (this.associate.address.cep.length === 8) {
             try {
@@ -489,11 +524,13 @@ export default class Register extends Vue {
         }
     }
 
+    //ASSOCIATE
     private clearAddressFields(): void {
         this.associate.address.road = '';
         this.associate.address.neighborhood = '';
     }
 
+    //ASSOCIATE
     public validateInputFirstName() {
         if (this.select === '1') {
             if (!this.associate.firstName) {
@@ -514,6 +551,7 @@ export default class Register extends Vue {
         }
     }
 
+    //ASSOCIATE
     public validateInputLastName() {
         if (!this.associate.lastName) {
             this.errorMessageLastName = ['O campo "Sobrenome" é obrigatório!'];
@@ -530,11 +568,13 @@ export default class Register extends Vue {
         }
     }
 
+    //ASSOCIATE
     public validatePhoneNumber(phoneNumber: string): boolean {
         const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
         return phoneNumberRegex.test(this.associate.contact);
     };
 
+    //ASSOCIATE
     public validateInputContact() {
         if (this.validatePhoneNumber(this.associate.contact)) {
             this.errorMessageContact = [];
@@ -548,6 +588,7 @@ export default class Register extends Vue {
         }
     }
 
+    //ASSOCIATE
     public validateInputCpf() {
         if (!this.associate.cpf) {
             this.errorMessageCpf = ['O campo "CPF" é obrigatório!'];
@@ -561,6 +602,7 @@ export default class Register extends Vue {
         }
     }
 
+    //ASSOCIATE
     public validateInputNumber() {
         if (!this.associate.address.houseNumber) {
             this.errorMessageNumber = ['O campo "Número" é obrigatório!'];
@@ -574,11 +616,13 @@ export default class Register extends Vue {
         }
     }
 
+    //ASSOCIATE/PROVIDER/CAREGIVER
     public isValidEmail(email: string): boolean {
         // Verifique a validade do email usando uma expressão regular ou outra lógica
         return /\S+@\S+\.\S+/.test(email);
     }
 
+    //ASSOCIATE
     public validateInputEmail() {
         if (!this.associate.user.login) {
             this.errorMessageEmail = ['O campo "Email" é obrigatório!'];
@@ -592,6 +636,7 @@ export default class Register extends Vue {
         }
     }
 
+    //ASSOCIATE
     public validateInputPassword() {
         if (!this.associate.user.password) {
             this.errorMessagePassword = ['O campo "Senha" é obrigatório!'];
@@ -608,6 +653,7 @@ export default class Register extends Vue {
         }
     }
 
+    //ASSOCIATE
     public validateInputCep(): void {
         if (!this.associate.address.cep) {
             this.errorMessageCep = ['O campo "CEP" é obrigatório!'];
@@ -622,6 +668,7 @@ export default class Register extends Vue {
         }
     }
 
+    //ASSOCIATE
     public validateFormAssociate() {
         if (this.select === '1') {
             this.validateInputFirstName();
@@ -635,6 +682,51 @@ export default class Register extends Vue {
         }
     }
 
+    /////////////////PROVIDER////////////////////
+
+
+    //PROVIDER
+    public validateInputNameFantasy() {
+        if (this.select === '2') {
+            if (!this.provider.fantasyName) {
+                this.errorMessageNameFantasy = ['O campo "Nome fantasia" é obrigatório!'];
+                this.inputNameFantasy = 'input is-danger';
+            }
+            else if (this.provider.fantasyName.length > 15) {
+                this.errorMessageNameFantasy = ['O campo "Nome fantasia" deve ter no máximo 15 caracteres!'];
+                this.inputNameFantasy = 'input is-danger';
+            }
+            else if (this.provider.fantasyName.length < 3) {
+                this.errorMessageNameFantasy = ['O campo "Nome fantasia" deve ter no mínimo 3 caracteres!'];
+                this.inputNameFantasy = 'input is-danger';
+            } else {
+                this.errorMessageNameFantasy = [];
+                this.inputNameFantasy = 'input is-success';
+            }
+        }
+    }
+
+    //PROVIDER
+    public validateInputNameBusiness() {
+        if (this.select === '2') {
+            if (!this.provider.businessName) {
+                this.errorMessageNameBusiness = ['O campo "Nome empresarial" é obrigatório!'];
+                this.inputNameBusiness = 'input is-danger';
+            }
+            else if (this.provider.businessName.length > 20) {
+                this.errorMessageNameBusiness = ['O campo "Nome empresarial" deve ter no máximo 20 caracteres!'];
+                this.inputNameBusiness = 'input is-danger';
+            }
+            else if (this.provider.businessName.length < 5) {
+                this.errorMessageNameBusiness = ['O campo "Nome empresarial" deve ter no mínimo 5 caracteres!'];
+                this.inputNameBusiness = 'input is-danger';
+            } else {
+                this.errorMessageNameBusiness = [];
+                this.inputNameBusiness = 'input is-success';
+            }
+        }
+    }
+
     public onClickRegister(): void {
         this.validateFormAssociate();
         if (this.select === '1') {
@@ -642,7 +734,7 @@ export default class Register extends Vue {
                 this.associateClient.save(this.associate).then(
                     success => {
                         console.log('Associado cadastrado com sucesso!!!');
-                        this.resetInputs();
+                        this.resetInputsAssociate();
                         this.notificationSave = true;
                         this.associate = new Associate();
                     },
@@ -750,5 +842,6 @@ main {
     .aling_buttons {
         max-width: 400px;
     }
-}</style>
+}
+</style>
   
