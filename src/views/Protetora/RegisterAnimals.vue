@@ -24,12 +24,7 @@
 
       <div class="field">
         <label class="label">Idade</label>
-        <input
-          class="input"
-          type="text"
-          v-model="animalMock.age"
-          @input="forceNumbersOnly"
-        />
+        <input class="input" type="number" v-model="animalMock.age" />
       </div>
 
       <div class="field">
@@ -98,22 +93,6 @@ export default class Register extends Vue {
     observation: "",
     caregiver: {
       id: "",
-      firstName: "",
-      lastName: "",
-      contact: "",
-      address: {
-        cep: "",
-        neighborhood: "",
-        road: "",
-        houseNumber: "",
-      },
-      physicalSpace: "",
-      spending: "",
-      capacityAnimals: "",
-      aprove: Aprove,
-      occurrences: Occurrences,
-      animal: Animal,
-      user: User,
     },
   };
 
@@ -121,39 +100,38 @@ export default class Register extends Vue {
     console.log(this.animalMock);
   }
 
-  forceNumbersOnly(event: Event) {
-    // Substitui qualquer caractere não numérico por uma string vazia
-    this.animalMock.age = (event.target as HTMLInputElement).value.replace(
-      /\D/g,
-      ""
-    );
-  }
-  // fromMock(mock: any): Animal {
-
-  //       const animalForm: Partial<Animal> = {}
-
-  //       animalForm.name = mock.name;
-  //       animalForm.breed = mock.breed;
-  //       animalForm.animalType = mock.type;
-  //       animalForm.animalSize = mock.size;
-  //       animalForm.color = mock.color;
-  //       animalForm.age = Number(mock.age);
-  //       animalForm.observation = mock.observation;
-
-  //       animalForm.vaccination = new Vaccination();
-  //       this.vaccination.vaccines = mock.vaccines;
-  //       this.vaccination.selectedVaccines = mock.selectedVaccines;
-
-  //       this.caregiver = new Caregiver();
-  //       // preencher com os dados do mock
-  //       this.caregiver.firstName = mock.caregiver.firstName;
-  //       this.caregiver.lastName = mock.caregiver.lastName;
-  //       this.caregiver.contact = mock.caregiver.contact;
-  //       // etc...
-
-  //       return this;
-  //   }
+  // forceNumbersOnly(event: Event) {
+  //   // Substitui qualquer caractere não numérico por uma string vazia
+  //   this.animalMock.age = (event.target as HTMLInputElement).value.replace(
+  //     /\D/g,
+  //     ""
+  //   );
 }
+// fromMock(mock: any): Animal {
+
+//       const animalForm: Partial<Animal> = {}
+
+//       animalForm.name = mock.name;
+//       animalForm.breed = mock.breed;
+//       animalForm.animalType = mock.type;
+//       animalForm.animalSize = mock.size;
+//       animalForm.color = mock.color;
+//       animalForm.age = Number(mock.age);
+//       animalForm.observation = mock.observation;
+
+//       animalForm.vaccination = new Vaccination();
+//       this.vaccination.vaccines = mock.vaccines;
+//       this.vaccination.selectedVaccines = mock.selectedVaccines;
+
+//       this.caregiver = new Caregiver();
+//       // preencher com os dados do mock
+//       this.caregiver.firstName = mock.caregiver.firstName;
+//       this.caregiver.lastName = mock.caregiver.lastName;
+//       this.caregiver.contact = mock.caregiver.contact;
+//       // etc...
+
+//       return this;
+//   }
 </script>
 
 <style scoped>
