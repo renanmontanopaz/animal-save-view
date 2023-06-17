@@ -16,18 +16,37 @@
                 </div>
 
                 <div v-if="select === '1'">
+                    <p v-if="errorsAssociate.length">
+                        <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
+                    <ul>
+                        <li v-for="error in errorsAssociate" :key="error">{{ error }}</li>
+                    </ul>
+                    </p>
+
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Nome</label>
+                            <label class="label">Primeiro nome</label>
                             <div class="control">
-                                <input v-model="associate.firstName" class="input" type="text" placeholder="Primeiro nome">
+                                <input v-model="associate.firstName" :class="`${inputFirstName}`" type="text"
+                                    placeholder="Primeiro nome" />
+                                <p v-if="errorMessageFirstName">
+                                <ul>
+                                    <li v-for="error in errorMessageFirstName" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Sobrenome</label>
                             <div class="control">
-                                <input v-model="associate.lastName" class="input" type="text" placeholder="Sobrenome">
+                                <input v-model="associate.lastName" :class="`${inputLastName}`" type="text"
+                                    placeholder="Sobrenome">
+                                <p v-if="errorMessageLastName">
+                                <ul>
+                                    <li v-for="error in errorMessageLastName" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -36,16 +55,26 @@
                         <div class="field">
                             <label class="label">Contato</label>
                             <div class="control">
-                                <input v-model="associate.contact" class="input" type="text"
-                                    placeholder="Exemplo: (45) 9 0000-0000">
+                                <input v-model="associate.contact" :class="`${inputContact}`" type="text"
+                                    placeholder="Exemplo: 45 9 0000-0000">
+                                <p v-if="errorMessageContact">
+                                <ul>
+                                    <li v-for="error in errorMessageContact" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">CPF</label>
                             <div class="control">
-                                <input v-model="associate.cpf" class="input" type="text"
+                                <input v-model="associate.cpf" :class="`${inputCpf}`" type="text"
                                     placeholder="Exemplo: 000.000.000-00">
+                                <p v-if="errorMessageCpf">
+                                <ul>
+                                    <li v-for="error in errorMessageCpf" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -53,17 +82,23 @@
                     <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Email</label>
-                            <div class="control">
+                            <div class="control has-icons-left">
                                 <input v-model="associate.user.login" class="input" type="text"
                                     placeholder="Exemplo: exemplo@gmail.com">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-user"></i>
+                                </span>
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Senha</label>
-                            <div class="control">
+                            <div class="control has-icons-left">
                                 <input v-model="associate.user.password" class="input" type="password"
-                                    placeholder="Mínimo 5 dig e máximo de 8 dig">
+                                    placeholder="Mín. 5 dig e Máx. 10 dig">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -143,17 +178,23 @@
                     <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Email</label>
-                            <div class="control">
+                            <div class="control has-icons-left">
                                 <input v-model="provider.user.login" class="input" type="text"
                                     placeholder="Exemplo: exemplo@gmail.com">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-user"></i>
+                                </span>
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Senha</label>
-                            <div class="control">
+                            <div class="control has-icons-left">
                                 <input v-model="provider.user.password" class="input" type="password"
-                                    placeholder="Mínimo 5 dig e máximo de 8 dig">
+                                    placeholder="Mín. 5 dig e Máx. 10 dig">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -197,7 +238,7 @@
                 <div v-if="select === '3'">
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Nome</label>
+                            <label class="label">Primeiro nome</label>
                             <div class="control">
                                 <input v-model="caregiver.firstName" class="input" type="text" placeholder="Primeiro nome">
                             </div>
@@ -250,17 +291,23 @@
                     <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Email</label>
-                            <div class="control">
+                            <div class="control has-icons-left">
                                 <input v-model="caregiver.user.login" class="input" type="text"
                                     placeholder="Exemplo: exemplo@gmail.com">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-user"></i>
+                                </span>
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Senha</label>
-                            <div class="control">
+                            <div class="control has-icons-left">
                                 <input v-model="caregiver.user.password" class="input" type="password"
-                                    placeholder="Mínimo 5 dig e máximo de 8 dig">
+                                    placeholder="Mín. 5 dig e Máx. 10 dig">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -320,6 +367,7 @@
   
 <script lang="ts">
 import Vue from 'vue';
+import { cpf } from 'cpf-cnpj-validator';
 import { Associate } from '@/model/Associate';
 import { Caregiver } from '@/model/Caregiver';
 import { Provider } from '@/model/Provider';
@@ -328,6 +376,7 @@ import { ProfileType } from '@/model/ProfileType';
 import { AssociateClient } from '@/client/Associate.client';
 import { CaregiverClient } from '@/client/Caregiver.client';
 import { ProviderClient } from '@/client/Provider.client';
+import { Message } from '@/model/Message';
 
 @Component
 export default class Register extends Vue {
@@ -342,21 +391,129 @@ export default class Register extends Vue {
     public associate: Associate = new Associate();
     public caregiver: Caregiver = new Caregiver();
     public provider: Provider = new Provider();
+    public notificacao: Message = new Message();
 
     public select: string = '1';
 
-    public onClickRegister(): void {
+    public errorsAssociate: string[] = [];
+
+    public inputFirstName: string = 'input';
+    public inputLastName: string = 'input';
+    public inputContact: string = 'input';
+    public inputCpf: string = 'input';
+    public inputEmail: string = 'input';
+    public inputPassword: string = 'input';
+    public inputCep: string = 'input';
+    public inputNeighborhood: string = 'input';
+    public inputRoad: string = 'input';
+    public inputNumber: string = 'input';
+
+    public errorMessageFirstName: string[] = [];
+    public errorMessageLastName: string[] = [];
+    public errorMessageContact: string[] = [];
+    public errorMessageCpf: string[] = [];
+    public errorMessageEmail: string[] = [];
+    public errorMessagePassword: string[] = [];
+    public errorMessageCep: string[] = [];
+    public errorMessageNeighborhood: string[] = [];
+    public errorMessageRoad: string[] = [];
+    public errorMessageNumber: string[] = [];
+
+    isValid: boolean = false;
+
+    public validatePhoneNumber(phoneNumber: string): boolean {
+        const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
+        return phoneNumberRegex.test(this.associate.contact);
+    };
+
+    public validateFormAssociate() {
+        this.errorsAssociate = [];
 
         if (this.select === '1') {
-            this.associateClient.save(this.associate).then(
-                success => {
-                    console.log('Associado cadastrado com sucesso!!!')
-                    this.associate = new Associate()
-                },
-                error => {
-                    console.log(error)
-                }
-            )
+            if (!this.associate.firstName) {
+                this.errorMessageFirstName = ['O campo "Primeiro nome" é obrigatório!'];
+                this.inputFirstName = 'input is-danger';
+            }
+            else if (this.associate.firstName.length > 15) {
+                this.errorMessageFirstName = ['O campo "Primeiro nome" deve ter no máximo 10 caracteres.'];
+                this.inputFirstName = 'input is-danger';
+            }
+            else if (this.associate.firstName.length <= 2) {
+                this.errorMessageFirstName = ['O campo "Primeiro nome" deve ter no mínimo 3 caracteres.'];
+                this.inputFirstName = 'input is-danger';
+            } else {
+                this.errorMessageFirstName = [];
+                this.inputFirstName = 'input is-success';
+            }
+
+            if (!this.associate.lastName) {
+                this.errorMessageLastName = ['O campo "Sobrenome" é obrigatório!'];
+                this.inputLastName = 'input is-danger';
+            } else if (this.associate.lastName.length > 20) {
+                this.errorMessageLastName = ['O campo "Sobrenome" deve ter no máximo 20 caracteres.'];
+                this.inputLastName = 'input is-danger';
+            } else if (this.associate.lastName.length <= 2) {
+                this.errorMessageLastName = ['O campo "Sobrenome" deve ter no mínimo 3 caracteres.'];
+                this.inputLastName = 'input is-danger';
+            } else {
+                this.errorMessageLastName = [];
+                this.inputLastName = 'input is-success';
+            }
+
+            if (this.validatePhoneNumber(this.associate.contact)) {
+                this.errorMessageContact = [];
+                this.inputContact = 'input is-success';
+            } else if (!this.associate.contact) {
+                this.errorMessageContact = ['O campo "Contato" é obrigatório!'];
+                this.inputContact = 'input is-danger';
+            } else {
+                this.errorMessageContact = ['Insira no formato: "45 9 0000-0000"!'];
+                this.inputContact = 'input is-danger';
+            }
+
+            if (!this.associate.cpf) {
+                this.errorMessageCpf = ['O campo "CPF" é obrigatório!'];
+                this.inputCpf = 'input is-danger';
+            } else if (cpf.isValid(this.associate.cpf)) {
+                this.errorMessageCpf = [];
+                this.inputCpf = 'input is-success';
+            } else {
+                this.errorMessageCpf = ['Insira um CPF válido!'];
+                this.inputCpf = 'input is-danger';
+            }
+
+            if (!this.associate.user.login) {
+                this.errorsAssociate.push('O campo "Email" é obrigatório.');
+            } else if (!this.isValidEmail(this.associate.user.login)) {
+                this.errorsAssociate.push('Por favor, insira um email válido.');
+            }
+
+            if (!this.associate.user.password) {
+                this.errorsAssociate.push('O campo "Senha" é obrigatório.');
+            }
+        }
+    }
+
+    public isValidEmail(email: string): boolean {
+        // Verifique a validade do email usando uma expressão regular ou outra lógica
+        return /\S+@\S+\.\S+/.test(email);
+    }
+
+    public onClickRegister(): void {
+        this.validateFormAssociate();
+
+        if (this.select === '1') {
+            if (this.errorsAssociate.length == 0) {
+                this.associateClient.save(this.associate).then(
+                    success => {
+                        console.log('Associado cadastrado com sucesso!!!')
+                        this.associate = new Associate()
+                    },
+                    error => {
+                        console.log(error)
+                    }
+                )
+            }
         } else if (this.select === '2') {
             this.providerClient.save(this.provider).then(
                 success => {
@@ -367,9 +524,7 @@ export default class Register extends Vue {
                     console.log(error)
                 }
             )
-        }
-
-        else if (this.select === '3') {
+        } else if (this.select === '3') {
             this.caregiverClient.save(this.caregiver).then(
                 success => {
                     console.log('Protetor cadastrado com sucesso!!!')
@@ -392,17 +547,6 @@ export default class Register extends Vue {
         { id: 2, name: "Fornecedor(a)" },
         { id: 3, name: "Protetor(a)" },
     ];
-
-    private listAssociate(): void {
-        this.associateClient.listAll().then(
-            success => {
-                this.associateAtributesList = success
-            },
-            error => {
-                console.log(error)
-            }
-        )
-    }
 }
 </script>
   
@@ -438,15 +582,15 @@ main {
         justify-content: center;
 
         .aling_buttons {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        max-width: 405px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 405px;
 
-        .button {
-            width: 200px;
+            .button {
+                width: 200px;
+            }
         }
-    }
     }
 }
 
