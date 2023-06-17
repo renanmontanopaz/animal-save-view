@@ -110,7 +110,8 @@
                         <div class="field">
                             <label class="label">Cep</label>
                             <div class="control">
-                                <input v-model="associate.address.cep" @blur="validateInputCep" :class="`${inputCep}`"
+                                <input
+                                v-model="associate.address.cep" @blur="validateInputCep" :class="`${inputCep}`"
                                     type="number" placeholder="Exemplo: 01001-000">
                                 <p v-if="errorMessageCep">
                                 <ul>
@@ -123,7 +124,9 @@
                         <div class="field">
                             <label class="label">Bairro</label>
                             <div class="control">
-                                <input v-model="associate.address.neighborhood" class="input" type="text"
+                                <input 
+                                disabled
+                                v-model="associate.address.neighborhood" class="input" type="text"
                                     placeholder="Bairro">
                             </div>
                         </div>
@@ -133,15 +136,23 @@
                         <div class="field">
                             <label class="label">Rua</label>
                             <div class="control">
-                                <input v-model="associate.address.road" class="input" type="text" placeholder="Rua">
+                                <input 
+                                disabled
+                                v-model="associate.address.road" class="input" type="text" placeholder="Rua">
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Número</label>
                             <div class="control">
-                                <input v-model="associate.address.houseNumber" class="input" type="number"
+                                <input v-model="associate.address.houseNumber" @blur="validateInputNumber" :class="`${inputNumber}`"
+                                type="number"
                                     placeholder="Número">
+                                    <p v-if="errorMessageNumber">
+                                <ul>
+                                    <li v-for="error in errorMessageNumber" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -415,8 +426,6 @@ export default class Register extends Vue {
     public inputEmail: string = 'input';
     public inputPassword: string = 'input';
     public inputCep: string = 'input';
-    public inputNeighborhood: string = 'input';
-    public inputRoad: string = 'input';
     public inputNumber: string = 'input';
 
     public errorMessageFirstName: string[] = [];
@@ -426,8 +435,6 @@ export default class Register extends Vue {
     public errorMessageEmail: string[] = [];
     public errorMessagePassword: string[] = [];
     public errorMessageCep: string[] = [];
-    public errorMessageNeighborhood: string[] = [];
-    public errorMessageRoad: string[] = [];
     public errorMessageNumber: string[] = [];
 
     public validatePhoneNumber(phoneNumber: string): boolean {
@@ -568,6 +575,19 @@ export default class Register extends Vue {
         }
     }
 
+    public validateInputNumber() {
+        if (!this.associate.address.houseNumber) {
+            this.errorMessageNumber = ['O campo "Número" é obrigatório!'];
+            this.inputNumber = 'input is-danger';
+        } else if (this.associate.address.houseNumber > 100000) {
+            this.errorMessageNumber = ['O número inserido é invalido!'];
+            this.inputNumber = 'input is-danger';
+        } else {
+            this.errorMessageNumber = [];
+            this.inputNumber = 'input is-success';
+        }
+    }
+
     public validateFormAssociate() {
         if (this.select === '1') {
             this.validateInputFirstName();
@@ -577,6 +597,7 @@ export default class Register extends Vue {
             this.validateInputEmail();
             this.validateInputPassword();
             this.validateInputCep();
+            this.validateInputNumber();
         }
     }
 
@@ -666,6 +687,7 @@ main {
     .container_buttons {
         display: flex;
         justify-content: center;
+        padding: 30px 0px;
 
         .aling_buttons {
             display: flex;
