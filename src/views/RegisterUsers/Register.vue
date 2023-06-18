@@ -399,8 +399,14 @@
                         <div class="field">
                             <label class="label">Capacidade de animais</label>
                             <div class="control">
-                                <input v-model="caregiver.capacityAnimals" class="input" type="text"
+                                <input v-model="caregiver.capacityAnimals" @blur="validateInputCapacityAnimalsCaregiver"
+                                    :class="`${inputCapacityAnimalsCaregiver}`" type="number"
                                     placeholder="Capacidade máxima de animais">
+                                    <p v-if="errorMessageCapacityAnimalsCaregiver">
+                                <ul>
+                                    <li v-for="error in errorMessageCapacityAnimalsCaregiver" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -1101,6 +1107,23 @@ export default class Register extends Vue {
         else {
             this.errorMessageSpendingCaregiver = ['Formato inválido! Exemplo: 100,00 , 1.000,00.'];
             this.inputSpendingCaregiver = 'input is-danger';
+        }
+    }
+
+    //CAREGIVER
+    public validateInputCapacityAnimalsCaregiver() {
+        if (!this.caregiver.capacityAnimals) {
+            this.errorMessageCapacityAnimalsCaregiver = ['O campo de "Capacidade de animais" é obrigatório!'];
+            this.inputCapacityAnimalsCaregiver = 'input is-danger';
+        } else if (this.caregiver.capacityAnimals < 1) {
+            this.errorMessageCapacityAnimalsCaregiver = ['O campo de "Capacidade de animais" deve ter no mínimo 1 caracter!'];
+            this.inputCapacityAnimalsCaregiver = 'input is-danger';
+        } else if (this.caregiver.capacityAnimals > 10000) {
+            this.errorMessageCapacityAnimalsCaregiver = ['O campo de "Capacidade de animais" deve ter no máximo 5 caracteres!'];
+            this.inputCapacityAnimalsCaregiver = 'input is-danger';
+        } else {
+            this.errorMessageCapacityAnimalsCaregiver = [];
+            this.inputCapacityAnimalsCaregiver = 'input is-success';
         }
     }
 
