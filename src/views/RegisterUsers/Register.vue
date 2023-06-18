@@ -165,10 +165,10 @@
                 </div>
 
                 <div v-if="select === '2'">
-                    <article v-if="notificationSave" class="message is-success">
+                    <article v-if="notificationSaveProvider" class="message is-success">
                         <div class="message-header">
                             <p>Success</p>
-                            <button @click="closeNotification" class="delete" aria-label="delete"></button>
+                            <button @click="closeNotificationProvider" class="delete" aria-label="delete"></button>
                         </div>
                         <div class="message-body">
                             Seu cadastro foi enviado para análise, você poderá acessar o sistema assim que for aprovado.
@@ -208,16 +208,26 @@
                         <div class="field">
                             <label class="label">Contato</label>
                             <div class="control">
-                                <input v-model="provider.contact" class="input" type="text"
-                                    placeholder="Exemplo: (45) 9 0000-0000">
+                                <input v-model="provider.contact" @blur="validateInputContactProvider"
+                                    :class="`${inputContactProvider}`" type="text" placeholder="Exemplo: (45) 9 0000-0000">
+                                <p v-if="errorMessageContactProvider">
+                                <ul>
+                                    <li v-for="error in errorMessageContactProvider" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">CNPJ</label>
                             <div class="control">
-                                <input v-model="provider.cnpj" class="input" type="text"
-                                    placeholder="Exemplo: 00.000.000/0001-00">
+                                <input v-model="provider.cnpj" @blur="validateInputCpnjProvider"
+                                    :class="`${inputCnpjProvider}`" type="text" placeholder="Exemplo: 00.000.000/0001-00">
+                                <p v-if="errorMessageCnpjProvider">
+                                <ul>
+                                    <li v-for="error in errorMessageCnpjProvider" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -226,22 +236,33 @@
                         <div class="field">
                             <label class="label">Email</label>
                             <div class="control has-icons-left">
-                                <input v-model="provider.user.login" class="input" type="text"
-                                    placeholder="Exemplo: exemplo@gmail.com">
+                                <input v-model="provider.user.login" @blur="validateInputEmailProvider"
+                                    :class="`${inputEmailProvider}`" type="text" placeholder="Exemplo: exemplo@gmail.com">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-user"></i>
                                 </span>
+                                <p v-if="errorMessageEmailProvider">
+                                <ul>
+                                    <li v-for="error in errorMessageEmailProvider" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Senha</label>
                             <div class="control has-icons-left">
-                                <input v-model="provider.user.password" class="input" type="password"
+                                <input v-model="provider.user.password" @blur="validateInputPasswordProvider"
+                                    :class="`${inputPasswordProvider}`" type="password"
                                     placeholder="Mín. 5 dig e Máx. 10 dig">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-lock"></i>
                                 </span>
+                                <p v-if="errorMessagePasswordProvider">
+                                <ul>
+                                    <li v-for="error in errorMessagePasswordProvider" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -250,15 +271,20 @@
                         <div class="field">
                             <label class="label">Cep</label>
                             <div class="control">
-                                <input v-model="provider.address.cep" class="input" type="text"
-                                    placeholder="Exemplo: 01001-000">
+                                <input v-model="provider.address.cep" @blur="validateInputCepProvider"
+                                    :class="`${inputCepProvider}`" type="number" placeholder="Exemplo: 01001-000">
+                                <p v-if="errorMessageCepProvider">
+                                <ul>
+                                    <li v-for="error in errorMessageCepProvider" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Bairro</label>
                             <div class="control">
-                                <input v-model="provider.address.neighborhood" class="input" type="text"
+                                <input v-model="provider.address.neighborhood" class="input" disabled type="text"
                                     placeholder="Bairro">
                             </div>
                         </div>
@@ -268,15 +294,20 @@
                         <div class="field">
                             <label class="label">Rua</label>
                             <div class="control">
-                                <input v-model="provider.address.road" class="input" type="text" placeholder="Rua">
+                                <input v-model="provider.address.road" class="input" disabled type="text" placeholder="Rua">
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Número</label>
                             <div class="control">
-                                <input v-model="provider.address.houseNumber" class="input" type="text"
-                                    placeholder="Número">
+                                <input v-model="provider.address.houseNumber" @blur="validateInputNumberProvider"
+                                    :class="`${inputNumberProvider}`" type="number" placeholder="Número">
+                                <p v-if="errorMessageNumberProvider">
+                                <ul>
+                                    <li v-for="error in errorMessageNumberProvider" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -416,7 +447,7 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import axios from 'axios';
-import { cpf } from 'cpf-cnpj-validator';
+import { cnpj, cpf } from 'cpf-cnpj-validator';
 
 import { Associate } from '@/model/Associate';
 import { Caregiver } from '@/model/Caregiver';
@@ -446,6 +477,7 @@ export default class Register extends Vue {
     public select: string = '1';
 
     public notificationSave: boolean = false;
+    public notificationSaveProvider: boolean = false;
 
     //ASSOCIATE
     public inputFirstName: string = 'input';
@@ -467,15 +499,26 @@ export default class Register extends Vue {
     public errorMessageCep: string[] = [];
     public errorMessageNumber: string[] = [];
 
+
     //PROVIDER
     public inputNameFantasy: string = 'input';
     public inputNameBusiness: string = 'input';
-    public inputCnpj: string = 'input';
+    public inputContactProvider: string = 'input';
+    public inputCnpjProvider: string = 'input';
+    public inputEmailProvider: string = 'input';
+    public inputPasswordProvider: string = 'input';
+    public inputCepProvider: string = 'input';
+    public inputNumberProvider: string = 'input';
 
     //PROVIDER
     public errorMessageNameFantasy: string[] = [];
     public errorMessageNameBusiness: string[] = [];
-    public errorMessageCnpj: string[] = [];
+    public errorMessageContactProvider: string[] = [];
+    public errorMessageCnpjProvider: string[] = [];
+    public errorMessageEmailProvider: string[] = [];
+    public errorMessagePasswordProvider: string[] = [];
+    public errorMessageCepProvider: string[] = [];
+    public errorMessageNumberProvider: string[] = [];
 
     public changeProfileType(): void {
         const selectProfileType = (<HTMLSelectElement>document.getElementById('selectProfileType')).value;
@@ -501,53 +544,21 @@ export default class Register extends Vue {
     }
 
     //ASSOCIATE
-    async fetchAddress(): Promise<void> {
-        if (this.associate.address.cep.length === 8) {
-            try {
-                const response = await axios.get(`https://viacep.com.br/ws/${this.associate.address.cep}/json/`);
-                const { logradouro, bairro } = response.data;
-                if (logradouro == null || bairro == null) {
-                    this.errorMessageCep = ['CEP inválido!'];
-                    this.inputCep = 'input is-danger';
-                }
-                this.associate.address.road = logradouro;
-                this.associate.address.neighborhood = bairro;
-            } catch (error) {
-                this.errorMessageCep = ['CEP inválido!'];
-                this.inputCep = 'input is-danger';
-                this.clearAddressFields();
-            }
-        } else {
-            this.errorMessageCep = ['CEP inválido!'];
-            this.inputCep = 'input is-danger';
-            this.clearAddressFields();
-        }
-    }
-
-    //ASSOCIATE
-    private clearAddressFields(): void {
-        this.associate.address.road = '';
-        this.associate.address.neighborhood = '';
-    }
-
-    //ASSOCIATE
     public validateInputFirstName() {
-        if (this.select === '1') {
-            if (!this.associate.firstName) {
-                this.errorMessageFirstName = ['O campo "Primeiro nome" é obrigatório!'];
-                this.inputFirstName = 'input is-danger';
-            }
-            else if (this.associate.firstName.length > 15) {
-                this.errorMessageFirstName = ['O campo "Primeiro nome" deve ter no máximo 10 caracteres!'];
-                this.inputFirstName = 'input is-danger';
-            }
-            else if (this.associate.firstName.length <= 2) {
-                this.errorMessageFirstName = ['O campo "Primeiro nome" deve ter no mínimo 3 caracteres!'];
-                this.inputFirstName = 'input is-danger';
-            } else {
-                this.errorMessageFirstName = [];
-                this.inputFirstName = 'input is-success';
-            }
+        if (!this.associate.firstName) {
+            this.errorMessageFirstName = ['O campo "Primeiro nome" é obrigatório!'];
+            this.inputFirstName = 'input is-danger';
+        }
+        else if (this.associate.firstName.length > 15) {
+            this.errorMessageFirstName = ['O campo "Primeiro nome" deve ter no máximo 10 caracteres!'];
+            this.inputFirstName = 'input is-danger';
+        }
+        else if (this.associate.firstName.length <= 2) {
+            this.errorMessageFirstName = ['O campo "Primeiro nome" deve ter no mínimo 3 caracteres!'];
+            this.inputFirstName = 'input is-danger';
+        } else {
+            this.errorMessageFirstName = [];
+            this.inputFirstName = 'input is-success';
         }
     }
 
@@ -602,20 +613,6 @@ export default class Register extends Vue {
         }
     }
 
-    //ASSOCIATE
-    public validateInputNumber() {
-        if (!this.associate.address.houseNumber) {
-            this.errorMessageNumber = ['O campo "Número" é obrigatório!'];
-            this.inputNumber = 'input is-danger';
-        } else if (this.associate.address.houseNumber > 1000000) {
-            this.errorMessageNumber = ['O número inserido é invalido!'];
-            this.inputNumber = 'input is-danger';
-        } else {
-            this.errorMessageNumber = [];
-            this.inputNumber = 'input is-success';
-        }
-    }
-
     //ASSOCIATE/PROVIDER/CAREGIVER
     public isValidEmail(email: string): boolean {
         // Verifique a validade do email usando uma expressão regular ou outra lógica
@@ -654,17 +651,63 @@ export default class Register extends Vue {
     }
 
     //ASSOCIATE
+    async fetchAddress(): Promise<void> {
+        if (this.associate.address.cep.length === 8) {
+            try {
+                const response = await axios.get(`https://viacep.com.br/ws/${this.associate.address.cep}/json/`);
+                const { logradouro, bairro } = response.data;
+                if (logradouro == null || bairro == null) {
+                    this.errorMessageCep = ['CEP inválido!'];
+                    this.inputCep = 'input is-danger';
+                }
+                this.associate.address.road = logradouro;
+                this.associate.address.neighborhood = bairro;
+            } catch (error) {
+                this.errorMessageCep = ['CEP inválido!'];
+                this.inputCep = 'input is-danger';
+                this.clearAddressFields();
+            }
+        } else {
+            this.errorMessageCep = ['CEP inválido!'];
+            this.inputCep = 'input is-danger';
+            this.clearAddressFields();
+        }
+    }
+
+    //ASSOCIATE
+    private clearAddressFields(): void {
+        this.associate.address.road = '';
+        this.associate.address.neighborhood = '';
+    }
+
+    //ASSOCIATE
     public validateInputCep(): void {
         if (!this.associate.address.cep) {
             this.errorMessageCep = ['O campo "CEP" é obrigatório!'];
             this.inputCep = 'input is-danger';
+            this.clearAddressFields();
         } else if (this.associate.address.cep.length !== 8) {
             this.errorMessageCep = ['CEP inválido!'];
             this.inputCep = 'input is-danger';
+            this.clearAddressFields();
         } else {
             this.fetchAddress();
             this.errorMessageCep = [];
             this.inputCep = 'input is-success';
+        }
+    }
+
+    //ASSOCIATE
+    public validateInputNumber() {
+        if (!this.associate.address.houseNumber) {
+            this.errorMessageNumber = ['O campo "Número" é obrigatório!'];
+            this.inputNumber = 'input is-danger';
+        } else if (this.associate.address.houseNumber > 1000000) {
+            this.errorMessageNumber = ['O número inserido é invalido!'];
+            this.inputNumber = 'input is-danger';
+        } else {
+            this.errorMessageNumber = [];
+            this.inputNumber = 'input is-success';
         }
     }
 
@@ -682,55 +725,221 @@ export default class Register extends Vue {
         }
     }
 
+    //ASSOCIATE
+    public allIputsValidsAssociate(): boolean {
+        if (this.inputFirstName !== 'input is-danger' && this.inputLastName !== 'input is-danger' && this.inputContact !== 'input is-danger' && this.inputCpf !== 'input is-danger' && this.inputEmail !== 'input is-danger' && this.inputPassword !== 'input is-danger' && this.inputCep !== 'input is-danger' && this.inputNumber !== 'input is-danger') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /////////////////PROVIDER////////////////////
 
+    //PROVIDER
+    public resetInputsProvider() {
+        this.inputNameFantasy = 'input';
+        this.inputNameBusiness = 'input';
+        this.inputContactProvider = 'input';
+        this.inputCnpjProvider = 'input';
+        this.inputEmailProvider = 'input';
+        this.inputPasswordProvider = 'input';
+        this.inputCepProvider = 'input';
+        this.inputNumberProvider = 'input';
+    }
 
     //PROVIDER
     public validateInputNameFantasy() {
-        if (this.select === '2') {
-            if (!this.provider.fantasyName) {
-                this.errorMessageNameFantasy = ['O campo "Nome fantasia" é obrigatório!'];
-                this.inputNameFantasy = 'input is-danger';
-            }
-            else if (this.provider.fantasyName.length > 15) {
-                this.errorMessageNameFantasy = ['O campo "Nome fantasia" deve ter no máximo 15 caracteres!'];
-                this.inputNameFantasy = 'input is-danger';
-            }
-            else if (this.provider.fantasyName.length < 3) {
-                this.errorMessageNameFantasy = ['O campo "Nome fantasia" deve ter no mínimo 3 caracteres!'];
-                this.inputNameFantasy = 'input is-danger';
-            } else {
-                this.errorMessageNameFantasy = [];
-                this.inputNameFantasy = 'input is-success';
-            }
+        if (!this.provider.fantasyName) {
+            this.errorMessageNameFantasy = ['O campo "Nome fantasia" é obrigatório!'];
+            this.inputNameFantasy = 'input is-danger';
+        }
+        else if (this.provider.fantasyName.length > 15) {
+            this.errorMessageNameFantasy = ['O campo "Nome fantasia" deve ter no máximo 15 caracteres!'];
+            this.inputNameFantasy = 'input is-danger';
+        }
+        else if (this.provider.fantasyName.length < 3) {
+            this.errorMessageNameFantasy = ['O campo "Nome fantasia" deve ter no mínimo 3 caracteres!'];
+            this.inputNameFantasy = 'input is-danger';
+        } else {
+            this.errorMessageNameFantasy = [];
+            this.inputNameFantasy = 'input is-success';
         }
     }
 
     //PROVIDER
     public validateInputNameBusiness() {
-        if (this.select === '2') {
-            if (!this.provider.businessName) {
-                this.errorMessageNameBusiness = ['O campo "Nome empresarial" é obrigatório!'];
-                this.inputNameBusiness = 'input is-danger';
-            }
-            else if (this.provider.businessName.length > 20) {
-                this.errorMessageNameBusiness = ['O campo "Nome empresarial" deve ter no máximo 20 caracteres!'];
-                this.inputNameBusiness = 'input is-danger';
-            }
-            else if (this.provider.businessName.length < 5) {
-                this.errorMessageNameBusiness = ['O campo "Nome empresarial" deve ter no mínimo 5 caracteres!'];
-                this.inputNameBusiness = 'input is-danger';
-            } else {
-                this.errorMessageNameBusiness = [];
-                this.inputNameBusiness = 'input is-success';
-            }
+        if (!this.provider.businessName) {
+            this.errorMessageNameBusiness = ['O campo "Nome empresarial" é obrigatório!'];
+            this.inputNameBusiness = 'input is-danger';
+        }
+        else if (this.provider.businessName.length > 20) {
+            this.errorMessageNameBusiness = ['O campo "Nome empresarial" deve ter no máximo 20 caracteres!'];
+            this.inputNameBusiness = 'input is-danger';
+        }
+        else if (this.provider.businessName.length < 5) {
+            this.errorMessageNameBusiness = ['O campo "Nome empresarial" deve ter no mínimo 5 caracteres!'];
+            this.inputNameBusiness = 'input is-danger';
+        } else {
+            this.errorMessageNameBusiness = [];
+            this.inputNameBusiness = 'input is-success';
         }
     }
 
+    //PROVIDER
+    public validatePhoneNumberProvider(phoneNumber: string): boolean {
+        const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
+        return phoneNumberRegex.test(this.provider.contact);
+    };
+
+    //PROVIDER
+    public validateInputContactProvider() {
+        if (this.validatePhoneNumberProvider(this.provider.contact)) {
+            this.errorMessageContactProvider = [];
+            this.inputContactProvider = 'input is-success';
+        } else if (!this.provider.contact) {
+            this.errorMessageContactProvider = ['O campo "Contato" é obrigatório!'];
+            this.inputContactProvider = 'input is-danger';
+        } else {
+            this.errorMessageContactProvider = ['Siga o seguinte formato: "45 9 0000-0000"!'];
+            this.inputContactProvider = 'input is-danger';
+        }
+    }
+
+    //PROVIDER
+    public validateInputCpnjProvider() {
+        if (!this.provider.cnpj) {
+            this.errorMessageCnpjProvider = ['O campo "CNPJ" é obrigatório!'];
+            this.inputCnpjProvider = 'input is-danger';
+        } else if (cnpj.isValid(this.provider.cnpj)) {
+            this.errorMessageCnpjProvider = [];
+            this.inputCnpjProvider = 'input is-success';
+        } else {
+            this.errorMessageCnpjProvider = ['Insira um CNPJ válido!'];
+            this.inputCnpjProvider = 'input is-danger';
+        }
+    }
+
+    //PROVIDER
+    public validateInputEmailProvider() {
+        if (!this.provider.user.login) {
+            this.errorMessageEmailProvider = ['O campo "Email" é obrigatório!'];
+            this.inputEmailProvider = 'input is-danger';
+        } else if (!this.isValidEmail(this.provider.user.login)) {
+            this.errorMessageEmailProvider = ['Insira um email válido!'];
+            this.inputEmailProvider = 'input is-danger';
+        } else {
+            this.errorMessageEmailProvider = [];
+            this.inputEmailProvider = 'input is-success';
+        }
+    }
+
+    //PROVIDER
+    public validateInputPasswordProvider() {
+        if (!this.provider.user.password) {
+            this.errorMessagePasswordProvider = ['O campo "Senha" é obrigatório!'];
+            this.inputPasswordProvider = 'input is-danger';
+        } else if (this.provider.user.password.length <= 4) {
+            this.errorMessagePasswordProvider = ['O campo "Senha" deve ter no mínimo 5 caracteres!'];
+            this.inputPasswordProvider = 'input is-danger';
+        } else if (this.provider.user.password.length >= 11) {
+            this.errorMessagePasswordProvider = ['O campo "Senha" deve ter no máximo 10 caracteres!'];
+            this.inputPasswordProvider = 'input is-danger';
+        } else {
+            this.errorMessagePasswordProvider = [];
+            this.inputPasswordProvider = 'input is-success';
+        }
+    }
+
+    //PROVIDER
+    async fetchAddressProvider(): Promise<void> {
+        if (this.provider.address.cep.length === 8) {
+            try {
+                const response = await axios.get(`https://viacep.com.br/ws/${this.provider.address.cep}/json/`);
+                const { logradouro, bairro } = response.data;
+                if (logradouro == null || bairro == null) {
+                    this.errorMessageCepProvider = ['CEP inválido!'];
+                    this.inputCepProvider = 'input is-danger';
+                }
+                this.provider.address.road = logradouro;
+                this.provider.address.neighborhood = bairro;
+            } catch (error) {
+                this.errorMessageCepProvider = ['CEP inválido!'];
+                this.inputCepProvider = 'input is-danger';
+                this.clearAddressFieldsProvider();
+            }
+        } else {
+            this.errorMessageCepProvider = ['CEP inválido!'];
+            this.inputCepProvider = 'input is-danger';
+            this.clearAddressFieldsProvider();
+        }
+    }
+
+    //PROVIDER
+    private clearAddressFieldsProvider(): void {
+        this.provider.address.road = '';
+        this.provider.address.neighborhood = '';
+    }
+
+    //PROVIDER
+    public validateInputCepProvider(): void {
+        if (!this.provider.address.cep) {
+            this.errorMessageCepProvider = ['O campo "CEP" é obrigatório!'];
+            this.inputCepProvider = 'input is-danger';
+            this.clearAddressFieldsProvider();
+        } else if (this.provider.address.cep.length !== 8) {
+            this.errorMessageCepProvider = ['CEP inválido!'];
+            this.inputCepProvider = 'input is-danger';
+            this.clearAddressFieldsProvider();
+        } else {
+            this.fetchAddressProvider();
+            this.errorMessageCepProvider = [];
+            this.inputCepProvider = 'input is-success';
+        }
+    }
+
+    //PROVIDER
+    public validateInputNumberProvider() {
+        if (!this.provider.address.houseNumber) {
+            this.errorMessageNumberProvider = ['O campo "Número" é obrigatório!'];
+            this.inputNumberProvider = 'input is-danger';
+        } else if (this.provider.address.houseNumber > 1000000) {
+            this.errorMessageNumberProvider = ['O número inserido é invalido!'];
+            this.inputNumberProvider = 'input is-danger';
+        } else {
+            this.errorMessageNumberProvider = [];
+            this.inputNumberProvider = 'input is-success';
+        }
+    }
+
+    //PROVIDER
+    public validateFormProvider() {
+        if (this.select === '2') {
+            this.validateInputNameFantasy();
+            this.validateInputNameBusiness();
+            this.validateInputContactProvider();
+            this.validateInputCpnjProvider();
+            this.validateInputEmailProvider();
+            this.validateInputPasswordProvider();
+            this.validateInputCepProvider();
+            this.validateInputNumberProvider();
+        }
+    }
+
+    //PROVIDER
+    public allIputsValidsProvider(): boolean {
+        if (this.inputNameFantasy !== 'input is-danger' && this.inputNameBusiness !== 'input is-danger' && this.inputContactProvider !== 'input is-danger' && this.inputCnpjProvider !== 'input is-danger' && this.inputEmailProvider !== 'input is-danger' && this.inputPasswordProvider !== 'input is-danger' && this.inputCepProvider !== 'input is-danger' && this.inputNumberProvider !== 'input is-danger') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //FUNÇÃO DE REGISTRAR
     public onClickRegister(): void {
-        this.validateFormAssociate();
         if (this.select === '1') {
-            if (this.inputFirstName !== 'input is-danger' && this.inputLastName !== 'input is-danger' && this.inputContact !== 'input is-danger' && this.inputCpf !== 'input is-danger' && this.inputEmail !== 'input is-danger' && this.inputPassword !== 'input is-danger' && this.inputCep !== 'input is-danger' && this.inputNumber !== 'input is-danger') {
+            this.validateFormAssociate();
+            if (this.allIputsValidsAssociate() === true) {
                 this.associateClient.save(this.associate).then(
                     success => {
                         console.log('Associado cadastrado com sucesso!!!');
@@ -744,15 +953,22 @@ export default class Register extends Vue {
                 )
             }
         } else if (this.select === '2') {
-            this.providerClient.save(this.provider).then(
-                success => {
-                    console.log('Fornecedor cadastrado com sucesso!!!');
-                    this.provider = new Provider();
-                },
-                error => {
-                    console.log(error);
+            this.validateFormProvider();
+            if (this.select === '2') {
+                if (this.allIputsValidsProvider() === true) {
+                    this.providerClient.save(this.provider).then(
+                    success => {
+                        console.log('Fornecedor cadastrado com sucesso!!!');
+                        this.resetInputsProvider();
+                        this.notificationSaveProvider = true;
+                        this.provider = new Provider();
+                    },
+                    error => {
+                        console.log(error);
+                    }
+                )
                 }
-            )
+            }
         } else if (this.select === '3') {
             this.caregiverClient.save(this.caregiver).then(
                 success => {
@@ -767,6 +983,10 @@ export default class Register extends Vue {
     }
     public closeNotification() {
         this.notificationSave = false;
+    }
+
+    public closeNotificationProvider() {
+        this.notificationSaveProvider = false;
     }
 }
 </script>
