@@ -2,9 +2,11 @@
   <div id="app">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
+       <router-link to="/">
         <a class="navbar-item">
           <img src="./assets/Logo.png">
         </a>
+       </router-link>
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="true" data-target="navbarBasicExample">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -115,7 +117,7 @@ nav {
     button {
       background: #EBE3CC !important;
       border-radius: 15px;
-      border: 1px solid #002D4C;
+      border: 3px solid #002D4C;
       width: 132px;
       height: 42px;
       font-family: 'Poppins';
@@ -124,6 +126,7 @@ nav {
       font-size: 18px;
       line-height: 33px;
       color: #002D4C;
+      cursor: pointer;
 
     }
   }
