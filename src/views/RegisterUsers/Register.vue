@@ -314,18 +314,41 @@
                 </div>
 
                 <div v-if="select === '3'">
+                    <article v-if="notificationSaveCaregiver" class="message is-success">
+                        <div class="message-header">
+                            <p>Success</p>
+                            <button @click="closeNotificationCaregiver" class="delete" aria-label="delete"></button>
+                        </div>
+                        <div class="message-body">
+                            Seu cadastro foi enviado para análise, você poderá acessar o sistema assim que for aprovado.
+                            Aguarde uma notificação em seu Email.
+                        </div>
+                    </article>
+
                     <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Primeiro nome</label>
                             <div class="control">
-                                <input v-model="caregiver.firstName" class="input" type="text" placeholder="Primeiro nome">
+                                <input v-model="caregiver.firstName" @blur="validateInputFirstNameCaregiver"
+                                    :class="`${inputFirstNameCaregiver}`" type="text" placeholder="Primeiro nome">
+                                <p v-if="errorMessageFirstNameCaregiver">
+                                <ul>
+                                    <li v-for="error in errorMessageFirstNameCaregiver" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Sobrenome</label>
                             <div class="control">
-                                <input v-model="caregiver.lastName" class="input" type="text" placeholder="Sobrenome">
+                                <input v-model="caregiver.lastName" @blur="validateInputLastNameCaregiver"
+                                    :class="`${inputLastNameCaregiver}`" type="text" placeholder="Sobrenome">
+                                <p v-if="errorMessageLastNameCaregiver">
+                                <ul>
+                                    <li v-for="error in errorMessageLastNameCaregiver" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -334,8 +357,14 @@
                         <div class="field">
                             <label class="label">Contato</label>
                             <div class="control">
-                                <input v-model="caregiver.contact" class="input" type="text"
+                                <input v-model="caregiver.contact" @blur="validateInputContactCaregiver"
+                                    :class="`${inputContactCaregiver}`" type="text"
                                     placeholder="Exemplo: (45) 9 0000-0000">
+                                    <p v-if="errorMessageContactCaregiver">
+                                <ul>
+                                    <li v-for="error in errorMessageContactCaregiver" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
 
@@ -478,6 +507,7 @@ export default class Register extends Vue {
 
     public notificationSave: boolean = false;
     public notificationSaveProvider: boolean = false;
+    public notificationSaveCaregiver: boolean = false;
 
     //ASSOCIATE
     public inputFirstName: string = 'input';
@@ -519,6 +549,32 @@ export default class Register extends Vue {
     public errorMessagePasswordProvider: string[] = [];
     public errorMessageCepProvider: string[] = [];
     public errorMessageNumberProvider: string[] = [];
+
+    //CAREGIVER
+    public inputFirstNameCaregiver: string = 'input';
+    public inputLastNameCaregiver: string = 'input';
+    public inputContactCaregiver: string = 'input';
+    public inputPhysicalSpaceCaregiver: string = 'input';
+    public inputSpendingCaregiver: string = 'input';
+    public inputCapacityAnimalsCaregiver: string = 'input';
+    public inputCpfCaregiver: string = 'input';
+    public inputEmailCaregiver: string = 'input';
+    public inputPasswordCaregiver: string = 'input';
+    public inputCepCaregiver: string = 'input';
+    public inputNumberCaregiver: string = 'input';
+
+    //CAREGIVER
+    public errorMessageFirstNameCaregiver: string[] = [];
+    public errorMessageLastNameCaregiver: string[] = [];
+    public errorMessageContactCaregiver: string[] = [];
+    public errorMessagePhysicalSpaceCaregiver: string[] = [];
+    public errorMessageSpendingCaregiver: string[] = [];
+    public errorMessageCapacityAnimalsCaregiver: string[] = [];
+    public errorMessageCpfCaregiver: string[] = [];
+    public errorMessageEmailCaregiver: string[] = [];
+    public errorMessagePasswordCaregiver: string[] = [];
+    public errorMessageCepCaregiver: string[] = [];
+    public errorMessageNumberCaregiver: string[] = [];
 
     public changeProfileType(): void {
         const selectProfileType = (<HTMLSelectElement>document.getElementById('selectProfileType')).value;
@@ -935,6 +991,66 @@ export default class Register extends Vue {
         }
     }
 
+    ////////////////CAREGIVER//////////////////
+
+    //CAREGIVER
+    public validateInputFirstNameCaregiver() {
+        if (!this.caregiver.firstName) {
+            this.errorMessageFirstNameCaregiver = ['O campo "Primeiro nome" é obrigatório!'];
+            this.inputFirstNameCaregiver = 'input is-danger';
+        }
+        else if (this.caregiver.firstName.length > 15) {
+            this.errorMessageFirstNameCaregiver = ['O campo "Primeiro nome" deve ter no máximo 10 caracteres!'];
+            this.inputFirstNameCaregiver = 'input is-danger';
+        }
+        else if (this.caregiver.firstName.length <= 2) {
+            this.errorMessageFirstNameCaregiver = ['O campo "Primeiro nome" deve ter no mínimo 3 caracteres!'];
+            this.inputFirstNameCaregiver = 'input is-danger';
+        } else {
+            this.errorMessageFirstNameCaregiver = [];
+            this.inputFirstNameCaregiver = 'input is-success';
+        }
+    }
+
+    //CAREGIVER
+    public validateInputLastNameCaregiver() {
+        if (!this.caregiver.lastName) {
+            this.errorMessageLastNameCaregiver = ['O campo "Sobrenome" é obrigatório!'];
+            this.inputLastNameCaregiver = 'input is-danger';
+        } else if (this.caregiver.lastName.length > 20) {
+            this.errorMessageLastNameCaregiver = ['O campo "Sobrenome" deve ter no máximo 20 caracteres!'];
+            this.inputLastNameCaregiver = 'input is-danger';
+        } else if (this.caregiver.lastName.length <= 2) {
+            this.errorMessageLastNameCaregiver = ['O campo "Sobrenome" deve ter no mínimo 3 caracteres!'];
+            this.inputLastNameCaregiver = 'input is-danger';
+        } else {
+            this.errorMessageLastNameCaregiver = [];
+            this.inputLastNameCaregiver = 'input is-success';
+        }
+    }
+
+    //CAREGIVER
+    public validatePhoneNumberCaregiver(phoneNumber: string): boolean {
+        const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
+        return phoneNumberRegex.test(this.caregiver.contact);
+    };
+
+    //CAREGIVER
+    public validateInputContactCaregiver() {
+        if (this.validatePhoneNumberCaregiver(this.caregiver.contact)) {
+            this.errorMessageContactCaregiver = [];
+            this.inputContactCaregiver = 'input is-success';
+        } else if (!this.caregiver.contact) {
+            this.errorMessageContactCaregiver = ['O campo "Contato" é obrigatório!'];
+            this.inputContactCaregiver = 'input is-danger';
+        } else {
+            this.errorMessageContactCaregiver = ['Siga o seguinte formato: "45 9 0000-0000"!'];
+            this.inputContactCaregiver = 'input is-danger';
+        }
+    }
+
+    //CAREGIVER
+
     //FUNÇÃO DE REGISTRAR
     public onClickRegister(): void {
         if (this.select === '1') {
@@ -957,16 +1073,16 @@ export default class Register extends Vue {
             if (this.select === '2') {
                 if (this.allIputsValidsProvider() === true) {
                     this.providerClient.save(this.provider).then(
-                    success => {
-                        console.log('Fornecedor cadastrado com sucesso!!!');
-                        this.resetInputsProvider();
-                        this.notificationSaveProvider = true;
-                        this.provider = new Provider();
-                    },
-                    error => {
-                        console.log(error);
-                    }
-                )
+                        success => {
+                            console.log('Fornecedor cadastrado com sucesso!!!');
+                            this.resetInputsProvider();
+                            this.notificationSaveProvider = true;
+                            this.provider = new Provider();
+                        },
+                        error => {
+                            console.log(error);
+                        }
+                    )
                 }
             }
         } else if (this.select === '3') {
@@ -987,6 +1103,10 @@ export default class Register extends Vue {
 
     public closeNotificationProvider() {
         this.notificationSaveProvider = false;
+    }
+
+    public closeNotificationCaregiver() {
+        this.notificationSaveCaregiver = false;
     }
 }
 </script>
