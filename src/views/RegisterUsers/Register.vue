@@ -1120,12 +1120,12 @@ export default class Register extends Vue {
         if (!this.caregiver.cpf) {
             this.errorMessageCpfCaregiver = ['O campo "CPF" é obrigatório!'];
             this.inputCpfCaregiver = 'input is-danger';
-        } else if (cpf.isValid(this.associate.cpf)) {
-            this.errorMessageCpf = [];
-            this.inputCpf = 'input is-success';
+        } else if (cpf.isValid(this.caregiver.cpf)) {
+            this.errorMessageCpfCaregiver = [];
+            this.inputCpfCaregiver = 'input is-success';
         } else {
-            this.errorMessageCpf = ['Insira um CPF válido!'];
-            this.inputCpf = 'input is-danger';
+            this.errorMessageCpfCaregiver = ['Insira um CPF válido!'];
+            this.inputCpfCaregiver = 'input is-danger';
         }
     }
 
