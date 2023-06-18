@@ -358,9 +358,8 @@
                             <label class="label">Contato</label>
                             <div class="control">
                                 <input v-model="caregiver.contact" @blur="validateInputContactCaregiver"
-                                    :class="`${inputContactCaregiver}`" type="text"
-                                    placeholder="Exemplo: (45) 9 0000-0000">
-                                    <p v-if="errorMessageContactCaregiver">
+                                    :class="`${inputContactCaregiver}`" type="text" placeholder="Exemplo: (45) 9 0000-0000">
+                                <p v-if="errorMessageContactCaregiver">
                                 <ul>
                                     <li v-for="error in errorMessageContactCaregiver" :key="error">{{ error }}</li>
                                 </ul>
@@ -371,8 +370,14 @@
                         <div class="field">
                             <label class="label">Espaço físico disponível</label>
                             <div class="control">
-                                <input v-model="caregiver.physicalSpace" class="input" type="text"
-                                    placeholder="Tamanho do terreno disponível">
+                                <input v-model="caregiver.physicalSpace" @blur="validateInputPhysicalSpaceCaregiver"
+                                    :class="`${inputPhysicalSpaceCaregiver}`" type="text"
+                                    placeholder="Exemplo: 500 metros quadrados">
+                                <p v-if="errorMessagePhysicalSpaceCaregiver">
+                                <ul>
+                                    <li v-for="error in errorMessagePhysicalSpaceCaregiver" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -381,8 +386,13 @@
                         <div class="field">
                             <label class="label">Gastos mensais</label>
                             <div class="control">
-                                <input v-model="caregiver.spending" class="input" type="text"
-                                    placeholder="Média de gastos ao mês">
+                                <input v-model="caregiver.spending" @blur="validateInputSpending"
+                                    :class="`${inputSpendingCaregiver}`" type="text" placeholder="Média de gastos ao mês">
+                                <p v-if="errorMessageSpendingCaregiver">
+                                <ul>
+                                    <li v-for="error in errorMessageSpendingCaregiver" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
 
@@ -1050,6 +1060,49 @@ export default class Register extends Vue {
     }
 
     //CAREGIVER
+    public validateInputPhysicalSpaceCaregiver() {
+        if (!this.caregiver.physicalSpace) {
+            this.errorMessagePhysicalSpaceCaregiver = ['O campo de "Espaço físico" é obrigatório!'];
+            this.inputPhysicalSpaceCaregiver = 'input is-danger';
+        } else if (this.caregiver.physicalSpace.length < 3) {
+            this.errorMessagePhysicalSpaceCaregiver = ['O campo de "Espaço físico" deve ter no mínimo 3 caracteres!'];
+            this.inputPhysicalSpaceCaregiver = 'input is-danger';
+        } else if (this.caregiver.physicalSpace.length > 20) {
+            this.errorMessagePhysicalSpaceCaregiver = ['O campo de "Espaço físico" deve ter no máximo 20 caracteres!'];
+            this.inputPhysicalSpaceCaregiver = 'input is-danger';
+        } else {
+            this.errorMessagePhysicalSpaceCaregiver = [];
+            this.inputPhysicalSpaceCaregiver = 'input is-success';
+        }
+    }
+
+    //CAREGIVER
+    public validateNumberWithTwoDecimals(input: string): boolean {
+        const regex = /^\d{1,3}(\.\d{3})*,\d{2}$/; // Expressão regular para verificar o formato correto: dígitos(1 a 3 dígitos) e repetições opcionais de (ponto seguido por 3 dígitos), vírgula, 2 dígitos
+
+        return regex.test(this.caregiver.spending);
+    }
+
+    //CAREGIVER
+    public validateInputSpending() {
+        if (!this.caregiver.spending) {
+            this.errorMessageSpendingCaregiver = ['O campo de "Gastos mensais" é obrigatório!'];
+            this.inputSpendingCaregiver = 'input is-danger';
+        } else if (this.caregiver.spending.length < 1) {
+            this.errorMessageSpendingCaregiver = ['O campo de "Gastos mensais" não pode ser menor que 1 caracter!'];
+            this.inputSpendingCaregiver = 'input is-danger';
+        } else if (this.caregiver.spending.length > 15) {
+            this.errorMessageSpendingCaregiver = ['O campo de "Gastos mensais" deve ter no máximo 15 caracteres!'];
+            this.inputSpendingCaregiver = 'input is-danger';
+        } else if (this.validateNumberWithTwoDecimals(this.caregiver.spending)) {
+            this.errorMessageSpendingCaregiver = [];
+            this.inputSpendingCaregiver = 'input is-success';
+        }
+        else {
+            this.errorMessageSpendingCaregiver = ['Formato inválido! Exemplo: 100,00 , 1.000,00.'];
+            this.inputSpendingCaregiver = 'input is-danger';
+        }
+    }
 
     //FUNÇÃO DE REGISTRAR
     public onClickRegister(): void {
