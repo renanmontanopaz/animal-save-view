@@ -55,7 +55,7 @@ import { UserClient } from "@/client/User.client";
 import { Token } from "@/model/Token";
 import { LoginUser } from "@/model/Login";
 import { Message } from "@/model/Message";
-import jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode"
 
 @Component
 export default class Login extends Vue {
