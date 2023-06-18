@@ -68,6 +68,7 @@ import { User } from "@/model/User";
 import { Aprove } from "@/model/enum/Aprove";
 import { Animal } from "@/model/Animal";
 import { Vaccination } from "@/model/Vaccination";
+import { AnimalClient } from "@/client/Animal.client";
 
 interface IAttributeMap {
   [key: string]: string;
@@ -84,6 +85,7 @@ export default class Register extends Vue {
   public animalSizes = Object.values(AnimalSize).filter((value) =>
     isNaN(Number(value))
   );
+  private animalClient: AnimalClient = new AnimalClient();
   public animalMock = {
     type: AnimalType.CACHORRO,
     size: AnimalSize.MEDIO,
@@ -101,6 +103,7 @@ export default class Register extends Vue {
 
   public onSubmit() {
     console.log(this.fromMock(this.animalMock));
+    this.animalClient.save(this.fromMock(this.animalMock));
   }
 
   fromMock(mock: any): Animal {
