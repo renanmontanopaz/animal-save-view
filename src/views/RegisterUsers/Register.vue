@@ -27,6 +27,16 @@
                         </div>
                     </article>
 
+                    <article v-if="notificationErrorAssociate" class="message is-danger">
+                        <div class="message-header">
+                            <p>Erro</p>
+                            <button @click="closeNotificationErrorAssociate" class="delete" aria-label="delete"></button>
+                        </div>
+                        <div class="message-body">
+                            Email ou CPF já cadastrado!
+                        </div>
+                    </article>
+
                     <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Primeiro nome</label>
@@ -173,6 +183,16 @@
                         <div class="message-body">
                             Seu cadastro foi enviado para análise, você poderá acessar o sistema assim que for aprovado.
                             Aguarde uma notificação em seu Email.
+                        </div>
+                    </article>
+
+                    <article v-if="notificationErrorProvider" class="message is-danger">
+                        <div class="message-header">
+                            <p>Erro</p>
+                            <button @click="closeNotificationErrorProvider" class="delete" aria-label="delete"></button>
+                        </div>
+                        <div class="message-body">
+                            Email ou CNPJ já cadastrado!
                         </div>
                     </article>
 
@@ -325,6 +345,16 @@
                         </div>
                     </article>
 
+                    <article v-if="notificationErrorCaregiver" class="message is-danger">
+                        <div class="message-header">
+                            <p>Erro</p>
+                            <button @click="closeNotificationErrorCaregiver" class="delete" aria-label="delete"></button>
+                        </div>
+                        <div class="message-body">
+                            Email ou CPF já cadastrado!
+                        </div>
+                    </article>
+
                     <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Primeiro nome</label>
@@ -370,8 +400,8 @@
                         <div class="field">
                             <label class="label">CPF</label>
                             <div class="control">
-                                <input @blur="validateInputCpfCaregiver" v-model="caregiver.cpf" :class="`${inputCpfCaregiver}`" type="text"
-                                    placeholder="Exemplo: 000.000.000-00">
+                                <input @blur="validateInputCpfCaregiver" v-model="caregiver.cpf"
+                                    :class="`${inputCpfCaregiver}`" type="text" placeholder="Exemplo: 000.000.000-00">
                                 <p v-if="errorMessageCpfCaregiver">
                                 <ul>
                                     <li v-for="error in errorMessageCpfCaregiver" :key="error">{{ error }}</li>
@@ -400,7 +430,8 @@
                             <label class="label">Gastos mensais</label>
                             <div class="control">
                                 <input v-model="caregiver.spending" @blur="validateInputSpending"
-                                    :class="`${inputSpendingCaregiver}`" type="text" placeholder="Exemplo: 20,00 ,  2.000,00.">
+                                    :class="`${inputSpendingCaregiver}`" type="text"
+                                    placeholder="Exemplo: 20,00 ,  2.000,00.">
                                 <p v-if="errorMessageSpendingCaregiver">
                                 <ul>
                                     <li v-for="error in errorMessageSpendingCaregiver" :key="error">{{ error }}</li>
@@ -559,6 +590,10 @@ export default class Register extends Vue {
     public notificationSave: boolean = false;
     public notificationSaveProvider: boolean = false;
     public notificationSaveCaregiver: boolean = false;
+
+    public notificationErrorAssociate: boolean = false;
+    public notificationErrorProvider: boolean = false;
+    public notificationErrorCaregiver: boolean = false;
 
     //ASSOCIATE
     public inputFirstName: string = 'input';
@@ -1319,9 +1354,14 @@ export default class Register extends Vue {
                         console.log('Associado cadastrado com sucesso!!!');
                         this.resetInputsAssociate();
                         this.notificationSave = true;
+                        this.notificationErrorAssociate = false;
                         this.associate = new Associate();
                     },
                     error => {
+                        if (error != undefined) {
+                            this.notificationErrorAssociate = true;
+                            this.notificationSave = false;
+                        }
                         console.log(error);
                     }
                 )
@@ -1335,9 +1375,14 @@ export default class Register extends Vue {
                             console.log('Fornecedor cadastrado com sucesso!!!');
                             this.resetInputsProvider();
                             this.notificationSaveProvider = true;
+                            this.notificationErrorProvider = false;
                             this.provider = new Provider();
                         },
                         error => {
+                            if (error != undefined) {
+                                this.notificationErrorProvider = true;
+                                this.notificationSaveProvider = false;
+                            }
                             console.log(error);
                         }
                     )
@@ -1347,16 +1392,21 @@ export default class Register extends Vue {
             this.validateFormCaregiver();
             if (this.allIputsValidsCaregiver() === true) {
                 this.caregiverClient.save(this.caregiver).then(
-                success => {
-                    console.log('Protetor cadastrado com sucesso!!!');
-                    this.resetInputsCaregiver();
-                    this.notificationSaveCaregiver = true;
-                    this.caregiver = new Caregiver();
-                },
-                error => {
-                    console.log(error);
-                }
-            )
+                    success => {
+                        console.log('Protetor cadastrado com sucesso!!!');
+                        this.resetInputsCaregiver();
+                        this.notificationSaveCaregiver = true;
+                        this.notificationErrorCaregiver = false;
+                        this.caregiver = new Caregiver();
+                    },
+                    error => {
+                        if (error != undefined) {
+                                this.notificationErrorCaregiver = true;
+                                this.notificationSaveCaregiver = false;
+                            }
+                        console.log(error);
+                    }
+                )
             }
         }
     }
@@ -1370,6 +1420,18 @@ export default class Register extends Vue {
 
     public closeNotificationCaregiver() {
         this.notificationSaveCaregiver = false;
+    }
+
+    public closeNotificationErrorAssociate() {
+        this.notificationErrorAssociate = false;
+    }
+
+    public closeNotificationErrorProvider() {
+        this.notificationErrorProvider = false;
+    }
+
+    public closeNotificationErrorCaregiver() {
+        this.notificationErrorCaregiver = false;
     }
 }
 </script>
