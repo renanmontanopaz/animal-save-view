@@ -10,10 +10,13 @@
     "axios": "^1.4.0",
     "bulma": "^0.9.4",
     "core-js": "^3.8.3",
+    "cpf-cnpj-validator": "^1.0.3",
     "jwt-decode": "^3.1.2",
     "vue-class-component": "^7.2.3",
+    "vue-jwt-decode": "^0.1.0",
     "vue-property-decorator": "^9.1.2",
-    "vue-router": "^3.5.1"
+    "vue-router": "^3.5.1",
+    "vue-select": "^3.20.2"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^6.4.0",
@@ -21,8 +24,9 @@
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-typescript": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
-    "sass": "~1.32",
-    "sass-loader": "^12.6.0",
+    "sass": "^1.32.7",
+    "node-sass": "^4.9.2",
+    "sass-loader": "^12.0.0",
     "typescript": "~4.5.5",
     "vue-template-compiler": "^2.6.14"
   },

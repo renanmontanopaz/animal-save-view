@@ -8,7 +8,7 @@ export class CaregiverClient {
         this.axiosClient = axios.create({
             baseURL: 'http://localhost:8080/api/caregiver',
             headers: {
-                'content-type' : 'application/json'
+                'Content-type' : 'application/json'
             }
         })
     }

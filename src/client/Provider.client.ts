@@ -8,7 +8,7 @@ export class ProviderClient {
         this.axiosClient = axios.create({
             baseURL: 'http://localhost:8080/api/provider',
             headers: {
-                'content-type' : 'application/json'
+                'Content-type' : 'application/json'
             }
         })
     }
