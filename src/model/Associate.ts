@@ -8,6 +8,10 @@ export class Associate extends AbstractEntity {
     contact!: string;
     cpf!: string;
     address!: Address;
+    approved!: boolean;
+    pending!: boolean;
+    rejected!: boolean;
+    occurrences!: Occurrences;
     user!: User;
 
     constructor() {

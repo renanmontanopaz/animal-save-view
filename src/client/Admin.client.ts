@@ -1,5 +1,7 @@
-import axios, {AxiosInstance} from "axios";
 import {Admin} from "@/model/Admin";
+import {AxiosInstance} from "axios";
+import axios from "../auth"
+import {pendings} from "@/model/Pending";
 export class AdminClient {
 
     private axiosClient: AxiosInstance;
@@ -33,6 +35,40 @@ export class AdminClient {
     public async findById(id: number): Promise<Admin> {
         try {
             return (await this.axiosClient.get<Admin>(`/findbyid${id}`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async findAllPending(): Promise<pendings[]> {
+        try {
+            return (await this.axiosClient.get<pendings[]>(`/approves/pending`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async updateStatusPendingToApproved(id: number): Promise<void> {
+        try {
+            return (await this.axiosClient.put(`/approved/associate/${id}`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+    public async updateStatusCaregiverPendingToApproved(id: number): Promise<void> {
+        try {
+            return (await this.axiosClient.put(`/approved/caregiver/${id}`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+    public async updateStatusProviderPendingToApproved(id: number): Promise<void> {
+        try {
+            return (await this.axiosClient.put(`/approved/provider/${id}`)).data
         }
         catch (error:any) {
             return Promise.reject(error.response)

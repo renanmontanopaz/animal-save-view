@@ -10,6 +10,9 @@ export class Provider extends AbstractEntity {
     contact!: string;
     address!: Address;
     tasks!: Task;
+    approved!: boolean;
+    pending!: boolean;
+    rejected!: boolean;
     user!: User;
 
     constructor() {

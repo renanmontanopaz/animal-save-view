@@ -62,8 +62,11 @@ export default class Login extends Vue {
   private userClient: UserClient = new UserClient();
 
   public login: LoginUser = new LoginUser();
-  public token: Token = new Token();
+  public tokenLogin: Token = new Token();
   public notificacao: Message = new Message();
+
+  mounted(): void {
+  }
 
   isVisible = false;
 
@@ -75,23 +78,24 @@ export default class Login extends Vue {
     }, 4000); // Tempo em milissegundos (5 segundos)
   }
   public onClickLogin(): void {
-    console.log(this.login)
+    //console.log(this.login)
     this.userClient.login(this.login).then(
-      success => {
-        this.token = success
-        //const token2 = success
-        const tokenString = success.toString();
-        const decodedToken: { [key: string]: any } = jwt_decode(tokenString);
-        const userAccess: string = decodedToken.access;
+        success => {
+          this.tokenLogin = this.tokenLogin.new(true, `${success}`)
+          const tokenString = this.tokenLogin.token.toString();
+          const decodedToken: { [key: string]: any } = jwt_decode(tokenString);
+          const userAccess: string  = decodedToken.access;
+          console.log(this.tokenLogin)
+          console.log(decodedToken); // Imprime o tipo de acesso do usuário
+          localStorage.setItem('token', this.tokenLogin.token)
+        },
+        error => {
+          this.showComponent();
+          this.notificacao = this.notificacao.new(
+              true, 'notification is-danger', 'Usuário ou senha incorreto'/*+ error.config.data*/
+          )
+        }
 
-        console.log(decodedToken); // Imprime o tipo de acesso do usuário
-      },
-      error => {
-        this.showComponent();
-        this.notificacao = this.notificacao.new(
-          true, 'notification is-danger', 'Usuário ou senha incorreto'/*+ error.config.data*/
-        )
-      }
     )
   }
 

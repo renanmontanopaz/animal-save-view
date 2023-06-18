@@ -4,9 +4,15 @@ import Login from "@/views/Login.vue";
 import RegisterAnimal from "@/views/Protetora/RegisterAnimals.vue";
 import Register from "@/views/RegisterUsers/Register.vue"
 import Associate from "@/views/associate/Associate.vue";
+import Administrator from "@/views/administrator/Administrator.vue";
+import {Token} from "@/model/Token";
+import Modal from "@/views/Modal.vue";
 
-Vue.use(VueRouter);
-
+Vue.use(VueRouter)
+const loginInstance = new Login();
+const tokenLogin: Token = loginInstance.tokenLogin;
+const user: string = loginInstance.tokenLogin.token
+const userauth: boolean = loginInstance.tokenLogin.auth
 const routes: Array<RouteConfig> = [
   {
     path: "/protetora/register-animal",
@@ -26,9 +32,45 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/associado',
-    name: 'associado',
+    name: 'Associado',
     component: Associate,
-    meta: { requiresAuth: true, allowedRoles: ['admin','associate'] }
+    beforeEnter: function (to, from, next) {
+      const token = localStorage.getItem('token')
+
+      if (!token) {
+        next('/login')
+      } else {
+        next()
+      }
+    },
+  },
+  {
+    path: '/administrador',
+    name: 'Adminitrador',
+    component: Administrator,
+    beforeEnter: function (to, from, next) {
+      const token = localStorage.getItem('token')
+      console.log(token)
+      if (!token) {
+        next('/login')
+      } else {
+        next()
+      }
+    },
+  },
+  {
+    path: '',
+    name: 'Modal',
+    component: Modal,
+    beforeEnter: function (to, from, next) {
+      const token = localStorage.getItem('token')
+      console.log(token)
+      if (!token) {
+        next('/login')
+      } else {
+        next()
+      }
+    },
   }
 ]
 
