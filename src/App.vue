@@ -29,12 +29,16 @@
         <div class="navbar-end" id="divTres">
           <div class="navbar-item" id="divDois">
             <div class="buttons">
-              <button href="/register">
+              <router-link to="/register">
+                <button>
                 Registrar
               </button>
-              <button href="/login">
+              </router-link>
+              <router-link to="/login">
+                <button>
                 Entrar
               </button>
+              </router-link>
             </div>
           </div>
         </div>
