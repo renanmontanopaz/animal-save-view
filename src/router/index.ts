@@ -4,6 +4,7 @@ import Login from "@/views/Login.vue";
 import Associate from "@/views/associate/Associate.vue";
 import Administrator from "@/views/administrator/Administrator.vue";
 import {Token} from "@/model/Token";
+import Modal from "@/views/Modal.vue";
 
 
 Vue.use(VueRouter)
@@ -35,6 +36,20 @@ const routes: Array<RouteConfig> = [
     path: '/administrador',
     name: 'Adminitrador',
     component: Administrator,
+    beforeEnter: function (to, from, next) {
+      const token = localStorage.getItem('token')
+      console.log(token)
+      if (!token) {
+        next('/login')
+      } else {
+        next()
+      }
+    },
+  },
+  {
+    path: '',
+    name: 'Modal',
+    component: Modal,
     beforeEnter: function (to, from, next) {
       const token = localStorage.getItem('token')
       console.log(token)

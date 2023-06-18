@@ -28,7 +28,7 @@ export class OcurrencesClient {
             const axiosWithoutToken = axios.create({
                 baseURL: 'http://localhost:8080/api/occurrence',
                 headers: {
-                    'content-type': 'application/json'
+                    'Content-type': 'application/json'
                 }
             });
 
@@ -64,4 +64,14 @@ export class OcurrencesClient {
             return Promise.reject(error.response)
         }
     }
+
+    public async respondToOccurrence(id: number): Promise<void> {
+        try {
+            return(await this.axiosClient.put(`/respond/${id}`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
 }

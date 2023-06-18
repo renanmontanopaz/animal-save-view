@@ -11,3 +11,7 @@ export class Occurrences extends AbstractEntity {
     situation!: Situation;
     caregiver!: Caregiver;
 }
+
+interface caregiver{
+    id: number
+}
