@@ -69,6 +69,9 @@ import { Aprove } from "@/model/enum/Aprove";
 import { Animal } from "@/model/Animal";
 import { Vaccination } from "@/model/Vaccination";
 
+interface IAttributeMap {
+  [key: string]: string;
+}
 @Component({
   components: {
     vSelect,
@@ -97,41 +100,46 @@ export default class Register extends Vue {
   };
 
   public onSubmit() {
-    console.log(this.animalMock);
+    console.log(this.fromMock(this.animalMock));
   }
 
-  // forceNumbersOnly(event: Event) {
-  //   // Substitui qualquer caractere não numérico por uma string vazia
-  //   this.animalMock.age = (event.target as HTMLInputElement).value.replace(
-  //     /\D/g,
-  //     ""
-  //   );
+  fromMock(mock: any): Animal {
+    const animalForm: Partial<Animal> = {};
+
+    animalForm.name = mock.name;
+    animalForm.breed = mock.breed;
+    animalForm.animalType = mock.type;
+    animalForm.animalSize = mock.size;
+    animalForm.color = mock.color;
+    animalForm.age = Number(mock.age);
+    animalForm.observation = mock.observation;
+    let vaccination = new Vaccination();
+    this.setAttributesTrue(vaccination, mock.selectedVaccines);
+    animalForm.vaccination = vaccination;
+    animalForm.caregiver = new Caregiver();
+    animalForm.caregiver.id = mock.caregiver.id;
+
+    return animalForm as Animal;
+  }
+
+  setAttributesTrue(object: any, attributes: string[]): void {
+    const attributeMap: IAttributeMap = {
+      Raiva: "rabies",
+      "Parvovirose Canina": "canineParvovirus",
+      Cinomose: "distemper",
+      "Hepatite Canina": "canineHepatitis",
+    };
+
+    for (let attribute of attributes) {
+      if (
+        attributeMap[attribute] &&
+        object.hasOwnProperty(attributeMap[attribute])
+      ) {
+        object[attributeMap[attribute]] = true;
+      }
+    }
+  }
 }
-// fromMock(mock: any): Animal {
-
-//       const animalForm: Partial<Animal> = {}
-
-//       animalForm.name = mock.name;
-//       animalForm.breed = mock.breed;
-//       animalForm.animalType = mock.type;
-//       animalForm.animalSize = mock.size;
-//       animalForm.color = mock.color;
-//       animalForm.age = Number(mock.age);
-//       animalForm.observation = mock.observation;
-
-//       animalForm.vaccination = new Vaccination();
-//       this.vaccination.vaccines = mock.vaccines;
-//       this.vaccination.selectedVaccines = mock.selectedVaccines;
-
-//       this.caregiver = new Caregiver();
-//       // preencher com os dados do mock
-//       this.caregiver.firstName = mock.caregiver.firstName;
-//       this.caregiver.lastName = mock.caregiver.lastName;
-//       this.caregiver.contact = mock.caregiver.contact;
-//       // etc...
-
-//       return this;
-//   }
 </script>
 
 <style scoped>
