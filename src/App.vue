@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar box" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item">
           <h1>ANIMAL SAVE</h1>
@@ -11,21 +11,33 @@
           <span aria-hidden="true"></span>
         </a>
       </div>
-      <div id="navbarBasicExample" class="navbar-menu">
+      <div id="navbarBasicExample columns is-5" class="navbar-menu">
         <div class="navbar-start">
           <router-link to ='/'> 
             Home
           </router-link> 
-          <router-link to ='/client'> 
+          <router-link to ='/quem-somos'> 
             Quem Somos
           </router-link>
           <router-link to ='/provider'> 
             Parceiros
           </router-link> 
-          <router-link to ='/stock-input'> 
+          <router-link to ='/contact'> 
             Contato
           </router-link>
-        </div>  
+        </div>
+        <div class="navbar-end" id="divTres">
+          <div class="navbar-item" id="divDois">
+            <div class="buttons">
+              <a class="button is-primary" href="/register">
+                <strong>Sign up</strong>
+              </a>
+              <a class="button is-light" href="/login">
+                Log in
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
     <router-view/>
@@ -45,7 +57,7 @@
     padding: 25px 30px;
 
     h1 {
-      font-size: 56px;
+      font-size: 26px;
       font-weight: 800;
       color: black;
     }
@@ -68,3 +80,5 @@
     }
   }
 </style>
+<script setup lang="ts">
+</script>

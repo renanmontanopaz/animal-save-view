@@ -7,15 +7,19 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "axios": "^1.2.1",
+    "axios": "^1.4.0",
     "bulma": "^0.9.4",
     "core-js": "^3.8.3",
+    "cpf-cnpj-validator": "^1.0.3",
+    "jwt-decode": "^3.1.2",
     "vue": "^2.6.14",
     "vue-class-component": "^7.2.3",
+    "vue-jwt-decode": "^0.1.0",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.5.1"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-typescript": "~5.0.0",
