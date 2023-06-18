@@ -8,7 +8,7 @@ export class AssociateClient {
         this.axiosClient = axios.create({
             baseURL: 'http://localhost:8080/api/associate',
             headers: {
-                'content-type' : 'application/json'
+                'Content-type' : 'application/json'
             }
         })
     }
