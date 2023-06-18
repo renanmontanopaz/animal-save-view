@@ -368,6 +368,21 @@
                         </div>
 
                         <div class="field">
+                            <label class="label">CPF</label>
+                            <div class="control">
+                                <input @blur="validateInputCpfCaregiver" v-model="caregiver.cpf" :class="`${inputCpfCaregiver}`" type="text"
+                                    placeholder="Exemplo: 000.000.000-00">
+                                <p v-if="errorMessageCpfCaregiver">
+                                <ul>
+                                    <li v-for="error in errorMessageCpfCaregiver" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="aling_inputs">
+                        <div class="field">
                             <label class="label">Espaço físico disponível</label>
                             <div class="control">
                                 <input v-model="caregiver.physicalSpace" @blur="validateInputPhysicalSpaceCaregiver"
@@ -380,14 +395,12 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Gastos mensais</label>
                             <div class="control">
                                 <input v-model="caregiver.spending" @blur="validateInputSpending"
-                                    :class="`${inputSpendingCaregiver}`" type="text" placeholder="Média de gastos ao mês">
+                                    :class="`${inputSpendingCaregiver}`" type="text" placeholder="Exemplo: 20,00 ,  2.000,00.">
                                 <p v-if="errorMessageSpendingCaregiver">
                                 <ul>
                                     <li v-for="error in errorMessageSpendingCaregiver" :key="error">{{ error }}</li>
@@ -402,7 +415,7 @@
                                 <input v-model="caregiver.capacityAnimals" @blur="validateInputCapacityAnimalsCaregiver"
                                     :class="`${inputCapacityAnimalsCaregiver}`" type="number"
                                     placeholder="Capacidade máxima de animais">
-                                    <p v-if="errorMessageCapacityAnimalsCaregiver">
+                                <p v-if="errorMessageCapacityAnimalsCaregiver">
                                 <ul>
                                     <li v-for="error in errorMessageCapacityAnimalsCaregiver" :key="error">{{ error }}</li>
                                 </ul>
@@ -415,22 +428,33 @@
                         <div class="field">
                             <label class="label">Email</label>
                             <div class="control has-icons-left">
-                                <input v-model="caregiver.user.login" class="input" type="text"
-                                    placeholder="Exemplo: exemplo@gmail.com">
+                                <input v-model="caregiver.user.login" @blur="validateInputEmailCaregiver"
+                                    :class="`${inputEmailCaregiver}`" type="text" placeholder="Exemplo: exemplo@gmail.com">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-user"></i>
                                 </span>
+                                <p v-if="errorMessageEmailCaregiver">
+                                <ul>
+                                    <li v-for="error in errorMessageEmailCaregiver" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Senha</label>
                             <div class="control has-icons-left">
-                                <input v-model="caregiver.user.password" class="input" type="password"
+                                <input v-model="caregiver.user.password" @blur="validateInputPasswordCaregiver"
+                                    :class="`${inputPasswordCaregiver}`" type="password"
                                     placeholder="Mín. 5 dig e Máx. 10 dig">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-lock"></i>
                                 </span>
+                                <p v-if="errorMessagePasswordCaregiver">
+                                <ul>
+                                    <li v-for="error in errorMessagePasswordCaregiver" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -439,15 +463,20 @@
                         <div class="field">
                             <label class="label">Cep</label>
                             <div class="control">
-                                <input v-model="caregiver.address.cep" class="input" type="text"
-                                    placeholder="Exemplo: 01001-000">
+                                <input v-model="caregiver.address.cep" @blur="validateInputCepCaregiver"
+                                    :class="`${inputCepCaregiver}`" type="text" placeholder="Exemplo: 01001-000">
+                                <p v-if="errorMessageCepCaregiver">
+                                <ul>
+                                    <li v-for="error in errorMessageCepCaregiver" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Bairro</label>
                             <div class="control">
-                                <input v-model="caregiver.address.neighborhood" class="input" type="text"
+                                <input disabled v-model="caregiver.address.neighborhood" class="input" type="text"
                                     placeholder="Bairro">
                             </div>
                         </div>
@@ -457,15 +486,21 @@
                         <div class="field">
                             <label class="label">Rua</label>
                             <div class="control">
-                                <input v-model="caregiver.address.road" class="input" type="text" placeholder="Rua">
+                                <input disabled v-model="caregiver.address.road" class="input" type="text"
+                                    placeholder="Rua">
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Número</label>
                             <div class="control">
-                                <input v-model="caregiver.address.houseNumber" class="input" type="text"
-                                    placeholder="Número">
+                                <input v-model="caregiver.address.houseNumber" @blur="validateInputNumberCaregiver"
+                                    :class="`${inputNumberCaregiver}`" type="number" placeholder="Número">
+                                <p v-if="errorMessageNumberCaregiver">
+                                <ul>
+                                    <li v-for="error in errorMessageNumberCaregiver" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -1010,6 +1045,21 @@ export default class Register extends Vue {
     ////////////////CAREGIVER//////////////////
 
     //CAREGIVER
+    public resetInputsCaregiver() {
+        this.inputFirstNameCaregiver = 'input';
+        this.inputLastNameCaregiver = 'input';
+        this.inputContactCaregiver = 'input';
+        this.inputPhysicalSpaceCaregiver = 'input';
+        this.inputSpendingCaregiver = 'input';
+        this.inputCapacityAnimalsCaregiver = 'input';
+        this.inputCpfCaregiver = 'input';
+        this.inputEmailCaregiver = 'input';
+        this.inputPasswordCaregiver = 'input';
+        this.inputCepCaregiver = 'input';
+        this.inputNumberCaregiver = 'input';
+    }
+
+    //CAREGIVER
     public validateInputFirstNameCaregiver() {
         if (!this.caregiver.firstName) {
             this.errorMessageFirstNameCaregiver = ['O campo "Primeiro nome" é obrigatório!'];
@@ -1062,6 +1112,20 @@ export default class Register extends Vue {
         } else {
             this.errorMessageContactCaregiver = ['Siga o seguinte formato: "45 9 0000-0000"!'];
             this.inputContactCaregiver = 'input is-danger';
+        }
+    }
+
+    //CAREGIVER
+    public validateInputCpfCaregiver() {
+        if (!this.caregiver.cpf) {
+            this.errorMessageCpfCaregiver = ['O campo "CPF" é obrigatório!'];
+            this.inputCpfCaregiver = 'input is-danger';
+        } else if (cpf.isValid(this.associate.cpf)) {
+            this.errorMessageCpf = [];
+            this.inputCpf = 'input is-success';
+        } else {
+            this.errorMessageCpf = ['Insira um CPF válido!'];
+            this.inputCpf = 'input is-danger';
         }
     }
 
@@ -1127,6 +1191,124 @@ export default class Register extends Vue {
         }
     }
 
+    //CAREGIVER
+    public validateInputEmailCaregiver() {
+        if (!this.caregiver.user.login) {
+            this.errorMessageEmailCaregiver = ['O campo "Email" é obrigatório!'];
+            this.inputEmailCaregiver = 'input is-danger';
+        } else if (!this.isValidEmail(this.caregiver.user.login)) {
+            this.errorMessageEmailCaregiver = ['Insira um email válido!'];
+            this.inputEmailCaregiver = 'input is-danger';
+        } else {
+            this.errorMessageEmailCaregiver = [];
+            this.inputEmailCaregiver = 'input is-success';
+        }
+    }
+
+    //CAREGIVER
+    public validateInputPasswordCaregiver() {
+        if (!this.caregiver.user.password) {
+            this.errorMessagePasswordCaregiver = ['O campo "Senha" é obrigatório!'];
+            this.inputPasswordCaregiver = 'input is-danger';
+        } else if (this.caregiver.user.password.length <= 4) {
+            this.errorMessagePasswordCaregiver = ['O campo "Senha" deve ter no mínimo 5 caracteres!'];
+            this.inputPasswordCaregiver = 'input is-danger';
+        } else if (this.caregiver.user.password.length >= 11) {
+            this.errorMessagePasswordCaregiver = ['O campo "Senha" deve ter no máximo 10 caracteres!'];
+            this.inputPasswordCaregiver = 'input is-danger';
+        } else {
+            this.errorMessagePasswordCaregiver = [];
+            this.inputPasswordCaregiver = 'input is-success';
+        }
+    }
+
+    //CAREGIVER
+    async fetchAddressCaregiver(): Promise<void> {
+        if (this.caregiver.address.cep.length === 8) {
+            try {
+                const response = await axios.get(`https://viacep.com.br/ws/${this.caregiver.address.cep}/json/`);
+                const { logradouro, bairro } = response.data;
+                if (logradouro == null || bairro == null) {
+                    this.errorMessageCep = ['CEP inválido!'];
+                    this.inputCep = 'input is-danger';
+                }
+                this.caregiver.address.road = logradouro;
+                this.caregiver.address.neighborhood = bairro;
+            } catch (error) {
+                this.errorMessageCepCaregiver = ['CEP inválido!'];
+                this.inputCepCaregiver = 'input is-danger';
+                this.clearAddressFieldsCaregiver();
+            }
+        } else {
+            this.errorMessageCepCaregiver = ['CEP inválido!'];
+            this.inputCepCaregiver = 'input is-danger';
+            this.clearAddressFieldsCaregiver();
+        }
+    }
+
+    //CAREGIVER
+    private clearAddressFieldsCaregiver(): void {
+        this.caregiver.address.road = '';
+        this.caregiver.address.neighborhood = '';
+    }
+
+    //CAREGIVER
+    public validateInputCepCaregiver(): void {
+        if (!this.caregiver.address.cep) {
+            this.errorMessageCepCaregiver = ['O campo "CEP" é obrigatório!'];
+            this.inputCepCaregiver = 'input is-danger';
+            this.clearAddressFieldsCaregiver();
+        } else if (this.caregiver.address.cep.length !== 8) {
+            this.errorMessageCepCaregiver = ['CEP inválido!'];
+            this.inputCepCaregiver = 'input is-danger';
+            this.clearAddressFieldsCaregiver();
+        } else {
+            this.fetchAddressCaregiver();
+            this.errorMessageCepCaregiver = [];
+            this.inputCepCaregiver = 'input is-success';
+        }
+    }
+
+    //CAREGIVER
+    public validateInputNumberCaregiver() {
+        if (!this.caregiver.address.houseNumber) {
+            this.errorMessageNumberCaregiver = ['O campo "Número" é obrigatório!'];
+            this.inputNumberCaregiver = 'input is-danger';
+        } else if (this.caregiver.address.houseNumber > 1000000) {
+            this.errorMessageNumberCaregiver = ['O número inserido é invalido!'];
+            this.inputNumberCaregiver = 'input is-danger';
+        } else {
+            this.errorMessageNumberCaregiver = [];
+            this.inputNumberCaregiver = 'input is-success';
+        }
+    }
+
+    //CAREGIVER
+    public validateFormCaregiver() {
+        if (this.select === '3') {
+            this.validateInputFirstNameCaregiver();
+            this.validateInputLastNameCaregiver();
+            this.validateInputContactCaregiver();
+            this.validateInputCpfCaregiver();
+            this.validateInputPhysicalSpaceCaregiver();
+            this.validateInputSpending();
+            this.validateInputCapacityAnimalsCaregiver();
+            this.validateInputEmailCaregiver();
+            this.validateInputPasswordCaregiver();
+            this.validateInputCepCaregiver();
+            this.validateInputNumberCaregiver();
+        }
+    }
+
+    //CAREGIVER
+    public allIputsValidsCaregiver(): boolean {
+        if (this.inputFirstNameCaregiver !== 'input is-danger' && this.inputLastNameCaregiver !== 'input is-danger' && this.inputContactCaregiver !== 'input is-danger' && this.inputPhysicalSpaceCaregiver !== 'input is-danger' && this.inputSpendingCaregiver !== 'input is-danger' && this.inputCapacityAnimalsCaregiver !== 'input is-danger' && this.inputCpfCaregiver !== 'input is-danger' && this.inputEmailCaregiver !== 'input is-danger' && this.inputPasswordCaregiver !== 'input is-danger' && this.inputCepCaregiver !== 'input is-danger' && this.inputNumberCaregiver !== 'input is-danger') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     //FUNÇÃO DE REGISTRAR
     public onClickRegister(): void {
         if (this.select === '1') {
@@ -1162,15 +1344,20 @@ export default class Register extends Vue {
                 }
             }
         } else if (this.select === '3') {
-            this.caregiverClient.save(this.caregiver).then(
+            this.validateFormCaregiver();
+            if (this.allIputsValidsCaregiver() === true) {
+                this.caregiverClient.save(this.caregiver).then(
                 success => {
                     console.log('Protetor cadastrado com sucesso!!!');
+                    this.resetInputsCaregiver();
+                    this.notificationSaveCaregiver = true;
                     this.caregiver = new Caregiver();
                 },
                 error => {
                     console.log(error);
                 }
             )
+            }
         }
     }
     public closeNotification() {

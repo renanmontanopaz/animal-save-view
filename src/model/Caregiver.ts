@@ -8,6 +8,7 @@ export class Caregiver extends AbstractEntity {
     firstName!: string;
     lastName!: string;
     contact!: string;
+    cpf!: string;
     address!: Address;
     physicalSpace!: string;
     spending!: string;
