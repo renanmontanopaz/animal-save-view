@@ -4,10 +4,13 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <p >Selecione o Protetor(a)</p>
-          <div class="select is-normal">
-            <select v-for="item2 in caregiverList">
-              <option :value="item2.id" >{{item2.firstName}}</option>
+          <div class="select is-normal field">
+            <select v-model.lazy="Ocorrencia.caregiver">
+              <option v-for="item2 in caregiverList" :value="item2" >{{item2.firstName}}</option>
             </select>
+          </div>
+          <div class="control" style="margin-top: 10px">
+            <button class="button is-link control" @click="Cadaster">Encaminhar</button>
           </div>
           <div class="">
             <slot name="">
@@ -56,31 +59,6 @@
   color: #42b983;
 }
 
-.modal-body {
-  margin: 20px 0;
-}
-
-.modal-default-button {
-  float: right;
-}
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-
 .modal-enter .modal-container,
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
@@ -90,15 +68,26 @@
 </style>
 <script lang="ts">
 import Vue from "vue";
-import {Component} from "vue-property-decorator";
+import {Component, Prop} from "vue-property-decorator";
 import {CaregiverClient} from "@/client/Caregiver.client";
 import {Caregiver} from "@/model/Caregiver";
 import {OcurrencesClient} from "@/client/Ocurrences.client";
 import {Occurrences} from "@/model/Occurrences";
 import RegisterPublic from "@/views/administrator/RegisterPublic.vue";
 
+export interface ocurrencia{
+  name: string;
+  contact: string;
+  description: string;
+  referenceLocal: string;
+  situation: string;
+  caregiver: {
+    id: number
+  }
+}
 @Component
 export default class Modal extends Vue {
+  @Prop() Ocorrencia!: ocurrencia;
   public caregiverClient: CaregiverClient = new CaregiverClient();
   public caregiverList: Caregiver[] = [];
   public caregiver: Caregiver = new Caregiver();
@@ -108,8 +97,8 @@ export default class Modal extends Vue {
   private id: number = 0
   public mounted(): void {
     this.listCaregiver()
-    this.recebeId()
   }
+
   public listCaregiver(): void {
     this.caregiverClient.listAll().then(
         success => {
@@ -141,8 +130,30 @@ export default class Modal extends Vue {
         }
     )
   }
+
+  public Cadaster(): void {
+    this.occurrenceClient.save(this.Ocorrencia).then(
+        success => {
+          console.log(success)
+        },
+        error => {
+          console.log(error)
+        }
+    )
+  }
   close() {
       this.$emit('close');
+  }
+
+  public updateOccurrence(): void {
+    this.occurrenceClient.update(this.occurrence).then(
+        success => {
+          console.log('Registro cadastrado com sucesso')
+        },
+        error => {
+          console.log(error)
+        }
+    )
   }
 }
 

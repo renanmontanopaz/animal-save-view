@@ -1,5 +1,6 @@
 import axios, {AxiosInstance} from "axios";
 import {Occurrences} from "@/model/Occurrences";
+import {ocurrencia} from "@/views/Modal.vue";
 
 export class OcurrencesClient {
     private axiosClient: AxiosInstance;
@@ -13,7 +14,7 @@ export class OcurrencesClient {
         })
     }
 
-    public async save(occurrences: Occurrences) : Promise<void> {
+    public async save(occurrences: ocurrencia) : Promise<void> {
         try{
             return(await this.axiosClient.post(`/register`, occurrences)).data
         }

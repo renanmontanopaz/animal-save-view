@@ -15,20 +15,20 @@
         <h3 class="">Ocorrência Nº{{item.id}}</h3>
       </header>
       <div class="columns" style="width: 100%">
-        <blockquote class="" style="">
-          <p class="card-header-title" >Usuário que reportou:{{" "+item.name}}</p>
-          <p class="card-header-title" style="align-items: flex-start">Situação do animal:{{" "+item.description}}</p>
-        </blockquote>
-        <blockquote class="" style="">
+        <article class="column" style="">
+          <p class="card-header-title" style="align-items: center; display: flex">Usuário que reportou:{{" "+item.name}}</p>
+          <p class="card-header-title" style="align-items: center">Situação do animal:{{" "+item.description}}</p>
+        </article>
+        <article class="column" style="">
           <p class="card-header-title" >Localidade:{{" "+item.referenceLocal}}</p>
-          <p class="card-header-title">Situação do animal:{{" "+ item.situation}}</p>
-        </blockquote>
-        <blockquote class="" style="">
+          <p class="card-header-title">Nível:{{" "+ item.situation}}</p>
+        </article>
+        <article class="column" style="">
           <div class="control" style="margin-top: 10px">
             <button class="button is-link" @click="showModal(item.id)">Encaminhar Ocorrência</button>
-            <Modal v-show="isModalVisible" @close="closeModal" />
+            <Modal v-show="isModalVisible" @close="closeModal" :Ocorrencia="occurrence"/>
           </div>
-        </blockquote>
+        </article>
       </div>
     </div>
     </div>
@@ -44,7 +44,7 @@ import {OcurrencesClient} from "@/client/Ocurrences.client";
 import Modal from "@/views/Modal.vue";
 
 @Component({
-    components: {Modal}
+    components: {Modal},
 })
 export default class RegisterPublic extends Vue {
   private occurrenceList: Occurrences[] = []
@@ -52,6 +52,7 @@ export default class RegisterPublic extends Vue {
   isVisible = false;
   public occurrenceClient: OcurrencesClient = new OcurrencesClient();
   public occurrence: Occurrences = new Occurrences();
+  public occurence: Occurrences = new Occurrences()
   public idTres: number = 0
   public mounted(): void {
     this.listOccurrences()
@@ -79,6 +80,17 @@ export default class RegisterPublic extends Vue {
         }
     )
   }
+  public FoundOccurrence(idtwo:number): void {
+    this.occurrenceClient.findById(idtwo).then(
+        success => {
+          this.occurrence = success
+        },
+        error => {
+          console.log(error)
+        }
+    )
+
+  }
   public showComponent(): void {
     this.isVisible = true;
 
@@ -92,6 +104,7 @@ export default class RegisterPublic extends Vue {
   isModalVisible = false
   //private id = Number(this.$route.params.id);
   public showModal(id:number): void {
+    this.FoundOccurrence(id)
     this.isModalVisible = true;
     localStorage.setItem('idocorrencia', id.toString())
   }
