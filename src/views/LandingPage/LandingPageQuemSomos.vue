@@ -24,7 +24,7 @@
   width: 100%;
   height: 100vh;
   background-color: #002D4C;
-  gap: 120px;
+  gap: 60px;
 
   .containerImage {
     width: 22%;
@@ -36,7 +36,7 @@
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
-    font-size: 40px;
+    font-size: 35px;
     line-height: 100px;
     text-align: center;
     color: #EBE3CC;
