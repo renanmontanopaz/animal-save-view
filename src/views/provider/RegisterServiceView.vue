@@ -54,4 +54,14 @@
 <script lang="ts">
 </script>
 
-<style></style>
+<style>
+@import "~bulma/bulma.sass";
+
+textarea {
+    resize: none;
+    min-width: 300px;
+    min-height: 150px;
+    max-width: auto;
+    max-height: auto;
+}
+</style>
