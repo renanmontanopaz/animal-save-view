@@ -29,4 +29,25 @@
 
 <script lang="ts"></script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.columns {
+    h1 {
+        font-size: 36px;
+        color: black;
+    }
+
+    table {
+        width: 70%;
+    }
+
+    .serviceField {
+        width: 79%;
+    }
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+}
+</style>
