@@ -113,6 +113,10 @@ export default class Register extends Vue {
     animalForm.age = Number(mock.age);
     animalForm.observation = mock.observation;
     let vaccination = new Vaccination();
+    vaccination.rabies = false;
+    vaccination.canineHepatitis = false;
+    vaccination.distemper = false;
+    vaccination.canineParvovirus = false;
     this.setAttributesTrue(vaccination, mock.selectedVaccines);
     animalForm.vaccination = vaccination;
     animalForm.caregiver = new Caregiver();

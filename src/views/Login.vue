@@ -4,7 +4,12 @@
       <div class="column is-10">
         <div class="field">
           <p class="control has-icons-left has-icons-right">
-            <input class="input" type="email" placeholder="Email" v-model="login.login">
+            <input
+              class="input"
+              type="email"
+              placeholder="Email"
+              v-model="login.login"
+            />
             <span class="icon is-small is-left">
               <i class="fas fa-envelope"></i>
             </span>
@@ -15,7 +20,12 @@
         </div>
         <div class="field">
           <p class="control has-icons-left">
-            <input class="input" type="password" placeholder="Password" v-model="login.password">
+            <input
+              class="input"
+              type="password"
+              placeholder="Password"
+              v-model="login.password"
+            />
             <span class="icon is-small is-left">
               <i class="fas fa-lock"></i>
             </span>
@@ -48,14 +58,13 @@ main {
 }
 </style>
 <script lang="ts">
-
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import { UserClient } from "@/client/User.client";
 import { Token } from "@/model/Token";
 import { LoginUser } from "@/model/Login";
 import { Message } from "@/model/Message";
-import jwt_decode from "jwt-decode"
+import jwt_decode from "jwt-decode";
 
 @Component
 export default class Login extends Vue {
@@ -65,8 +74,7 @@ export default class Login extends Vue {
   public tokenLogin: Token = new Token();
   public notificacao: Message = new Message();
 
-  mounted(): void {
-  }
+  mounted(): void {}
 
   isVisible = false;
 
@@ -80,28 +88,28 @@ export default class Login extends Vue {
   public onClickLogin(): void {
     //console.log(this.login)
     this.userClient.login(this.login).then(
-        success => {
-          this.tokenLogin = this.tokenLogin.new(true, `${success}`)
-          const tokenString = this.tokenLogin.token.toString();
-          const decodedToken: { [key: string]: any } = jwt_decode(tokenString);
-          const userAccess: string  = decodedToken.access;
-          console.log(this.tokenLogin)
-          console.log(decodedToken); // Imprime o tipo de acesso do usuário
-          localStorage.setItem('token', this.tokenLogin.token)
-        },
-        error => {
-          this.showComponent();
-          this.notificacao = this.notificacao.new(
-              true, 'notification is-danger', 'Usuário ou senha incorreto'/*+ error.config.data*/
-          )
-        }
-
-    )
+      (success) => {
+        this.tokenLogin = this.tokenLogin.new(true, `${success}`);
+        const tokenString = this.tokenLogin.token.toString();
+        const decodedToken: { [key: string]: any } = jwt_decode(tokenString);
+        const userAccess: string = decodedToken.access;
+        console.log(this.tokenLogin);
+        console.log(decodedToken); // Imprime o tipo de acesso do usuário
+        localStorage.setItem("token", this.tokenLogin.token);
+      },
+      (error) => {
+        this.showComponent();
+        this.notificacao = this.notificacao.new(
+          true,
+          "notification is-danger",
+          "Usuário ou senha incorreto" /*+ error.config.data*/
+        );
+      }
+    );
   }
 
   public onClickFecharNotificacao(): void {
-    this.notificacao = new Message()
+    this.notificacao = new Message();
   }
 }
-
 </script>
