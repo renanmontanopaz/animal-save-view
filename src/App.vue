@@ -24,7 +24,7 @@
           <router-link to="/"> Home </router-link>
           <router-link to="/quem-somos"> Quem Somos </router-link>
           <router-link to="/parceiros"> Parceiros </router-link>
-          <router-link to="/contact"> Contato </router-link>
+          <router-link to="/contato"> Contato </router-link>
         </div>
         <div class="navbar-end" id="divTres">
           <div class="navbar-item" id="divDois">

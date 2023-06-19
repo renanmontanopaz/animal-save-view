@@ -1,7 +1,10 @@
 <template>
   <footer>
     <div>
-      <img src="../../assets/" alt="">
+      <img src="../../assets/LogoFooter.svg" alt="">
+    </div>
+    <div>
+      
     </div>
   </footer>
 </template>
