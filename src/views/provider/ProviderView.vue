@@ -10,8 +10,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th class="serviceField"> servico</th>
+                <tr v-for="items in taskList">
+                    <th class="serviceField"> {{ items.name }}</th>
 
                     <th>
                         <button class="button is-warning is-focused">Editar</button>
