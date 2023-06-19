@@ -43,6 +43,10 @@
                     </span>
                 </p>
             </div>
+
+            <div class="field">
+                <button class="button is-success is-focused" type="submit">Cadastrar</button>
+            </div>
         </section>
     </main>
 </template>
