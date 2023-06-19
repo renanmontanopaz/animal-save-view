@@ -1,14 +1,14 @@
 <template>
   <section class="containerQuemSomos">
+    <div class="Pegadas2">
+      <img src="../../assets/Pegadas.svg" alt="">
+    </div>
     <div class="containerImage">
       <img src="../../assets/FotoMenina.svg" alt="">
     </div>
     <div class="containerText">
       <p>Juntos pela felicidade dos animais! Seja parte da nossa equipe, lutando por um mundo onde nenhum animal seja
         deixado para trás.</p>
-    </div>
-    <div class="Pegadas2">
-      <img src="../../assets/Pegadas.svg" alt="">
     </div>
   </section>
 </template>
@@ -26,6 +26,12 @@
   background-color: #002D4C;
   gap: 60px;
 
+  .Pegadas2{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
   .containerImage {
     width: 22%;
     z-index: 1;
@@ -40,12 +46,6 @@
     line-height: 100px;
     text-align: center;
     color: #EBE3CC;
-  }
-  .Pegadas2{
-    position: absolute;
-    width: 20.5%;
-    left: 0%;
-    top: 48%;
   }
 }
 </style>

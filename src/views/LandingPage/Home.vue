@@ -49,7 +49,7 @@
 .containerHome {
   width: 100%;
   height: 100vh;
-  background-color: #ebe3cc !important;
+  background-color: #EBE3CC !important;
   display: flex;
   flex-direction: row;
 
