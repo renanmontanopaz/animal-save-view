@@ -25,6 +25,16 @@
             </div>
 
             <div class="field">
+                <label class="label">Quantidade que será doada por mês</label>
+                <p class="control has-icons-left">
+                    <input class="input" type="input" placeholder="Ex: 10">
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-chart-line"></i>
+                    </span>
+                </p>
+            </div>
+
+            <div class="field">
                 <label class="label">Descrição</label>
                 <p class="control has-icons-left">
                     <textarea class="input" placeholder="Descrição"></textarea>
