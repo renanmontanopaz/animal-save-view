@@ -5,13 +5,15 @@
     </div>
     <div>
       <div>
+        <img src="../../assets/Telefone.svg" alt="">
+        <h2>(45) 98413-5559</h2>
+      </div>
+      <div>
+        <img src="../../assets/Email.svg" alt="">
+        <h2>valesca.imagistica@gmail.com</h2>
+      </div>
+      <div>
         <img src="../../assets/" alt="">
-      </div>
-      <div>
-
-      </div>
-      <div>
-
       </div>
     </div>
   </footer>
