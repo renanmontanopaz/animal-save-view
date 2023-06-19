@@ -85,6 +85,14 @@ export default class Login extends Vue {
       this.isVisible = false;
     }, 4000); // Tempo em milissegundos (5 segundos)
   }
+
+  public extractAuthorities(decodedToken: { [key: string]: any }): string[] {
+    if (decodedToken.authorities && Array.isArray(decodedToken.authorities)) {
+      return decodedToken.authorities;
+    }
+    return [];
+  }
+
   public onClickLogin(): void {
     //console.log(this.login)
     this.userClient.login(this.login).then(
@@ -92,9 +100,19 @@ export default class Login extends Vue {
         this.tokenLogin = this.tokenLogin.new(true, `${success}`);
         const tokenString = this.tokenLogin.token.toString();
         const decodedToken: { [key: string]: any } = jwt_decode(tokenString);
+        // const userAccess: string = decodedToken.access;
+
         const userAccess: string = decodedToken.access;
-        console.log(this.tokenLogin);
-        console.log(decodedToken); // Imprime o tipo de acesso do usuário
+        const authorities: string[] = this.extractAuthorities(decodedToken);
+        console.log(authorities[0]); 
+
+        if (authorities.includes("ROLE_ADMIN")) {
+        // Redirecionar para a tela de registro
+        window.location.href = "/register";
+}
+
+        // console.log(this.tokenLogin);
+        // console.log(decodedToken); // Imprime o tipo de acesso do usuário
         localStorage.setItem("token", this.tokenLogin.token);
       },
       (error) => {
