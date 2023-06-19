@@ -1,11 +1,12 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
+import LandingPageHome from "@/views/LandingPage/LandingPageHome.vue"
+import LandingPageQuemSomos from '@/views/LandingPage/LandingPageQuemSomos.vue';
 import Login from "@/views/Login.vue";
 import RegisterAnimal from "@/views/Protetora/RegisterAnimals.vue";
 import Register from "@/views/RegisterUsers/Register.vue";
 import Associate from "@/views/associate/Associate.vue";
 import Administrator from "@/views/administrator/Administrator.vue";
-import LandingPageHome from "@/views/LandingPage/LandingPageHome.vue"
 import { Token } from "@/model/Token";
 import Modal from "@/views/Modal.vue";
 
@@ -32,9 +33,14 @@ const routes: Array<RouteConfig> = [
     component: Login,
   },
   {
-    path:"/Home",
+    path:"/",
     name:"LangingPageHome",
     component:LandingPageHome,
+  },
+  {
+    path:"/quem-somos",
+    name:"LangingPageQuemSomos",
+    component:LandingPageQuemSomos,
   },
   {
     path: "/associado",
