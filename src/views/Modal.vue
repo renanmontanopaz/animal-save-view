@@ -3,21 +3,22 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
+          <div class="botao">
+            <button class="delete is-large" @click="close">
+              Fechar
+            </button>
+          </div>
           <p >Selecione o Protetor(a)</p>
           <div class="select is-normal field">
-            <select v-model.lazy="Ocorrencia.caregiver">
+            <select v-model="Ocorrencia.caregiver">
               <option v-for="item2 in caregiverList" :value="item2" >{{item2.firstName}}</option>
             </select>
           </div>
           <div class="control" style="margin-top: 10px">
-            <button class="button is-link control" @click="Cadaster">Encaminhar</button>
+            <button class="button is-link control" @click="Cadaster()">Encaminhar</button>
           </div>
           <div class="">
-            <slot name="">
-              <button class="" @click="close">
-                Fechar
-              </button>
-            </slot>
+
           </div>
         </div>
       </div>
@@ -65,6 +66,11 @@
   transform: scale(1.1);
 }
 
+.botao{
+  position: absolute;
+  margin-left: 238px;
+  margin-top: -19px;
+}
 </style>
 <script lang="ts">
 import Vue from "vue";
@@ -76,6 +82,9 @@ import {Occurrences} from "@/model/Occurrences";
 import RegisterPublic from "@/views/administrator/RegisterPublic.vue";
 
 export interface ocurrencia{
+  id: number;
+  active: boolean;
+  register: Date,
   name: string;
   contact: string;
   description: string;
@@ -87,7 +96,8 @@ export interface ocurrencia{
 }
 @Component
 export default class Modal extends Vue {
-  @Prop() Ocorrencia!: ocurrencia;
+  @Prop() Ocorrencia!: Occurrences;
+  @Prop() ListOcorrences: any;
   public caregiverClient: CaregiverClient = new CaregiverClient();
   public caregiverList: Caregiver[] = [];
   public caregiver: Caregiver = new Caregiver();
@@ -111,50 +121,35 @@ export default class Modal extends Vue {
     )
   }
 
-  public recebeId(): void {
-    const numeroArmazenado = localStorage.getItem('idocorrencia');
-    if (numeroArmazenado !== null) {
-      const numeroRecuperado: number = parseInt(numeroArmazenado, 10);
-      this.id = numeroRecuperado
-      console.log('recuperado',this.id)
-    }
-    this.FoundOccurrence()
-  }
-  public FoundOccurrence(): void {
-    this.occurrenceClient.findById(this.id).then(
-        success => {
-          this.occurrence = success
-        },
-        error => {
-          console.log(error)
-        }
-    )
-  }
-
   public Cadaster(): void {
-    this.occurrenceClient.save(this.Ocorrencia).then(
+    const objetoEnviado: ocurrencia = {
+      id: this.Ocorrencia.id,
+      active: this.Ocorrencia.active,
+      register: this.Ocorrencia.register,
+      name: this.Ocorrencia.name,
+      contact: this.Ocorrencia.contact,
+      description: this.Ocorrencia.description,
+      referenceLocal: this.Ocorrencia.referenceLocal,
+      situation: this.Ocorrencia.situation,
+      caregiver: {
+        id: this.Ocorrencia.caregiver.id
+      }
+    };
+    this.occurrenceClient.update(objetoEnviado).then(
         success => {
           console.log(success)
+          this.ListOcorrences;
         },
         error => {
           console.log(error)
         }
     )
+
   }
   close() {
       this.$emit('close');
   }
 
-  public updateOccurrence(): void {
-    this.occurrenceClient.update(this.occurrence).then(
-        success => {
-          console.log('Registro cadastrado com sucesso')
-        },
-        error => {
-          console.log(error)
-        }
-    )
-  }
 }
 
 </script>

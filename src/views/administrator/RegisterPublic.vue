@@ -17,7 +17,7 @@
       <div class="columns" style="width: 100%">
         <article class="column" style="">
           <p class="card-header-title" style="align-items: center; display: flex">Usuário que reportou:{{" "+item.name}}</p>
-          <p class="card-header-title" style="align-items: center">Situação do animal:{{" "+item.description}}</p>
+          <p class="card-header-title" style="align-items: flex-start; text-align: start">Situação do animal:{{" "+item.description}}</p>
         </article>
         <article class="column" style="">
           <p class="card-header-title" >Localidade:{{" "+item.referenceLocal}}</p>
@@ -26,7 +26,7 @@
         <article class="column" style="">
           <div class="control" style="margin-top: 10px">
             <button class="button is-link" @click="showModal(item.id)">Encaminhar Ocorrência</button>
-            <Modal v-show="isModalVisible" @close="closeModal" :Ocorrencia="occurrence"/>
+            <Modal v-show="isModalVisible" @close="closeModal" :Ocorrencia="occurrence" :list-ocorrences="listOccurrences"/>
           </div>
         </article>
       </div>
@@ -47,7 +47,7 @@ import Modal from "@/views/Modal.vue";
     components: {Modal},
 })
 export default class RegisterPublic extends Vue {
-  private occurrenceList: Occurrences[] = []
+  public occurrenceList: Occurrences[] = []
   public notificacao: Message = new Message();
   isVisible = false;
   public occurrenceClient: OcurrencesClient = new OcurrencesClient();
@@ -70,7 +70,7 @@ export default class RegisterPublic extends Vue {
     )
   }
 
-  public updateOccurrence(): void {
+  /*public updateOccurrence(): void {
     this.occurrenceClient.update(this.occurrence).then(
         success => {
           console.log('Registro cadastrado com sucesso')
@@ -79,7 +79,7 @@ export default class RegisterPublic extends Vue {
           console.log(error)
         }
     )
-  }
+  }*/
   public FoundOccurrence(idtwo:number): void {
     this.occurrenceClient.findById(idtwo).then(
         success => {
