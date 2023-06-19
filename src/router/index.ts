@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import LandingPageHome from "@/views/LandingPage/LandingPageHome.vue"
 import LandingPageQuemSomos from '@/views/LandingPage/LandingPageQuemSomos.vue';
+import LandingPageParceiros from '@/views/LandingPage/LandingPageParceiros.vue';
 import Login from "@/views/Login.vue";
 import RegisterAnimal from "@/views/Protetora/RegisterAnimals.vue";
 import Register from "@/views/RegisterUsers/Register.vue";
@@ -41,6 +42,11 @@ const routes: Array<RouteConfig> = [
     path:"/quem-somos",
     name:"LangingPageQuemSomos",
     component:LandingPageQuemSomos,
+  },
+  {
+    path:"/parceiros",
+    name:"LangingPageParceiros",
+    component:LandingPageParceiros,
   },
   {
     path: "/associado",
