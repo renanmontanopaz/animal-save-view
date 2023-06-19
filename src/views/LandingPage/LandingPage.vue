@@ -49,8 +49,8 @@
   flex-direction: row;
 
   .containerText {
-    width: 75%;
-    height: 100vh;
+    width: 60%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: start;
@@ -63,8 +63,7 @@
       align-items: center;
       justify-content: center;
       text-align: left;
-      margin-right: 13%;
-      width: 60%;
+      width: 70%;
 
       .TextNA {
         font-family: 'Poppins';
@@ -122,11 +121,11 @@
     }
   }
 
-  /* .dogLeao {
+  .dogLeao {
     position: absolute;
-    top: 65%;
-    width: 15%;
-  } */
+    width: 25%;
+    top: 40%;
+  }
 
 }
 </style>
