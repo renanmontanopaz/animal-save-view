@@ -137,14 +137,14 @@
   .dogLeao {
     position: absolute;
     width: 25%;
-    top: 38.9%;
+    top: 26.7%;
     z-index: 1;
   }
 
   .Rectangle {
     position: absolute;
     width: 27.5%;
-    top: 15%;
+    top: 2.8%;
     right: 0%;
   }
 
