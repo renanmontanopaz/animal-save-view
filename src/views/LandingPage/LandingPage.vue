@@ -29,6 +29,11 @@
         <button class="butt">Como Ajudar</button>
       </div>
     </article>
+    <article class="containerImage">
+      <div class="dogLeao">
+        <img src="../../assets/Cao Leão.svg" alt="">
+      </div>
+    </article>
   </section>
 </template>
 
@@ -40,6 +45,8 @@
   width: 100%;
   height: 100vh;
   background-color: #ebe3cc !important;
+  display: flex;
+  flex-direction: row;
 
   .containerText {
     width: 75%;
@@ -114,6 +121,13 @@
       }
     }
   }
+
+  /* .dogLeao {
+    position: absolute;
+    top: 65%;
+    width: 15%;
+  } */
+
 }
 </style>
 
