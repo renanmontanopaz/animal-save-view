@@ -31,7 +31,13 @@
     </article>
     <article class="containerImage">
       <div class="dogLeao">
-        <img src="../../assets/Cao Leão.svg" alt="">
+        <img src="../../assets/CaoLeão.svg" alt="">
+      </div>
+      <div class="Pegada">
+        <img src="../../assets/Pegadas.svg" alt="">
+      </div>
+      <div class="Rectangle">
+        <img src="../../assets/Rectangle.svg" alt="">
       </div>
     </article>
   </section>
@@ -50,12 +56,13 @@
 
   .containerText {
     width: 60%;
-    height: 100%;
+    height: 80%;
     display: flex;
     align-items: center;
     justify-content: start;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
+    margin-top: 5%;
 
 
     .TextH1 {
@@ -64,6 +71,7 @@
       justify-content: center;
       text-align: left;
       width: 70%;
+      margin-right: 11%;
 
       .TextNA {
         font-family: 'Poppins';
@@ -111,12 +119,17 @@
       margin-top: 60px;
 
       .butt {
-        width: 122px;
-        height: 52px;
+        width: 162px;
+        height: 62px;
         background: #FBBD08;
         border-radius: 8px;
         border: none;
-
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 33px;
+        color: #002D4C;
       }
     }
   }
@@ -124,7 +137,23 @@
   .dogLeao {
     position: absolute;
     width: 25%;
-    top: 40%;
+    top: 38.9%;
+    z-index: 1;
+  }
+
+  .Rectangle {
+    position: absolute;
+    width: 27.5%;
+    top: 15%;
+    right: 0%;
+  }
+
+  .Pegada {
+    position: absolute;
+    width: 27.5%;
+    top: 20%;
+    left: 74%;
+    z-index: 1;
   }
 
 }
