@@ -48,4 +48,14 @@
 
 <script lang="ts"></script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "~bulma/bulma.sass";
+
+textarea {
+    resize: none;
+    min-width: 300px;
+    min-height: 150px;
+    max-width: auto;
+    max-height: auto;
+}
+</style>
