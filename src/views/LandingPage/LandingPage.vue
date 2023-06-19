@@ -16,6 +16,18 @@
           </h1>
         </div>
       </div>
+      <div class="TextP">
+        <p class="Textp">
+          Nós da Animal Save somos bons em organização e arrecadação de recursos.
+        </p>
+        <p class="Textp">
+          Nosso objetivo é prestar ajuda qualificada a quem já ajuda os animais.
+        </p>
+      </div>
+      <div class="containerB">
+        <button class="butt">Saiba Mais</button>
+        <button class="butt">Como Ajudar</button>
+      </div>
     </article>
   </section>
 </template>
@@ -30,18 +42,22 @@
   background-color: #ebe3cc !important;
 
   .containerText {
-    width: 50%;
+    width: 75%;
     height: 100vh;
     display: flex;
-    align-items: start;
-    justify-content: center;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    gap: 30px;
 
 
     .TextH1 {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 85%;
+      text-align: left;
+      margin-right: 13%;
+      width: 60%;
 
       .TextNA {
         font-family: 'Poppins';
@@ -59,10 +75,42 @@
         font-size: 50px;
         line-height: 75px;
         color: #002D4C;
+      }
+    }
 
-        .containerDuvidaSpan{
-          
-        }
+    .TextP {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: left;
+
+      .Textp {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 27px;
+        line-height: 45px;
+        color: #002D4C;
+        width: 70%;
+      }
+    }
+
+    .containerB {
+      display: flex;
+      align-items: start;
+      justify-content: start;
+      width: 70%;
+      gap: 50px;
+      margin-top: 60px;
+
+      .butt {
+        width: 122px;
+        height: 52px;
+        background: #FBBD08;
+        border-radius: 8px;
+        border: none;
+
       }
     }
   }
