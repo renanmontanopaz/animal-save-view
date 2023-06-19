@@ -34,7 +34,7 @@ export class AdminClient {
 
     public async findById(id: number): Promise<Admin> {
         try {
-            return (await this.axiosClient.get<Admin>(`/findbyid${id}`)).data
+            return (await this.axiosClient.get<Admin>(`/findbyid/${id}`)).data
         }
         catch (error:any) {
             return Promise.reject(error.response)
@@ -52,7 +52,7 @@ export class AdminClient {
 
     public async updateStatusPendingToApproved(id: number): Promise<void> {
         try {
-            return (await this.axiosClient.put(`/approved/associate/${id}`)).data
+            return (await this.axiosClient.put(`/approved/user/${id}`)).data
         }
         catch (error:any) {
             return Promise.reject(error.response)
@@ -60,7 +60,7 @@ export class AdminClient {
     }
     public async updateStatusCaregiverPendingToApproved(id: number): Promise<void> {
         try {
-            return (await this.axiosClient.put(`/approved/caregiver/${id}`)).data
+            return (await this.axiosClient.put(`/approved/user/${id}`)).data
         }
         catch (error:any) {
             return Promise.reject(error.response)

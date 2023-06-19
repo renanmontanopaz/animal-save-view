@@ -79,7 +79,7 @@ import {CaregiverClient} from "@/client/Caregiver.client";
 import {Caregiver} from "@/model/Caregiver";
 import {OcurrencesClient} from "@/client/Ocurrences.client";
 import {Occurrences} from "@/model/Occurrences";
-import RegisterPublic from "@/views/administrator/RegisterPublic.vue";
+import RegisterPublic from "@/views/Administrator/RegisterPublic.vue";
 
 export interface ocurrencia{
   id: number;

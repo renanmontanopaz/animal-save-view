@@ -28,22 +28,22 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in allPending" :key="item.id">
+            <tr v-for="item in allPending">
               <td>{{item.id}}</td>
               <th>{{item.register}}
                 <th>{{item.businessName == null ? item.firstName+" "+ item.lastName : item.businessName}}</th>
                 <th>{{item.user.authorities.map((t) =>(t.authority)).join(',')}}</th>
               </th>
               <td v-if="item.user.authorities.map((t) =>(t.authority)).join(',') == 'ROLE_PROVIDER'">
-                <button class="button is-small is-link" @click="updateProvider(item.id)"><strong>Aprovar</strong></button>
+                <button class="button is-small is-link" @click="updateToApproved(item.id)"><strong>Aprovar</strong></button>
                 <button class="button is-small is-danger"><strong>Rejeitar</strong></button>
               </td>
               <td v-if="item.user.authorities.map((t) =>(t.authority)).join(',') == 'ROLE_ASSOCIATE'">
-                <button class="button is-small is-link" @click="updateAssociate(item.id)"><strong>Aprovar</strong></button>
+                <button class="button is-small is-link" @click="updateToApproved(item.id)"><strong>Aprovar</strong></button>
                 <button class="button is-small is-danger" @click=""><strong>Rejeitar</strong></button>
               </td>
               <td v-if="item.user.authorities.map((t) =>(t.authority)).join(',') == 'ROLE_CAREGIVER'">
-                <button class="button is-small is-link" @click="updateCaregiver(item.id)"><strong>Aprovar</strong></button>
+                <button class="button is-small is-link" @click="updateToApproved(item.id)"><strong>Aprovar</strong></button>
                 <button class="button is-small is-danger"><strong>Rejeitar</strong></button>
               </td>
             </tr>
@@ -71,7 +71,7 @@ import {User} from "@/model/User";
 import {AdminClient} from "@/client/Admin.client";
 import {pendings} from "@/model/Pending";
 import {Message} from "@/model/Message";
-import RegisterPublic from "@/views/administrator/RegisterPublic.vue";
+import RegisterPublic from "@/views/Administrator/RegisterPublic.vue";
 
 interface Tab {
   label: string;
@@ -83,9 +83,6 @@ interface Tab {
   components: {RegisterPublic}
 })
 export default class Administrator extends Vue {
-
-  private occurrencesList: Occurrences[] = []
-  public usersList: User[] = []
   public allPending: pendings[] = []
   public adminClient: AdminClient = new AdminClient();
   public notificacao: Message = new Message();
@@ -118,7 +115,7 @@ export default class Administrator extends Vue {
     )
   }
 
-  public updateAssociate(id:number): void {
+  public updateToApproved(id:number): void {
     this.adminClient.updateStatusPendingToApproved(id).then(
         success => {
           this.showComponent();
@@ -133,35 +130,6 @@ export default class Administrator extends Vue {
     )
   }
 
-  public updateCaregiver(id:number): void {
-    this.adminClient.updateStatusCaregiverPendingToApproved(id).then(
-        success => {
-          this.showComponent();
-          this.notificacao = this.notificacao.new(
-              true, 'notification is-primary', 'Usuário Aprovado!'/*+ error.config.data*/
-          )
-          this.onClickRequisicao()
-        },
-        error => {
-          console.log(error)
-        }
-    )
-  }
-
-  public updateProvider(id:number): void {
-    this.adminClient.updateStatusProviderPendingToApproved(id).then(
-        success => {
-          this.showComponent();
-          this.notificacao = this.notificacao.new(
-              true, 'notification is-primary', 'Usuário Aprovado!'/*+ error.config.data*/
-          )
-          this.onClickRequisicao()
-        },
-        error => {
-          console.log(error)
-        }
-    )
-  }
   public showComponent(): void {
     this.isVisible = true;
 
