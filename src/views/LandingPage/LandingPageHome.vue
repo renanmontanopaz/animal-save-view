@@ -33,7 +33,7 @@
       <div class="dogLeao">
         <img src="../../assets/CaoLeão.svg" alt="">
       </div>
-      <div class="Pegada">
+      <div class="Pegada1">
         <img src="../../assets/Pegadas.svg" alt="">
       </div>
       <div class="Rectangle">
@@ -42,8 +42,7 @@
     </article>
   </section>
 </template>
-
-<style Lang="scss" scoped>
+<style Lang="scss">
 @import "~bulma/bulma.sass";
 @import url("https://fonts.googleapis.com/css2?family=Concert+One&family=Poppins:ital,wght@0,200;0,400;0,600;1,100&display=swap");
 
@@ -59,7 +58,7 @@
     height: 80%;
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
     flex-direction: column;
     gap: 20px;
     margin-top: 5%;
@@ -98,13 +97,14 @@
       justify-content: center;
       flex-direction: column;
       text-align: left;
+      gap: 25px;
 
       .Textp {
         font-family: 'Poppins';
         font-style: normal;
         font-weight: 700;
         font-size: 27px;
-        line-height: 45px;
+        line-height: 35px;
         color: #002D4C;
         width: 70%;
       }
@@ -112,8 +112,8 @@
 
     .containerB {
       display: flex;
-      align-items: start;
-      justify-content: start;
+      align-items: flex-start;
+      justify-content: flex-start;
       width: 70%;
       gap: 50px;
       margin-top: 60px;
@@ -148,11 +148,11 @@
     right: 0%;
   }
 
-  .Pegada {
+  .Pegada1 {
     position: absolute;
-    width: 27.5%;
-    top: 20%;
-    left: 74%;
+    width: 23.5%;
+    top: 23.5%;
+    left: 77%;
     z-index: 1;
   }
 

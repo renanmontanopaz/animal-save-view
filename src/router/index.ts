@@ -5,7 +5,7 @@ import RegisterAnimal from "@/views/Protetora/RegisterAnimals.vue";
 import Register from "@/views/RegisterUsers/Register.vue";
 import Associate from "@/views/associate/Associate.vue";
 import Administrator from "@/views/administrator/Administrator.vue";
-import LandingPage from "@/views/LandingPage/LandingPage.vue"
+import LandingPage from "@/views/LandingPage/LandingPageHome.vue"
 import { Token } from "@/model/Token";
 import Modal from "@/views/Modal.vue";
 
