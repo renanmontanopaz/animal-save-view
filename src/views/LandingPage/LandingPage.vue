@@ -5,7 +5,7 @@
         <h1 class="TextNA">
           NA
         </h1>
-        <div class="container">
+        <div class="containerDuvidaCerteza">
           <h1>
             DUVIDA 
             <span style="color: #FBBD08;">AJUDE</span>
@@ -41,7 +41,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 10%;
+      width: 50%;
 
       .TextNA {
         font-family: 'Poppins';
