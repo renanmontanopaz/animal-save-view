@@ -7,6 +7,7 @@ import Associate from "@/views/associate/Associate.vue";
 import Administrator from "@/views/administrator/Administrator.vue";
 import { Token } from "@/model/Token";
 import Modal from "@/views/Modal.vue";
+import ListOccurrence from "@/views/Protetora/ListOcurrences.vue";
 
 Vue.use(VueRouter);
 const loginInstance = new Login();
@@ -18,6 +19,12 @@ const routes: Array<RouteConfig> = [
     path: "/protetora/register-animal",
     name: "RegisterAnimal",
     component: RegisterAnimal,
+  },
+
+  {
+    path: "/protetora/list-occurrence",
+    name: "ListOccurrence",
+    component: ListOccurrence,
   },
 
   {
