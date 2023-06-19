@@ -6,12 +6,12 @@
           NA
         </h1>
         <div class="containerDuvidaCerteza">
-          <h1>
-            DUVIDA 
+          <h1 class="containerDuvidaSpan">
+            DUVIDA
             <span style="color: #FBBD08;">AJUDE</span>
           </h1>
           <h1>
-            CERTEZA 
+            CERTEZA
             <span style="color: #FBBD08;">ADOTE</span>
           </h1>
         </div>
@@ -33,7 +33,7 @@
     width: 50%;
     height: 100vh;
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: center;
 
 
@@ -41,7 +41,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 50%;
+      width: 85%;
 
       .TextNA {
         font-family: 'Poppins';
@@ -50,6 +50,19 @@
         font-size: 150px;
         line-height: 225px;
         color: #002D4C;
+      }
+
+      .containerDuvidaCerteza h1 {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 50px;
+        line-height: 75px;
+        color: #002D4C;
+
+        .containerDuvidaSpan{
+          
+        }
       }
     }
   }
