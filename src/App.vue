@@ -2,12 +2,18 @@
   <div id="app">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-       <router-link to="/">
-        <a class="navbar-item">
-          <img src="./assets/Logo.png">
-        </a>
-       </router-link>
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="true" data-target="navbarBasicExample">
+        <router-link to="/">
+          <a class="navbar-item">
+            <img src="./assets/Logo.png" />
+          </a>
+        </router-link>
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="true"
+          data-target="navbarBasicExample"
+        >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -15,31 +21,19 @@
       </div>
       <div id="navbarBasicExample columns is-5" class="navbar-menu">
         <div class="navbar-end">
-          <router-link to='/'>
-            Home
-          </router-link>
-          <router-link to='/quem-somos'>
-            Quem Somos
-          </router-link>
-          <router-link to='/provider'>
-            Parceiros
-          </router-link>
-          <router-link to='/contact'>
-            Contato
-          </router-link>
+          <router-link to="/"> Home </router-link>
+          <router-link to="/quem-somos"> Quem Somos </router-link>
+          <router-link to="/provider"> Parceiros </router-link>
+          <router-link to="/contact"> Contato </router-link>
         </div>
         <div class="navbar-end" id="divTres">
           <div class="navbar-item" id="divDois">
             <div class="buttons">
               <router-link to="/register">
-                <button>
-                Registrar
-              </button>
+                <button>Registrar</button>
               </router-link>
               <router-link to="/login">
-                <button>
-                Entrar
-              </button>
+                <button>Entrar</button>
               </router-link>
             </div>
           </div>
@@ -52,7 +46,7 @@
 
 <style lang="scss">
 @import "~bulma/bulma.sass";
-@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Poppins:ital,wght@0,200;0,400;0,600;1,100&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Concert+One&family=Poppins:ital,wght@0,200;0,400;0,600;1,100&display=swap");
 
 /*
   #EBE3CC - Branco quase rosa
@@ -68,7 +62,7 @@
 
 nav {
   padding: 15px 20px;
-  background-color: #EBE3CC !important;
+  background-color: #ebe3cc !important;
 
   .navbar-item {
     padding-left: 40px;
@@ -91,7 +85,7 @@ nav {
     justify-content: center;
     padding: 0 20px;
     gap: 70px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-style: normal;
     font-weight: 200;
     font-size: 18px;
@@ -100,10 +94,10 @@ nav {
 
   a {
     font-weight: bold;
-    color: #002D4C;
+    color: #002d4c;
 
     &.router-link-exact-active {
-      color: #FBBD08;
+      color: #fbbd08;
     }
   }
 
@@ -115,23 +109,24 @@ nav {
     }
 
     button {
-      background: #EBE3CC !important;
+      background: #ebe3cc !important;
       border-radius: 15px;
-      border: 3px solid #002D4C;
+      border: 3px solid #002d4c;
       width: 132px;
       height: 42px;
-      font-family: 'Poppins';
+      font-family: "Poppins";
       font-style: normal;
       font-weight: 400;
       font-size: 18px;
       line-height: 33px;
-      color: #002D4C;
+      color: #002d4c;
       cursor: pointer;
-
     }
   }
 }
 </style>
 <script lang="ts">
+import Vue from "vue";
 
+export default Vue.extend({});
 </script>
