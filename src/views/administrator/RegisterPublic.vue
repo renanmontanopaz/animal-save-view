@@ -70,7 +70,7 @@ export default class RegisterPublic extends Vue {
     )
   }
 
-  public updateOccurrence(): void {
+  /*public updateOccurrence(): void {
     this.occurrenceClient.update(this.occurrence).then(
         success => {
           console.log('Registro cadastrado com sucesso')
@@ -79,7 +79,7 @@ export default class RegisterPublic extends Vue {
           console.log(error)
         }
     )
-  }
+  }*/
   public FoundOccurrence(idtwo:number): void {
     this.occurrenceClient.findById(idtwo).then(
         success => {

@@ -11,7 +11,6 @@ export class Associate extends AbstractEntity {
     approved!: boolean;
     pending!: boolean;
     rejected!: boolean;
-    occurrences!: Occurrences;
     user!: User;
 
     constructor() {

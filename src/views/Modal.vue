@@ -5,12 +5,12 @@
         <div class="modal-container">
           <p >Selecione o Protetor(a)</p>
           <div class="select is-normal field">
-            <select v-model.lazy="Ocorrencia.caregiver">
+            <select v-model="Ocorrencia.caregiver">
               <option v-for="item2 in caregiverList" :value="item2" >{{item2.firstName}}</option>
             </select>
           </div>
           <div class="control" style="margin-top: 10px">
-            <button class="button is-link control" @click="Cadaster">Encaminhar</button>
+            <button class="button is-link control" @click="Cadaster()">Encaminhar</button>
           </div>
           <div class="">
             <slot name="">
@@ -76,6 +76,9 @@ import {Occurrences} from "@/model/Occurrences";
 import RegisterPublic from "@/views/administrator/RegisterPublic.vue";
 
 export interface ocurrencia{
+  id: number;
+  active: boolean;
+  register: Date,
   name: string;
   contact: string;
   description: string;
@@ -87,7 +90,7 @@ export interface ocurrencia{
 }
 @Component
 export default class Modal extends Vue {
-  @Prop() Ocorrencia!: ocurrencia;
+  @Prop() Ocorrencia!: Occurrences;
   public caregiverClient: CaregiverClient = new CaregiverClient();
   public caregiverList: Caregiver[] = [];
   public caregiver: Caregiver = new Caregiver();
@@ -132,7 +135,22 @@ export default class Modal extends Vue {
   }
 
   public Cadaster(): void {
-    this.occurrenceClient.save(this.Ocorrencia).then(
+    const idLocal = parseInt(localStorage.getItem('idocorrencia') || '0', 10)
+
+    const objetoEnviado: ocurrencia = {
+      id: this.Ocorrencia.id,
+      active: this.Ocorrencia.active,
+      register: this.Ocorrencia.register,
+      name: this.Ocorrencia.name,
+      contact: this.Ocorrencia.contact,
+      description: this.Ocorrencia.description,
+      referenceLocal: this.Ocorrencia.referenceLocal,
+      situation: this.Ocorrencia.situation,
+      caregiver: {
+        id: this.Ocorrencia.caregiver.id
+      }
+    };
+    this.occurrenceClient.update(objetoEnviado).then(
         success => {
           console.log(success)
         },
@@ -145,7 +163,7 @@ export default class Modal extends Vue {
       this.$emit('close');
   }
 
-  public updateOccurrence(): void {
+  /*public updateOccurrence(): void {
     this.occurrenceClient.update(this.occurrence).then(
         success => {
           console.log('Registro cadastrado com sucesso')
@@ -154,7 +172,7 @@ export default class Modal extends Vue {
           console.log(error)
         }
     )
-  }
+  }*/
 }
 
 </script>
