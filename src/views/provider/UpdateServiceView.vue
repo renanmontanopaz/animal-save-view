@@ -33,6 +33,15 @@
                     </span>
                 </p>
             </div>
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <router-link to="/provider"><button class="button is-link is-light">Voltar</button></router-link>
+                </div>
+                <div class="control">
+                    <button class="button is-primary is-focused">Atualizar</button>
+                </div>
+            </div>
         </main>
     </section>
 </template>
