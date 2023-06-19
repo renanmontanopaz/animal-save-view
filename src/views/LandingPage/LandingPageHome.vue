@@ -163,10 +163,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from "vue-property-decorator";
+import LandingPageQuemSomos from "@/views/LandingPage/LandingPageQuemSomos.vue"
 
-
-@Component
-export default class LandingPage extends Vue {
+@Component({
+  components: { LandingPageQuemSomos }
+})
+export default class LandingPageHome extends Vue {
 
 }
 
