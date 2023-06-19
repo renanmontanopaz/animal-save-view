@@ -137,21 +137,21 @@
   .dogLeao {
     position: absolute;
     width: 25%;
-    top: 26.7%;
+    top: 40%;
     z-index: 1;
   }
 
   .Rectangle {
     position: absolute;
     width: 27.5%;
-    top: 2.8%;
+    top: 16.1%;
     right: 0%;
   }
 
   .Pegada1 {
     position: absolute;
     width: 23.5%;
-    top: 23.5%;
+    top: 19.5%;
     left: 77%;
     z-index: 1;
   }
@@ -163,12 +163,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from "vue-property-decorator";
-import LandingPageQuemSomos from "@/views/LandingPage/LandingPageQuemSomos.vue"
 
-@Component({
-  components: { LandingPageQuemSomos }
-})
-export default class LandingPageHome extends Vue {
+@Component
+export default class Home extends Vue {
 
 }
 

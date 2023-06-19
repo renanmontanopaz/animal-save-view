@@ -4,16 +4,10 @@
       <div class="navbar-brand">
         <router-link to="/">
           <a class="navbar-item">
-            <img src="./assets/Logo.png" />
+            <img src="../../assets/Logo.png" />
           </a>
         </router-link>
-        <a
-          role="button"
-          class="navbar-burger"
-          aria-label="menu"
-          aria-expanded="true"
-          data-target="navbarBasicExample"
-        >
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="true" data-target="navbarBasicExample">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -40,7 +34,10 @@
         </div>
       </div>
     </nav>
-    <router-view></router-view>
+    <Home />
+    <AboutUs />
+    <Partners />
+    <Footer></Footer>
   </div>
 </template>
 
@@ -127,6 +124,19 @@ nav {
 </style>
 <script lang="ts">
 import Vue from "vue";
+import { Component } from "vue-property-decorator";
+import Home from '@/views/LandingPage/Home.vue'
+import AboutUs from '@/views/LandingPage/AboutUs.vue'
+import Partners from '@/views/LandingPage/Partners.vue'
+import Footer from '@/views/LandingPage/Footer.vue'
 
-export default Vue.extend({});
+
+export default {
+  components: {
+    Home,
+    AboutUs,
+    Partners,
+    Footer,
+  }
+}
 </script>
