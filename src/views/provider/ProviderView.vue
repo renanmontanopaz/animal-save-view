@@ -10,12 +10,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="items in taskList">
-                    <th class="serviceField"> {{ items.name }}</th>
+                <tr v-for="item in taskList">
+                    <th class="serviceField"> {{ item.name }}</th>
 
                     <th>
-                        <button class="button is-warning is-focused">Editar</button>
-                        <button class="button is-danger is-focused">Apagar</button>
+                        <button @click="onClickEdit(item.id)" class="button is-warning is-focused">Editar</button>
+                        <button @click="onClickDelete()" class="button is-danger is-focused">Apagar</button>
                     </th>
                 </tr>
             </tbody>
