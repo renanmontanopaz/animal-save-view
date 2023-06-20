@@ -117,13 +117,10 @@ nav {
 }
 </style>
 <script lang="ts">
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
 import Home from '@/views/LandingPage/Home.vue'
 import AboutUs from '@/views/LandingPage/AboutUs.vue'
 import Partners from '@/views/LandingPage/Partners.vue'
 import Footer from '@/views/LandingPage/Footer.vue'
-
 
 export default {
   components: {

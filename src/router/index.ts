@@ -11,6 +11,7 @@ import Associate from "@/views/associate/Associate.vue";
 import Administrator from "@/views/administrator/Administrator.vue";
 import { Token } from "@/model/Token";
 import Modal from "@/views/Modal.vue";
+import HeaderVue from '@/views/LandingPage/Header.vue';
 
 Vue.use(VueRouter);
 const loginInstance = new Login();
@@ -38,22 +39,27 @@ const routes: Array<RouteConfig> = [
     path:"/",
     name:"Home",
     component:Home,
+    children:[
+      {
+        path:""
+      }
+    ]
   },
-  {
-    path:"/quem-somos",
-    name:"AboutUs",
-    component:AboutUs,
-  },
-  {
-    path:"/parceiros",
-    name:"Partners",
-    component:Partners,
-  },
-  {
-    path:"/contato",
-    name:"Footer",
-    component:Footer,
-  },
+  // {
+  //   path:"/quem-somos",
+  //   name:"AboutUs",
+  //   component:AboutUs,
+  // },
+  // {
+  //   path:"/parceiros",
+  //   name:"Partners",
+  //   component:Partners,
+  // },
+  // {
+  //   path:"/contato",
+  //   name:"Footer",
+  //   component:Footer,
+  // },
   {
     path: "/associado",
     name: "Associado",
