@@ -269,20 +269,20 @@
                     </div>
 
                     <div class="field">
-                            <label class="label">Email</label>
-                            <div class="control has-icons-left">
-                                <input v-model="provider.user.login" @blur="validateInputEmailProvider"
-                                    :class="`${inputEmailProvider}`" type="text" placeholder="Exemplo: exemplo@gmail.com">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-user"></i>
-                                </span>
-                                <p v-if="errorMessageEmailProvider">
-                                <ul>
-                                    <li v-for="error in errorMessageEmailProvider" :key="error">{{ error }}</li>
-                                </ul>
-                                </p>
-                            </div>
+                        <label class="label">Email</label>
+                        <div class="control has-icons-left">
+                            <input v-model="provider.user.login" @blur="validateInputEmailProvider"
+                                :class="`${inputEmailProvider}`" type="text" placeholder="Exemplo: exemplo@gmail.com">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <p v-if="errorMessageEmailProvider">
+                            <ul>
+                                <li v-for="error in errorMessageEmailProvider" :key="error">{{ error }}</li>
+                            </ul>
+                            </p>
                         </div>
+                    </div>
 
                     <div class="aling_inputs">
                         <div class="field">
@@ -306,7 +306,8 @@
                             <label class="label">Confirmar Senha</label>
                             <div class="control has-icons-left">
                                 <input @blur="validateConfirmPasswordProvider" v-model="provider.user.confirmPassword"
-                                    :class="`${inputConfirmPasswordProvider}`" type="password" placeholder="Confirme a senha">
+                                    :class="`${inputConfirmPasswordProvider}`" type="password"
+                                    placeholder="Confirme a senha">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-lock"></i>
                                 </span>
@@ -317,7 +318,6 @@
                                 </p>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="aling_inputs">
@@ -421,7 +421,7 @@
                             <label class="label">Contato</label>
                             <div class="control">
                                 <input v-model="caregiver.contact" @blur="validateInputContactCaregiver"
-                                    :class="`${inputContactCaregiver}`" type="text" placeholder="Exemplo: (45) 9 0000-0000">
+                                    :class="`${inputContactCaregiver}`" type="text" placeholder="Exemplo: 45 9 00000000">
                                 <p v-if="errorMessageContactCaregiver">
                                 <ul>
                                     <li v-for="error in errorMessageContactCaregiver" :key="error">{{ error }}</li>
@@ -461,10 +461,13 @@
 
                         <div class="field">
                             <label class="label">Gastos mensais</label>
-                            <div class="control">
+                            <div class="control has-icons-left">
                                 <input v-model="caregiver.spending" @blur="validateInputSpending"
                                     :class="`${inputSpendingCaregiver}`" type="text"
                                     placeholder="Exemplo: 20,00 ,  2.000,00.">
+                                    <span class="icon is-small is-left">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </span>
                                 <p v-if="errorMessageSpendingCaregiver">
                                 <ul>
                                     <li v-for="error in errorMessageSpendingCaregiver" :key="error">{{ error }}</li>
@@ -472,7 +475,9 @@
                                 </p>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Capacidade de animais</label>
                             <div class="control">
@@ -486,9 +491,7 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Email</label>
                             <div class="control has-icons-left">
@@ -504,7 +507,9 @@
                                 </p>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Senha</label>
                             <div class="control has-icons-left">
@@ -517,6 +522,23 @@
                                 <p v-if="errorMessagePasswordCaregiver">
                                 <ul>
                                     <li v-for="error in errorMessagePasswordCaregiver" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Confirmar Senha</label>
+                            <div class="control has-icons-left">
+                                <input @blur="validateConfirmPasswordCaregiver" v-model="caregiver.user.confirmPassword"
+                                    :class="`${inputConfirmPasswordCaregiver}`" type="password"
+                                    placeholder="Confirme a senha">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <p v-if="errorMessageConfirmPasswordCaregiver">
+                                <ul>
+                                    <li v-for="error in errorMessageConfirmPasswordCaregiver" :key="error">{{ error }}</li>
                                 </ul>
                                 </p>
                             </div>
@@ -683,6 +705,7 @@ export default class Register extends Vue {
     public inputCpfCaregiver: string = 'input';
     public inputEmailCaregiver: string = 'input';
     public inputPasswordCaregiver: string = 'input';
+    public inputConfirmPasswordCaregiver: string = 'input';
     public inputCepCaregiver: string = 'input';
     public inputNumberCaregiver: string = 'input';
 
@@ -696,6 +719,7 @@ export default class Register extends Vue {
     public errorMessageCpfCaregiver: string[] = [];
     public errorMessageEmailCaregiver: string[] = [];
     public errorMessagePasswordCaregiver: string[] = [];
+    public errorMessageConfirmPasswordCaregiver: string[] = [];
     public errorMessageCepCaregiver: string[] = [];
     public errorMessageNumberCaregiver: string[] = [];
 
@@ -1159,6 +1183,7 @@ export default class Register extends Vue {
         this.inputCpfCaregiver = 'input';
         this.inputEmailCaregiver = 'input';
         this.inputPasswordCaregiver = 'input';
+        this.inputConfirmPasswordCaregiver = 'input';
         this.inputCepCaregiver = 'input';
         this.inputNumberCaregiver = 'input';
     }
@@ -1201,7 +1226,7 @@ export default class Register extends Vue {
 
     //CAREGIVER
     public validatePhoneNumberCaregiver(phoneNumber: string): boolean {
-        const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
+        const phoneNumberRegex = /^(?:\d{2}\s\d{9}|\d{2}\s\d\s\d{4}-\d{4}|\d{2}\s\d\s\d{8})$/;
         return phoneNumberRegex.test(this.caregiver.contact);
     };
 
@@ -1327,6 +1352,20 @@ export default class Register extends Vue {
     }
 
     //CAREGIVER
+    public validateConfirmPasswordCaregiver() {
+        if (!this.caregiver.user.confirmPassword) {
+            this.errorMessageConfirmPasswordCaregiver = ['O campo "Confirmar Senha" é obrigatório!'];
+            this.inputConfirmPasswordCaregiver = 'input is-danger';
+        } else if (this.caregiver.user.confirmPassword !== this.caregiver.user.password) {
+            this.errorMessageConfirmPasswordCaregiver = ['As senhas não correspondem!'];
+            this.inputConfirmPasswordCaregiver = 'input is-danger';
+        } else {
+            this.errorMessageConfirmPasswordCaregiver = [];
+            this.inputConfirmPasswordCaregiver = 'input is-success';
+        }
+    }
+
+    //CAREGIVER
     async fetchAddressCaregiver(): Promise<void> {
         if (this.caregiver.address.cep.length === 8) {
             try {
@@ -1399,6 +1438,7 @@ export default class Register extends Vue {
             this.validateInputCapacityAnimalsCaregiver();
             this.validateInputEmailCaregiver();
             this.validateInputPasswordCaregiver();
+            this.validateConfirmPasswordCaregiver();
             this.validateInputCepCaregiver();
             this.validateInputNumberCaregiver();
         }
@@ -1406,7 +1446,7 @@ export default class Register extends Vue {
 
     //CAREGIVER
     public allIputsValidsCaregiver(): boolean {
-        if (this.inputFirstNameCaregiver !== 'input is-danger' && this.inputLastNameCaregiver !== 'input is-danger' && this.inputContactCaregiver !== 'input is-danger' && this.inputPhysicalSpaceCaregiver !== 'input is-danger' && this.inputSpendingCaregiver !== 'input is-danger' && this.inputCapacityAnimalsCaregiver !== 'input is-danger' && this.inputCpfCaregiver !== 'input is-danger' && this.inputEmailCaregiver !== 'input is-danger' && this.inputPasswordCaregiver !== 'input is-danger' && this.inputCepCaregiver !== 'input is-danger' && this.inputNumberCaregiver !== 'input is-danger') {
+        if (this.inputFirstNameCaregiver !== 'input is-danger' && this.inputLastNameCaregiver !== 'input is-danger' && this.inputContactCaregiver !== 'input is-danger' && this.inputPhysicalSpaceCaregiver !== 'input is-danger' && this.inputSpendingCaregiver !== 'input is-danger' && this.inputCapacityAnimalsCaregiver !== 'input is-danger' && this.inputCpfCaregiver !== 'input is-danger' && this.inputEmailCaregiver !== 'input is-danger' && this.inputPasswordCaregiver !== 'input is-danger' && this.inputConfirmPasswordCaregiver !== 'input is-danger' && this.inputCepCaregiver !== 'input is-danger' && this.inputNumberCaregiver !== 'input is-danger') {
             return true;
         } else {
             return false;
