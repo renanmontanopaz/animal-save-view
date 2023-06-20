@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Occurrences</h1>
+    <div class="title">Occorrências</div>
     <table>
       <thead>
         <tr>
@@ -52,5 +52,10 @@ th,
 td {
   padding: 10px;
   border: 1px solid black;
+}
+.title {
+  align-self: center;
+  font-size: xx-large;
+  font-weight: bold;
 }
 </style>
