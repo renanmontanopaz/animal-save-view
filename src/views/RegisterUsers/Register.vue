@@ -465,7 +465,7 @@
                                 <input v-model="caregiver.spending" @blur="validateInputSpending"
                                     :class="`${inputSpendingCaregiver}`" type="text"
                                     placeholder="Exemplo: 20,00 ,  2.000,00.">
-                                    <span class="icon is-small is-left">
+                                <span class="icon is-small is-left">
                                     <i class="fas fa-money-bill-wave"></i>
                                 </span>
                                 <p v-if="errorMessageSpendingCaregiver">
@@ -609,7 +609,7 @@
     </main>
 </template>
   
-<script lang="ts">
+<script lang="ts" scoped>
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import axios from 'axios';
@@ -1551,12 +1551,26 @@ main {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    padding: 20px;
+
+    background-image: url(../../assets/background-register.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-color: grey;
 
     .section_register {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+
+        background-color: rgb(199, 197, 197);
+
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .container_form {
@@ -1568,8 +1582,17 @@ main {
         gap: 30px;
     }
 
+    input {
+        border: 2px solid;
+    }
+
     .field {
         width: 700px;
+    }
+
+    p {
+        font-size: 16px;
+        color: red;
     }
 
     .container_buttons {
