@@ -51,7 +51,6 @@
   height: 100vh;
   background-color: #EBE3CC !important;
   display: flex;
-  flex-direction: row;
 
   .containerText {
     width: 60%;
@@ -60,24 +59,20 @@
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
-    gap: 20px;
-    margin-top: 5%;
-
+    gap: 1.5em;
 
     .TextH1 {
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: left;
-      width: 70%;
-      margin-right: 11%;
 
       .TextNA {
         font-family: 'Poppins';
         font-style: normal;
         font-weight: 700;
-        font-size: 150px;
-        line-height: 225px;
+        font-size: 9.3em;
+        line-height: 1.5em;
         color: #002D4C;
       }
 
@@ -85,26 +80,26 @@
         font-family: 'Poppins';
         font-style: normal;
         font-weight: 700;
-        font-size: 50px;
-        line-height: 75px;
+        font-size: 3.1em;
+        line-height: 1.2em;
         color: #002D4C;
       }
     }
-
+    
     .TextP {
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       text-align: left;
-      gap: 25px;
+      gap: 1.5em;
 
       .Textp {
         font-family: 'Poppins';
         font-style: normal;
         font-weight: 700;
-        font-size: 27px;
-        line-height: 35px;
+        font-size: 1.6em;
+        line-height: 1.5em;
         color: #002D4C;
         width: 70%;
       }
@@ -115,20 +110,20 @@
       align-items: flex-start;
       justify-content: flex-start;
       width: 70%;
-      gap: 50px;
-      margin-top: 60px;
+      gap: 3.1em;
+      margin-top: 4em;
 
       .butt {
-        width: 162px;
-        height: 62px;
+        width: 8em;
+        height: 3em;
         background: #FBBD08;
-        border-radius: 8px;
+        border-radius: 0.5em;
         border: none;
         font-family: 'Poppins';
         font-style: normal;
         font-weight: 400;
-        font-size: 22px;
-        line-height: 33px;
+        font-size: 1.2em;
+        line-height: 1.5em;
         color: #002D4C;
       }
     }
@@ -157,11 +152,9 @@
   }
 }
 
-/*Fazer a responsividade de todas as telas, EM TODOS OS TAMANHOS*/ 
-
+/*Fazer a responsividade de todas as telas, EM TODOS OS TAMANHOS*/
 
 </style>
-
 
 <script lang="ts">
 import Vue from 'vue'

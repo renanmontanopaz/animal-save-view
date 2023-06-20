@@ -1,18 +1,9 @@
 <template>
-  <div>
-    <Header />
-  </div>
+    <router-view/>
 </template>
 
 <script lang="ts">
-import Header from '@/views/LandingPage/Header.vue'
-
-export default {
-  components: {
-    Header
-
-  }
-}
+export default {}
 </script>
 
 <style lang="scss"></style>

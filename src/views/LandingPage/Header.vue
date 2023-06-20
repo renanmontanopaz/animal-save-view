@@ -51,12 +51,6 @@
   #FBBD08 - Amarelo queimado
 */
 
-#app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-}
-
 nav {
   padding: 15px 20px;
   background-color: #ebe3cc !important;
