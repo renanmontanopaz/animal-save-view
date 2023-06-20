@@ -156,6 +156,10 @@
     z-index: 1;
   }
 }
+
+/*Fazer a responsividade de todas as telas, EM TODOS OS TAMANHOS*/ 
+
+
 </style>
 
 
