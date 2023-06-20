@@ -70,7 +70,7 @@
                             <label class="label">Contato</label>
                             <div class="control">
                                 <input @blur="validateInputContact" v-model="associate.contact" :class="`${inputContact}`"
-                                    type="text" placeholder="Exemplo: 45 9 0000-0000">
+                                    type="text" placeholder="Exemplo: 45 9 00000000">
                                 <p v-if="errorMessageContact">
                                 <ul>
                                     <li v-for="error in errorMessageContact" :key="error">{{ error }}</li>
@@ -742,7 +742,7 @@ export default class Register extends Vue {
 
     //ASSOCIATE
     public validatePhoneNumber(phoneNumber: string): boolean {
-        const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
+        const phoneNumberRegex = /^(?:\d{2}\s\d{9}|\d{2}\s\d\s\d{4}-\d{4}|\d{2}\s\d\s\d{8})$/;
         return phoneNumberRegex.test(this.associate.contact);
     };
 
@@ -755,7 +755,7 @@ export default class Register extends Vue {
             this.errorMessageContact = ['O campo "Contato" é obrigatório!'];
             this.inputContact = 'input is-danger';
         } else {
-            this.errorMessageContact = ['Siga o seguinte formato: "45 9 0000-0000"!'];
+            this.errorMessageContact = ['Siga o seguinte formato: "45 9 00000000"!'];
             this.inputContact = 'input is-danger';
         }
     }
@@ -1392,7 +1392,7 @@ export default class Register extends Vue {
                         this.associate = new Associate();
                     },
                     error => {
-                        if (error != undefined) {
+                        if (error.status === 400) {
                             this.notificationErrorAssociate = true;
                             this.notificationSave = false;
                         }
@@ -1413,7 +1413,7 @@ export default class Register extends Vue {
                             this.provider = new Provider();
                         },
                         error => {
-                            if (error != undefined) {
+                            if (error.status === 400) {
                                 this.notificationErrorProvider = true;
                                 this.notificationSaveProvider = false;
                             }
@@ -1434,7 +1434,7 @@ export default class Register extends Vue {
                         this.caregiver = new Caregiver();
                     },
                     error => {
-                        if (error != undefined) {
+                        if (error.status === 400) {
                             this.notificationErrorCaregiver = true;
                             this.notificationSaveCaregiver = false;
                         }
