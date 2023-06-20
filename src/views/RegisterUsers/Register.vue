@@ -70,7 +70,7 @@
                             <label class="label">Contato</label>
                             <div class="control">
                                 <input @blur="validateInputContact" v-model="associate.contact" :class="`${inputContact}`"
-                                    type="text" placeholder="Exemplo: 45 9 0000-0000">
+                                    type="text" placeholder="Exemplo: 45 9 00000000">
                                 <p v-if="errorMessageContact">
                                 <ul>
                                     <li v-for="error in errorMessageContact" :key="error">{{ error }}</li>
@@ -93,23 +93,23 @@
                         </div>
                     </div>
 
-                    <div class="aling_inputs">
-                        <div class="field">
-                            <label class="label">Email</label>
-                            <div class="control has-icons-left">
-                                <input @blur="validateInputEmail" v-model="associate.user.login" :class="`${inputEmail}`"
-                                    type="text" placeholder="Exemplo: exemplo@gmail.com">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-user"></i>
-                                </span>
-                                <p v-if="errorMessageEmail">
-                                <ul>
-                                    <li v-for="error in errorMessageEmail" :key="error">{{ error }}</li>
-                                </ul>
-                                </p>
-                            </div>
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control has-icons-left">
+                            <input @blur="validateInputEmail" v-model="associate.user.login" :class="`${inputEmail}`"
+                                type="text" placeholder="Exemplo: exemplo@gmail.com">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <p v-if="errorMessageEmail">
+                            <ul>
+                                <li v-for="error in errorMessageEmail" :key="error">{{ error }}</li>
+                            </ul>
+                            </p>
                         </div>
+                    </div>
 
+                    <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Senha</label>
                             <div class="control has-icons-left">
@@ -121,6 +121,22 @@
                                 <p v-if="errorMessagePassword">
                                 <ul>
                                     <li v-for="error in errorMessagePassword" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Confirmar Senha</label>
+                            <div class="control has-icons-left">
+                                <input @blur="validateConfirmPassword" v-model="associate.user.confirmPassword"
+                                    :class="`${inputConfirmPassword}`" type="password" placeholder="Confirme a senha">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <p v-if="errorMessageConfirmPassword">
+                                <ul>
+                                    <li v-for="error in errorMessageConfirmPassword" :key="error">{{ error }}</li>
                                 </ul>
                                 </p>
                             </div>
@@ -229,7 +245,7 @@
                             <label class="label">Contato</label>
                             <div class="control">
                                 <input v-model="provider.contact" @blur="validateInputContactProvider"
-                                    :class="`${inputContactProvider}`" type="text" placeholder="Exemplo: (45) 9 0000-0000">
+                                    :class="`${inputContactProvider}`" type="text" placeholder="Exemplo: 45 9 00000000">
                                 <p v-if="errorMessageContactProvider">
                                 <ul>
                                     <li v-for="error in errorMessageContactProvider" :key="error">{{ error }}</li>
@@ -252,23 +268,23 @@
                         </div>
                     </div>
 
-                    <div class="aling_inputs">
-                        <div class="field">
-                            <label class="label">Email</label>
-                            <div class="control has-icons-left">
-                                <input v-model="provider.user.login" @blur="validateInputEmailProvider"
-                                    :class="`${inputEmailProvider}`" type="text" placeholder="Exemplo: exemplo@gmail.com">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-user"></i>
-                                </span>
-                                <p v-if="errorMessageEmailProvider">
-                                <ul>
-                                    <li v-for="error in errorMessageEmailProvider" :key="error">{{ error }}</li>
-                                </ul>
-                                </p>
-                            </div>
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control has-icons-left">
+                            <input v-model="provider.user.login" @blur="validateInputEmailProvider"
+                                :class="`${inputEmailProvider}`" type="text" placeholder="Exemplo: exemplo@gmail.com">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <p v-if="errorMessageEmailProvider">
+                            <ul>
+                                <li v-for="error in errorMessageEmailProvider" :key="error">{{ error }}</li>
+                            </ul>
+                            </p>
                         </div>
+                    </div>
 
+                    <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Senha</label>
                             <div class="control has-icons-left">
@@ -281,6 +297,23 @@
                                 <p v-if="errorMessagePasswordProvider">
                                 <ul>
                                     <li v-for="error in errorMessagePasswordProvider" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Confirmar Senha</label>
+                            <div class="control has-icons-left">
+                                <input @blur="validateConfirmPasswordProvider" v-model="provider.user.confirmPassword"
+                                    :class="`${inputConfirmPasswordProvider}`" type="password"
+                                    placeholder="Confirme a senha">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <p v-if="errorMessageConfirmPasswordProvider">
+                                <ul>
+                                    <li v-for="error in errorMessageConfirmPasswordProvider" :key="error">{{ error }}</li>
                                 </ul>
                                 </p>
                             </div>
@@ -388,7 +421,7 @@
                             <label class="label">Contato</label>
                             <div class="control">
                                 <input v-model="caregiver.contact" @blur="validateInputContactCaregiver"
-                                    :class="`${inputContactCaregiver}`" type="text" placeholder="Exemplo: (45) 9 0000-0000">
+                                    :class="`${inputContactCaregiver}`" type="text" placeholder="Exemplo: 45 9 00000000">
                                 <p v-if="errorMessageContactCaregiver">
                                 <ul>
                                     <li v-for="error in errorMessageContactCaregiver" :key="error">{{ error }}</li>
@@ -428,10 +461,13 @@
 
                         <div class="field">
                             <label class="label">Gastos mensais</label>
-                            <div class="control">
+                            <div class="control has-icons-left">
                                 <input v-model="caregiver.spending" @blur="validateInputSpending"
                                     :class="`${inputSpendingCaregiver}`" type="text"
                                     placeholder="Exemplo: 20,00 ,  2.000,00.">
+                                    <span class="icon is-small is-left">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </span>
                                 <p v-if="errorMessageSpendingCaregiver">
                                 <ul>
                                     <li v-for="error in errorMessageSpendingCaregiver" :key="error">{{ error }}</li>
@@ -439,7 +475,9 @@
                                 </p>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Capacidade de animais</label>
                             <div class="control">
@@ -453,9 +491,7 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Email</label>
                             <div class="control has-icons-left">
@@ -471,7 +507,9 @@
                                 </p>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Senha</label>
                             <div class="control has-icons-left">
@@ -484,6 +522,23 @@
                                 <p v-if="errorMessagePasswordCaregiver">
                                 <ul>
                                     <li v-for="error in errorMessagePasswordCaregiver" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Confirmar Senha</label>
+                            <div class="control has-icons-left">
+                                <input @blur="validateConfirmPasswordCaregiver" v-model="caregiver.user.confirmPassword"
+                                    :class="`${inputConfirmPasswordCaregiver}`" type="password"
+                                    placeholder="Confirme a senha">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <p v-if="errorMessageConfirmPasswordCaregiver">
+                                <ul>
+                                    <li v-for="error in errorMessageConfirmPasswordCaregiver" :key="error">{{ error }}</li>
                                 </ul>
                                 </p>
                             </div>
@@ -602,6 +657,7 @@ export default class Register extends Vue {
     public inputCpf: string = 'input';
     public inputEmail: string = 'input';
     public inputPassword: string = 'input';
+    public inputConfirmPassword: string = 'input';
     public inputCep: string = 'input';
     public inputNumber: string = 'input';
 
@@ -612,6 +668,7 @@ export default class Register extends Vue {
     public errorMessageCpf: string[] = [];
     public errorMessageEmail: string[] = [];
     public errorMessagePassword: string[] = [];
+    public errorMessageConfirmPassword: string[] = [];
     public errorMessageCep: string[] = [];
     public errorMessageNumber: string[] = [];
 
@@ -623,6 +680,7 @@ export default class Register extends Vue {
     public inputCnpjProvider: string = 'input';
     public inputEmailProvider: string = 'input';
     public inputPasswordProvider: string = 'input';
+    public inputConfirmPasswordProvider: string = 'input';
     public inputCepProvider: string = 'input';
     public inputNumberProvider: string = 'input';
 
@@ -633,6 +691,7 @@ export default class Register extends Vue {
     public errorMessageCnpjProvider: string[] = [];
     public errorMessageEmailProvider: string[] = [];
     public errorMessagePasswordProvider: string[] = [];
+    public errorMessageConfirmPasswordProvider: string[] = [];
     public errorMessageCepProvider: string[] = [];
     public errorMessageNumberProvider: string[] = [];
 
@@ -646,6 +705,7 @@ export default class Register extends Vue {
     public inputCpfCaregiver: string = 'input';
     public inputEmailCaregiver: string = 'input';
     public inputPasswordCaregiver: string = 'input';
+    public inputConfirmPasswordCaregiver: string = 'input';
     public inputCepCaregiver: string = 'input';
     public inputNumberCaregiver: string = 'input';
 
@@ -659,6 +719,7 @@ export default class Register extends Vue {
     public errorMessageCpfCaregiver: string[] = [];
     public errorMessageEmailCaregiver: string[] = [];
     public errorMessagePasswordCaregiver: string[] = [];
+    public errorMessageConfirmPasswordCaregiver: string[] = [];
     public errorMessageCepCaregiver: string[] = [];
     public errorMessageNumberCaregiver: string[] = [];
 
@@ -681,6 +742,7 @@ export default class Register extends Vue {
         this.inputCpf = 'input';
         this.inputEmail = 'input';
         this.inputPassword = 'input';
+        this.inputConfirmPassword = 'input';
         this.inputCep = 'input';
         this.inputNumber = 'input';
     }
@@ -723,7 +785,7 @@ export default class Register extends Vue {
 
     //ASSOCIATE
     public validatePhoneNumber(phoneNumber: string): boolean {
-        const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
+        const phoneNumberRegex = /^(?:\d{2}\s\d{9}|\d{2}\s\d\s\d{4}-\d{4}|\d{2}\s\d\s\d{8})$/;
         return phoneNumberRegex.test(this.associate.contact);
     };
 
@@ -736,7 +798,7 @@ export default class Register extends Vue {
             this.errorMessageContact = ['O campo "Contato" é obrigatório!'];
             this.inputContact = 'input is-danger';
         } else {
-            this.errorMessageContact = ['Siga o seguinte formato: "45 9 0000-0000"!'];
+            this.errorMessageContact = ['Siga o seguinte formato: "45 9 00000000"!'];
             this.inputContact = 'input is-danger';
         }
     }
@@ -789,6 +851,20 @@ export default class Register extends Vue {
         } else {
             this.errorMessagePassword = [];
             this.inputPassword = 'input is-success';
+        }
+    }
+
+    //ASSOCIATE
+    public validateConfirmPassword() {
+        if (!this.associate.user.confirmPassword) {
+            this.errorMessageConfirmPassword = ['O campo "Confirmar Senha" é obrigatório!'];
+            this.inputConfirmPassword = 'input is-danger';
+        } else if (this.associate.user.confirmPassword !== this.associate.user.password) {
+            this.errorMessageConfirmPassword = ['As senhas não correspondem!'];
+            this.inputConfirmPassword = 'input is-danger';
+        } else {
+            this.errorMessageConfirmPassword = [];
+            this.inputConfirmPassword = 'input is-success';
         }
     }
 
@@ -862,6 +938,7 @@ export default class Register extends Vue {
             this.validateInputCpf();
             this.validateInputEmail();
             this.validateInputPassword();
+            this.validateConfirmPassword();
             this.validateInputCep();
             this.validateInputNumber();
         }
@@ -869,7 +946,7 @@ export default class Register extends Vue {
 
     //ASSOCIATE
     public allIputsValidsAssociate(): boolean {
-        if (this.inputFirstName !== 'input is-danger' && this.inputLastName !== 'input is-danger' && this.inputContact !== 'input is-danger' && this.inputCpf !== 'input is-danger' && this.inputEmail !== 'input is-danger' && this.inputPassword !== 'input is-danger' && this.inputCep !== 'input is-danger' && this.inputNumber !== 'input is-danger') {
+        if (this.inputFirstName !== 'input is-danger' && this.inputLastName !== 'input is-danger' && this.inputContact !== 'input is-danger' && this.inputCpf !== 'input is-danger' && this.inputEmail !== 'input is-danger' && this.inputPassword !== 'input is-danger' && this.inputConfirmPassword !== 'input is-danger' && this.inputCep !== 'input is-danger' && this.inputNumber !== 'input is-danger') {
             return true;
         } else {
             return false;
@@ -886,6 +963,7 @@ export default class Register extends Vue {
         this.inputCnpjProvider = 'input';
         this.inputEmailProvider = 'input';
         this.inputPasswordProvider = 'input';
+        this.inputConfirmPasswordProvider = 'input';
         this.inputCepProvider = 'input';
         this.inputNumberProvider = 'input';
     }
@@ -930,7 +1008,7 @@ export default class Register extends Vue {
 
     //PROVIDER
     public validatePhoneNumberProvider(phoneNumber: string): boolean {
-        const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
+        const phoneNumberRegex = /^(?:\d{2}\s\d{9}|\d{2}\s\d\s\d{4}-\d{4}|\d{2}\s\d\s\d{8})$/;
         return phoneNumberRegex.test(this.provider.contact);
     };
 
@@ -943,7 +1021,7 @@ export default class Register extends Vue {
             this.errorMessageContactProvider = ['O campo "Contato" é obrigatório!'];
             this.inputContactProvider = 'input is-danger';
         } else {
-            this.errorMessageContactProvider = ['Siga o seguinte formato: "45 9 0000-0000"!'];
+            this.errorMessageContactProvider = ['Siga o seguinte formato: "45 9 00000000"!'];
             this.inputContactProvider = 'input is-danger';
         }
     }
@@ -990,6 +1068,20 @@ export default class Register extends Vue {
         } else {
             this.errorMessagePasswordProvider = [];
             this.inputPasswordProvider = 'input is-success';
+        }
+    }
+
+    //PROVIDER
+    public validateConfirmPasswordProvider() {
+        if (!this.provider.user.confirmPassword) {
+            this.errorMessageConfirmPasswordProvider = ['O campo "Confirmar Senha" é obrigatório!'];
+            this.inputConfirmPasswordProvider = 'input is-danger';
+        } else if (this.provider.user.confirmPassword !== this.provider.user.password) {
+            this.errorMessageConfirmPasswordProvider = ['As senhas não correspondem!'];
+            this.inputConfirmPasswordProvider = 'input is-danger';
+        } else {
+            this.errorMessageConfirmPasswordProvider = [];
+            this.inputConfirmPasswordProvider = 'input is-success';
         }
     }
 
@@ -1063,6 +1155,7 @@ export default class Register extends Vue {
             this.validateInputCpnjProvider();
             this.validateInputEmailProvider();
             this.validateInputPasswordProvider();
+            this.validateConfirmPasswordProvider();
             this.validateInputCepProvider();
             this.validateInputNumberProvider();
         }
@@ -1070,7 +1163,7 @@ export default class Register extends Vue {
 
     //PROVIDER
     public allIputsValidsProvider(): boolean {
-        if (this.inputNameFantasy !== 'input is-danger' && this.inputNameBusiness !== 'input is-danger' && this.inputContactProvider !== 'input is-danger' && this.inputCnpjProvider !== 'input is-danger' && this.inputEmailProvider !== 'input is-danger' && this.inputPasswordProvider !== 'input is-danger' && this.inputCepProvider !== 'input is-danger' && this.inputNumberProvider !== 'input is-danger') {
+        if (this.inputNameFantasy !== 'input is-danger' && this.inputNameBusiness !== 'input is-danger' && this.inputContactProvider !== 'input is-danger' && this.inputCnpjProvider !== 'input is-danger' && this.inputEmailProvider !== 'input is-danger' && this.inputPasswordProvider !== 'input is-danger' && this.inputConfirmPasswordProvider !== 'input is-danger' && this.inputCepProvider !== 'input is-danger' && this.inputNumberProvider !== 'input is-danger') {
             return true;
         } else {
             return false;
@@ -1090,6 +1183,7 @@ export default class Register extends Vue {
         this.inputCpfCaregiver = 'input';
         this.inputEmailCaregiver = 'input';
         this.inputPasswordCaregiver = 'input';
+        this.inputConfirmPasswordCaregiver = 'input';
         this.inputCepCaregiver = 'input';
         this.inputNumberCaregiver = 'input';
     }
@@ -1132,7 +1226,7 @@ export default class Register extends Vue {
 
     //CAREGIVER
     public validatePhoneNumberCaregiver(phoneNumber: string): boolean {
-        const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
+        const phoneNumberRegex = /^(?:\d{2}\s\d{9}|\d{2}\s\d\s\d{4}-\d{4}|\d{2}\s\d\s\d{8})$/;
         return phoneNumberRegex.test(this.caregiver.contact);
     };
 
@@ -1258,6 +1352,20 @@ export default class Register extends Vue {
     }
 
     //CAREGIVER
+    public validateConfirmPasswordCaregiver() {
+        if (!this.caregiver.user.confirmPassword) {
+            this.errorMessageConfirmPasswordCaregiver = ['O campo "Confirmar Senha" é obrigatório!'];
+            this.inputConfirmPasswordCaregiver = 'input is-danger';
+        } else if (this.caregiver.user.confirmPassword !== this.caregiver.user.password) {
+            this.errorMessageConfirmPasswordCaregiver = ['As senhas não correspondem!'];
+            this.inputConfirmPasswordCaregiver = 'input is-danger';
+        } else {
+            this.errorMessageConfirmPasswordCaregiver = [];
+            this.inputConfirmPasswordCaregiver = 'input is-success';
+        }
+    }
+
+    //CAREGIVER
     async fetchAddressCaregiver(): Promise<void> {
         if (this.caregiver.address.cep.length === 8) {
             try {
@@ -1330,6 +1438,7 @@ export default class Register extends Vue {
             this.validateInputCapacityAnimalsCaregiver();
             this.validateInputEmailCaregiver();
             this.validateInputPasswordCaregiver();
+            this.validateConfirmPasswordCaregiver();
             this.validateInputCepCaregiver();
             this.validateInputNumberCaregiver();
         }
@@ -1337,7 +1446,7 @@ export default class Register extends Vue {
 
     //CAREGIVER
     public allIputsValidsCaregiver(): boolean {
-        if (this.inputFirstNameCaregiver !== 'input is-danger' && this.inputLastNameCaregiver !== 'input is-danger' && this.inputContactCaregiver !== 'input is-danger' && this.inputPhysicalSpaceCaregiver !== 'input is-danger' && this.inputSpendingCaregiver !== 'input is-danger' && this.inputCapacityAnimalsCaregiver !== 'input is-danger' && this.inputCpfCaregiver !== 'input is-danger' && this.inputEmailCaregiver !== 'input is-danger' && this.inputPasswordCaregiver !== 'input is-danger' && this.inputCepCaregiver !== 'input is-danger' && this.inputNumberCaregiver !== 'input is-danger') {
+        if (this.inputFirstNameCaregiver !== 'input is-danger' && this.inputLastNameCaregiver !== 'input is-danger' && this.inputContactCaregiver !== 'input is-danger' && this.inputPhysicalSpaceCaregiver !== 'input is-danger' && this.inputSpendingCaregiver !== 'input is-danger' && this.inputCapacityAnimalsCaregiver !== 'input is-danger' && this.inputCpfCaregiver !== 'input is-danger' && this.inputEmailCaregiver !== 'input is-danger' && this.inputPasswordCaregiver !== 'input is-danger' && this.inputConfirmPasswordCaregiver !== 'input is-danger' && this.inputCepCaregiver !== 'input is-danger' && this.inputNumberCaregiver !== 'input is-danger') {
             return true;
         } else {
             return false;
@@ -1358,7 +1467,7 @@ export default class Register extends Vue {
                         this.associate = new Associate();
                     },
                     error => {
-                        if (error != undefined) {
+                        if (error.status === 400) {
                             this.notificationErrorAssociate = true;
                             this.notificationSave = false;
                         }
@@ -1379,7 +1488,7 @@ export default class Register extends Vue {
                             this.provider = new Provider();
                         },
                         error => {
-                            if (error != undefined) {
+                            if (error.status === 400) {
                                 this.notificationErrorProvider = true;
                                 this.notificationSaveProvider = false;
                             }
@@ -1400,10 +1509,10 @@ export default class Register extends Vue {
                         this.caregiver = new Caregiver();
                     },
                     error => {
-                        if (error != undefined) {
-                                this.notificationErrorCaregiver = true;
-                                this.notificationSaveCaregiver = false;
-                            }
+                        if (error.status === 400) {
+                            this.notificationErrorCaregiver = true;
+                            this.notificationSaveCaregiver = false;
+                        }
                         console.log(error);
                     }
                 )
