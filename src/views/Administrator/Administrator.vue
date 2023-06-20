@@ -52,7 +52,9 @@
         </div>
       </div>
       <RegisterPublic v-if="tabs[1].isActive"></RegisterPublic>
+      <ManagerUsers v-if="tabs[2].isActive"></ManagerUsers>
     </div>
+
   </main>
 </template>
 
@@ -72,6 +74,7 @@ import {AdminClient} from "@/client/Admin.client";
 import {pendings} from "@/model/Pending";
 import {Message} from "@/model/Message";
 import RegisterPublic from "@/views/Administrator/RegisterPublic.vue";
+import ManagerUsers from "@/views/Administrator/ManagerUsers.vue";
 
 interface Tab {
   label: string;
@@ -80,7 +83,9 @@ interface Tab {
 }
 
 @Component({
-  components: {RegisterPublic}
+  components: {RegisterPublic,
+  ManagerUsers
+  }
 })
 export default class Administrator extends Vue {
   public allPending: pendings[] = []

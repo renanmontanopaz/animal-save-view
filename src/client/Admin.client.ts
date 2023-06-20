@@ -2,6 +2,7 @@ import {Admin} from "@/model/Admin";
 import {AxiosInstance} from "axios";
 import axios from "../auth"
 import {pendings} from "@/model/Pending";
+import {User} from "@/model/User";
 export class AdminClient {
 
     private axiosClient: AxiosInstance;
@@ -26,6 +27,15 @@ export class AdminClient {
     public async listAll(): Promise<Admin[]> {
         try {
             return (await this.axiosClient.get<Admin[]>(`/listall`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async listUsers(): Promise<User[]> {
+        try {
+            return (await this.axiosClient.get<User[]>(`/listusers`)).data
         }
         catch (error:any) {
             return Promise.reject(error.response)
