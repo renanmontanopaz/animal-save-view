@@ -466,7 +466,7 @@
                                     :class="`${inputSpendingCaregiver}`" type="text"
                                     placeholder="Exemplo: 20,00 ,  2.000,00.">
                                     <span class="icon is-small is-left">
-                                    <i class="fas fa-dollar-sign"></i>
+                                    <i class="fas fa-money-bill-wave"></i>
                                 </span>
                                 <p v-if="errorMessageSpendingCaregiver">
                                 <ul>
