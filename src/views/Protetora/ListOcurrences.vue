@@ -4,12 +4,12 @@
     <table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Contact</th>
-          <th>Description</th>
-          <th>Reference Local</th>
-          <th>Situation</th>
-          <th>User ID</th>
+          <th>Nome</th>
+          <th>Contato</th>
+          <th>Descrição</th>
+          <th>Local de Referência</th>
+          <th>Situação</th>
+          <th>ID da Ocorrência</th>
         </tr>
       </thead>
       <tbody>
@@ -19,7 +19,7 @@
           <td>{{ occurrence.description }}</td>
           <td>{{ occurrence.referenceLocal }}</td>
           <td>{{ occurrence.situation }}</td>
-          <td>{{ occurrence.caregiver && occurrence.caregiver.id }}</td>
+          <td>{{ occurrence.id }}</td>
         </tr>
       </tbody>
     </table>
