@@ -152,17 +152,106 @@
   }
 }
 
-@media (max-width:700px) {
-  .TextH1 {
+@media (max-width:500px) {
+
+  .containerHome {
+    width: 100%;
+    height: 100vh;
+    background-color: #EBE3CC !important;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
+
+    .containerText {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      .TextH1 {
+        width: 100%;
+        height: 0%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        text-align: center;
+
+        .TextNA {
+          font-family: 'Poppins';
+          font-style: normal;
+          font-weight: 700;
+          font-size: 4em;
+          line-height: 1.5em;
+          color: #002D4C;
+        }
+
+        .containerDuvidaCerteza h1 {
+          font-family: 'Poppins';
+          font-style: normal;
+          font-weight: 700;
+          font-size: 1em;
+          line-height: 1.2em;
+          color: #002D4C;
+        }
+      }
+
+      .TextP {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        .Textp {
+          font-family: 'Poppins';
+          font-style: normal;
+          font-weight: 700;
+          font-size: 1em;
+          line-height: 1.5em;
+          color: #002D4C;
+          width: 70%;
+        }
+      }
+
+      .containerB {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 70%;
+        gap: 3.1em;
+        margin-top: 4em;
+
+        .butt {
+          width: 8em;
+          height: 3em;
+          background: #FBBD08;
+          border-radius: 0.5em;
+          border: none;
+          font-family: 'Poppins';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 1.2em;
+          line-height: 1.5em;
+          color: #002D4C;
+        }
+      }
+    }
+
+    .containerImage {
+      display: none;
+
+      .dogLeao {
+        width: 0;
+      }
+
+      .Rectangle {
+        width: 0
+      }
+
+      .Pegada1 {
+        width: 0;
+      }
+    }
+
   }
 
-  .containerImage {
-    display: none;
-  }
 }
 
 /*Fazer a responsividade de todas as telas, EM TODOS OS TAMANHOS*/
