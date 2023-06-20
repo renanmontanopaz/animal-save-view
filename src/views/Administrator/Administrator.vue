@@ -32,9 +32,13 @@
               <td>{{item.id}}</td>
               <th>{{item.register}}
                 <th>{{item.businessName == null ? item.firstName+" "+ item.lastName : item.businessName}}</th>
-                <th>{{item.user.authorities.map((t) =>(t.authority)).join(',')}}</th>
+
+                <th v-if="item.user.authorities.map((t) =>(t.authority)).join(',') === 'ROLE_ASSOCIATE'">Associado</th>
+                <th v-if="item.user.authorities.map((t) =>(t.authority)).join(',') === 'ROLE_PROVIDER'">Fornecedor</th>
+                <th v-if="item.user.authorities.map((t) =>(t.authority)).join(',') === 'ROLE_CAREGIVER'">Associado</th>
               </th>
               <td>
+
                 <button class="button is-small is-link" @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
                 <button class="button is-small is-danger" @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
               </td>
