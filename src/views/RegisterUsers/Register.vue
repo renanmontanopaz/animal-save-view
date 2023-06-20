@@ -245,7 +245,7 @@
                             <label class="label">Contato</label>
                             <div class="control">
                                 <input v-model="provider.contact" @blur="validateInputContactProvider"
-                                    :class="`${inputContactProvider}`" type="text" placeholder="Exemplo: (45) 9 0000-0000">
+                                    :class="`${inputContactProvider}`" type="text" placeholder="Exemplo: 45 9 00000000">
                                 <p v-if="errorMessageContactProvider">
                                 <ul>
                                     <li v-for="error in errorMessageContactProvider" :key="error">{{ error }}</li>
@@ -268,8 +268,7 @@
                         </div>
                     </div>
 
-                    <div class="aling_inputs">
-                        <div class="field">
+                    <div class="field">
                             <label class="label">Email</label>
                             <div class="control has-icons-left">
                                 <input v-model="provider.user.login" @blur="validateInputEmailProvider"
@@ -285,6 +284,7 @@
                             </div>
                         </div>
 
+                    <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Senha</label>
                             <div class="control has-icons-left">
@@ -301,6 +301,23 @@
                                 </p>
                             </div>
                         </div>
+
+                        <div class="field">
+                            <label class="label">Confirmar Senha</label>
+                            <div class="control has-icons-left">
+                                <input @blur="validateConfirmPasswordProvider" v-model="provider.user.confirmPassword"
+                                    :class="`${inputConfirmPasswordProvider}`" type="password" placeholder="Confirme a senha">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <p v-if="errorMessageConfirmPasswordProvider">
+                                <ul>
+                                    <li v-for="error in errorMessageConfirmPasswordProvider" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="aling_inputs">
@@ -641,6 +658,7 @@ export default class Register extends Vue {
     public inputCnpjProvider: string = 'input';
     public inputEmailProvider: string = 'input';
     public inputPasswordProvider: string = 'input';
+    public inputConfirmPasswordProvider: string = 'input';
     public inputCepProvider: string = 'input';
     public inputNumberProvider: string = 'input';
 
@@ -651,6 +669,7 @@ export default class Register extends Vue {
     public errorMessageCnpjProvider: string[] = [];
     public errorMessageEmailProvider: string[] = [];
     public errorMessagePasswordProvider: string[] = [];
+    public errorMessageConfirmPasswordProvider: string[] = [];
     public errorMessageCepProvider: string[] = [];
     public errorMessageNumberProvider: string[] = [];
 
@@ -920,6 +939,7 @@ export default class Register extends Vue {
         this.inputCnpjProvider = 'input';
         this.inputEmailProvider = 'input';
         this.inputPasswordProvider = 'input';
+        this.inputConfirmPasswordProvider = 'input';
         this.inputCepProvider = 'input';
         this.inputNumberProvider = 'input';
     }
@@ -964,7 +984,7 @@ export default class Register extends Vue {
 
     //PROVIDER
     public validatePhoneNumberProvider(phoneNumber: string): boolean {
-        const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
+        const phoneNumberRegex = /^(?:\d{2}\s\d{9}|\d{2}\s\d\s\d{4}-\d{4}|\d{2}\s\d\s\d{8})$/;
         return phoneNumberRegex.test(this.provider.contact);
     };
 
@@ -977,7 +997,7 @@ export default class Register extends Vue {
             this.errorMessageContactProvider = ['O campo "Contato" é obrigatório!'];
             this.inputContactProvider = 'input is-danger';
         } else {
-            this.errorMessageContactProvider = ['Siga o seguinte formato: "45 9 0000-0000"!'];
+            this.errorMessageContactProvider = ['Siga o seguinte formato: "45 9 00000000"!'];
             this.inputContactProvider = 'input is-danger';
         }
     }
@@ -1024,6 +1044,20 @@ export default class Register extends Vue {
         } else {
             this.errorMessagePasswordProvider = [];
             this.inputPasswordProvider = 'input is-success';
+        }
+    }
+
+    //PROVIDER
+    public validateConfirmPasswordProvider() {
+        if (!this.provider.user.confirmPassword) {
+            this.errorMessageConfirmPasswordProvider = ['O campo "Confirmar Senha" é obrigatório!'];
+            this.inputConfirmPasswordProvider = 'input is-danger';
+        } else if (this.provider.user.confirmPassword !== this.provider.user.password) {
+            this.errorMessageConfirmPasswordProvider = ['As senhas não correspondem!'];
+            this.inputConfirmPasswordProvider = 'input is-danger';
+        } else {
+            this.errorMessageConfirmPasswordProvider = [];
+            this.inputConfirmPasswordProvider = 'input is-success';
         }
     }
 
@@ -1097,6 +1131,7 @@ export default class Register extends Vue {
             this.validateInputCpnjProvider();
             this.validateInputEmailProvider();
             this.validateInputPasswordProvider();
+            this.validateConfirmPasswordProvider();
             this.validateInputCepProvider();
             this.validateInputNumberProvider();
         }
@@ -1104,7 +1139,7 @@ export default class Register extends Vue {
 
     //PROVIDER
     public allIputsValidsProvider(): boolean {
-        if (this.inputNameFantasy !== 'input is-danger' && this.inputNameBusiness !== 'input is-danger' && this.inputContactProvider !== 'input is-danger' && this.inputCnpjProvider !== 'input is-danger' && this.inputEmailProvider !== 'input is-danger' && this.inputPasswordProvider !== 'input is-danger' && this.inputCepProvider !== 'input is-danger' && this.inputNumberProvider !== 'input is-danger') {
+        if (this.inputNameFantasy !== 'input is-danger' && this.inputNameBusiness !== 'input is-danger' && this.inputContactProvider !== 'input is-danger' && this.inputCnpjProvider !== 'input is-danger' && this.inputEmailProvider !== 'input is-danger' && this.inputPasswordProvider !== 'input is-danger' && this.inputConfirmPasswordProvider !== 'input is-danger' && this.inputCepProvider !== 'input is-danger' && this.inputNumberProvider !== 'input is-danger') {
             return true;
         } else {
             return false;
