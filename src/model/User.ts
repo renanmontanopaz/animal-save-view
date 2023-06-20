@@ -8,6 +8,7 @@ export class User {
     id!: number;
     login!: string;
     password!: string;
+    confirmPassword!: string;
     admin!: Admin;
     caregiver!: Caregiver;
     provider!: Provider;

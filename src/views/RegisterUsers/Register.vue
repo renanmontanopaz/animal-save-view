@@ -93,23 +93,23 @@
                         </div>
                     </div>
 
-                    <div class="aling_inputs">
-                        <div class="field">
-                            <label class="label">Email</label>
-                            <div class="control has-icons-left">
-                                <input @blur="validateInputEmail" v-model="associate.user.login" :class="`${inputEmail}`"
-                                    type="text" placeholder="Exemplo: exemplo@gmail.com">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-user"></i>
-                                </span>
-                                <p v-if="errorMessageEmail">
-                                <ul>
-                                    <li v-for="error in errorMessageEmail" :key="error">{{ error }}</li>
-                                </ul>
-                                </p>
-                            </div>
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control has-icons-left">
+                            <input @blur="validateInputEmail" v-model="associate.user.login" :class="`${inputEmail}`"
+                                type="text" placeholder="Exemplo: exemplo@gmail.com">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <p v-if="errorMessageEmail">
+                            <ul>
+                                <li v-for="error in errorMessageEmail" :key="error">{{ error }}</li>
+                            </ul>
+                            </p>
                         </div>
+                    </div>
 
+                    <div class="aling_inputs">
                         <div class="field">
                             <label class="label">Senha</label>
                             <div class="control has-icons-left">
@@ -121,6 +121,22 @@
                                 <p v-if="errorMessagePassword">
                                 <ul>
                                     <li v-for="error in errorMessagePassword" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Confirmar Senha</label>
+                            <div class="control has-icons-left">
+                                <input @blur="validateConfirmPassword" v-model="associate.user.confirmPassword"
+                                    :class="`${inputConfirmPassword}`" type="password" placeholder="Confirme a senha">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <p v-if="errorMessageConfirmPassword">
+                                <ul>
+                                    <li v-for="error in errorMessageConfirmPassword" :key="error">{{ error }}</li>
                                 </ul>
                                 </p>
                             </div>
@@ -602,6 +618,7 @@ export default class Register extends Vue {
     public inputCpf: string = 'input';
     public inputEmail: string = 'input';
     public inputPassword: string = 'input';
+    public inputConfirmPassword: string = 'input';
     public inputCep: string = 'input';
     public inputNumber: string = 'input';
 
@@ -612,6 +629,7 @@ export default class Register extends Vue {
     public errorMessageCpf: string[] = [];
     public errorMessageEmail: string[] = [];
     public errorMessagePassword: string[] = [];
+    public errorMessageConfirmPassword: string[] = [];
     public errorMessageCep: string[] = [];
     public errorMessageNumber: string[] = [];
 
@@ -681,6 +699,7 @@ export default class Register extends Vue {
         this.inputCpf = 'input';
         this.inputEmail = 'input';
         this.inputPassword = 'input';
+        this.inputConfirmPassword = 'input';
         this.inputCep = 'input';
         this.inputNumber = 'input';
     }
@@ -793,6 +812,20 @@ export default class Register extends Vue {
     }
 
     //ASSOCIATE
+    public validateConfirmPassword() {
+        if (!this.associate.user.confirmPassword) {
+            this.errorMessageConfirmPassword = ['O campo "Confirmar Senha" é obrigatório!'];
+            this.inputConfirmPassword = 'input is-danger';
+        } else if (this.associate.user.confirmPassword !== this.associate.user.password) {
+            this.errorMessageConfirmPassword = ['As senhas não correspondem!'];
+            this.inputConfirmPassword = 'input is-danger';
+        } else {
+            this.errorMessageConfirmPassword = [];
+            this.inputConfirmPassword = 'input is-success';
+        }
+    }
+
+    //ASSOCIATE
     async fetchAddress(): Promise<void> {
         if (this.associate.address.cep.length === 8) {
             try {
@@ -862,6 +895,7 @@ export default class Register extends Vue {
             this.validateInputCpf();
             this.validateInputEmail();
             this.validateInputPassword();
+            this.validateConfirmPassword();
             this.validateInputCep();
             this.validateInputNumber();
         }
@@ -869,7 +903,7 @@ export default class Register extends Vue {
 
     //ASSOCIATE
     public allIputsValidsAssociate(): boolean {
-        if (this.inputFirstName !== 'input is-danger' && this.inputLastName !== 'input is-danger' && this.inputContact !== 'input is-danger' && this.inputCpf !== 'input is-danger' && this.inputEmail !== 'input is-danger' && this.inputPassword !== 'input is-danger' && this.inputCep !== 'input is-danger' && this.inputNumber !== 'input is-danger') {
+        if (this.inputFirstName !== 'input is-danger' && this.inputLastName !== 'input is-danger' && this.inputContact !== 'input is-danger' && this.inputCpf !== 'input is-danger' && this.inputEmail !== 'input is-danger' && this.inputPassword !== 'input is-danger' && this.inputConfirmPassword !== 'input is-danger' && this.inputCep !== 'input is-danger' && this.inputNumber !== 'input is-danger') {
             return true;
         } else {
             return false;
@@ -1401,9 +1435,9 @@ export default class Register extends Vue {
                     },
                     error => {
                         if (error != undefined) {
-                                this.notificationErrorCaregiver = true;
-                                this.notificationSaveCaregiver = false;
-                            }
+                            this.notificationErrorCaregiver = true;
+                            this.notificationSaveCaregiver = false;
+                        }
                         console.log(error);
                     }
                 )
