@@ -155,8 +155,9 @@
     left: 77%;
     z-index: 1;
   }
-
 }
+
+@media(min-width:375px && min-)
 </style>
 
 
