@@ -157,28 +157,35 @@
   .containerHome {
     width: 100%;
     height: 100vh;
-    background-color: #EBE3CC !important;
+    background-image: url('../../assets/MulherECachorro.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
 
     .containerText {
+      width: 100%;
+      height: 80%;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       flex-direction: column;
+      gap: 2em;
+
 
       .TextH1 {
         width: 100%;
-        height: 0%;
+        height: 15vh;
         display: flex;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: center;
         text-align: center;
 
         .TextNA {
           font-family: 'Poppins';
           font-style: normal;
           font-weight: 700;
-          font-size: 4em;
+          font-size: 5em;
           line-height: 1.5em;
           color: #002D4C;
         }
@@ -187,7 +194,7 @@
           font-family: 'Poppins';
           font-style: normal;
           font-weight: 700;
-          font-size: 1em;
+          font-size: 1.6em;
           line-height: 1.2em;
           color: #002D4C;
         }
@@ -198,15 +205,21 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        text-align: center;
+        gap: 2em;
+        width: 75%;
+        /* border: 2px solid #EBE3CC; */
+        border-radius: 10px;
+        padding: 10px;
 
         .Textp {
           font-family: 'Poppins';
           font-style: normal;
           font-weight: 700;
-          font-size: 1em;
-          line-height: 1.5em;
+          font-size: 1.4em;
+          line-height: 1.3em;
           color: #002D4C;
-          width: 70%;
+          width: 100%;
         }
       }
 
@@ -214,12 +227,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 70%;
-        gap: 3.1em;
+        width: 90%;
+        gap: 2em;
         margin-top: 4em;
 
         .butt {
-          width: 8em;
+          width: 12em;
           height: 3em;
           background: #FBBD08;
           border-radius: 0.5em;
@@ -227,8 +240,8 @@
           font-family: 'Poppins';
           font-style: normal;
           font-weight: 400;
-          font-size: 1.2em;
-          line-height: 1.5em;
+          font-size: 1em;
+          line-height: 1.2em;
           color: #002D4C;
         }
       }
