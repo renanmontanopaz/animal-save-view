@@ -7,42 +7,46 @@
           <span>{{ tab.label }}</span>
         </a>
       </p>
-      <div class="panel-block" v-if="tabs[0].isActive" style="display: flex; justify-content: center; flex-direction: column">
+      <div class="panel-block" v-if="tabs[0].isActive"
+        style="display: flex; justify-content: center; flex-direction: column">
         <div class="columns" v-if="notificacao.ativo">
           <div class="column is-12">
             <div :class="notificacao.classe" v-if="isVisible">
-              <button @click="onClickFecharNotificacao" class="delete" ></button>
+              <button @click="onClickFecharNotificacao" class="delete"></button>
               {{ notificacao.mensagem }}
             </div>
           </div>
         </div>
         <div class="table-container">
-          <table class="table is-bordered is-striped is-narrow is-hoverable" >
+          <table class="table is-bordered is-striped is-narrow is-hoverable">
             <thead class="blue">
-            <tr style="background: hsl(171deg, 100%, 41%)">
-              <th>ID do Usuário</th>
-              <th>Data & Hora</th>
-              <th>Nome</th>
-              <th>Tipo de Usuário</th>
-              <th>Ação</th>
-            </tr>
+              <tr style="background: hsl(171deg, 100%, 41%)">
+                <th>ID do Usuário</th>
+                <th>Data & Hora</th>
+                <th>Nome</th>
+                <th>Tipo de Usuário</th>
+                <th>Ação</th>
+              </tr>
             </thead>
             <tbody>
-            <tr v-for="item in allPending">
-              <td>{{item.id}}</td>
-              <th>{{item.register}}
-                <th>{{item.businessName == null ? item.firstName+" "+ item.lastName : item.businessName}}</th>
-
-                <th v-if="item.user.authorities.map((t) =>(t.authority)).join(',') === 'ROLE_ASSOCIATE'">Associado</th>
-                <th v-if="item.user.authorities.map((t) =>(t.authority)).join(',') === 'ROLE_PROVIDER'">Fornecedor</th>
-                <th v-if="item.user.authorities.map((t) =>(t.authority)).join(',') === 'ROLE_CAREGIVER'">Associado</th>
-              </th>
-              <td>
-
-                <button class="button is-small is-link" @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
-                <button class="button is-small is-danger" @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
-              </td>
-            </tr>
+              <tr class="table-row" v-for="item in allPending"  @click="showModal(item)" @close="closeModal">
+                <td>{{ item.user.id }}</td>
+                <td>{{ item.register }}</td>
+                <td>{{ item.businessName == null ? item.firstName + " " + item.lastName : item.businessName }}</td>
+                <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_ASSOCIATE'">Associado(a)
+                </td>
+                <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_PROVIDER'">Fornecedor(a)
+                </td>
+                <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'">Protetor(a)</td>
+                <td class="container_buttons">
+                  <button class="button is-small is-info"
+                    @click=""><strong>Detalhar</strong></button>
+                  <button class="button is-small is-success"
+                    @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
+                  <button class="button is-small is-danger"
+                    @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -50,25 +54,16 @@
       <RegisterPublic v-if="tabs[1].isActive"></RegisterPublic>
       <ManagerUsers v-if="tabs[2].isActive"></ManagerUsers>
     </div>
-
   </main>
 </template>
 
-<style>
-a{
-  display: flex;
-}
-.panel.is-primary .panel-tabs a.is-active {
-  border-bottom-color: hsl(171deg, 100%, 41%);
-}
-</style>
 <script lang="ts">
-import {Component, Vue} from 'vue-property-decorator';
-import {Occurrences} from "@/model/Occurrences";
-import {User} from "@/model/User";
-import {AdminClient} from "@/client/Admin.client";
-import {pendings} from "@/model/Pending";
-import {Message} from "@/model/Message";
+import { Component, Vue } from 'vue-property-decorator';
+import { Occurrences } from "@/model/Occurrences";
+import { User } from "@/model/User";
+import { AdminClient } from "@/client/Admin.client";
+import { pendings } from "@/model/Pending";
+import { Message } from "@/model/Message";
 import RegisterPublic from "@/views/Administrator/RegisterPublic.vue";
 import ManagerUsers from "@/views/Administrator/ManagerUsers.vue";
 
@@ -79,16 +74,36 @@ interface Tab {
 }
 
 @Component({
-  components: {RegisterPublic,
+  components: {
+    RegisterPublic,
     ManagerUsers
   }
 })
 export default class Administrator extends Vue {
+
+  //MODAL
+  public selectedItem: any = null;
+
+  public isModalVisible: boolean = false;
+
+  public showModal(item: any): void {
+    this.selectedItem = item;
+    this.isModalVisible = true;
+  }
+  public closeModal() {
+    this.isModalVisible = false;
+  }
+  public close() {
+    this.$emit('close');
+  }
+
+
+
   public allPending: pendings[] = []
   public adminClient: AdminClient = new AdminClient();
   public notificacao: Message = new Message();
   isVisible = false;
-  public mounted(): void{
+  public mounted(): void {
     this.onClickRequisicao()
   }
   tabs: Tab[] = [
@@ -106,43 +121,43 @@ export default class Administrator extends Vue {
 
   public onClickRequisicao(): void {
     this.adminClient.findAllPending().then(
-        success => {
-          this.allPending = success
-          console.log(this.allPending)
-        },
-        error => {
-          console.log(error)
-        }
+      success => {
+        this.allPending = success
+        console.log(this.allPending)
+      },
+      error => {
+        console.log(error)
+      }
     )
   }
 
-  public updateToApproved(id:number): void {
+  public updateToApproved(id: number): void {
     this.adminClient.updateStatusPendingToApproved(id).then(
-        success => {
-          this.showComponent();
-          this.notificacao = this.notificacao.new(
-              true, 'notification is-primary', 'Usuário Aprovado!'/*+ error.config.data*/
-          )
-          this.onClickRequisicao()
-        },
-        error => {
-          console.log(error)
-        }
+      success => {
+        this.showComponent();
+        this.notificacao = this.notificacao.new(
+          true, 'notification is-primary', 'Usuário Aprovado!'/*+ error.config.data*/
+        )
+        this.onClickRequisicao()
+      },
+      error => {
+        console.log(error)
+      }
     )
   }
 
-  public updateToRejected(id:number): void {
+  public updateToRejected(id: number): void {
     this.adminClient.updateStatusUserPendingToRejected(id).then(
-        success => {
-          this.showComponent();
-          this.notificacao = this.notificacao.new(
-              true, 'notification is-danger', 'Usuário Rejeitado!'/*+ error.config.data*/
-          )
-          this.onClickRequisicao()
-        },
-        error => {
-          console.log(error)
-        }
+      success => {
+        this.showComponent();
+        this.notificacao = this.notificacao.new(
+          true, 'notification is-danger', 'Usuário Rejeitado!'/*+ error.config.data*/
+        )
+        this.onClickRequisicao()
+      },
+      error => {
+        console.log(error)
+      }
     )
   }
 
@@ -156,6 +171,26 @@ export default class Administrator extends Vue {
   public onClickFecharNotificacao(): void {
     this.notificacao = new Message()
   }
-
 }
 </script>
+
+<style>
+a {
+  display: flex;
+}
+
+.panel.is-primary .panel-tabs a.is-active {
+  border-bottom-color: hsl(171deg, 100%, 41%);
+}
+
+.table-row {
+  cursor: pointer;
+}
+
+.container_buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+</style>
