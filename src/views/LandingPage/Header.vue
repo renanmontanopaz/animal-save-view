@@ -115,6 +115,7 @@ nav {
     }
   }
 }
+
 </style>
 <script lang="ts">
 import Home from '@/views/LandingPage/Home.vue'

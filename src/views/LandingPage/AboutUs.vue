@@ -26,7 +26,7 @@
   background-color: #002D4C;
   gap: 60px;
 
-  .Pegadas2{
+  .Pegadas2 {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
@@ -46,6 +46,22 @@
     line-height: 100px;
     text-align: center;
     color: #EBE3CC;
+  }
+}
+
+@media (max-width:500px) {
+
+  .containerQuemSomos {
+    .containerText {
+      font-size: 20px;
+      line-height: 30px;
+      color: #EBE3CC;
+      width: 40%;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 400;
+      text-align: center;
+    }
   }
 }
 </style>

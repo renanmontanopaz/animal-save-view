@@ -4,6 +4,7 @@ import Home from "@/views/LandingPage/Home.vue"
 import AboutUs from '@/views/LandingPage/AboutUs.vue';
 import Partners from '@/views/LandingPage/Partners.vue';
 import Footer from '@/views/LandingPage/Footer.vue';
+import Header from '@/views/LandingPage/Header.vue';
 import Login from "@/views/Login.vue";
 import RegisterAnimal from "@/views/Protetora/RegisterAnimals.vue";
 import Register from "@/views/RegisterUsers/Register.vue";
@@ -36,30 +37,28 @@ const routes: Array<RouteConfig> = [
     component: Login,
   },
   {
-    path:"/",
-    name:"Home",
-    component:Home,
-    children:[
+    path: "/",
+    name: "Header",
+    component: Header,
+    children: [
       {
-        path:""
+        path: "/",
+        component: Home,
+      },
+      {
+        path: "/quem-somos",
+        component: AboutUs,
+      },
+      {
+        path: "/parceiros",
+        component: Partners,
+      },
+      {
+        path: "/contato",
+        component: Footer,
       }
     ]
   },
-  // {
-  //   path:"/quem-somos",
-  //   name:"AboutUs",
-  //   component:AboutUs,
-  // },
-  // {
-  //   path:"/parceiros",
-  //   name:"Partners",
-  //   component:Partners,
-  // },
-  // {
-  //   path:"/contato",
-  //   name:"Footer",
-  //   component:Footer,
-  // },
   {
     path: "/associado",
     name: "Associado",

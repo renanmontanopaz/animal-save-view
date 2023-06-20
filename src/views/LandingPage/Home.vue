@@ -85,7 +85,7 @@
         color: #002D4C;
       }
     }
-    
+
     .TextP {
       display: flex;
       align-items: center;
@@ -152,8 +152,20 @@
   }
 }
 
-/*Fazer a responsividade de todas as telas, EM TODOS OS TAMANHOS*/
+@media (max-width:700px) {
+  .TextH1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+  }
 
+  .containerImage {
+    display: none;
+  }
+}
+
+/*Fazer a responsividade de todas as telas, EM TODOS OS TAMANHOS*/
 </style>
 
 <script lang="ts">
