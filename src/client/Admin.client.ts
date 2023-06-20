@@ -68,17 +68,9 @@ export class AdminClient {
             return Promise.reject(error.response)
         }
     }
-    public async updateStatusCaregiverPendingToApproved(id: number): Promise<void> {
+    public async updateStatusUserPendingToRejected(id: number): Promise<void> {
         try {
-            return (await this.axiosClient.put(`/approved/user/${id}`)).data
-        }
-        catch (error:any) {
-            return Promise.reject(error.response)
-        }
-    }
-    public async updateStatusProviderPendingToApproved(id: number): Promise<void> {
-        try {
-            return (await this.axiosClient.put(`/approved/provider/${id}`)).data
+            return (await this.axiosClient.put(`/rejected/user/${id}`)).data
         }
         catch (error:any) {
             return Promise.reject(error.response)

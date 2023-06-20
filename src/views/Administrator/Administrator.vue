@@ -34,17 +34,9 @@
                 <th>{{item.businessName == null ? item.firstName+" "+ item.lastName : item.businessName}}</th>
                 <th>{{item.user.authorities.map((t) =>(t.authority)).join(',')}}</th>
               </th>
-              <td v-if="item.user.authorities.map((t) =>(t.authority)).join(',') == 'ROLE_PROVIDER'">
-                <button class="button is-small is-link" @click="updateToApproved(item.id)"><strong>Aprovar</strong></button>
-                <button class="button is-small is-danger"><strong>Rejeitar</strong></button>
-              </td>
-              <td v-if="item.user.authorities.map((t) =>(t.authority)).join(',') == 'ROLE_ASSOCIATE'">
-                <button class="button is-small is-link" @click="updateToApproved(item.id)"><strong>Aprovar</strong></button>
-                <button class="button is-small is-danger" @click=""><strong>Rejeitar</strong></button>
-              </td>
-              <td v-if="item.user.authorities.map((t) =>(t.authority)).join(',') == 'ROLE_CAREGIVER'">
-                <button class="button is-small is-link" @click="updateToApproved(item.id)"><strong>Aprovar</strong></button>
-                <button class="button is-small is-danger"><strong>Rejeitar</strong></button>
+              <td>
+                <button class="button is-small is-link" @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
+                <button class="button is-small is-danger" @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
               </td>
             </tr>
             </tbody>
@@ -84,7 +76,7 @@ interface Tab {
 
 @Component({
   components: {RegisterPublic,
-  ManagerUsers
+    ManagerUsers
   }
 })
 export default class Administrator extends Vue {
@@ -126,6 +118,21 @@ export default class Administrator extends Vue {
           this.showComponent();
           this.notificacao = this.notificacao.new(
               true, 'notification is-primary', 'Usuário Aprovado!'/*+ error.config.data*/
+          )
+          this.onClickRequisicao()
+        },
+        error => {
+          console.log(error)
+        }
+    )
+  }
+
+  public updateToRejected(id:number): void {
+    this.adminClient.updateStatusUserPendingToRejected(id).then(
+        success => {
+          this.showComponent();
+          this.notificacao = this.notificacao.new(
+              true, 'notification is-danger', 'Usuário Rejeitado!'/*+ error.config.data*/
           )
           this.onClickRequisicao()
         },
