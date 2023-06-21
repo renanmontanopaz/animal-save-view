@@ -220,6 +220,11 @@
           line-height: 1.3em;
           color: #002D4C;
           width: 100%;
+          text-shadow:
+            -1px 0 #EBE3CC,
+            0 1px #EBE3CC,
+            1px 0 #EBE3CC,
+            0 -1px #EBE3CC
         }
       }
 

@@ -52,15 +52,32 @@
 @media (max-width:500px) {
 
   .containerQuemSomos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background-color: #002D4C;
+    gap: 5px;
+
+    .Pegadas2 {
+      display: none
+    }
+
+    .containerImage {
+      width: 175px;
+      z-index: 1;
+    }
+
     .containerText {
-      font-size: 20px;
-      line-height: 30px;
-      color: #EBE3CC;
       width: 40%;
       font-family: 'Poppins';
       font-style: normal;
-      font-weight: 400;
-      text-align: center;
+      font-weight: 600;
+      font-size: 0.9em;
+      line-height: 2em;
+      text-align: left;
+      color: #EBE3CC;
     }
   }
 }
