@@ -24,8 +24,15 @@
                 <div class="field">
                     <label class="label">Contato</label>
                     <div class="control">
-                        <input class="input" type="number" placeholder="Exemplo: (45) 9 0000-0000">
+                        <input class="input" type="number" placeholder="Ex: (45) 9 0000-0000">
                     </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">CNPJ</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="Ex: 00.000.000/0001-00">
                 </div>
             </div>
         </section>
