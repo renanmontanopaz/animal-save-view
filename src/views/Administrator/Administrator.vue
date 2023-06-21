@@ -7,7 +7,6 @@
           <span>{{ tab.label }}</span>
         </a>
       </p>
-
       <div>
         <div v-if="select === '1'">
           <div class="message-body modal-container">
@@ -321,7 +320,7 @@
         <div class="table-container">
           <table class="table is-bordered is-striped is-narrow is-hoverable">
             <thead class="blue">
-              <tr style="background: hsl(171deg, 100%, 41%)">
+              <tr>
                 <th>ID do Usuário</th>
                 <th>Data & Hora</th>
                 <th>Nome</th>
@@ -383,9 +382,10 @@
                     :disabled="select !== '0'" @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
                 </td>
               </tr>
-
             </tbody>
           </table>
+          <h1 id="notOccurrence" v-if="allPending.length === 0">Nenhum usuário pendente!<br /><i
+              class="fa-solid fa-file-circle-xmark"></i></h1>
         </div>
       </div>
       <RegisterPublic v-if="tabs[1].isActive"></RegisterPublic>
@@ -607,5 +607,10 @@ a {
   justify-content: center;
   align-items: center;
   gap: 10px;
+}
+
+#notOccurrence {
+  font-size: 50px;
+  padding: 30px;
 }
 </style>

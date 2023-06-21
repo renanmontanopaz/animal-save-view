@@ -8,6 +8,7 @@
         </div>
       </div>
     </div>
+    <h1 id="notOccurrence" v-if="occurrenceList.length === 0">Nenhuma ocorrência!<br/><i class="fa-solid fa-file-circle-xmark"></i></h1>
     <div class="column">
     <div class="box columns is-gapless" v-for="item in occurrenceList"
          style="justify-content: center; align-items: center; flex-direction: column;">
@@ -15,15 +16,19 @@
         <h3 class="">Ocorrência Nº{{item.id}}</h3>
       </header>
       <div class="columns" style="width: 100%">
-        <article class="column" style="">
-          <p class="card-header-title" style="align-items: center; display: flex">Usuário que reportou:{{" "+item.name}}</p>
-          <p class="card-header-title" style="align-items: flex-start; text-align: start">Situação do animal:{{" "+item.description}}</p>
+        <article class="column">
+          <h5 class="card-header-title">Data:{{" "+item.register}}</h5>
+          <h5 class="card-header-title">Contato:{{" "+ item.contact}}</h5>
         </article>
-        <article class="column" style="">
-          <p class="card-header-title" >Localidade:{{" "+item.referenceLocal}}</p>
-          <p class="card-header-title">Nível:{{" "+ item.situation}}</p>
+        <article class="column">
+          <h5 class="card-header-title" style="align-items: center; display: flex">Usuário que reportou:{{" "+item.name}}</h5>
+          <h5 class="card-header-title" style="align-items: flex-start; text-align: start">Descrição:{{" "+item.description}}</h5>
         </article>
-        <article class="column" style="">
+        <article class="column">
+          <h5 class="card-header-title" >Localidade:{{" "+item.referenceLocal}}</h5>
+          <h5 class="card-header-title">Situação:{{" "+ item.situation}}</h5>
+        </article>
+        <article class="column">
           <div class="control" style="margin-top: 10px">
             <button class="button is-link" @click="showModal(item.id)">Encaminhar Ocorrência</button>
             <Modal v-show="isModalVisible" @close="closeModal" :Ocorrencia="occurrence" :list-ocorrences="listOccurrences" :fecha-modal="closeModal"/>
@@ -47,13 +52,18 @@ import Modal from "@/views/Modal.vue";
     components: {Modal},
 })
 export default class RegisterPublic extends Vue {
-  public occurrenceList: Occurrences[] = []
-  public notificacao: Message = new Message();
-  isVisible = false;
   public occurrenceClient: OcurrencesClient = new OcurrencesClient();
   public occurrence: Occurrences = new Occurrences();
-  public occurence: Occurrences = new Occurrences()
-  public idTres: number = 0
+  public occurence: Occurrences = new Occurrences();
+  public notificacao: Message = new Message();
+
+  public occurrenceList: Occurrences[] = [];
+
+  isModalVisible = false;
+  isVisible = false;
+
+  public idTres: number = 0;
+
   public mounted(): void {
     this.listOccurrences()
   }
@@ -62,7 +72,6 @@ export default class RegisterPublic extends Vue {
     this.occurrenceClient.listAll().then(
         success => {
           this.occurrenceList = success
-          console.log(this.occurrenceList)
         },
         error => {
           console.log(error)
@@ -86,26 +95,31 @@ export default class RegisterPublic extends Vue {
 
     setTimeout(() => {
       this.isVisible = false;
-    }, 4000); // Tempo em milissegundos (5 segundos)
+    }, 4000);
   }
   public onClickFecharNotificacao(): void {
-    this.notificacao = new Message()
+    this.notificacao = new Message();
   }
-  isModalVisible = false
-  //private id = Number(this.$route.params.id);
+
   public showModal(id:number): void {
-    this.FoundOccurrence(id)
+    this.FoundOccurrence(id);
     this.isModalVisible = true;
     localStorage.setItem('idocorrencia', id.toString())
   }
   public closeModal(): void {
     this.isModalVisible = false;
-    console.log('chamou close')
   }
 
-  close2() {
+  closeModalOtherPage() {
     this.$emit('closeModal');
   }
 
 }
 </script>
+
+<style scoped>
+  #notOccurrence {
+    font-size: 50px;
+    padding: 30px;
+  }
+</style>
