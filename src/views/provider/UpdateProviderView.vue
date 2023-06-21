@@ -51,15 +51,13 @@
                 <div class="field">
                     <label class="label">Senha</label>
                     <div class="control has-icons-left">
-                        <input class="inputs" type="password" placeholder="Mín. 5 dig e Máx. 10 dig">
+                        <input class="input" type="password" placeholder="Mín. 5 dig e Máx. 10 dig">
                         <span class="icon is-small is-left">
                             <i class="fas fa-lock"></i>
                         </span>
                     </div>
                 </div>
             </div>
-
-
         </section>
     </main>
 </template>
