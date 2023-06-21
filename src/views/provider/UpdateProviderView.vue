@@ -25,4 +25,16 @@
 
 <script lang="ts"></script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .align_inputs {
+        display: flex;
+        gap: 30px;
+    }
+}
+</style>
