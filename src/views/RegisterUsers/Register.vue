@@ -18,7 +18,7 @@
                 <div v-if="select === '1'">
                     <article v-if="notificationSave" class="message is-success">
                         <div class="message-header">
-                            <p>Success</p>
+                            <h3>Sucesso</h3>
                             <button @click="closeNotification" class="delete" aria-label="delete"></button>
                         </div>
                         <div class="message-body">
@@ -39,7 +39,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Primeiro nome</label>
+                            <label class="label">Primeiro nome *</label>
                             <div class="control">
                                 <input @blur="validateInputFirstName" v-model="associate.firstName"
                                     :class="`${inputFirstName}`" type="text" placeholder="Primeiro nome" />
@@ -52,7 +52,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Sobrenome</label>
+                            <label class="label">Sobrenome *</label>
                             <div class="control">
                                 <input @blur="validateInputLastName" v-model="associate.lastName"
                                     :class="`${inputLastName}`" type="text" placeholder="Sobrenome">
@@ -67,7 +67,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Contato</label>
+                            <label class="label">Contato *</label>
                             <div class="control">
                                 <input @blur="validateInputContact" v-model="associate.contact" :class="`${inputContact}`"
                                     type="text" placeholder="Exemplo: 45 9 00000000">
@@ -80,7 +80,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">CPF</label>
+                            <label class="label">CPF *</label>
                             <div class="control">
                                 <input @blur="validateInputCpf" v-model="associate.cpf" :class="`${inputCpf}`" type="text"
                                     placeholder="Exemplo: 000.000.000-00">
@@ -94,7 +94,7 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">Email</label>
+                        <label class="label">Email *</label>
                         <div class="control has-icons-left">
                             <input @blur="validateInputEmail" v-model="associate.user.login" :class="`${inputEmail}`"
                                 type="text" placeholder="Exemplo: exemplo@gmail.com">
@@ -111,7 +111,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Senha</label>
+                            <label class="label">Senha *</label>
                             <div class="control has-icons-left">
                                 <input @blur="validateInputPassword" v-model="associate.user.password"
                                     :class="`${inputPassword}`" type="password" placeholder="Mín. 5 dig e Máx. 10 dig">
@@ -127,7 +127,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Confirmar Senha</label>
+                            <label class="label">Confirmar Senha *</label>
                             <div class="control has-icons-left">
                                 <input @blur="validateConfirmPassword" v-model="associate.user.confirmPassword"
                                     :class="`${inputConfirmPassword}`" type="password" placeholder="Confirme a senha">
@@ -145,7 +145,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Cep</label>
+                            <label class="label">Cep *</label>
                             <div class="control">
                                 <input v-model="associate.address.cep" @blur="validateInputCep" :class="`${inputCep}`"
                                     type="number" placeholder="Exemplo: 01001-000">
@@ -176,7 +176,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Número</label>
+                            <label class="label">Número *</label>
                             <div class="control">
                                 <input v-model="associate.address.houseNumber" @blur="validateInputNumber"
                                     :class="`${inputNumber}`" type="number" placeholder="Número">
@@ -193,7 +193,7 @@
                 <div v-if="select === '2'">
                     <article v-if="notificationSaveProvider" class="message is-success">
                         <div class="message-header">
-                            <p>Success</p>
+                            <p>Sucesso</p>
                             <button @click="closeNotificationProvider" class="delete" aria-label="delete"></button>
                         </div>
                         <div class="message-body">
@@ -214,7 +214,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Nome fantasia</label>
+                            <label class="label">Nome fantasia *</label>
                             <div class="control">
                                 <input v-model="provider.fantasyName" @blur="validateInputNameFantasy"
                                     :class="`${inputNameFantasy}`" type="text" placeholder="Nome fantasia">
@@ -227,7 +227,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Nome empresarial</label>
+                            <label class="label">Nome empresarial *</label>
                             <div class="control">
                                 <input v-model="provider.businessName" @blur="validateInputNameBusiness"
                                     :class="`${inputNameBusiness}`" type="text" placeholder="Nome empresarial">
@@ -242,7 +242,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Contato</label>
+                            <label class="label">Contato *</label>
                             <div class="control">
                                 <input v-model="provider.contact" @blur="validateInputContactProvider"
                                     :class="`${inputContactProvider}`" type="text" placeholder="Exemplo: 45 9 00000000">
@@ -255,7 +255,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">CNPJ</label>
+                            <label class="label">CNPJ *</label>
                             <div class="control">
                                 <input v-model="provider.cnpj" @blur="validateInputCpnjProvider"
                                     :class="`${inputCnpjProvider}`" type="text" placeholder="Exemplo: 00.000.000/0001-00">
@@ -269,7 +269,7 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">Email</label>
+                        <label class="label">Email *</label>
                         <div class="control has-icons-left">
                             <input v-model="provider.user.login" @blur="validateInputEmailProvider"
                                 :class="`${inputEmailProvider}`" type="text" placeholder="Exemplo: exemplo@gmail.com">
@@ -286,7 +286,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Senha</label>
+                            <label class="label">Senha *</label>
                             <div class="control has-icons-left">
                                 <input v-model="provider.user.password" @blur="validateInputPasswordProvider"
                                     :class="`${inputPasswordProvider}`" type="password"
@@ -303,7 +303,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Confirmar Senha</label>
+                            <label class="label">Confirmar Senha *</label>
                             <div class="control has-icons-left">
                                 <input @blur="validateConfirmPasswordProvider" v-model="provider.user.confirmPassword"
                                     :class="`${inputConfirmPasswordProvider}`" type="password"
@@ -322,7 +322,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Cep</label>
+                            <label class="label">Cep *</label>
                             <div class="control">
                                 <input v-model="provider.address.cep" @blur="validateInputCepProvider"
                                     :class="`${inputCepProvider}`" type="number" placeholder="Exemplo: 01001-000">
@@ -352,7 +352,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Número</label>
+                            <label class="label">Número *</label>
                             <div class="control">
                                 <input v-model="provider.address.houseNumber" @blur="validateInputNumberProvider"
                                     :class="`${inputNumberProvider}`" type="number" placeholder="Número">
@@ -369,7 +369,7 @@
                 <div v-if="select === '3'">
                     <article v-if="notificationSaveCaregiver" class="message is-success">
                         <div class="message-header">
-                            <p>Success</p>
+                            <p>Sucesso</p>
                             <button @click="closeNotificationCaregiver" class="delete" aria-label="delete"></button>
                         </div>
                         <div class="message-body">
@@ -390,7 +390,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Primeiro nome</label>
+                            <label class="label">Primeiro nome *</label>
                             <div class="control">
                                 <input v-model="caregiver.firstName" @blur="validateInputFirstNameCaregiver"
                                     :class="`${inputFirstNameCaregiver}`" type="text" placeholder="Primeiro nome">
@@ -403,7 +403,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Sobrenome</label>
+                            <label class="label">Sobrenome *</label>
                             <div class="control">
                                 <input v-model="caregiver.lastName" @blur="validateInputLastNameCaregiver"
                                     :class="`${inputLastNameCaregiver}`" type="text" placeholder="Sobrenome">
@@ -418,7 +418,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Contato</label>
+                            <label class="label">Contato *</label>
                             <div class="control">
                                 <input v-model="caregiver.contact" @blur="validateInputContactCaregiver"
                                     :class="`${inputContactCaregiver}`" type="text" placeholder="Exemplo: 45 9 00000000">
@@ -431,7 +431,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">CPF</label>
+                            <label class="label">CPF *</label>
                             <div class="control">
                                 <input @blur="validateInputCpfCaregiver" v-model="caregiver.cpf"
                                     :class="`${inputCpfCaregiver}`" type="text" placeholder="Exemplo: 000.000.000-00">
@@ -446,7 +446,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Espaço físico disponível</label>
+                            <label class="label">Espaço físico disponível *</label>
                             <div class="control">
                                 <input v-model="caregiver.physicalSpace" @blur="validateInputPhysicalSpaceCaregiver"
                                     :class="`${inputPhysicalSpaceCaregiver}`" type="text"
@@ -460,7 +460,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Gastos mensais</label>
+                            <label class="label">Gastos mensais *</label>
                             <div class="control has-icons-left">
                                 <input v-model="caregiver.spending" @blur="validateInputSpending"
                                     :class="`${inputSpendingCaregiver}`" type="text"
@@ -479,7 +479,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Capacidade de animais</label>
+                            <label class="label">Capacidade de animais *</label>
                             <div class="control">
                                 <input v-model="caregiver.capacityAnimals" @blur="validateInputCapacityAnimalsCaregiver"
                                     :class="`${inputCapacityAnimalsCaregiver}`" type="number"
@@ -493,7 +493,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Email</label>
+                            <label class="label">Email *</label>
                             <div class="control has-icons-left">
                                 <input v-model="caregiver.user.login" @blur="validateInputEmailCaregiver"
                                     :class="`${inputEmailCaregiver}`" type="text" placeholder="Exemplo: exemplo@gmail.com">
@@ -511,7 +511,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Senha</label>
+                            <label class="label">Senha *</label>
                             <div class="control has-icons-left">
                                 <input v-model="caregiver.user.password" @blur="validateInputPasswordCaregiver"
                                     :class="`${inputPasswordCaregiver}`" type="password"
@@ -528,7 +528,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Confirmar Senha</label>
+                            <label class="label">Confirmar Senha *</label>
                             <div class="control has-icons-left">
                                 <input @blur="validateConfirmPasswordCaregiver" v-model="caregiver.user.confirmPassword"
                                     :class="`${inputConfirmPasswordCaregiver}`" type="password"
@@ -547,7 +547,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Cep</label>
+                            <label class="label">Cep *</label>
                             <div class="control">
                                 <input v-model="caregiver.address.cep" @blur="validateInputCepCaregiver"
                                     :class="`${inputCepCaregiver}`" type="text" placeholder="Exemplo: 01001-000">
@@ -578,7 +578,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Número</label>
+                            <label class="label">Número *</label>
                             <div class="control">
                                 <input v-model="caregiver.address.houseNumber" @blur="validateInputNumberCaregiver"
                                     :class="`${inputNumberCaregiver}`" type="number" placeholder="Número">
@@ -1553,11 +1553,11 @@ main {
     flex-direction: column;
     padding: 20px;
 
-    background-image: url(../../assets/background-register.png);
+    background-image: url(../../assets/background-register.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    background-color: grey;
+    opacity: 0.9;
 
     .section_register {
         display: flex;
@@ -1565,9 +1565,8 @@ main {
         align-items: center;
         flex-direction: column;
 
-        background-color: rgb(199, 197, 197);
-
-        border: 2px solid #ccc;
+        background-color: rgba(0, 0, 0, 0.65);
+        border: 1px solid #ccc;
         border-radius: 10px;
         padding: 20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -1580,6 +1579,10 @@ main {
     .aling_inputs {
         display: flex;
         gap: 30px;
+    }
+
+    .label {
+        color: white;
     }
 
     input {
