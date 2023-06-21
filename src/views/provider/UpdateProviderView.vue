@@ -63,6 +63,21 @@
                         <input class="input" type="number" placeholder="Ex: 01001-000">
                     </div>
                 </div>
+                <div class="field">
+                    <label class="label">Bairro</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Bairro" disabled>
+                    </div>
+                </div>
+            </div>
+
+            <div class="align_inputs">
+                <div class="field">
+                    <label class="label">Número</label>
+                    <div class="control">
+                        <input class="input" type="number" placeholder="Número">
+                    </div>
+                </div>
             </div>
         </section>
     </main>
