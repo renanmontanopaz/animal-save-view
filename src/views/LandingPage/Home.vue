@@ -269,6 +269,123 @@
     }
   }
 }
+@media (max-height:950px) {
+
+.containerHome {
+  width: 100%;
+  height: 100vh;
+  background-image: url('../../assets/MulherECachorro.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+
+  .containerText {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 2em;
+
+
+    .TextH1 {
+      width: 100%;
+      height: 15vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      .TextNA {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 6em;
+        line-height: 1.5em;
+        color: #002D4C;
+      }
+
+      .containerDuvidaCerteza h1 {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1.9em;
+        line-height: 1.2em;
+        color: #002D4C;
+      }
+    }
+
+    .TextP {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      gap: 4em;
+      width: 75%;
+      /* border: 2px solid #EBE3CC; */
+      border-radius: 10px;
+      padding: 10px;
+
+      .Textp {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1.8em;
+        line-height: 1.3em;
+        color: #002D4C;
+        width: 100%;
+        text-shadow:
+          -1px 0 #EBE3CC,
+          0 1px #EBE3CC,
+          1px 0 #EBE3CC,
+          0 -1px #EBE3CC
+      }
+    }
+
+    .containerB {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 90%;
+      gap: 2em;
+      margin-top: 6em;
+
+      .butt {
+        width: 12em;
+        height: 3em;
+        background: #FBBD08;
+        border-radius: 0.5em;
+        border: none;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 1em;
+        line-height: 1.2em;
+        color: #002D4C;
+      }
+    }
+  }
+
+  .containerImage {
+    display: none;
+
+    .dogLeao {
+      width: 0;
+    }
+
+    .Rectangle {
+      width: 0
+    }
+
+    .Pegada1 {
+      width: 0;
+    }
+  }
+}
+}
 
 /*Fazer a responsividade de todas as telas, EM TODOS OS TAMANHOS*/
 </style>
