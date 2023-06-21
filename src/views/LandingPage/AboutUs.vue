@@ -83,39 +83,6 @@
   }
 }
 
-@media (max-height:950px) {
-
-.containerQuemSomos {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 100%;
-  height: 100vh;
-  background-color: #002D4C;
-  gap: 5em;
-
-  .Pegadas2 {
-    display: none
-  }
-
-  .containerImage {
-    width: 250px;
-    z-index: 1;
-  }
-
-  .containerText {
-    width: 80%;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 1.8em;
-    line-height: 1.5em;
-    text-align: center;
-    color: #EBE3CC;
-  }
-}
-}
 </style>
 
 <script lang="ts">
