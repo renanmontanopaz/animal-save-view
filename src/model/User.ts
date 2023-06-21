@@ -14,4 +14,7 @@ export class User {
     provider!: Provider;
     associate!: Associate;
     occurrences!: Occurrences;
+    approved!: boolean;
+    pending!: boolean;
+    rejected!: boolean;
 }

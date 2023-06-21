@@ -2,6 +2,7 @@ import {Admin} from "@/model/Admin";
 import {AxiosInstance} from "axios";
 import axios from "../auth"
 import {pendings} from "@/model/Pending";
+import {User} from "@/model/User";
 export class AdminClient {
 
     private axiosClient: AxiosInstance;
@@ -32,9 +33,18 @@ export class AdminClient {
         }
     }
 
+    public async listUsers(): Promise<User[]> {
+        try {
+            return (await this.axiosClient.get<User[]>(`/listusers`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
     public async findById(id: number): Promise<Admin> {
         try {
-            return (await this.axiosClient.get<Admin>(`/findbyid${id}`)).data
+            return (await this.axiosClient.get<Admin>(`/findbyid/${id}`)).data
         }
         catch (error:any) {
             return Promise.reject(error.response)
@@ -52,23 +62,15 @@ export class AdminClient {
 
     public async updateStatusPendingToApproved(id: number): Promise<void> {
         try {
-            return (await this.axiosClient.put(`/approved/associate/${id}`)).data
+            return (await this.axiosClient.put(`/approved/user/${id}`)).data
         }
         catch (error:any) {
             return Promise.reject(error.response)
         }
     }
-    public async updateStatusCaregiverPendingToApproved(id: number): Promise<void> {
+    public async updateStatusUserPendingToRejected(id: number): Promise<void> {
         try {
-            return (await this.axiosClient.put(`/approved/caregiver/${id}`)).data
-        }
-        catch (error:any) {
-            return Promise.reject(error.response)
-        }
-    }
-    public async updateStatusProviderPendingToApproved(id: number): Promise<void> {
-        try {
-            return (await this.axiosClient.put(`/approved/provider/${id}`)).data
+            return (await this.axiosClient.put(`/rejected/user/${id}`)).data
         }
         catch (error:any) {
             return Promise.reject(error.response)

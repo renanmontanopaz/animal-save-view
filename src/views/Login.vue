@@ -97,6 +97,7 @@ export default class Login extends Vue {
 
         if (approved == true && authorities.includes("ROLE_ADMIN")) {
           window.location.href = "/administrador";
+          console.log('chegou no adm')
         } 
         else if (approved == true && authorities.includes("ROLE_ASSOCIATE")) {
           window.location.href = "/associado";

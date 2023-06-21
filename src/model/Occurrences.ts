@@ -9,7 +9,7 @@ export class Occurrences extends AbstractEntity {
     description!: string;
     referenceLocal!: string;
     situation!: string;
-    caregiver!: Caregiver;
+    user!: User;
 }
 
 interface caregiver{

@@ -26,7 +26,7 @@
         <article class="column" style="">
           <div class="control" style="margin-top: 10px">
             <button class="button is-link" @click="showModal(item.id)">Encaminhar Ocorrência</button>
-            <Modal v-show="isModalVisible" @close="closeModal" :Ocorrencia="occurrence" :list-ocorrences="listOccurrences"/>
+            <Modal v-show="isModalVisible" @close="closeModal" :Ocorrencia="occurrence" :list-ocorrences="listOccurrences" :fecha-modal="closeModal"/>
           </div>
         </article>
       </div>
@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import {Component} from "vue-property-decorator";
+import {Component, Prop} from "vue-property-decorator";
 import Vue from 'vue'
 import {Occurrences} from "@/model/Occurrences";
 import {Message} from "@/model/Message";
@@ -70,16 +70,6 @@ export default class RegisterPublic extends Vue {
     )
   }
 
-  /*public updateOccurrence(): void {
-    this.occurrenceClient.update(this.occurrence).then(
-        success => {
-          console.log('Registro cadastrado com sucesso')
-        },
-        error => {
-          console.log(error)
-        }
-    )
-  }*/
   public FoundOccurrence(idtwo:number): void {
     this.occurrenceClient.findById(idtwo).then(
         success => {
@@ -110,6 +100,11 @@ export default class RegisterPublic extends Vue {
   }
   public closeModal(): void {
     this.isModalVisible = false;
+    console.log('chamou close')
+  }
+
+  close2() {
+    this.$emit('closeModal');
   }
 
 }
