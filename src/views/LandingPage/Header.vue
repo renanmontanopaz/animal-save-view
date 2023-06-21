@@ -56,8 +56,6 @@ nav {
   background-color: #ebe3cc !important;
 
   .navbar-item {
-    padding-left: 40px;
-
     img {
       max-height: 3em;
       width: 200px;
