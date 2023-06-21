@@ -10,57 +10,93 @@
 
       <div>
         <div v-if="select === '1'">
-          <article :value="associate" class="message">
-            <div class="message-header">
-              <p>{{ associate.firstName }}</p>
-              <button class="delete" aria-label="delete" @click="closeModal()"></button>
-            </div>
-            <div class="message-body modal-container">
-              <div>
+          <div class="message-body modal-container">
+            <div class="container-all-inputs-modal">
+              <div class="container-inputs-modal">
+                <div class="field">
+                  <label class="label">Data & hora</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="associate.register" readonly>
+                  </div>
+                </div>
+
                 <div class="field">
                   <label class="label">Nome</label>
                   <div class="control">
-                    <input class="input" type="text" v-model="associate.firstName">
+                    <input class="input" type="text" v-model="associate.firstName" readonly>
                   </div>
                 </div>
 
                 <div class="field">
                   <label class="label">Sobrenome</label>
                   <div class="control">
-                    <input class="input" type="text" v-model="associate.lastName">
+                    <input class="input" type="text" v-model="associate.lastName" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <div class="container-inputs-modal">
+                <div class="field">
+                  <label class="label">CPF</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="associate.cpf" readonly>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Email</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="associate.user.login" readonly>
                   </div>
                 </div>
 
                 <div class="field">
                   <label class="label">Contato</label>
                   <div class="control">
-                    <input class="input" type="text" v-model="associate.contact">
+                    <input class="input" type="text" v-model="associate.contact" readonly>
                   </div>
                 </div>
+              </div>
 
+              <div class="container-inputs-modal">
                 <div class="field">
                   <label class="label">Bairro</label>
                   <div class="control">
-                    <input class="input" type="text" v-model="associate.address.neighborhood">
+                    <input class="input" type="text" v-model="associate.address.neighborhood" readonly>
                   </div>
                 </div>
 
                 <div class="field">
                   <label class="label">Rua</label>
                   <div class="control">
-                    <input class="input" type="text" v-model="associate.address.road">
+                    <input class="input" type="text" v-model="associate.address.road" readonly>
                   </div>
                 </div>
 
                 <div class="field">
                   <label class="label">Número</label>
                   <div class="control">
-                    <input class="input" type="text" v-model="associate.address.houseNumber">
+                    <input class="input" type="text" v-model="associate.address.houseNumber" readonly>
                   </div>
                 </div>
               </div>
+              <div id="container-bottons" class="field is-grouped">
+                <div class="control">
+                  <button @click="updateToRejected(associate.user.id)"
+                    class="button is-danger is-focused">Rejeitar</button>
+                </div>
+
+                <div class="control">
+                  <button @click="updateToApproved(associate.user.id)"
+                    class="button is-success is-focused">Aprovar</button>
+                </div>
+
+                <div class="control">
+                  <button @click="closeModal" class="button is-info is-focused">Voltar</button>
+                </div>
+              </div>
             </div>
-          </article>
+          </div>
         </div>
       </div>
 
@@ -298,9 +334,10 @@ export default class Administrator extends Vue {
       success => {
         this.showComponent();
         this.notificacao = this.notificacao.new(
-          true, 'notification is-primary', 'Usuário Aprovado!'/*+ error.config.data*/
+          true, 'notification is-success', 'Usuário Aprovado!'
         )
         this.onClickRequisicao()
+        this.select = "0"
       },
       error => {
         console.log(error)
@@ -316,6 +353,7 @@ export default class Administrator extends Vue {
           true, 'notification is-danger', 'Usuário Rejeitado!'/*+ error.config.data*/
         )
         this.onClickRequisicao()
+        this.select = "0"
       },
       error => {
         console.log(error)
@@ -354,8 +392,27 @@ export default class Administrator extends Vue {
 }
 
 .is-disabled {
-  opacity: 0.5;
-  pointer-events: none;
+  display: none;
+}
+
+.container-all-inputs-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(228, 228, 228);
+  border-radius: 10px;
+  padding: 30px;
+  border: 2px solid black;
+}
+
+.container-inputs-modal {
+  display: flex;
+  gap: 20px;
+}
+
+#container-bottons {
+  padding-top: 15px;
 }
 
 a {
