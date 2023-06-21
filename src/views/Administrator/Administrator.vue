@@ -8,16 +8,17 @@
         </a>
       </p>
 
+
       <div>
-        <div v-if="user.id">
-          <article :value="user" class="message is-success">
+        <div v-if="select === '1'">
+          <article :value="associate" class="message is-success">
             <div class="message-header">
-              <p>{{ user.login }}</p>
+              <p>{{ associate.user.login }}</p>
               <button class="delete" aria-label="delete"></button>
             </div>
             <div class="message-body">
               <div>
-                {{  }}
+                Exemplo de conteúdo
               </div>
             </div>
           </article>
@@ -47,7 +48,27 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="table-row" v-for="item in allPending" @click="findByIdUser(item.user.id)">
+              <tr class="table-row" v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_ASSOCIATE'"
+                v-for="item in allPending" @click="findByIdAssociate(item.id)">
+                <td>{{ item.user.id }}</td>
+                <td>{{ item.register }}</td>
+                <td>{{ item.businessName == null ? item.firstName + " " + item.lastName : item.businessName }}</td>
+                <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_ASSOCIATE'">Associado(a)
+                </td>
+                <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_PROVIDER'">Fornecedor(a)
+                </td>
+                <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'">Protetor(a)</td>
+                <td class="container_buttons">
+                  <button class="button is-small is-info" @click=""><strong>Detalhar</strong></button>
+                  <button class="button is-small is-success"
+                    @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
+                  <button class="button is-small is-danger"
+                    @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
+                </td>
+              </tr>
+
+              <tr class="table-row" v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_PROVIDER'"
+                v-for="item in allPending" @click="findByIdProvider(item.id)">
                 <td>{{ item.user.id }}</td>
                 <td>{{ item.register }}</td>
                 <td>{{ item.businessName == null ? item.firstName + " " + item.lastName : item.businessName }}</td>
@@ -118,6 +139,8 @@ export default class Administrator extends Vue {
 
   isVisible = false;
 
+  public select: string = '0';
+
   public mounted(): void {
     this.onClickRequisicao();
   }
@@ -148,15 +171,37 @@ export default class Administrator extends Vue {
     )
   }
 
-  public findByIdUser(id: number): void {
-    this.userClient.findById(id).then(
+  public findByIdAssociate(id: number): void {
+    this.associateClient.findById(id).then(
       success => {
-        this.user = success
-        console.log(this.user)
+        this.associate = success
+        this.select = "1"
+        console.log(this.associate)
       },
       error => console.log(error)
     )
   }
+
+  public findByIdProvider(id: number): void {
+    this.providerClient.findById(id).then(
+      success => {
+        this.provider = success
+        this.select = "2"
+        console.log(this.provider)
+      },
+      error => console.log(error)
+    )
+  }
+
+  // public findByIdUser(id: number): void {
+  //   this.userClient.findById(id).then(
+  //     success => {
+  //       this.user = success
+  //       console.log(this.user)
+  //     },
+  //     error => console.log(error)
+  //   )
+  // }
 
 
   public updateToApproved(id: number): void {
