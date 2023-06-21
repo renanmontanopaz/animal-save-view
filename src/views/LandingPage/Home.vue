@@ -267,9 +267,7 @@
         width: 0;
       }
     }
-
   }
-
 }
 
 /*Fazer a responsividade de todas as telas, EM TODOS OS TAMANHOS*/

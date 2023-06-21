@@ -75,7 +75,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 4em;
+    gap: 2.6em;
 
     .containerDivs {
       display: flex;
