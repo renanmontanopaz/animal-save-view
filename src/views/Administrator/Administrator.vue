@@ -7,6 +7,24 @@
           <span>{{ tab.label }}</span>
         </a>
       </p>
+
+      <div>
+        <div v-if="user.id">
+          <article :value="user" class="message is-success">
+            <div class="message-header">
+              <p>{{ user.login }}</p>
+              <button class="delete" aria-label="delete"></button>
+            </div>
+            <div class="message-body">
+              <div>
+                {{  }}
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+
       <div class="panel-block" v-if="tabs[0].isActive"
         style="display: flex; justify-content: center; flex-direction: column">
         <div class="columns" v-if="notificacao.ativo">
@@ -29,7 +47,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="table-row" v-for="item in allPending"  @click="showModal(item)" @close="closeModal">
+              <tr class="table-row" v-for="item in allPending" @click="findByIdUser(item.user.id)">
                 <td>{{ item.user.id }}</td>
                 <td>{{ item.register }}</td>
                 <td>{{ item.businessName == null ? item.firstName + " " + item.lastName : item.businessName }}</td>
@@ -39,14 +57,14 @@
                 </td>
                 <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'">Protetor(a)</td>
                 <td class="container_buttons">
-                  <button class="button is-small is-info"
-                    @click=""><strong>Detalhar</strong></button>
+                  <button class="button is-small is-info" @click=""><strong>Detalhar</strong></button>
                   <button class="button is-small is-success"
                     @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
                   <button class="button is-small is-danger"
                     @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
                 </td>
               </tr>
+
             </tbody>
           </table>
         </div>
@@ -66,6 +84,11 @@ import { pendings } from "@/model/Pending";
 import { Message } from "@/model/Message";
 import RegisterPublic from "@/views/Administrator/RegisterPublic.vue";
 import ManagerUsers from "@/views/Administrator/ManagerUsers.vue";
+import { AssociateClient } from '@/client/Associate.client';
+import { Associate } from '@/model/Associate';
+import { ProviderClient } from '@/client/Provider.client';
+import { Provider } from '@/model/Provider';
+import { UserClient } from '@/client/User.client';
 
 interface Tab {
   label: string;
@@ -80,37 +103,31 @@ interface Tab {
   }
 })
 export default class Administrator extends Vue {
-
-  //MODAL
-  public selectedItem: any = null;
-
-  public isModalVisible: boolean = false;
-
-  public showModal(item: any): void {
-    this.selectedItem = item;
-    this.isModalVisible = true;
-  }
-  public closeModal() {
-    this.isModalVisible = false;
-  }
-  public close() {
-    this.$emit('close');
-  }
-
-
-
-  public allPending: pendings[] = []
   public adminClient: AdminClient = new AdminClient();
+  public associateClient: AssociateClient = new AssociateClient();
+  public providerClient: ProviderClient = new ProviderClient();
+  public userClient: UserClient = new UserClient();
+
   public notificacao: Message = new Message();
+
+  public associate: Associate = new Associate();
+  public provider: Provider = new Provider();
+  public user: User = new User();
+
+  public allPending: pendings[] = [];
+
   isVisible = false;
+
   public mounted(): void {
-    this.onClickRequisicao()
+    this.onClickRequisicao();
   }
+
   tabs: Tab[] = [
     { label: 'Usuários Pendentes', icon: 'fas fa-image', isActive: true },
     { label: 'Registro Público', icon: 'fas fa-image', isActive: false },
     { label: 'Gerenciar Usuários', icon: 'fas fa-image', isActive: false }
   ];
+
   activeTab: Tab | null = this.tabs.find(tab => tab.isActive) || null;
   activateTab(tab: Tab): void {
     this.tabs.forEach((t: Tab) => {
@@ -130,6 +147,17 @@ export default class Administrator extends Vue {
       }
     )
   }
+
+  public findByIdUser(id: number): void {
+    this.userClient.findById(id).then(
+      success => {
+        this.user = success
+        console.log(this.user)
+      },
+      error => console.log(error)
+    )
+  }
+
 
   public updateToApproved(id: number): void {
     this.adminClient.updateStatusPendingToApproved(id).then(
