@@ -60,7 +60,7 @@
                 <div class="field">
                     <label class="label">Cep</label>
                     <div class="control">
-                        <input class="input" type="number" placeholder="Ex: 01001-000">
+                        <input class="input" type="number" placeholder="Ex: 01001-000" disabled>
                     </div>
                 </div>
                 <div class="field">
@@ -74,14 +74,29 @@
             <div class="align_inputs">
                 <div class="field">
                     <label class="label">Rua</label>
-                </div>
-                <div class="control">
-                    <input class="input" type="number" placeholder="Rua" disabled>
+                    <div class="control">
+                        <input class="input" type="input" placeholder="Rua" disabled>
+                    </div>
                 </div>
                 <div class="field">
                     <label class="label">Número</label>
                     <div class="control">
                         <input class="input" type="number" placeholder="Número">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container_buttons">
+                <div class="aling_buttons">
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <router-link to="/provider"><button
+                                    class="button is-link is-light">Voltar</button></router-link>
+                        </div>
+
+                        <div class="control">
+                            <button class="button is-success is-focused">Cadastrar</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -109,6 +124,19 @@ main {
     .align_inputs {
         display: flex;
         gap: 30px;
+    }
+
+    .container_buttons {
+        display: flex;
+        justify-content: center;
+        padding: 30px 0px;
+
+        .aling_buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 405px;
+        }
     }
 }
 </style>
