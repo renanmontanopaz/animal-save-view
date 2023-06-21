@@ -8,13 +8,84 @@
         </a>
       </p>
 
-
       <div>
         <div v-if="select === '1'">
-          <article :value="associate" class="message is-success">
+          <article :value="associate" class="message">
             <div class="message-header">
-              <p>{{ associate.user.login }}</p>
-              <button class="delete" aria-label="delete"></button>
+              <p>{{ associate.firstName }}</p>
+              <button class="delete" aria-label="delete" @click="closeModal()"></button>
+            </div>
+            <div class="message-body modal-container">
+              <div>
+                <div class="field">
+                  <label class="label">Nome</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="associate.firstName">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Sobrenome</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="associate.lastName">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Contato</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="associate.contact">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Bairro</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="associate.address.neighborhood">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Rua</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="associate.address.road">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Número</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="associate.address.houseNumber">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div>
+        <div v-if="select === '2'">
+          <article :value="provider" class="message is-success">
+            <div class="message-header">
+              <p>{{ provider.user.login }}</p>
+              <button class="delete" aria-label="delete" @click="closeModal()"></button>
+            </div>
+            <div class="message-body">
+              <div>
+                Exemplo de conteúdo
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div>
+        <div v-if="select === '3'">
+          <article :value="caregiver" class="message is-success">
+            <div class="message-header">
+              <p>{{ caregiver.user.login }}</p>
+              <button class="delete" aria-label="delete" @click="closeModal()"></button>
             </div>
             <div class="message-body">
               <div>
@@ -59,11 +130,10 @@
                 </td>
                 <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'">Protetor(a)</td>
                 <td class="container_buttons">
-                  <button class="button is-small is-info" @click=""><strong>Detalhar</strong></button>
-                  <button class="button is-small is-success"
-                    @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
-                  <button class="button is-small is-danger"
-                    @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
+                  <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
+                    :disabled="select !== '0'" @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
+                  <button :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
+                    :disabled="select !== '0'" @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
                 </td>
               </tr>
 
@@ -78,11 +148,28 @@
                 </td>
                 <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'">Protetor(a)</td>
                 <td class="container_buttons">
-                  <button class="button is-small is-info" @click=""><strong>Detalhar</strong></button>
-                  <button class="button is-small is-success"
-                    @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
-                  <button class="button is-small is-danger"
-                    @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
+                  <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
+                    :disabled="select !== '0'" @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
+                  <button :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
+                    :disabled="select !== '0'" @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
+                </td>
+              </tr>
+
+              <tr class="table-row" v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'"
+                v-for="item in allPending" @click="findByIdCaregiver(item.id)">
+                <td>{{ item.user.id }}</td>
+                <td>{{ item.register }}</td>
+                <td>{{ item.businessName == null ? item.firstName + " " + item.lastName : item.businessName }}</td>
+                <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_ASSOCIATE'">Associado(a)
+                </td>
+                <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_PROVIDER'">Fornecedor(a)
+                </td>
+                <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'">Protetor(a)</td>
+                <td class="container_buttons">
+                  <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
+                    :disabled="select !== '0'" @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
+                  <button :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
+                    :disabled="select !== '0'" @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
                 </td>
               </tr>
 
@@ -96,7 +183,7 @@
   </main>
 </template>
 
-<script lang="ts">
+<script lang="ts" scoped>
 import { Component, Vue } from 'vue-property-decorator';
 import { Occurrences } from "@/model/Occurrences";
 import { User } from "@/model/User";
@@ -110,6 +197,8 @@ import { Associate } from '@/model/Associate';
 import { ProviderClient } from '@/client/Provider.client';
 import { Provider } from '@/model/Provider';
 import { UserClient } from '@/client/User.client';
+import { Caregiver } from '@/model/Caregiver';
+import { CaregiverClient } from '@/client/Caregiver.client';
 
 interface Tab {
   label: string;
@@ -127,13 +216,13 @@ export default class Administrator extends Vue {
   public adminClient: AdminClient = new AdminClient();
   public associateClient: AssociateClient = new AssociateClient();
   public providerClient: ProviderClient = new ProviderClient();
-  public userClient: UserClient = new UserClient();
+  public caregiverClient: CaregiverClient = new CaregiverClient();
 
   public notificacao: Message = new Message();
 
   public associate: Associate = new Associate();
   public provider: Provider = new Provider();
-  public user: User = new User();
+  public caregiver: Caregiver = new Caregiver();
 
   public allPending: pendings[] = [];
 
@@ -193,16 +282,16 @@ export default class Administrator extends Vue {
     )
   }
 
-  // public findByIdUser(id: number): void {
-  //   this.userClient.findById(id).then(
-  //     success => {
-  //       this.user = success
-  //       console.log(this.user)
-  //     },
-  //     error => console.log(error)
-  //   )
-  // }
-
+  public findByIdCaregiver(id: number): void {
+    this.caregiverClient.findById(id).then(
+      success => {
+        this.caregiver = success
+        this.select = "3"
+        console.log(this.caregiver)
+      },
+      error => console.log(error)
+    )
+  }
 
   public updateToApproved(id: number): void {
     this.adminClient.updateStatusPendingToApproved(id).then(
@@ -244,10 +333,31 @@ export default class Administrator extends Vue {
   public onClickFecharNotificacao(): void {
     this.notificacao = new Message()
   }
+
+  public closeModal() {
+    this.select = "0";
+  }
 }
 </script>
 
-<style>
+<style scoped>
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.is-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 a {
   display: flex;
 }
