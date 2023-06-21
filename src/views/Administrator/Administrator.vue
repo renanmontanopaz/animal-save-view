@@ -102,33 +102,208 @@
 
       <div>
         <div v-if="select === '2'">
-          <article :value="provider" class="message is-success">
-            <div class="message-header">
-              <p>{{ provider.user.login }}</p>
-              <button class="delete" aria-label="delete" @click="closeModal()"></button>
-            </div>
-            <div class="message-body">
-              <div>
-                Exemplo de conteúdo
+          <div class="message-body modal-container">
+            <div class="container-all-inputs-modal">
+              <div class="container-inputs-modal">
+                <div class="field">
+                  <label class="label">Data & hora</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="provider.register" readonly>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Nome fantasia</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="provider.fantasyName" readonly>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Nome empresarial</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="provider.businessName" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <div class="container-inputs-modal">
+                <div class="field">
+                  <label class="label">CNPJ</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="provider.cnpj" readonly>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Email</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="provider.user.login" readonly>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Contato</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="provider.contact" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <div class="container-inputs-modal">
+                <div class="field">
+                  <label class="label">Bairro</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="provider.address.neighborhood" readonly>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Rua</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="provider.address.road" readonly>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Número</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="provider.address.houseNumber" readonly>
+                  </div>
+                </div>
+              </div>
+              <div id="container-bottons" class="field is-grouped">
+                <div class="control">
+                  <button @click="updateToRejected(provider.user.id)"
+                    class="button is-danger is-focused">Rejeitar</button>
+                </div>
+
+                <div class="control">
+                  <button @click="updateToApproved(provider.user.id)"
+                    class="button is-success is-focused">Aprovar</button>
+                </div>
+
+                <div class="control">
+                  <button @click="closeModal" class="button is-info is-focused">Voltar</button>
+                </div>
               </div>
             </div>
-          </article>
+          </div>
         </div>
       </div>
 
       <div>
         <div v-if="select === '3'">
-          <article :value="caregiver" class="message is-success">
-            <div class="message-header">
-              <p>{{ caregiver.user.login }}</p>
-              <button class="delete" aria-label="delete" @click="closeModal()"></button>
-            </div>
-            <div class="message-body">
-              <div>
-                Exemplo de conteúdo
+          <div class="message-body modal-container">
+            <div class="container-all-inputs-modal">
+              <div class="container-inputs-modal">
+                <div class="field">
+                  <label class="label">Data & hora</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="caregiver.register" readonly>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Nome</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="caregiver.firstName" readonly>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Sobrenome</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="caregiver.lastName" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <div class="container-inputs-modal">
+                <div class="field">
+                  <label class="label">CPF</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="caregiver.cpf" readonly>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Email</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="caregiver.user.login" readonly>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Contato</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="caregiver.contact" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <div class="container-inputs-modal">
+                <div class="field">
+                  <label class="label">Capacidade de animais</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="caregiver.capacityAnimals" readonly>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Espaço físico</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="caregiver.physicalSpace" readonly>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Gastos</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="caregiver.spending" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <div class="container-inputs-modal">
+                <div class="field">
+                  <label class="label">Bairro</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="caregiver.address.neighborhood" readonly>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Rua</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="caregiver.address.road" readonly>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Número</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="caregiver.address.houseNumber" readonly>
+                  </div>
+                </div>
+              </div>
+              <div id="container-bottons" class="field is-grouped">
+                <div class="control">
+                  <button @click="updateToRejected(caregiver.user.id)"
+                    class="button is-danger is-focused">Rejeitar</button>
+                </div>
+
+                <div class="control">
+                  <button @click="updateToApproved(caregiver.user.id)"
+                    class="button is-success is-focused">Aprovar</button>
+                </div>
+
+                <div class="control">
+                  <button @click="closeModal" class="button is-info is-focused">Voltar</button>
+                </div>
               </div>
             </div>
-          </article>
+          </div>
         </div>
       </div>
 
