@@ -19,6 +19,15 @@
                     <input class="input" type="text" placeholder="Nome empresarial">
                 </div>
             </div>
+
+            <div class="align_inputs">
+                <div class="field">
+                    <label class="label">Contato</label>
+                    <div class="control">
+                        <input class="input" type="number" placeholder="Exemplo: (45) 9 0000-0000">
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 </template>
