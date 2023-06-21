@@ -73,6 +73,12 @@
 
             <div class="align_inputs">
                 <div class="field">
+                    <label class="label">Rua</label>
+                </div>
+                <div class="control">
+                    <input class="input" type="number" placeholder="Rua" disabled>
+                </div>
+                <div class="field">
                     <label class="label">Número</label>
                     <div class="control">
                         <input class="input" type="number" placeholder="Número">
@@ -83,7 +89,15 @@
     </main>
 </template>
 
-<script lang="ts"></script>
+<script lang="ts">
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+
+@Component
+export default class UpdateProviderView extends Vue {
+
+}
+</script>
 
 <style lang="scss" scoped>
 main {
