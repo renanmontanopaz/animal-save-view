@@ -4,6 +4,7 @@
             <div class="control">
                 <h1 class="title">Editar perfil</h1>
             </div>
+
             <div class="align_inputs">
                 <div class="field">
                     <label class="label">Nome fantasia</label>
@@ -11,8 +12,6 @@
                         <input class="input" type="text" placeholder="Nome fantasia">
                     </div>
                 </div>
-
-
                 <div class="field">
                     <label class="label">Nome empresarial</label>
                     <div class="control">
@@ -28,8 +27,6 @@
                         <input class="input" type="number" placeholder="Ex: (45) 9 0000-0000">
                     </div>
                 </div>
-
-
                 <div class="field">
                     <label class="label">CNPJ</label>
                     <div class="control">
@@ -55,6 +52,15 @@
                         <span class="icon is-small is-left">
                             <i class="fas fa-lock"></i>
                         </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="align_inputs">
+                <div class="field">
+                    <label class="label">Cep</label>
+                    <div class="control">
+                        <input class="input" type="number" placeholder="Ex: 01001-000">
                     </div>
                 </div>
             </div>
