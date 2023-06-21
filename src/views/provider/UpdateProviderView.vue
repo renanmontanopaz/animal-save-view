@@ -9,13 +9,13 @@
                 <div class="field">
                     <label class="label">Nome fantasia</label>
                     <div class="control">
-                        <input class="input" type="text" placeholder="Nome fantasia">
+                        <input v-model="provider.fantasyName" class="input" type="text" placeholder="Nome fantasia">
                     </div>
                 </div>
                 <div class="field">
                     <label class="label">Nome empresarial</label>
                     <div class="control">
-                        <input class="input" type="text" placeholder="Nome empresarial">
+                        <input v-model="provider.businessName" class="input" type="text" placeholder="Nome empresarial">
                     </div>
                 </div>
             </div>
@@ -24,13 +24,13 @@
                 <div class="field">
                     <label class="label">Contato</label>
                     <div class="control">
-                        <input class="input" type="number" placeholder="Ex: (45) 9 0000-0000">
+                        <input v-model="provider.contact" class="input" type="number" placeholder="Ex: (45) 9 0000-0000">
                     </div>
                 </div>
                 <div class="field">
                     <label class="label">CNPJ</label>
                     <div class="control">
-                        <input class="input" type="text" placeholder="Ex: 00.000.000/0001-00">
+                        <input v-model="provider.cnpj" class="input" type="text" placeholder="Ex: 00.000.000/0001-00">
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                 <div class="field">
                     <label class="label">Email</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="text" placeholder="Ex: exemplo@gmail.com">
+                        <input v-model="provider.user.login" class="input" type="text" placeholder="Ex: exemplo@gmail.com">
                         <span class="icon is-small is-left">
                             <i class="fas fa-user"></i>
                         </span>
@@ -48,7 +48,8 @@
                 <div class="field">
                     <label class="label">Senha</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="password" placeholder="Mín. 5 dig e Máx. 10 dig">
+                        <input v-model="provider.user.password" class="input" type="password"
+                            placeholder="Mín. 5 dig e Máx. 10 dig">
                         <span class="icon is-small is-left">
                             <i class="fas fa-lock"></i>
                         </span>
@@ -60,13 +61,15 @@
                 <div class="field">
                     <label class="label">Cep</label>
                     <div class="control">
-                        <input class="input" type="number" placeholder="Ex: 01001-000" disabled>
+                        <input v-model="provider.address.cep" class="input" type="number" placeholder="Ex: 01001-000"
+                            disabled>
                     </div>
                 </div>
                 <div class="field">
                     <label class="label">Bairro</label>
                     <div class="control">
-                        <input class="input" type="text" placeholder="Bairro" disabled>
+                        <input v-model="provider.address.neighborhood" class="input" type="text" placeholder="Bairro"
+                            disabled>
                     </div>
                 </div>
             </div>
@@ -75,13 +78,13 @@
                 <div class="field">
                     <label class="label">Rua</label>
                     <div class="control">
-                        <input class="input" type="input" placeholder="Rua" disabled>
+                        <input v-model="provider.address.road" class="input" type="input" placeholder="Rua" disabled>
                     </div>
                 </div>
                 <div class="field">
                     <label class="label">Número</label>
                     <div class="control">
-                        <input class="input" type="number" placeholder="Número">
+                        <input v-model="provider.address.houseNumber" class="input" type="number" placeholder="Número">
                     </div>
                 </div>
             </div>
@@ -93,9 +96,8 @@
                             <router-link to="/provider"><button
                                     class="button is-link is-light">Voltar</button></router-link>
                         </div>
-
                         <div class="control">
-                            <button class="button is-success is-focused">Cadastrar</button>
+                            <button @click="onClickUpdate()" class="button is-success is-focused">Atualizar</button>
                         </div>
                     </div>
                 </div>
@@ -105,12 +107,46 @@
 </template>
 
 <script lang="ts">
+import { ProviderClient } from '@/client/Provider.client';
+import { Provider } from '@/model/Provider';
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 
 @Component
 export default class UpdateProviderView extends Vue {
 
+    private providerClient: ProviderClient = new ProviderClient
+
+    public provider: Provider = new Provider()
+
+    public providerList: Provider[] = []
+
+    private id = Number(this.$route.params.id);
+
+    public mounted(): void {
+        this.getProvider()
+    }
+
+    private getProvider(): void {
+        this.providerClient.findById(this.id).then(
+            success => {
+                this.provider = success
+            },
+            error => console.log(error)
+        )
+    }
+
+    public onClickUpdate(): void {
+        this.providerClient.save(this.provider).then(
+            success => {
+                console.log('Provedor atualizado com sucesso!')
+                this.provider = new Provider()
+            },
+            error => {
+                console.log(error)
+            }
+        )
+    }
 }
 </script>
 
