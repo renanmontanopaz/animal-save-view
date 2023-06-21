@@ -30,10 +30,13 @@
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
+    position: absolute;
+    width: 25%;
+    left: 0%;
   }
 
   .containerImage {
-    width: 22%;
+    width: 24%;
     z-index: 1;
   }
 
@@ -82,7 +85,6 @@
     }
   }
 }
-
 </style>
 
 <script lang="ts">
