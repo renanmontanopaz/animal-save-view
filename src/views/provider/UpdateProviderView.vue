@@ -35,6 +35,20 @@
                     <input class="input" type="text" placeholder="Ex: 00.000.000/0001-00">
                 </div>
             </div>
+
+            <div class="align_inputs">
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control has-icons-left">
+                        <input class="input" type="text" placeholder="Ex: exemplo@gmail.com">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            
         </section>
     </main>
 </template>
