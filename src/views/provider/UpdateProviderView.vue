@@ -61,8 +61,7 @@
                 <div class="field">
                     <label class="label">Cep</label>
                     <div class="control">
-                        <input v-model="provider.address.cep" class="input" type="number" placeholder="Ex: 01001-000"
-                            disabled>
+                        <input v-model="provider.address.cep" class="input" type="number" placeholder="Ex: 01001-000">
                     </div>
                 </div>
                 <div class="field">
