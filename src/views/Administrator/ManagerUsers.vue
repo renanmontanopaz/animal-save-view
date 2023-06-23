@@ -1,38 +1,73 @@
 <template>
-  <div class="content column">
+  <div class="content column is-12">
 
       <p class="panel-tabs">
         <a v-for="(tab, index) in tabs" :key="index" :class="{ 'is-active': tab.isActive }" @click="activateTab(tab)">
           <span>{{ tab.label }}</span>
         </a>
       </p>
-    <div class="panel-block" v-if="tabs[0].isActive" style="display: flex; justify-content: center; flex-direction: column">
-      <div class="card column is-6" v-for="item in userCaregiverList">
+    <div class="panel-block columns is-desktop" v-if="tabs[0].isActive" style=" align-items: flex-start; flex-wrap: wrap; gap: 10px">
+
+      <div class="card column" v-for="item in userCaregiverList">
         <header class="card-header">
           <p class="card-header-title">
             {{item.firstName}}
           </p>
           <button class="card-header-icon" aria-label="more options" @click="openDrop(item.id, item.firstName)">
-          <span class="icon">
+            <span class="icon">
             <i class="fas fa-angle-down" :id="item.firstName" aria-hidden="true"></i>
           </span>
           </button>
         </header>
-        <div class="card-content" v-if="select == item.id" id="conteudo">
-          <div class="content" >
-            <div class="columns">
-              <input class="input is-small column" type="text" placeholder="nome">
-              <input class="input is-small column" type="text" placeholder="sobrenome">
-            </div>
-            <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-            <br>
-            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        <div class="card-content" v-if="select == item.id">
+          <div class="content" :id="item.lastName">
+              <table style="text-align: start;overflow-wrap: break-word;" class="table is-striped is-narrow is-hoverable">
+                <tr><td></td><td></td></tr>
+                <tr>
+                  <td>Nome</td>
+                  <td><strong>{{item.firstName}}</strong></td>
+                </tr>
+                <tr>
+                  <td>Sobrenome</td>
+                  <td><strong>{{item.lastName}}</strong></td>
+                </tr>
+                <tr>
+                  <td>Contato</td>
+                  <td><strong>{{item.contact}}<br/>{{item.user.login}}</strong></td>
+                </tr>
+                <tr>
+                  <td>CPF</td>
+                  <td><strong>{{item.cpf}}</strong></td>
+                </tr>
+                <tr>
+                  <td>Endereço</td>
+                  <td><strong>{{"CEP: "+item.address.cep}}<br/>{{"Rua: "+item.address.road}}<br/>{{"Número: "+item.address.houseNumber}}
+                  <br/>{{"Bairro: "+item.address.neighborhood}}
+                  </strong></td>
+                </tr>
+                <tr>
+                  <td>Espaço físico</td>
+                  <td><strong>{{item.physicalSpace+" M²"}}</strong></td>
+                </tr>
+                <tr>
+                  <td>Credenciais de Login</td>
+                  <td><strong>{{item.user.login}}<br/>Senha: Criptografada</strong></td>
+                </tr>
+                <tr>
+                  <td>Tipo de Usuário</td>
+                  <td><strong v-if="item.user.roles[0].authority === 'ROLE_CAREGIVER'">Protetor(a)</strong></td>
+                </tr>
+                <tr>
+                  <td>Data do Cadastro</td>
+                  <td><strong>{{item.register}}</strong></td>
+                </tr>
+              </table>
+
           </div>
         </div>
         <footer class="card-footer">
-          <a href="#" class="card-footer-item">Save</a>
-          <a href="#" class="card-footer-item">Edit</a>
-          <a href="#" class="card-footer-item">Delete</a>
+          <a class="card-footer-item" style="background-color: #FFDC7D; color: black">Editar</a>
+          <a class="card-footer-item" style="background-color: #F03A5F; color: white" @click="EditCaregiver(item.id)">Deletar</a>
         </footer>
       </div>
     </div>
@@ -125,7 +160,6 @@ export default class ManagerUsers extends Vue {
 
   public openDrop(id:number, icone:string) {
     const icon = document.getElementById(`${icone}`) as HTMLElement;
-    const contentDiv = document.getElementById('conteudo') as HTMLElement;
     if(this.select === id){
       this.select = 0;
       icon.classList.remove('fa', 'fa-angle-up');
@@ -136,9 +170,31 @@ export default class ManagerUsers extends Vue {
       icon.classList.add('fa', 'fa-angle-up');
     }
   }
+  public EditCaregiver(id:number): void {
+    const foundCaregiver = this.userCaregiverList.find((item) => item.id === id);
+    console.log(foundCaregiver)
+    if (foundCaregiver !== undefined) {
+      foundCaregiver.active = false;
+      this.caregiverClient.update(foundCaregiver).then(
+          success => {
+            console.log(success)
+          },
+          error => {
+            console.log(error)
+          }
+      )
+    } else {
+      console.log('Não foi encontrado um cuidador com o ID fornecido.');
+    }
+  }
 }
 
 </script>
 <style scoped>
-
+td{
+  overflow-wrap: break-word;
+}
+tr{
+  flex-wrap: wrap;
+}
 </style>
