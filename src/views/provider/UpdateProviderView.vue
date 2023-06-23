@@ -21,7 +21,13 @@
                 <div class="field">
                     <label class="label">Nome empresarial</label>
                     <div class="control">
-                        <input v-model="provider.businessName" class="input" type="text" placeholder="Nome empresarial">
+                        <input v-model="provider.businessName" @blur="validateInputNameBusiness"
+                            :class="`${inputNameBusiness}`" class="input" type="text" placeholder="Nome empresarial">
+                        <p v-if="errorMessageNameBusiness">
+                        <ul>
+                            <li v-for="error in errorMessageNameBusiness" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -126,6 +132,12 @@ export default class UpdateProviderView extends Vue {
 
     public providerList: Provider[] = []
 
+    public inputNameFantasy: string = 'input'
+    public inputNameBusiness: string = 'input'
+
+    public errorMessageNameFantasy: string[] = []
+    public errorMessageNameBusiness: string[] = []
+
     private id = Number(this.$route.params.id)
 
     public mounted(): void {
@@ -153,9 +165,6 @@ export default class UpdateProviderView extends Vue {
         )
     }
 
-    public inputNameFantasy: string = 'input'
-    public errorMessageNameFantasy: string[] = []
-
     public validateInputNameFantasy() {
         if (!this.provider.fantasyName) {
             this.errorMessageNameFantasy = ['O campo "Nome fantasia" é obrigatório!']
@@ -171,6 +180,24 @@ export default class UpdateProviderView extends Vue {
         } else {
             this.errorMessageNameFantasy = []
             this.inputNameFantasy = 'input is-success'
+        }
+    }
+
+    public validateInputNameBusiness() {
+        if (!this.provider.businessName) {
+            this.errorMessageNameBusiness = ['O campo "Nome empresarial" é obrigatório!'];
+            this.inputNameBusiness = 'input is-danger';
+        }
+        else if (this.provider.businessName.length > 20) {
+            this.errorMessageNameBusiness = ['O campo "Nome empresarial" deve ter no máximo 20 caracteres!'];
+            this.inputNameBusiness = 'input is-danger';
+        }
+        else if (this.provider.businessName.length < 5) {
+            this.errorMessageNameBusiness = ['O campo "Nome empresarial" deve ter no mínimo 5 caracteres!'];
+            this.inputNameBusiness = 'input is-danger';
+        } else {
+            this.errorMessageNameBusiness = [];
+            this.inputNameBusiness = 'input is-success';
         }
     }
 }
