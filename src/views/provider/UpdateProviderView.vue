@@ -36,7 +36,14 @@
                 <div class="field">
                     <label class="label">Contato</label>
                     <div class="control">
-                        <input v-model="provider.contact" class="input" type="number" placeholder="Ex: (45) 9 0000-0000">
+                        <input v-model="provider.contact" @blur="validateInputContactProvider"
+                            :class="`${inputContactProvider}`" class="input" type="text"
+                            placeholder="Ex: (45) 9 0000-0000">
+                        <p v-if="errorMessageContactProvider">
+                        <ul>
+                            <li v-for="error in errorMessageContactProvider" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
                     </div>
                 </div>
                 <div class="field">
@@ -134,9 +141,11 @@ export default class UpdateProviderView extends Vue {
 
     public inputNameFantasy: string = 'input'
     public inputNameBusiness: string = 'input'
+    public inputContactProvider: string = 'input'
 
     public errorMessageNameFantasy: string[] = []
     public errorMessageNameBusiness: string[] = []
+    public errorMessageContactProvider: string[] = []
 
     private id = Number(this.$route.params.id)
 
@@ -185,19 +194,37 @@ export default class UpdateProviderView extends Vue {
 
     public validateInputNameBusiness() {
         if (!this.provider.businessName) {
-            this.errorMessageNameBusiness = ['O campo "Nome empresarial" é obrigatório!'];
-            this.inputNameBusiness = 'input is-danger';
+            this.errorMessageNameBusiness = ['O campo "Nome empresarial" é obrigatório!']
+            this.inputNameBusiness = 'input is-danger'
         }
         else if (this.provider.businessName.length > 20) {
-            this.errorMessageNameBusiness = ['O campo "Nome empresarial" deve ter no máximo 20 caracteres!'];
-            this.inputNameBusiness = 'input is-danger';
+            this.errorMessageNameBusiness = ['O campo "Nome empresarial" deve ter no máximo 20 caracteres!']
+            this.inputNameBusiness = 'input is-danger'
         }
         else if (this.provider.businessName.length < 5) {
-            this.errorMessageNameBusiness = ['O campo "Nome empresarial" deve ter no mínimo 5 caracteres!'];
-            this.inputNameBusiness = 'input is-danger';
+            this.errorMessageNameBusiness = ['O campo "Nome empresarial" deve ter no mínimo 5 caracteres!']
+            this.inputNameBusiness = 'input is-danger'
         } else {
             this.errorMessageNameBusiness = [];
-            this.inputNameBusiness = 'input is-success';
+            this.inputNameBusiness = 'input is-success'
+        }
+    }
+
+    public validatePhoneNumberProvider(phoneNumber: string): boolean {
+        const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/
+        return phoneNumberRegex.test(this.provider.contact)
+    };
+
+    public validateInputContactProvider() {
+        if (this.validatePhoneNumberProvider(this.provider.contact)) {
+            this.errorMessageContactProvider = []
+            this.inputContactProvider = 'input is-success'
+        } else if (!this.provider.contact) {
+            this.errorMessageContactProvider = ['O campo "Contato" é obrigatório!']
+            this.inputContactProvider = 'input is-danger'
+        } else {
+            this.errorMessageContactProvider = ['Siga o seguinte formato: "45 9 0000-0000"!']
+            this.inputContactProvider = 'input is-danger'
         }
     }
 }
