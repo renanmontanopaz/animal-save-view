@@ -9,7 +9,13 @@
                 <div class="field">
                     <label class="label">Nome fantasia</label>
                     <div class="control">
-                        <input v-model="provider.fantasyName" class="input" type="text" placeholder="Nome fantasia">
+                        <input v-model="provider.fantasyName" @blur="validateInputNameFantasy"
+                            :class="`${inputNameFantasy}`" class="input" type="text" placeholder="Nome fantasia">
+                        <p v-if="errorMessageNameFantasy">
+                        <ul>
+                            <li v-for="error in errorMessageNameFantasy" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
                     </div>
                 </div>
                 <div class="field">
@@ -106,10 +112,10 @@
 </template>
 
 <script lang="ts">
-import { ProviderClient } from '@/client/Provider.client';
-import { Provider } from '@/model/Provider';
-import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+import { ProviderClient } from '@/client/Provider.client'
+import { Provider } from '@/model/Provider'
+import Vue from 'vue'
+import { Component } from 'vue-property-decorator'
 
 @Component
 export default class UpdateProviderView extends Vue {
@@ -120,7 +126,7 @@ export default class UpdateProviderView extends Vue {
 
     public providerList: Provider[] = []
 
-    private id = Number(this.$route.params.id);
+    private id = Number(this.$route.params.id)
 
     public mounted(): void {
         this.getProvider()
@@ -145,6 +151,27 @@ export default class UpdateProviderView extends Vue {
                 console.log(error)
             }
         )
+    }
+
+    public inputNameFantasy: string = 'input'
+    public errorMessageNameFantasy: string[] = []
+
+    public validateInputNameFantasy() {
+        if (!this.provider.fantasyName) {
+            this.errorMessageNameFantasy = ['O campo "Nome fantasia" é obrigatório!']
+            this.inputNameFantasy = 'input is-danger'
+        }
+        else if (this.provider.fantasyName.length > 15) {
+            this.errorMessageNameFantasy = ['O campo "Nome fantasia" deve ter no máximo 15 caracteres!']
+            this.inputNameFantasy = 'input is-danger'
+        }
+        else if (this.provider.fantasyName.length < 3) {
+            this.errorMessageNameFantasy = ['O campo "Nome fantasia" deve ter no mínimo 3 caracteres!']
+            this.inputNameFantasy = 'input is-danger'
+        } else {
+            this.errorMessageNameFantasy = []
+            this.inputNameFantasy = 'input is-success'
+        }
     }
 }
 </script>
