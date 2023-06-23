@@ -106,6 +106,46 @@
   }
 }
 
+@media (min-height:810px) and (max-height:950px) {
+
+  .containerParceiros {
+    width: 100%;
+    height: 100vh;
+    background-color: #EBE3CC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4.6em;
+
+    .containerDivs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      .ImgCachorro {
+        display: none;
+      }
+
+      .containerImageParceiros {
+        width: 17em;
+        height: 10em;
+        background-color: #FBBD08;
+        border-radius: 1em;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        .containerImg {
+          width: 90%;
+        }
+      }
+    }
+  }
+}
 </style>
 
 <script lang="ts">
