@@ -17,9 +17,9 @@
       <div id="navbarBasicExample columns is-5" class="navbar-menu" :class="menuClass">
         <div class="navbar-end">
           <router-link to="/"> Home </router-link>
-          <router-link to="/quem-somos"> Quem Somos </router-link>
-          <router-link to="/parceiros"> Parceiros </router-link>
-          <router-link to="/contato"> Contato </router-link>
+          <a @click="scrollToAboutUs"> Quem Somos </a>
+          <a @click="scrollToPartners"> Parceiros </a>
+          <router-link to="/registro-publico"> Registro Publico </router-link>
         </div>
         <div class="navbar-end" id="divTres">
           <div class="navbar-item" id="divDois">
@@ -36,8 +36,12 @@
       </div>
     </nav>
     <Home />
-    <AboutUs />
-    <Partners />
+    <div id="about-us-section">
+      <AboutUs />
+    </div>
+    <div id="partners-section">
+      <Partners />
+    </div>
     <Footer></Footer>
   </div>
 </template>
@@ -47,7 +51,7 @@ import Home from '@/views/LandingPage/Home.vue'
 import AboutUs from '@/views/LandingPage/AboutUs.vue'
 import Partners from '@/views/LandingPage/Partners.vue'
 import Footer from '@/views/LandingPage/Footer.vue'
-import {Component, Vue} from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
   components: {
@@ -58,12 +62,12 @@ import {Component, Vue} from 'vue-property-decorator'
   },
 })
 
-export default class Header extends Vue{
+export default class Header extends Vue {
 
   burguerActive = false;
 
 
-  get burguerClass(): string{
+  get burguerClass(): string {
     return this.burguerActive ? 'navbar-burger is-active' : 'navbar-burguer';
   }
 
@@ -71,11 +75,21 @@ export default class Header extends Vue{
     return this.burguerActive ? 'navbar-menu is-active' : 'navbar-menu';
   }
 
-  toggleBurguer():void {
+  toggleBurguer(): void {
     this.burguerActive = !this.burguerActive;
   }
 
+  scrollToAboutUs(event: MouseEvent): void {
+    event.preventDefault();
+    const target = document.querySelector('#about-us-section') as HTMLElement;
+    target.scrollIntoView({ behavior: 'smooth' });
+  }
 
+  scrollToPartners(event: MouseEvent): void {
+    event.preventDefault();
+    const target = document.querySelector('#partners-section') as HTMLElement;
+    target.scrollIntoView({ behavior: 'smooth' });
+  }
 
 }
 </script>
@@ -173,7 +187,7 @@ nav {
     .navbar-menu {
       padding: 0;
       background-color: #ebe3cc;
-      
+
     }
 
     .navbar-end {
