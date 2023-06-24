@@ -78,11 +78,17 @@
                 <div class="field">
                     <label class="label">Senha</label>
                     <div class="control has-icons-left">
-                        <input v-model="provider.user.password" class="input" type="password"
+                        <input v-model="provider.user.password" @blur="validateInputPasswordProvider"
+                            :class="`${inputPasswordProvider}`" class="input" type="password"
                             placeholder="Mín. 5 dig e Máx. 10 dig">
                         <span class="icon is-small is-left">
                             <i class="fas fa-lock"></i>
                         </span>
+                        <p v-if="errorMessagePasswordProvider">
+                        <ul>
+                            <li v-for="error in errorMessagePasswordProvider" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -155,13 +161,15 @@ export default class UpdateProviderView extends Vue {
     public inputNameBusiness: string = 'input'
     public inputContactProvider: string = 'input'
     public inputCnpjProvider: string = 'input'
-    public inputEmailProvider: string = 'input';
+    public inputEmailProvider: string = 'input'
+    public inputPasswordProvider: string = 'input'
 
     public errorMessageNameFantasy: string[] = []
     public errorMessageNameBusiness: string[] = []
     public errorMessageContactProvider: string[] = []
     public errorMessageCnpjProvider: string[] = []
-    public errorMessageEmailProvider: string[] = [];
+    public errorMessageEmailProvider: string[] = []
+    public errorMessagePasswordProvider: string[] = []
 
     private id = Number(this.$route.params.id)
 
@@ -271,6 +279,22 @@ export default class UpdateProviderView extends Vue {
         } else {
             this.errorMessageEmailProvider = [];
             this.inputEmailProvider = 'input is-success';
+        }
+    }
+
+    public validateInputPasswordProvider() {
+        if (!this.provider.user.password) {
+            this.errorMessagePasswordProvider = ['O campo "Senha" é obrigatório!'];
+            this.inputPasswordProvider = 'input is-danger';
+        } else if (this.provider.user.password.length <= 4) {
+            this.errorMessagePasswordProvider = ['O campo "Senha" deve ter no mínimo 5 caracteres!'];
+            this.inputPasswordProvider = 'input is-danger';
+        } else if (this.provider.user.password.length >= 11) {
+            this.errorMessagePasswordProvider = ['O campo "Senha" deve ter no máximo 10 caracteres!'];
+            this.inputPasswordProvider = 'input is-danger';
+        } else {
+            this.errorMessagePasswordProvider = [];
+            this.inputPasswordProvider = 'input is-success';
         }
     }
 }
