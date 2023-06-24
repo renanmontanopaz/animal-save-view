@@ -62,16 +62,48 @@
                   <td>Data do Cadastro</td>
                   <td><strong>{{item.register}}</strong></td>
                 </tr>
+                <tr>
+                  <td>Gasto Mensal</td>
+                  <td><strong>{{item.spending}}</strong></td>
+                </tr>
               </table>
 
           </div>
         </div>
         <footer class="card-footer">
-          <a class="card-footer-item" style="background-color: #FFDC7D; color: black" @click="showModal()">Editar</a>
-          <ModalManagerCaregiver v-show="isModalVisible" @close="closeModal" :caregiver="userCaregiverList" :id-caregiver="item.id"></ModalManagerCaregiver>
-          <a class="card-footer-item" style="background-color: #F03A5F; color: white" @click="EditCaregiver(item.id)">Deletar</a>
+          <a class="card-footer-item" style="background-color: #FFDC7D; color: black" @click="openModal(item)">Editar</a>
+          <a class="card-footer-item" style="background-color: #F03A5F; color: white" @click="EditActiveCaregiver(item.id)">Deletar</a>
         </footer>
       </div>
+      <transition name="modal">
+      <div v-if="isModalVisible" class="modal-mask">
+        <div class="modal-wrapper">
+          <div class="modal-container">
+            <div class="botao">
+              <button class="delete" @click="openModal"></button>
+            </div>
+            <p class="subtitle is-6">Editar cadastro de usuário</p>
+            <div class="field">
+              <input class="input is-info is-small" type="text" placeholder="Nome" v-model="caregiverFound.firstName">
+              <input class="input is-info is-small" type="text" placeholder="Sobrenome" v-model="caregiverFound.lastName">
+              <input class="input is-info is-small" type="number" placeholder="Telefone" v-model="caregiverFound.contact">
+              <input class="input is-info is-small" type="text" placeholder="Email" v-model="caregiverFound.user.login">
+              <input class="input is-info is-small" type="text" placeholder="CPF" v-model="caregiverFound.cpf">
+              Endereço
+              <input class="input is-info is-small" type="text" placeholder="CEP" v-model="caregiverFound.address.cep">
+              <input class="input is-info is-small" type="text" placeholder="Rua/Avenida" v-model="caregiverFound.address.road">
+              <input class="input is-info is-small" type="number" placeholder="Número" v-model="caregiverFound.address.houseNumber">
+              <input class="input is-info is-small" type="text" placeholder="Bairro" style="margin-bottom: 15px" v-model="caregiverFound.address.neighborhood">
+              <input class="input is-info is-small" type="text" placeholder="Espaço físico m²" v-model="caregiverFound.physicalSpace">
+              <input class="input is-info is-small" type="text" placeholder="Gasto mensal" v-model="caregiverFound.spending">
+            </div>
+            <div class="control">
+              <button class="button is-link" @click="EditCaregiver(caregiverFound)">Salvar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -88,20 +120,17 @@ import {ProviderClient} from "@/client/Provider.client";
 import {Caregiver} from "@/model/Caregiver";
 import {Associate} from "@/model/Associate";
 import {Provider} from "@/model/Provider";
-import ModalManagerCaregiver from "@/views/Administrator/ModalManagerCaregiver.vue";
 
 interface Tab {
   label: string;
   icon: string;
   isActive: boolean;
 }
-@Component({
-  components: {ModalManagerCaregiver}
-})
+@Component
 export default class ManagerUsers extends Vue {
   public notificacao: Message = new Message();
   isVisible = false;
-  isModalVisible = false
+  public isModalVisible: Boolean = false;
   private adminClient: AdminClient = new AdminClient();
   public userAssociateList: Associate[] = []
   public userCaregiverList: Caregiver[] = []
@@ -109,6 +138,7 @@ export default class ManagerUsers extends Vue {
   public associateClient: AssociateClient = new AssociateClient()
   public caregiverClient: CaregiverClient = new CaregiverClient()
   public providerClient: ProviderClient = new ProviderClient()
+  public caregiverFound: Caregiver = new Caregiver()
   public mounted(): void {
     this.ListUsersProvider();
     this.ListUsersAssociate();
@@ -172,7 +202,7 @@ export default class ManagerUsers extends Vue {
       icon.classList.add('fa', 'fa-angle-up');
     }
   }
-  public EditCaregiver(id:number): void {
+  public EditActiveCaregiver(id:number): void {
     const foundCaregiver = this.userCaregiverList.find((item) => item.id === id);
     console.log(foundCaregiver)
     if (foundCaregiver !== undefined) {
@@ -190,12 +220,25 @@ export default class ManagerUsers extends Vue {
     }
   }
 
-  public showModal(): void {
-    this.isModalVisible = true;
-
+  public EditCaregiver(caregiver: Caregiver): void {
+    this.caregiverClient.update(caregiver).then(
+        success => {
+          console.log(success)
+        },
+        error => {
+          console.log(error)
+        }
+    )
   }
-  public closeModal(): void {
-    this.isModalVisible = false;
+  public openModal(objeto: Caregiver) {
+    this.caregiverFound = objeto
+    if(this.isModalVisible){
+      this.isModalVisible = false
+      console.log(this.isModalVisible)
+    } else {
+      this.isModalVisible = true;
+      console.log(this.isModalVisible)
+    }
   }
 }
 
@@ -206,5 +249,53 @@ td{
 }
 tr{
   flex-wrap: wrap;
+}
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-container {
+  width: 300px;
+  min-height: 300px;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-container input{
+  margin-bottom: 5px;
+}
+.modal-header h3 {
+  margin-top: 0;
+  color: #42b983;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.botao{
+  position: absolute;
+  margin-left: 246px;
+  margin-top: -15px;
 }
 </style>

@@ -9,7 +9,6 @@
             </button>
           </div>
           <p>{{idCaregiver}}</p>
-          <p v-for="item in caregiver">{{item.firstName}}</p>
 
           <div class="control" style="margin-top: 10px">
             <button class="button is-link control" >Encaminhar</button>
@@ -30,7 +29,7 @@ import {Caregiver} from "@/model/Caregiver";
 
 @Component
 export default class ModalManagerCaregiver extends Vue {
-  @Prop() caregiver!: Caregiver[];
+  @Prop() caregiver!: Caregiver;
   @Prop() idCaregiver!: number;
   close() {
     this.$emit('close');
