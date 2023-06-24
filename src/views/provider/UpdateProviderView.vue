@@ -204,15 +204,17 @@ export default class UpdateProviderView extends Vue {
     }
 
     public onClickUpdate(): void {
-        this.providerClient.save(this.provider).then(
-            success => {
-                console.log('Provedor atualizado com sucesso!')
-                this.provider = new Provider()
-            },
-            error => {
-                console.log(error)
-            }
-        )
+        if (this.allInputsValidsProvider() === true) {
+            this.providerClient.save(this.provider).then(
+                success => {
+                    console.log('Fornecedor atualizado com sucesso!')
+                    this.provider = new Provider()
+                },
+                error => {
+                    console.log(error)
+                }
+            )
+        }
     }
 
     public validateInputNameFantasy() {
@@ -369,6 +371,28 @@ export default class UpdateProviderView extends Vue {
         } else {
             this.errorMessageNumberProvider = []
             this.inputNumberProvider = 'input is-success'
+        }
+    }
+
+    public validateFormProvider() {
+        this.validateInputNameFantasy()
+        this.validateInputNameBusiness()
+        this.validateInputContactProvider()
+        this.validateInputCpnjProvider()
+        this.validateInputEmailProvider()
+        this.validateInputPasswordProvider()
+        this.validateInputCepProvider()
+        this.validateInputNumberProvider()
+    }
+
+    public allInputsValidsProvider(): boolean {
+        if (this.inputNameFantasy !== 'input is-danger' && this.inputNameBusiness !== 'input is-danger'
+            && this.inputContactProvider !== 'input is-danger' && this.inputCnpjProvider !== 'input is-danger'
+            && this.inputEmailProvider !== 'input is-danger' && this.inputPasswordProvider !== 'input is-danger'
+            && this.inputCepProvider !== 'input is-danger' && this.inputNumberProvider !== 'input is-danger') {
+            return true
+        } else {
+            return false
         }
     }
 }
