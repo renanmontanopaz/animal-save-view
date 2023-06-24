@@ -63,10 +63,16 @@
                 <div class="field">
                     <label class="label">Email</label>
                     <div class="control has-icons-left">
-                        <input v-model="provider.user.login" class="input" type="text" placeholder="Ex: exemplo@gmail.com">
+                        <input v-model="provider.user.login" @blur="validateInputEmailProvider"
+                            :class="`${inputEmailProvider}`" class="input" type="text" placeholder="Ex: exemplo@gmail.com">
                         <span class="icon is-small is-left">
                             <i class="fas fa-user"></i>
                         </span>
+                        <p v-if="errorMessageEmailProvider">
+                        <ul>
+                            <li v-for="error in errorMessageEmailProvider" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
                     </div>
                 </div>
                 <div class="field">
@@ -149,11 +155,13 @@ export default class UpdateProviderView extends Vue {
     public inputNameBusiness: string = 'input'
     public inputContactProvider: string = 'input'
     public inputCnpjProvider: string = 'input'
+    public inputEmailProvider: string = 'input';
 
     public errorMessageNameFantasy: string[] = []
     public errorMessageNameBusiness: string[] = []
     public errorMessageContactProvider: string[] = []
     public errorMessageCnpjProvider: string[] = []
+    public errorMessageEmailProvider: string[] = [];
 
     private id = Number(this.$route.params.id)
 
@@ -238,14 +246,31 @@ export default class UpdateProviderView extends Vue {
 
     public validateInputCpnjProvider() {
         if (!this.provider.cnpj) {
-            this.errorMessageCnpjProvider = ['O campo "CNPJ" é obrigatório!'];
-            this.inputCnpjProvider = 'input is-danger';
+            this.errorMessageCnpjProvider = ['O campo "CNPJ" é obrigatório!']
+            this.inputCnpjProvider = 'input is-danger'
         } else if (cnpj.isValid(this.provider.cnpj)) {
             this.errorMessageCnpjProvider = [];
-            this.inputCnpjProvider = 'input is-success';
+            this.inputCnpjProvider = 'input is-success'
         } else {
-            this.errorMessageCnpjProvider = ['Insira um CNPJ válido!'];
-            this.inputCnpjProvider = 'input is-danger';
+            this.errorMessageCnpjProvider = ['Insira um CNPJ válido!']
+            this.inputCnpjProvider = 'input is-danger'
+        }
+    }
+
+    public isValidEmail(email: string): boolean {
+        return /\S+@\S+\.\S+/.test(email);
+    }
+
+    public validateInputEmailProvider() {
+        if (!this.provider.user.login) {
+            this.errorMessageEmailProvider = ['O campo "Email" é obrigatório!'];
+            this.inputEmailProvider = 'input is-danger';
+        } else if (!this.isValidEmail(this.provider.user.login)) {
+            this.errorMessageEmailProvider = ['Insira um email válido!'];
+            this.inputEmailProvider = 'input is-danger';
+        } else {
+            this.errorMessageEmailProvider = [];
+            this.inputEmailProvider = 'input is-success';
         }
     }
 }
