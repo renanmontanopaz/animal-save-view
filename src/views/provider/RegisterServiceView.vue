@@ -54,12 +54,13 @@
 
             <div class="field">
                 <label class="label">Descrição</label>
-                <p class="control has-icons-left">
-                    <textarea v-model="task.description" class="input" placeholder="Descrição"></textarea>
+                <div class="control has-icons-left">
+                    <textarea v-model="task.description" @blur="validateInputDescription" :class="`${inputDescription}`"
+                        class="input" placeholder="Descrição"></textarea>
                     <span class="icon is-small is-left">
                         <i class="fa fa-list"></i>
                     </span>
-                </p>
+                </div>
             </div>
 
             <div class="field">
@@ -84,10 +85,12 @@ export default class RegisterServiceView extends Vue {
     public inputName: string = 'input'
     public inputCost: string = 'input'
     public inputMonthlyAmount: string = 'input'
+    public inputDescription: string = 'input'
 
     public errorMessageName: string[] = []
     public errorMessageCost: string[] = []
     public errorMessageMonthlyAmount: string[] = []
+    public errorMessageDescription: string[] = []
 
     public validateInputName() {
         if (!this.task.name) {
@@ -130,6 +133,24 @@ export default class RegisterServiceView extends Vue {
         } else {
             this.errorMessageMonthlyAmount = []
             this.inputMonthlyAmount = 'input is-success'
+        }
+    }
+
+    public validateInputDescription() {
+        if (!this.task.description) {
+            this.errorMessageDescription = ['O campo "Descrição" é obrigatório!']
+            this.inputDescription = 'input is-danger'
+        }
+        else if (this.task.description.length > 100) {
+            this.errorMessageDescription = ['O campo "Descrição" deve ter no máximo 100 caracteres!']
+            this.inputDescription = 'input is-danger'
+        }
+        else if (this.task.description.length < 5) {
+            this.errorMessageDescription = ['O campo "Descrição" deve ter no mínimo 5 caracteres!']
+            this.inputDescription = 'input is-danger'
+        } else {
+            this.errorMessageDescription = []
+            this.inputDescription = 'input is-success'
         }
     }
 
