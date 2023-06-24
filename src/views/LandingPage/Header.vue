@@ -181,7 +181,7 @@ nav {
         line-height: 33px;
         color: #002d4c;
         cursor: pointer;
-        border-bottom: 1px solid #002d4c;
+        margin-bottom: 2em;
       }
     }
   }

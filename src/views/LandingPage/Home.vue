@@ -132,7 +132,7 @@
   .dogLeao {
     position: absolute;
     width: 25%;
-    top: 41.1%;
+    top: 39.9%;
     z-index: 1;
   }
 
