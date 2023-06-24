@@ -40,24 +40,6 @@ const routes: Array<RouteConfig> = [
     path: "/",
     name: "Header",
     component: Header,
-    children: [
-      {
-        path: "/",
-        component: Home,
-      },
-      {
-        path: "/quem-somos",
-        component: AboutUs,
-      },
-      {
-        path: "/parceiros",
-        component: Partners,
-      },
-      {
-        path: "/contato",
-        component: Footer,
-      }
-    ]
   },
   {
     path: "/associado",

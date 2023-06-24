@@ -30,10 +30,13 @@
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
+    position: absolute;
+    width: 25%;
+    left: 0%;
   }
 
   .containerImage {
-    width: 22%;
+    width: 24%;
     z-index: 1;
   }
 
@@ -49,7 +52,7 @@
   }
 }
 
-@media (max-width:500px) {
+@media (max-width:550px) {
 
   .containerQuemSomos {
     display: flex;
@@ -77,6 +80,40 @@
       font-weight: 600;
       font-size: 1.2em;
       line-height: 1.5em;
+      text-align: center;
+      color: #EBE3CC;
+    }
+  }
+}
+
+@media (min-height:810px) and (max-height:950px) {
+
+  .containerQuemSomos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background-color: #002D4C;
+    gap: 2em;
+
+    .Pegadas2 {
+      display: none
+    }
+
+    .containerImage {
+      width: 250px;
+      z-index: 1;
+    }
+
+    .containerText {
+      width: 80%;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 1.5em;
+      line-height: 2em;
       text-align: center;
       color: #EBE3CC;
     }
