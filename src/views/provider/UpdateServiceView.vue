@@ -6,42 +6,66 @@
             </div>
             <div class="field">
                 <label class="label">Nome do serviço</label>
-                <p class="control has-icons-left">
-                    <input v-model="task.name" class="input" type="input" placeholder="Ex: Ração">
+                <div class="control has-icons-left">
+                    <input v-model="task.name" @blur="validateInputName" :class="`${inputName}`" class="input" type="input"
+                        placeholder="Ex: Ração">
                     <span class="icon is-small is-left">
                         <i class="fa fa-bag-shopping"></i>
                     </span>
-                </p>
+                    <p v-if="errorMessageName">
+                    <ul>
+                        <li v-for="error in errorMessageName" :key="error">{{ error }}</li>
+                    </ul>
+                    </p>
+                </div>
             </div>
 
             <div class="field">
                 <label class="label">Custo</label>
-                <p class="control has-icons-left">
-                    <input v-model="task.cost" class="input" type="input" placeholder="Ex: 100.00">
+                <div class="control has-icons-left">
+                    <input v-model="task.cost" @blur="validateInputCost" :class="`${inputCost}`" class="input" type="input"
+                        placeholder="Ex: 100.00">
                     <span class="icon is-small is-left">
                         <i class="fa fa-money-bill"></i>
                     </span>
-                </p>
+                    <p v-if="errorMessageCost">
+                    <ul>
+                        <li v-for="error in errorMessageCost" :key="error">{{ error }}</li>
+                    </ul>
+                    </p>
+                </div>
             </div>
 
             <div class="field">
-                <label class="label">Quantidade que será doada por mês</label>
-                <p class="control has-icons-left">
-                    <input v-model="task.monthlyAmount" class="input" type="input" placeholder="Ex: 10">
+                <label class="label">Valor mensal</label>
+                <div class="control has-icons-left">
+                    <input v-model="task.monthlyAmount" @blur="validadeInputMonthlyAmount" :class="`${inputMonthlyAmount}`"
+                        class="input" type="input" placeholder="Ex: 10">
                     <span class="icon is-small is-left">
                         <i class="fa fa-chart-line"></i>
                     </span>
-                </p>
+                    <p v-if="errorMessageMonthlyAmount">
+                    <ul>
+                        <li v-for="error in errorMessageMonthlyAmount" :key="error">{{ error }}</li>
+                    </ul>
+                    </p>
+                </div>
             </div>
 
             <div class="field">
                 <label class="label">Descrição</label>
-                <p class="control has-icons-left">
-                    <textarea v-model="task.description" class="input" placeholder="Descrição"></textarea>
+                <div class="control has-icons-left">
+                    <textarea v-model="task.description" @blur="validateInputDescription" :class="`${inputDescription}`"
+                        class="input" placeholder="Descrição"></textarea>
                     <span class="icon is-small is-left">
                         <i class="fa fa-list"></i>
                     </span>
-                </p>
+                    <p v-if="errorMessageDescription">
+                    <ul>
+                        <li v-for="error in errorMessageDescription" :key="error">{{ error }}</li>
+                    </ul>
+                    </p>
+                </div>
             </div>
 
             <div class="field is-grouped">
@@ -70,7 +94,17 @@ export default class EditServiceView extends Vue {
 
     public taskList: Task[] = []
 
-    private id = Number(this.$route.params.id);
+    private id = Number(this.$route.params.id)
+
+    public inputName: string = 'input'
+    public inputCost: string = 'input'
+    public inputMonthlyAmount: string = 'input'
+    public inputDescription: string = 'input'
+
+    public errorMessageName: string[] = []
+    public errorMessageCost: string[] = []
+    public errorMessageMonthlyAmount: string[] = []
+    public errorMessageDescription: string[] = []
 
     public mounted(): void {
         this.getTask()
@@ -95,6 +129,68 @@ export default class EditServiceView extends Vue {
                 console.log(error)
             }
         )
+    }
+
+    public validateInputName() {
+        if (!this.task.name) {
+            this.errorMessageName = ['O campo "Nome" é obrigatório!']
+            this.inputName = 'input is-danger'
+        }
+        else if (this.task.name.length > 25) {
+            this.errorMessageName = ['O campo "Nome" deve ter no máximo 25 caracteres!']
+            this.inputName = 'input is-danger'
+        }
+        else if (this.task.name.length < 3) {
+            this.errorMessageName = ['O campo "Nome" deve ter no mínimo 3 caracteres!']
+            this.inputName = 'input is-danger'
+        } else {
+            this.errorMessageName = []
+            this.inputName = 'input is-success'
+        }
+    }
+
+    public validateInputCost() {
+        if (!this.task.cost) {
+            this.errorMessageCost = ['O campo "Custo" é obrigatório!']
+            this.inputCost = 'input is-danger'
+        } else if (this.task.cost > 10000) {
+            this.errorMessageCost = ['O campo "Custo" tem um limite máximo de 10.000!']
+            this.inputCost = 'input is-danger'
+        } else {
+            this.errorMessageCost = []
+            this.inputCost = 'input is-success'
+        }
+    }
+
+    public validadeInputMonthlyAmount() {
+        if (!this.task.monthlyAmount) {
+            this.errorMessageMonthlyAmount = ['O campo "Valor mensal" é obrigatório!']
+            this.inputMonthlyAmount = 'input is-danger'
+        } else if (this.task.monthlyAmount > 10000) {
+            this.errorMessageMonthlyAmount = ['O campo "Valor mensal" tem um limite de 10.000!']
+            this.inputMonthlyAmount = 'input is-danger'
+        } else {
+            this.errorMessageMonthlyAmount = []
+            this.inputMonthlyAmount = 'input is-success'
+        }
+    }
+
+    public validateInputDescription() {
+        if (!this.task.description) {
+            this.errorMessageDescription = ['O campo "Descrição" é obrigatório!']
+            this.inputDescription = 'input is-danger'
+        }
+        else if (this.task.description.length > 100) {
+            this.errorMessageDescription = ['O campo "Descrição" deve ter no máximo 100 caracteres!']
+            this.inputDescription = 'input is-danger'
+        }
+        else if (this.task.description.length < 5) {
+            this.errorMessageDescription = ['O campo "Descrição" deve ter no mínimo 5 caracteres!']
+            this.inputDescription = 'input is-danger'
+        } else {
+            this.errorMessageDescription = []
+            this.inputDescription = 'input is-success'
+        }
     }
 }
 </script>
