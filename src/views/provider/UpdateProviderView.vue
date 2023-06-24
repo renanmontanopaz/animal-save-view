@@ -374,17 +374,6 @@ export default class UpdateProviderView extends Vue {
         }
     }
 
-    public validateFormProvider() {
-        this.validateInputNameFantasy()
-        this.validateInputNameBusiness()
-        this.validateInputContactProvider()
-        this.validateInputCpnjProvider()
-        this.validateInputEmailProvider()
-        this.validateInputPasswordProvider()
-        this.validateInputCepProvider()
-        this.validateInputNumberProvider()
-    }
-
     public allInputsValidsProvider(): boolean {
         if (this.inputNameFantasy !== 'input is-danger' && this.inputNameBusiness !== 'input is-danger'
             && this.inputContactProvider !== 'input is-danger' && this.inputCnpjProvider !== 'input is-danger'
