@@ -7,7 +7,7 @@
           <button class="delete" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
-          <h3>Como você pode ajudar os animais através da animal save?</h3>
+          <h2>Como você pode ajudar os animais através da animal save?</h2>
           <p>Não custa quase nada ajudar! E é bem facil!</p>
           <ol>
             <li>Você faz o cadastro do seu nome e CPF/CNPJ</li>
@@ -19,5 +19,11 @@
     </div>
   </div>
 </template>
-<script lang="ts"></script>
+<script lang="ts">
+import {Component, Vue} from 'vue-property-decorator'
+
+@Component
+export default class Modal extends Vue {}
+
+</script>
 <style lang="scss" scoped></style>

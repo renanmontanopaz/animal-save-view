@@ -402,8 +402,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from "vue-property-decorator";
+import Modal from '@/views/LandingPage/HowToHelp.vue'
 
-@Component
+@Component({
+  components: {Modal}
+})
 export default class Home extends Vue {
 
 }
