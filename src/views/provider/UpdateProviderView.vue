@@ -37,8 +37,7 @@
                     <label class="label">Contato</label>
                     <div class="control">
                         <input v-model="provider.contact" @blur="validateInputContactProvider"
-                            :class="`${inputContactProvider}`" class="input" type="text"
-                            placeholder="Ex: (45) 9 0000-0000">
+                            :class="`${inputContactProvider}`" class="input" type="text" placeholder="Ex: (45) 9 0000-0000">
                         <p v-if="errorMessageContactProvider">
                         <ul>
                             <li v-for="error in errorMessageContactProvider" :key="error">{{ error }}</li>
@@ -49,7 +48,13 @@
                 <div class="field">
                     <label class="label">CNPJ</label>
                     <div class="control">
-                        <input v-model="provider.cnpj" class="input" type="text" placeholder="Ex: 00.000.000/0001-00">
+                        <input v-model="provider.cnpj" @blur="validateInputCpnjProvider" :class="`${inputCnpjProvider}`"
+                            class="input" type="text" placeholder="Ex: 00.000.000/0001-00">
+                        <p v-if="errorMessageCnpjProvider">
+                        <ul>
+                            <li v-for="error in errorMessageCnpjProvider" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -129,6 +134,7 @@ import { ProviderClient } from '@/client/Provider.client'
 import { Provider } from '@/model/Provider'
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
+import { cnpj } from 'cpf-cnpj-validator';
 
 @Component
 export default class UpdateProviderView extends Vue {
@@ -142,10 +148,12 @@ export default class UpdateProviderView extends Vue {
     public inputNameFantasy: string = 'input'
     public inputNameBusiness: string = 'input'
     public inputContactProvider: string = 'input'
+    public inputCnpjProvider: string = 'input'
 
     public errorMessageNameFantasy: string[] = []
     public errorMessageNameBusiness: string[] = []
     public errorMessageContactProvider: string[] = []
+    public errorMessageCnpjProvider: string[] = []
 
     private id = Number(this.$route.params.id)
 
@@ -225,6 +233,19 @@ export default class UpdateProviderView extends Vue {
         } else {
             this.errorMessageContactProvider = ['Siga o seguinte formato: "45 9 0000-0000"!']
             this.inputContactProvider = 'input is-danger'
+        }
+    }
+
+    public validateInputCpnjProvider() {
+        if (!this.provider.cnpj) {
+            this.errorMessageCnpjProvider = ['O campo "CNPJ" é obrigatório!'];
+            this.inputCnpjProvider = 'input is-danger';
+        } else if (cnpj.isValid(this.provider.cnpj)) {
+            this.errorMessageCnpjProvider = [];
+            this.inputCnpjProvider = 'input is-success';
+        } else {
+            this.errorMessageCnpjProvider = ['Insira um CNPJ válido!'];
+            this.inputCnpjProvider = 'input is-danger';
         }
     }
 }
