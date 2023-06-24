@@ -125,7 +125,13 @@
                 <div class="field">
                     <label class="label">Número</label>
                     <div class="control">
-                        <input v-model="provider.address.houseNumber" class="input" type="number" placeholder="Número">
+                        <input v-model="provider.address.houseNumber" @blur="validateInputNumberProvider"
+                            :class="`${inputNumberProvider}`" class="input" type="number" placeholder="Número">
+                        <p v-if="errorMessageNumberProvider">
+                        <ul>
+                            <li v-for="error in errorMessageNumberProvider" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -170,6 +176,7 @@ export default class UpdateProviderView extends Vue {
     public inputEmailProvider: string = 'input'
     public inputPasswordProvider: string = 'input'
     public inputCepProvider: string = 'input'
+    public inputNumberProvider: string = 'input'
 
     public errorMessageNameFantasy: string[] = []
     public errorMessageNameBusiness: string[] = []
@@ -178,6 +185,7 @@ export default class UpdateProviderView extends Vue {
     public errorMessageEmailProvider: string[] = []
     public errorMessagePasswordProvider: string[] = []
     public errorMessageCepProvider: string[] = []
+    public errorMessageNumberProvider: string[] = []
 
     private id = Number(this.$route.params.id)
 
@@ -308,14 +316,27 @@ export default class UpdateProviderView extends Vue {
 
     public validateInputCepProvider(): void {
         if (!this.provider.address.cep) {
-            this.errorMessageCepProvider = ['O campo "CEP" é obrigatório!'];
-            this.inputCepProvider = 'input is-danger';
+            this.errorMessageCepProvider = ['O campo "CEP" é obrigatório!']
+            this.inputCepProvider = 'input is-danger'
         } else if (this.provider.address.cep.length !== 8) {
-            this.errorMessageCepProvider = ['CEP inválido!'];
-            this.inputCepProvider = 'input is-danger';
+            this.errorMessageCepProvider = ['CEP inválido!']
+            this.inputCepProvider = 'input is-danger'
         } else {
-            this.errorMessageCepProvider = [];
-            this.inputCepProvider = 'input is-success';
+            this.errorMessageCepProvider = []
+            this.inputCepProvider = 'input is-success'
+        }
+    }
+
+    public validateInputNumberProvider() {
+        if (!this.provider.address.houseNumber) {
+            this.errorMessageNumberProvider = ['O campo "Número" é obrigatório!']
+            this.inputNumberProvider = 'input is-danger'
+        } else if (this.provider.address.houseNumber > 1000000) {
+            this.errorMessageNumberProvider = ['O número inserido é invalido!']
+            this.inputNumberProvider = 'input is-danger'
+        } else {
+            this.errorMessageNumberProvider = []
+            this.inputNumberProvider = 'input is-success'
         }
     }
 }
