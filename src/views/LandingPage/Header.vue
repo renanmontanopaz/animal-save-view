@@ -7,13 +7,14 @@
             <img src="../../assets/Logo.png" />
           </a>
         </router-link>
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="true" data-target="navbarBasicExample">
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="true" data-target="navbarBasicExample"
+          :class="burguerClass" @click="toggleBurguer">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
       </div>
-      <div id="navbarBasicExample columns is-5" class="navbar-menu is-active">
+      <div id="navbarBasicExample columns is-5" class="navbar-menu" :class="menuClass">
         <div class="navbar-end">
           <router-link to="/"> Home </router-link>
           <router-link to="/quem-somos"> Quem Somos </router-link>
@@ -135,6 +136,7 @@ nav {
     .navbar-menu {
       padding: 0;
       background-color: #ebe3cc;
+      
     }
 
     .navbar-end {
@@ -192,14 +194,35 @@ import Home from '@/views/LandingPage/Home.vue'
 import AboutUs from '@/views/LandingPage/AboutUs.vue'
 import Partners from '@/views/LandingPage/Partners.vue'
 import Footer from '@/views/LandingPage/Footer.vue'
+import {Component, Vue} from 'vue-property-decorator'
 
-export default {
+@Component({
   components: {
     Home,
     AboutUs,
     Partners,
     Footer,
-  }
-}
+  },
+})
 
+export default class Header extends Vue{
+
+  burguerActive = false;
+
+
+  get burguerClass(): string{
+    return this.burguerActive ? 'navbar-burger is-active' : 'navbar-burguer';
+  }
+
+  get menuClass(): string {
+    return this.burguerActive ? 'navbar-menu is-active' : 'navbar-menu';
+  }
+
+  toggleBurguer():void {
+    this.burguerActive = !this.burguerActive;
+  }
+
+
+
+}
 </script>
