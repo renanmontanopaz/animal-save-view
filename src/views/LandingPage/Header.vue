@@ -163,6 +163,12 @@ nav {
       color: #002d4c;
       cursor: pointer;
     }
+
+    .buttons :hover {
+      transform: scale(1.05);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
   }
 }
 
@@ -236,6 +242,7 @@ nav {
         cursor: pointer;
         margin-bottom: 2em;
       }
+
     }
   }
 }
