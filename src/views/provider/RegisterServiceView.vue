@@ -111,8 +111,8 @@ export default class RegisterServiceView extends Vue {
         if (!this.task.cost) {
             this.errorMessageCost = ['O campo "Custo" é obrigatório!']
             this.inputCost = 'input is-danger'
-        } else if (this.task.cost > 100000) {
-            this.errorMessageCost = ['O campo "Custo" tem um limite máximo de 100.000!']
+        } else if (this.task.cost > 10000) {
+            this.errorMessageCost = ['O campo "Custo" tem um limite máximo de 10.000!']
             this.inputCost = 'input is-danger'
         } else {
             this.errorMessageCost = []
