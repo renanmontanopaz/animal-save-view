@@ -37,13 +37,19 @@
             </div>
 
             <div class="field">
-                <label class="label">Quantidade que será doada por mês</label>
-                <p class="control has-icons-left">
-                    <input v-model="task.monthlyAmount" class="input" type="number" placeholder="Ex:10">
+                <label class="label">Valor mensal</label>
+                <div class="control has-icons-left">
+                    <input v-model="task.monthlyAmount" @blur="validadeInputMonthlyAmount" :class="`${inputMonthlyAmount}`"
+                        class="input" type="text" placeholder="Ex:10">
                     <span class="icon is-small is-left">
                         <i class="fa fa-chart-line"></i>
                     </span>
-                </p>
+                    <p v-if="errorMessageMonthlyAmount">
+                    <ul>
+                        <li v-for="error in errorMessageMonthlyAmount" :key="error">{{ error }}</li>
+                    </ul>
+                    </p>
+                </div>
             </div>
 
             <div class="field">
@@ -77,9 +83,11 @@ export default class RegisterServiceView extends Vue {
 
     public inputName: string = 'input'
     public inputCost: string = 'input'
+    public inputMonthlyAmount: string = 'input'
 
     public errorMessageName: string[] = []
     public errorMessageCost: string[] = []
+    public errorMessageMonthlyAmount: string[] = []
 
     public validateInputName() {
         if (!this.task.name) {
@@ -104,10 +112,24 @@ export default class RegisterServiceView extends Vue {
             this.errorMessageCost = ['O campo "Custo" é obrigatório!']
             this.inputCost = 'input is-danger'
         } else if (this.task.cost > 25) {
-            this.errorMessageCost = ['O campo "custo" deve ter no máximo 25 caracteres!']
+            this.errorMessageCost = ['O campo "Custo" deve ter no máximo 25 caracteres!']
+            this.inputCost = 'input is-danger'
         } else {
             this.errorMessageCost = []
             this.inputCost = 'input is-success'
+        }
+    }
+
+    public validadeInputMonthlyAmount() {
+        if (!this.task.monthlyAmount) {
+            this.errorMessageMonthlyAmount = ['O campo "Valor mensal" é obrigatório!']
+            this.inputMonthlyAmount = 'input is-danger'
+        } else if (this.task.monthlyAmount > 100) {
+            this.errorMessageMonthlyAmount = ['O campo "Valor mensal" tem um limite de 100!']
+            this.inputMonthlyAmount = 'input is-danger'
+        } else {
+            this.errorMessageMonthlyAmount = []
+            this.inputMonthlyAmount = 'input is-success'
         }
     }
 
