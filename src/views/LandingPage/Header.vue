@@ -19,7 +19,7 @@
           <router-link to="/"> Home </router-link>
           <a @click="scrollToAboutUs"> Quem Somos </a>
           <a @click="scrollToPartners"> Parceiros </a>
-          <router-link to="/registro-publico"> Registro Publico </router-link>
+          <router-link to="/register-occurrences"> Registro Publico </router-link>
         </div>
         <div class="navbar-end" id="divTres">
           <div class="navbar-item" id="divDois">
