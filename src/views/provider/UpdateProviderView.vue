@@ -95,9 +95,15 @@
 
             <div class="align_inputs">
                 <div class="field">
-                    <label class="label">Cep</label>
+                    <label class="label">CEP</label>
                     <div class="control">
-                        <input v-model="provider.address.cep" class="input" type="number" placeholder="Ex: 01001-000">
+                        <input v-model="provider.address.cep" @blur="validateInputCepProvider"
+                            :class="`${inputCepProvider}`" class="input" type="number" placeholder="Ex: 01001-000">
+                        <p v-if="errorMessageCepProvider">
+                        <ul>
+                            <li v-for="error in errorMessageCepProvider" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
                     </div>
                 </div>
                 <div class="field">
@@ -163,6 +169,7 @@ export default class UpdateProviderView extends Vue {
     public inputCnpjProvider: string = 'input'
     public inputEmailProvider: string = 'input'
     public inputPasswordProvider: string = 'input'
+    public inputCepProvider: string = 'input'
 
     public errorMessageNameFantasy: string[] = []
     public errorMessageNameBusiness: string[] = []
@@ -170,6 +177,7 @@ export default class UpdateProviderView extends Vue {
     public errorMessageCnpjProvider: string[] = []
     public errorMessageEmailProvider: string[] = []
     public errorMessagePasswordProvider: string[] = []
+    public errorMessageCepProvider: string[] = []
 
     private id = Number(this.$route.params.id)
 
@@ -284,17 +292,30 @@ export default class UpdateProviderView extends Vue {
 
     public validateInputPasswordProvider() {
         if (!this.provider.user.password) {
-            this.errorMessagePasswordProvider = ['O campo "Senha" é obrigatório!'];
-            this.inputPasswordProvider = 'input is-danger';
+            this.errorMessagePasswordProvider = ['O campo "Senha" é obrigatório!']
+            this.inputPasswordProvider = 'input is-danger'
         } else if (this.provider.user.password.length <= 4) {
-            this.errorMessagePasswordProvider = ['O campo "Senha" deve ter no mínimo 5 caracteres!'];
+            this.errorMessagePasswordProvider = ['O campo "Senha" deve ter no mínimo 5 caracteres!']
             this.inputPasswordProvider = 'input is-danger';
         } else if (this.provider.user.password.length >= 11) {
-            this.errorMessagePasswordProvider = ['O campo "Senha" deve ter no máximo 10 caracteres!'];
-            this.inputPasswordProvider = 'input is-danger';
+            this.errorMessagePasswordProvider = ['O campo "Senha" deve ter no máximo 10 caracteres!']
+            this.inputPasswordProvider = 'input is-danger'
         } else {
-            this.errorMessagePasswordProvider = [];
-            this.inputPasswordProvider = 'input is-success';
+            this.errorMessagePasswordProvider = []
+            this.inputPasswordProvider = 'input is-success'
+        }
+    }
+
+    public validateInputCepProvider(): void {
+        if (!this.provider.address.cep) {
+            this.errorMessageCepProvider = ['O campo "CEP" é obrigatório!'];
+            this.inputCepProvider = 'input is-danger';
+        } else if (this.provider.address.cep.length !== 8) {
+            this.errorMessageCepProvider = ['CEP inválido!'];
+            this.inputCepProvider = 'input is-danger';
+        } else {
+            this.errorMessageCepProvider = [];
+            this.inputCepProvider = 'input is-success';
         }
     }
 }
