@@ -25,7 +25,7 @@
         </p>
       </div>
       <div class="containerB">
-        <button class="butt">Saiba Mais</button>
+        <button class="butt" @click="showModal">Saiba Mais</button>
         <button class="butt">Como Ajudar</button>
       </div>
     </article>
@@ -40,8 +40,34 @@
         <img src="../../assets/Rectangle.svg" alt="">
       </div>
     </article>
+    <HowToHelp v-show="isVisible" @close="closeModal"/>
   </section>
 </template>
+
+<script lang="ts">
+import Vue from 'vue'
+import { Component } from "vue-property-decorator";
+import HowToHelp from '@/views/LandingPage/HowToHelp.vue'
+
+
+@Component({
+  components: {HowToHelp}
+})
+export default class Home extends Vue {
+  
+  isVisible = false;
+
+  public showModal(): void {
+    this.isVisible = true;
+  }
+
+  public closeModal(): void {
+    this.isVisible = false;
+  }
+
+}
+
+</script>
 <style Lang="scss" scoped>
 @import "~bulma/bulma.sass";
 @import url("https://fonts.googleapis.com/css2?family=Concert+One&family=Poppins:ital,wght@0,200;0,400;0,600;1,100&display=swap");
@@ -399,16 +425,3 @@
 /*Fazer a responsividade de todas as telas, EM TODOS OS TAMANHOS*/
 </style>
 
-<script lang="ts">
-import Vue from 'vue'
-import { Component } from "vue-property-decorator";
-import Modal from '@/views/LandingPage/HowToHelp.vue'
-
-@Component({
-  components: {Modal}
-})
-export default class Home extends Vue {
-
-}
-
-</script>

@@ -4,7 +4,7 @@
       <div class="modal-card">
         <header class="modal-card-head">
           <h1 class="modal-card-title">Como Ajudar</h1>
-          <button class="delete" aria-label="close"></button>
+          <button class="delete" aria-label="close" @click="close"></button>
         </header>
         <section class="modal-card-body">
           <h2>Como você pode ajudar os animais através da animal save?</h2>
@@ -23,7 +23,13 @@
 import {Component, Vue} from 'vue-property-decorator'
 
 @Component
-export default class Modal extends Vue {}
+export default class Modal extends Vue {
+
+  close() {
+      this.$emit('close');
+  }
+  
+}
 
 </script>
 <style lang="scss" scoped></style>
