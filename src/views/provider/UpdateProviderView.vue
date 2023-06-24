@@ -158,7 +158,8 @@ import { ProviderClient } from '@/client/Provider.client'
 import { Provider } from '@/model/Provider'
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
-import { cnpj } from 'cpf-cnpj-validator';
+import { cnpj } from 'cpf-cnpj-validator'
+import axios from 'axios'
 
 @Component
 export default class UpdateProviderView extends Vue {
@@ -245,7 +246,7 @@ export default class UpdateProviderView extends Vue {
             this.errorMessageNameBusiness = ['O campo "Nome empresarial" deve ter no mínimo 5 caracteres!']
             this.inputNameBusiness = 'input is-danger'
         } else {
-            this.errorMessageNameBusiness = [];
+            this.errorMessageNameBusiness = []
             this.inputNameBusiness = 'input is-success'
         }
     }
@@ -253,7 +254,7 @@ export default class UpdateProviderView extends Vue {
     public validatePhoneNumberProvider(phoneNumber: string): boolean {
         const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/
         return phoneNumberRegex.test(this.provider.contact)
-    };
+    }
 
     public validateInputContactProvider() {
         if (this.validatePhoneNumberProvider(this.provider.contact)) {
@@ -273,7 +274,7 @@ export default class UpdateProviderView extends Vue {
             this.errorMessageCnpjProvider = ['O campo "CNPJ" é obrigatório!']
             this.inputCnpjProvider = 'input is-danger'
         } else if (cnpj.isValid(this.provider.cnpj)) {
-            this.errorMessageCnpjProvider = [];
+            this.errorMessageCnpjProvider = []
             this.inputCnpjProvider = 'input is-success'
         } else {
             this.errorMessageCnpjProvider = ['Insira um CNPJ válido!']
@@ -282,19 +283,19 @@ export default class UpdateProviderView extends Vue {
     }
 
     public isValidEmail(email: string): boolean {
-        return /\S+@\S+\.\S+/.test(email);
+        return /\S+@\S+\.\S+/.test(email)
     }
 
     public validateInputEmailProvider() {
         if (!this.provider.user.login) {
-            this.errorMessageEmailProvider = ['O campo "Email" é obrigatório!'];
-            this.inputEmailProvider = 'input is-danger';
+            this.errorMessageEmailProvider = ['O campo "Email" é obrigatório!']
+            this.inputEmailProvider = 'input is-danger'
         } else if (!this.isValidEmail(this.provider.user.login)) {
-            this.errorMessageEmailProvider = ['Insira um email válido!'];
-            this.inputEmailProvider = 'input is-danger';
+            this.errorMessageEmailProvider = ['Insira um email válido!']
+            this.inputEmailProvider = 'input is-danger'
         } else {
-            this.errorMessageEmailProvider = [];
-            this.inputEmailProvider = 'input is-success';
+            this.errorMessageEmailProvider = []
+            this.inputEmailProvider = 'input is-success'
         }
     }
 
@@ -304,7 +305,7 @@ export default class UpdateProviderView extends Vue {
             this.inputPasswordProvider = 'input is-danger'
         } else if (this.provider.user.password.length <= 4) {
             this.errorMessagePasswordProvider = ['O campo "Senha" deve ter no mínimo 5 caracteres!']
-            this.inputPasswordProvider = 'input is-danger';
+            this.inputPasswordProvider = 'input is-danger'
         } else if (this.provider.user.password.length >= 11) {
             this.errorMessagePasswordProvider = ['O campo "Senha" deve ter no máximo 10 caracteres!']
             this.inputPasswordProvider = 'input is-danger'
@@ -314,14 +315,45 @@ export default class UpdateProviderView extends Vue {
         }
     }
 
+    async fetchAddressProvider(): Promise<void> {
+        if (this.provider.address.cep.length === 8) {
+            try {
+                const response = await axios.get(`https://viacep.com.br/ws/${this.provider.address.cep}/json/`)
+                const { logradouro, bairro } = response.data
+                if (logradouro == null || bairro == null) {
+                    this.errorMessageCepProvider = ['CEP inválido!']
+                    this.inputCepProvider = 'input is-danger'
+                }
+                this.provider.address.road = logradouro
+                this.provider.address.neighborhood = bairro
+            } catch (error) {
+                this.errorMessageCepProvider = ['CEP inválido!']
+                this.inputCepProvider = 'input is-danger'
+                this.clearAddressFieldsProvider()
+            }
+        } else {
+            this.errorMessageCepProvider = ['CEP inválido!']
+            this.inputCepProvider = 'input is-danger'
+            this.clearAddressFieldsProvider()
+        }
+    }
+
+    private clearAddressFieldsProvider(): void {
+        this.provider.address.road = ''
+        this.provider.address.neighborhood = ''
+    }
+
     public validateInputCepProvider(): void {
         if (!this.provider.address.cep) {
             this.errorMessageCepProvider = ['O campo "CEP" é obrigatório!']
             this.inputCepProvider = 'input is-danger'
+            this.clearAddressFieldsProvider()
         } else if (this.provider.address.cep.length !== 8) {
             this.errorMessageCepProvider = ['CEP inválido!']
             this.inputCepProvider = 'input is-danger'
+            this.clearAddressFieldsProvider()
         } else {
+            this.fetchAddressProvider()
             this.errorMessageCepProvider = []
             this.inputCepProvider = 'input is-success'
         }
