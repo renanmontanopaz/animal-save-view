@@ -152,7 +152,7 @@
   }
 }
 
-@media (max-width:500px) {
+@media (max-width:550px) {
 
   .containerHome {
     width: 100%;

@@ -13,7 +13,7 @@
           <span aria-hidden="true"></span>
         </a>
       </div>
-      <div id="navbarBasicExample columns is-5" class="navbar-menu">
+      <div id="navbarBasicExample columns is-5" class="navbar-menu is-active">
         <div class="navbar-end">
           <router-link to="/"> Home </router-link>
           <router-link to="/quem-somos"> Quem Somos </router-link>
@@ -114,6 +114,78 @@ nav {
   }
 }
 
+@media (max-width:1024px) {
+  nav {
+    padding: 0px;
+    background-color: #ebe3cc !important;
+
+    .navbar-item {
+      img {
+        max-height: 3em;
+        width: 200px;
+      }
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: black;
+    }
+
+    .navbar-menu {
+      padding: 0;
+      background-color: #ebe3cc;
+    }
+
+    .navbar-end {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1em;
+      margin-top: 1.2em;
+      font-family: "Poppins", sans-serif;
+      font-style: normal;
+      font-weight: 200;
+      font-size: 1.4em;
+      line-height: 1em;
+      background-color: #ebe3cc !important;
+    }
+
+    a {
+      font-weight: bold;
+      color: #002d4c;
+
+      &.router-link-exact-active {
+        color: #fbbd08;
+      }
+    }
+
+    .navbar-end {
+      .navbar-item {
+        .buttons {
+          gap: 30px;
+        }
+      }
+
+      button {
+        background: #ebe3cc !important;
+        border-radius: 15px;
+        border: 3px solid #002d4c;
+        width: 132px;
+        height: 42px;
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 33px;
+        color: #002d4c;
+        cursor: pointer;
+        border-bottom: 1px solid #002d4c;
+      }
+    }
+  }
+}
 </style>
 <script lang="ts">
 import Home from '@/views/LandingPage/Home.vue'
@@ -129,4 +201,5 @@ export default {
     Footer,
   }
 }
+
 </script>

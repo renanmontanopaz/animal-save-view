@@ -65,7 +65,7 @@
   }
 }
 
-@media (max-width:500px) {
+@media (max-width:550px) {
 
   .containerParceiros {
     width: 100%;
