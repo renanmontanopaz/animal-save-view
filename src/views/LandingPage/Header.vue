@@ -42,6 +42,43 @@
   </div>
 </template>
 
+<script lang="ts">
+import Home from '@/views/LandingPage/Home.vue'
+import AboutUs from '@/views/LandingPage/AboutUs.vue'
+import Partners from '@/views/LandingPage/Partners.vue'
+import Footer from '@/views/LandingPage/Footer.vue'
+import {Component, Vue} from 'vue-property-decorator'
+
+@Component({
+  components: {
+    Home,
+    AboutUs,
+    Partners,
+    Footer,
+  },
+})
+
+export default class Header extends Vue{
+
+  burguerActive = false;
+
+
+  get burguerClass(): string{
+    return this.burguerActive ? 'navbar-burger is-active' : 'navbar-burguer';
+  }
+
+  get menuClass(): string {
+    return this.burguerActive ? 'navbar-menu is-active' : 'navbar-menu';
+  }
+
+  toggleBurguer():void {
+    this.burguerActive = !this.burguerActive;
+  }
+
+
+
+}
+</script>
 <style lang="scss" scoped>
 @import "~bulma/bulma.sass";
 @import url("https://fonts.googleapis.com/css2?family=Concert+One&family=Poppins:ital,wght@0,200;0,400;0,600;1,100&display=swap");
@@ -189,40 +226,3 @@ nav {
   }
 }
 </style>
-<script lang="ts">
-import Home from '@/views/LandingPage/Home.vue'
-import AboutUs from '@/views/LandingPage/AboutUs.vue'
-import Partners from '@/views/LandingPage/Partners.vue'
-import Footer from '@/views/LandingPage/Footer.vue'
-import {Component, Vue} from 'vue-property-decorator'
-
-@Component({
-  components: {
-    Home,
-    AboutUs,
-    Partners,
-    Footer,
-  },
-})
-
-export default class Header extends Vue{
-
-  burguerActive = false;
-
-
-  get burguerClass(): string{
-    return this.burguerActive ? 'navbar-burger is-active' : 'navbar-burguer';
-  }
-
-  get menuClass(): string {
-    return this.burguerActive ? 'navbar-menu is-active' : 'navbar-menu';
-  }
-
-  toggleBurguer():void {
-    this.burguerActive = !this.burguerActive;
-  }
-
-
-
-}
-</script>
