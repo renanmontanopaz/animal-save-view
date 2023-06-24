@@ -60,6 +60,11 @@
                     <span class="icon is-small is-left">
                         <i class="fa fa-list"></i>
                     </span>
+                    <p v-if="errorMessageDescription">
+                    <ul>
+                        <li v-for="error in errorMessageDescription" :key="error">{{ error }}</li>
+                    </ul>
+                    </p>
                 </div>
             </div>
 
@@ -96,7 +101,7 @@ export default class RegisterServiceView extends Vue {
         if (this.allInputsValids() === true) {
             this.taskClient.save(this.task).then(
                 success => {
-                    console.log('Produto cadastrado com sucesso!')
+                    console.log('Serviço cadastrado com sucesso!')
                     this.task = new Task()
                 },
                 error => {
