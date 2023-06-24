@@ -22,12 +22,18 @@
 
             <div class="field">
                 <label class="label">Custo</label>
-                <p class="control has-icons-left">
-                    <input v-model="task.cost" class="input" type="number" placeholder="Ex: 100.00">
+                <div class="control has-icons-left">
+                    <input v-model="task.cost" @blur="validateInputCost" :class="`${inputCost}`" class="input" type="number"
+                        placeholder="Ex: 100.00">
                     <span class="icon is-small is-left">
                         <i class="fa fa-money-bill"></i>
                     </span>
-                </p>
+                    <p v-if="errorMessageCost">
+                    <ul>
+                        <li v-for="error in errorMessageCost" :key="error">{{ error }}</li>
+                    </ul>
+                    </p>
+                </div>
             </div>
 
             <div class="field">
@@ -70,8 +76,10 @@ export default class RegisterServiceView extends Vue {
     private taskClient: TaskClient = new TaskClient()
 
     public inputName: string = 'input'
+    public inputCost: string = 'input'
 
     public errorMessageName: string[] = []
+    public errorMessageCost: string[] = []
 
     public validateInputName() {
         if (!this.task.name) {
@@ -88,6 +96,18 @@ export default class RegisterServiceView extends Vue {
         } else {
             this.errorMessageName = []
             this.inputName = 'input is-success'
+        }
+    }
+
+    public validateInputCost() {
+        if (!this.task.cost) {
+            this.errorMessageCost = ['O campo "Custo" é obrigatório!']
+            this.inputCost = 'input is-danger'
+        } else if (this.task.cost > 25) {
+            this.errorMessageCost = ['O campo "custo" deve ter no máximo 25 caracteres!']
+        } else {
+            this.errorMessageCost = []
+            this.inputCost = 'input is-success'
         }
     }
 
