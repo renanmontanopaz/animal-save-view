@@ -92,6 +92,20 @@ export default class RegisterServiceView extends Vue {
     public errorMessageMonthlyAmount: string[] = []
     public errorMessageDescription: string[] = []
 
+    public onClickRegister(): void {
+        if (this.allInputsValids() === true) {
+            this.taskClient.save(this.task).then(
+                success => {
+                    console.log('Produto cadastrado com sucesso!')
+                    this.task = new Task()
+                },
+                error => {
+                    console.log(error);
+                }
+            )
+        }
+    }
+
     public validateInputName() {
         if (!this.task.name) {
             this.errorMessageName = ['O campo "Nome" é obrigatório!']
@@ -154,17 +168,13 @@ export default class RegisterServiceView extends Vue {
         }
     }
 
-    public onClickRegister(): void {
-
-        this.taskClient.save(this.task).then(
-            success => {
-                console.log('Produto cadastrado com sucesso!')
-                this.task = new Task()
-            },
-            error => {
-                console.log(error);
-            }
-        )
+    public allInputsValids(): boolean {
+        if (this.inputName !== 'input is-danger' && this.inputCost !== 'input is-danger'
+            && this.inputMonthlyAmount !== 'input is-danger' && this.inputDescription !== 'input is-danger') {
+            return true
+        } else {
+            return false
+        }
     }
 }
 </script>
