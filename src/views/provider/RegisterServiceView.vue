@@ -6,12 +6,18 @@
             </div>
             <div class="field">
                 <label class="label">Nome do serviço</label>
-                <p class="control has-icons-left">
-                    <input v-model="task.name" class="input" type="input" placeholder="Ex: Ração">
+                <div class="control has-icons-left">
+                    <input v-model="task.name" @blur="validateInputName" :class="`${inputName}`" class="input" type="text"
+                        placeholder="Ex: Ração">
                     <span class="icon is-small is-left">
                         <i class="fa fa-bag-shopping"></i>
                     </span>
-                </p>
+                    <p v-if="errorMessageName">
+                    <ul>
+                        <li v-for="error in errorMessageName" :key="error">{{ error }}</li>
+                    </ul>
+                    </p>
+                </div>
             </div>
 
             <div class="field">
@@ -62,6 +68,28 @@ export default class RegisterServiceView extends Vue {
     public task: Task = new Task()
 
     private taskClient: TaskClient = new TaskClient()
+
+    public inputName: string = 'input'
+
+    public errorMessageName: string[] = []
+
+    public validateInputName() {
+        if (!this.task.name) {
+            this.errorMessageName = ['O campo "Nome" é obrigatório!']
+            this.inputName = 'input is-danger'
+        }
+        else if (this.task.name.length > 25) {
+            this.errorMessageName = ['O campo "Nome" deve ter no máximo 25 caracteres!']
+            this.inputName = 'input is-danger'
+        }
+        else if (this.task.name.length < 3) {
+            this.errorMessageName = ['O campo "Nome" deve ter no mínimo 3 caracteres!']
+            this.inputName = 'input is-danger'
+        } else {
+            this.errorMessageName = []
+            this.inputName = 'input is-success'
+        }
+    }
 
     public onClickRegister(): void {
 
