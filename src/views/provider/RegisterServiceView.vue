@@ -40,7 +40,7 @@
                 <label class="label">Valor mensal</label>
                 <div class="control has-icons-left">
                     <input v-model="task.monthlyAmount" @blur="validadeInputMonthlyAmount" :class="`${inputMonthlyAmount}`"
-                        class="input" type="text" placeholder="Ex:10">
+                        class="input" type="number" placeholder="Ex:10">
                     <span class="icon is-small is-left">
                         <i class="fa fa-chart-line"></i>
                     </span>
@@ -111,8 +111,8 @@ export default class RegisterServiceView extends Vue {
         if (!this.task.cost) {
             this.errorMessageCost = ['O campo "Custo" é obrigatório!']
             this.inputCost = 'input is-danger'
-        } else if (this.task.cost > 25) {
-            this.errorMessageCost = ['O campo "Custo" deve ter no máximo 25 caracteres!']
+        } else if (this.task.cost > 100000) {
+            this.errorMessageCost = ['O campo "Custo" tem um limite máximo de 100.000!']
             this.inputCost = 'input is-danger'
         } else {
             this.errorMessageCost = []
@@ -124,8 +124,8 @@ export default class RegisterServiceView extends Vue {
         if (!this.task.monthlyAmount) {
             this.errorMessageMonthlyAmount = ['O campo "Valor mensal" é obrigatório!']
             this.inputMonthlyAmount = 'input is-danger'
-        } else if (this.task.monthlyAmount > 100) {
-            this.errorMessageMonthlyAmount = ['O campo "Valor mensal" tem um limite de 100!']
+        } else if (this.task.monthlyAmount > 10000) {
+            this.errorMessageMonthlyAmount = ['O campo "Valor mensal" tem um limite de 10.000!']
             this.inputMonthlyAmount = 'input is-danger'
         } else {
             this.errorMessageMonthlyAmount = []
