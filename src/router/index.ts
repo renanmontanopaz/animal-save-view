@@ -42,7 +42,7 @@ const routes: Array<RouteConfig> = [
     component: Header,
     children: [
       {
-        path: "/",
+        path: "/home",
         component: Home,
       },
       {
