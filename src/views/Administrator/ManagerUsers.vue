@@ -10,10 +10,11 @@
 
       <div class="card column" v-for="item in userCaregiverList">
         <header class="card-header">
-          <p class="card-header-title">
+          <p class="card-header-title" style="margin-bottom: 5px">
             {{item.firstName}}
           </p>
           <button class="card-header-icon" aria-label="more options" @click="openDrop(item.id, item.firstName)">
+            <p style="margin-top: 10px">Detalhar</p>
             <span class="icon">
             <i class="fas fa-angle-down" :id="item.firstName" aria-hidden="true"></i>
           </span>
@@ -66,7 +67,8 @@
           </div>
         </div>
         <footer class="card-footer">
-          <a class="card-footer-item" style="background-color: #FFDC7D; color: black">Editar</a>
+          <a class="card-footer-item" style="background-color: #FFDC7D; color: black" @click="showModal()">Editar</a>
+          <ModalManagerCaregiver v-show="isModalVisible" @close="closeModal" :caregiver="userCaregiverList" :id-caregiver="item.id"></ModalManagerCaregiver>
           <a class="card-footer-item" style="background-color: #F03A5F; color: white" @click="EditCaregiver(item.id)">Deletar</a>
         </footer>
       </div>
@@ -80,14 +82,13 @@ import Vue from "vue";
 import {Component} from "vue-property-decorator";
 import {Message} from "@/model/Message";
 import {AdminClient} from "@/client/Admin.client";
-import {User} from "@/model/User";
 import {AssociateClient} from "@/client/Associate.client";
 import {CaregiverClient} from "@/client/Caregiver.client";
 import {ProviderClient} from "@/client/Provider.client";
-import Modal from "@/views/Modal.vue";
 import {Caregiver} from "@/model/Caregiver";
 import {Associate} from "@/model/Associate";
 import {Provider} from "@/model/Provider";
+import ModalManagerCaregiver from "@/views/Administrator/ModalManagerCaregiver.vue";
 
 interface Tab {
   label: string;
@@ -95,11 +96,12 @@ interface Tab {
   isActive: boolean;
 }
 @Component({
-  components: {Modal}
+  components: {ModalManagerCaregiver}
 })
 export default class ManagerUsers extends Vue {
   public notificacao: Message = new Message();
   isVisible = false;
+  isModalVisible = false
   private adminClient: AdminClient = new AdminClient();
   public userAssociateList: Associate[] = []
   public userCaregiverList: Caregiver[] = []
@@ -175,7 +177,7 @@ export default class ManagerUsers extends Vue {
     console.log(foundCaregiver)
     if (foundCaregiver !== undefined) {
       foundCaregiver.active = false;
-      this.caregiverClient.update(foundCaregiver).then(
+      this.caregiverClient.disable(id).then(
           success => {
             console.log(success)
           },
@@ -186,6 +188,14 @@ export default class ManagerUsers extends Vue {
     } else {
       console.log('Não foi encontrado um cuidador com o ID fornecido.');
     }
+  }
+
+  public showModal(): void {
+    this.isModalVisible = true;
+
+  }
+  public closeModal(): void {
+    this.isModalVisible = false;
   }
 }
 
