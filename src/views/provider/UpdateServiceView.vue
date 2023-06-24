@@ -120,15 +120,17 @@ export default class EditServiceView extends Vue {
     }
 
     public onClickUpdate(): void {
-        this.taskClient.save(this.task).then(
-            success => {
-                console.log('Serviço atualizado com sucesso!')
-                this.task = new Task()
-            },
-            error => {
-                console.log(error)
-            }
-        )
+        if (this.allInputsValids() === true) {
+            this.taskClient.save(this.task).then(
+                success => {
+                    console.log('Serviço atualizado com sucesso!')
+                    this.task = new Task()
+                },
+                error => {
+                    console.log(error)
+                }
+            )
+        }
     }
 
     public validateInputName() {
@@ -190,6 +192,15 @@ export default class EditServiceView extends Vue {
         } else {
             this.errorMessageDescription = []
             this.inputDescription = 'input is-success'
+        }
+    }
+
+    public allInputsValids(): boolean {
+        if (this.inputName !== 'input is-danger' && this.inputCost !== 'input is-danger'
+            && this.inputMonthlyAmount !== 'input is-danger' && this.inputDescription !== 'input is-danger') {
+            return true
+        } else {
+            return false
         }
     }
 }
