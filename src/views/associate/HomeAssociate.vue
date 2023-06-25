@@ -123,7 +123,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 10px 20px;
 }
 
 #logo {
@@ -275,7 +275,7 @@ h1 {
 .button-sign:hover {
     transform: scale(1.05);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    color: green;
+    color: rgb(103, 193, 103);
 }
 
 .button-gold-price {

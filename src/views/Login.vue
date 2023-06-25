@@ -55,6 +55,7 @@ import { Token } from "@/model/Token";
 import { LoginUser } from "@/model/Login";
 import { Message } from "@/model/Message";
 import jwt_decode from "jwt-decode";
+import router from "@/router";
 
 @Component
 export default class Login extends Vue {
@@ -95,12 +96,15 @@ export default class Login extends Vue {
 
         const approved: boolean = decodedToken.approved;
 
+        const id: number = decodedToken.id;
+
         if (approved == true && authorities.includes("ROLE_ADMIN")) {
           window.location.href = "/administrador";
           console.log('chegou no adm')
         } 
         else if (approved == true && authorities.includes("ROLE_ASSOCIATE")) {
-          window.location.href = "/associado";
+          router.push({ path:`/associado/${id}` })
+          window.location.href = `/associado/${id}`;
         } 
         else if (approved == true && authorities.includes("ROLE_PROVIDER")) {
           window.location.href = "/fornecedor";

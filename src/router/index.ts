@@ -42,7 +42,7 @@ const routes: Array<RouteConfig> = [
     component: Header,
   },
   {
-    path: "/associado",
+    path: "/associado/:id",
     name: "Associado",
     component: HomeAssociate,
     beforeEnter: function (to, from, next) {
