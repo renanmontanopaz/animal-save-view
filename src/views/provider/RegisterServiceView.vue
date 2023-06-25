@@ -69,7 +69,15 @@
             </div>
 
             <div class="field">
-                <button @click="onClickRegister()" class="button is-success is-focused" type="submit">Cadastrar</button>
+                <div class="container_buttons">
+                    <div class="control">
+                        <router-link to="/provider"><button class="button is-link is-light">Voltar</button></router-link>
+                    </div>
+                    <div class="control">
+                        <button @click="onClickRegister()" class="button is-success is-focused"
+                            type="submit">Cadastrar</button>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -200,5 +208,18 @@ main {
         max-width: auto;
         max-height: auto;
     }
+
+    .container_buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px 0px;
+        gap: 0px 30px;
+
+        button {
+            width: 100px;
+        }
+    }
+    
 }
 </style>
