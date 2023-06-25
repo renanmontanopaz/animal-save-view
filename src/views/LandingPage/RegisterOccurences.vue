@@ -1,31 +1,32 @@
 <template>
   <section>
-    <div class="form">
+    <div class="column is-two-fifths">
       <div class="field">
         <label class="label">Nome</label>
         <div class="control">
-          <input class="input" type="text" v-model="occurences.name" placeholder="Text input">
+          <input class="input" type="text" v-model="occurences.name" placeholder="Digite seu Nome aqui">
         </div>
       </div>
       <div class="field">
         <label class="label">Contato</label>
         <div class="control">
-          <input class="input" type="text" v-model="occurences.contact" placeholder="Text input">
+          <input class="input" type="text" v-model="occurences.contact" placeholder="Digite seu Telefone aqui">
         </div>
       </div>
       <div class="field">
         <label class="label">Descrição</label>
         <div class="control">
-          <input class="input" type="text" v-model="occurences.description" placeholder="Text input">
+          <input class="input" type="textarea" v-model="occurences.description" placeholder="Como que era o Animal?">
         </div>
       </div>
       <div class="field">
         <label class="label">Ponto de referencia</label>
         <div class="control">
-          <input class="input" type="text" v-model="occurences.referenceLocal" placeholder="Text input">
+          <input class="input" type="text" v-model="occurences.referenceLocal" placeholder="">
         </div>
       </div>
       <div class="field">
+        <label class="label">Situação do Animal</label>
         <div class="select">
           <select v-model="occurences.situation">
             <option value="EMERGENCIA">Emergencia</option>
@@ -71,10 +72,10 @@ export default class RegisterOccurences extends Vue {
         console.log(success)
         this.showComponent();
         this.notificacao = this.notificacao.new(
-            true,
-            "notification is-primary",
-            "Ocorrencia Cadastrada!"
-          )
+          true,
+          "notification is-primary",
+          "Ocorrencia Cadastrada!"
+        )
       },
       error => {
         console.log(error)
@@ -97,4 +98,6 @@ export default class RegisterOccurences extends Vue {
 
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.column {}
+</style>
