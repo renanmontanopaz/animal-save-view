@@ -220,6 +220,5 @@ main {
             width: 100px;
         }
     }
-    
 }
 </style>
