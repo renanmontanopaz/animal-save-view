@@ -2,7 +2,7 @@
     <main>
         <section>
             <div class="control">
-                <h1 class="title">Cadastro de Produto</h1>
+                <h1 class="title">Cadastro de Serviço</h1>
             </div>
             <div class="field">
                 <label class="label">Nome do serviço</label>
@@ -187,11 +187,18 @@ export default class RegisterServiceView extends Vue {
 <style lang="scss" scoped>
 @import "~bulma/bulma.sass";
 
-textarea {
-    resize: none;
-    min-width: 300px;
-    min-height: 150px;
-    max-width: auto;
-    max-height: auto;
+main {
+
+    .title {
+        padding: 20px 0px 20px 0px;
+    }
+
+    textarea {
+        resize: none;
+        min-width: 300px;
+        min-height: 150px;
+        max-width: auto;
+        max-height: auto;
+    }
 }
 </style>
