@@ -209,11 +209,18 @@ export default class EditServiceView extends Vue {
 <style lang="scss" scoped>
 @import "~bulma/bulma.sass";
 
-textarea {
-    resize: none;
-    min-width: 300px;
-    min-height: 150px;
-    max-width: auto;
-    max-height: auto;
+main {
+
+    .title {
+        padding: 20px 0px 20px 0px;
+    }
+
+    textarea {
+        resize: none;
+        min-width: 300px;
+        min-height: 150px;
+        max-width: auto;
+        max-height: auto;
+    }
 }
 </style>
