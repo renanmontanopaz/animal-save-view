@@ -14,8 +14,10 @@
                     <th class="serviceField"> {{ item.name }}</th>
 
                     <th>
-                        <button @click="onClickEdit(item.id)" class="button is-warning is-focused">Editar</button>
-                        <button @click="onClickDelete()" class="button is-danger is-focused">Apagar</button>
+                        <div class="align_buttons">
+                            <button @click="onClickEdit(item.id)" class="button is-warning is-focused">Editar</button>
+                            <button @click="onClickDelete()" class="button is-danger is-focused">Apagar</button>
+                        </div>
                     </th>
                 </tr>
             </tbody>
@@ -82,6 +84,11 @@ export default class ProviderView extends Vue {
 
     .serviceField {
         width: 79%;
+    }
+
+    .align_buttons {
+        display: flex;
+        gap: 10px;
     }
 
     display: flex;
