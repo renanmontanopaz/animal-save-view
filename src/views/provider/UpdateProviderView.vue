@@ -137,15 +137,12 @@
             </div>
 
             <div class="container_buttons">
-                <div class="aling_buttons">
-                    <div class="field is-grouped">
-                        <div class="control">
-                            <router-link to="/provider"><button
-                                    class="button is-link is-light">Voltar</button></router-link>
-                        </div>
-                        <div class="control">
-                            <button @click="onClickUpdate()" class="button is-success is-focused">Atualizar</button>
-                        </div>
+                <div class="align_buttons">
+                    <div class="control">
+                        <router-link to="/provider"><button class="button is-link is-light">Voltar</button></router-link>
+                    </div>
+                    <div class="control">
+                        <button @click="onClickUpdate()" class="button is-success is-focused">Atualizar</button>
                     </div>
                 </div>
             </div>
@@ -394,6 +391,10 @@ main {
     justify-content: center;
     flex-direction: column;
 
+    .title {
+        padding: 20px 0px 20px 0px;
+    }
+
     .align_inputs {
         display: flex;
         gap: 30px;
@@ -404,12 +405,21 @@ main {
         justify-content: center;
         padding: 30px 0px;
 
-        .aling_buttons {
+        .align_buttons {
             display: flex;
             justify-content: center;
             align-items: center;
             max-width: 405px;
+            gap: 25px;
         }
+
+        .button {
+            width: 200px;
+        }
+    }
+
+    .field {
+        width: 300px;
     }
 }
 </style>
