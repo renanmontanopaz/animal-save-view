@@ -8,7 +8,7 @@
                         Minha conta
                     </a>
                     <div class="navbar-dropdown">
-                        <a class="navbar-item">
+                        <a @click="getAssociateByUser()" class="navbar-item">
                             Meus dados
                         </a>
                         <a id="sair" class="navbar-item">
@@ -92,15 +92,28 @@
 <script lang="ts" scoped>
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
-
-interface Tab {
-    label: string;
-    icon: string;
-    isActive: boolean;
-}
+import { UserClient } from '@/client/User.client'
+import { Associate } from '@/model/Associate';
 
 @Component
 export default class HomeAssociate extends Vue {
+    private userClient: UserClient = new UserClient();
+
+    private associate: Associate = new Associate();
+
+    public mounted(): void {
+    }
+
+    public getAssociateByUser(): void {
+        var id = Number(this.$route.params.id)
+        this.userClient.findAssociateByIdUser(id).then(
+            success => {
+                this.associate = success
+                console.log(this.associate);
+            },
+            error => console.log(error)
+        )
+    }
 
 }
 </script>
