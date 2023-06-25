@@ -1,6 +1,7 @@
 import axios, {AxiosInstance} from "axios";
 import {LoginUser} from "@/model/Login";
 import {Token} from "@/model/Token";
+import { User } from "@/model/User";
 export class UserClient {
     private axiosClient: AxiosInstance;
 
@@ -18,6 +19,15 @@ export class UserClient {
             return(await this.axiosClient.post(`/login`, login)).data
         }
         catch (error:any){
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async findById(id: number) : Promise<User> {
+        try {
+            return(await this.axiosClient.get<User>(`/findbyid/${id}`)).data
+        }
+        catch (error:any) {
             return Promise.reject(error.response)
         }
     }
