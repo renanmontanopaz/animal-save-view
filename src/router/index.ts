@@ -1,10 +1,7 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Home from "@/views/LandingPage/Home.vue"
-import AboutUs from '@/views/LandingPage/AboutUs.vue';
-import Partners from '@/views/LandingPage/Partners.vue';
-import Footer from '@/views/LandingPage/Footer.vue';
 import Header from '@/views/LandingPage/Header.vue';
+import RegisterOccurences from '@/views/LandingPage/RegisterOccurences.vue';
 import Login from "@/views/Login.vue";
 import RegisterAnimal from "@/views/Protetora/RegisterAnimals.vue";
 import Register from "@/views/RegisterUsers/Register.vue";
@@ -12,7 +9,6 @@ import Associate from "@/views/associate/Associate.vue";
 import Administrator from "@/views/Administrator/Administrator.vue";
 import { Token } from "@/model/Token";
 import Modal from "@/views/Modal.vue";
-import HeaderVue from '@/views/LandingPage/Header.vue';
 
 Vue.use(VueRouter);
 const loginInstance = new Login();
@@ -40,6 +36,11 @@ const routes: Array<RouteConfig> = [
     path: "/",
     name: "Header",
     component: Header,
+  },
+  {
+    path: "/register-occurences",
+    name: "Register Occurences",
+    component: RegisterOccurences,
   },
   {
     path: "/associado",
