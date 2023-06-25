@@ -42,14 +42,45 @@
                 <div class="card-gold">
                     <div class="card-content">
                         <div class="content-stamp">
-                            GOLD
+                            <div class="stamp-header">
+                                <h1>Gold</h1>
+                            </div>
+                            <div class="content-button-price">
+                                <button class="button-gold-price">R$ 49,90</button>
+                            </div>
+                            <div class="stamp-text">
+                                <p>• Lorem, ipsum dolor sit amet</p>
+                                <p>• Perspiciatis ipsa ipsum suscipit</p>
+                                <p>• Lorem, ipsum dolor sit amet</p>
+                                <p>• Perspiciatis ipsa ipsum suscipit</p>
+                            </div>
+                            <div class="content-button-sign">
+                                <button class="button-sign">Assinar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-diamond">
                     <div class="card-content">
                         <div class="content-stamp">
-                            DIAMOND
+                            <div class="stamp-header">
+                                <h1>Diamond</h1>
+                            </div>
+                            <div class="content-button-price">
+                                <button class="button-diamond-price">R$ 99,90</button>
+                            </div>
+                            <div class="stamp-text">
+                                <p>• Lorem, ipsum dolor sit amet</p>
+                                <p>• Perspiciatis ipsa ipsum suscipit</p>
+                                <p>• Lorem, ipsum dolor sit amet</p>
+                                <p>• Perspiciatis ipsa ipsum suscipit</p>
+                                <p>• Lorem, ipsum dolor sit amet</p>
+                                <p>• Perspiciatis ipsa ipsum suscipit</p>
+                                <p>• Lorem, ipsum dolor sit amet</p>
+                            </div>
+                            <div class="content-button-sign">
+                                <button class="button-sign">Assinar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,7 +101,6 @@ interface Tab {
 
 @Component
 export default class HomeAssociate extends Vue {
-
 
 }
 </script>
@@ -148,16 +178,26 @@ span {
 
 .container-stamp {
     display: flex;
-    align-items: center;
     justify-content: center;
+    flex-direction: row-reverse;
 
     gap: 40px;
 }
 
-.card-silver,
-.card-gold,
-.card-diamond {
+.card-silver {
     height: 400px;
+    width: 300px;
+    border-radius: 5px;
+}
+
+.card-gold {
+    height: 480px;
+    width: 300px;
+    border-radius: 5px;
+}
+
+.card-diamond {
+    height: 580px;
     width: 300px;
     border-radius: 5px;
 }
@@ -179,7 +219,7 @@ span {
 h1 {
     font-size: 32px;
     font-weight: 600;
-    color: rgb(92, 92, 92);
+    color: black;
 }
 
 .content-button-price {
@@ -210,7 +250,7 @@ h1 {
     gap: 10px;
 
     font-size: 16px;
-    color: rgb(92, 92, 92);
+    color: black;
 }
 
 .content-button-sign {
@@ -221,20 +261,53 @@ h1 {
 }
 
 .button-sign {
-    width: 150px;
+    width: 220px;
     height: 50px;
-    border-radius: 30px;
+    border-radius: 25px;
     border: none;
     cursor: pointer;
 
     font-size: 24px;
     font-weight: 600;
-    color: rgb(92, 92, 92);
+    color: black;
 }
 
 .button-sign:hover {
     transform: scale(1.05);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: green;
+}
+
+.button-gold-price {
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    width: 300px;
+    height: 80px;
+    border-radius: 70px 0 0 70px;
+    margin-left: -55px;
+    border: 4px solid rgb(255, 196, 0);
+
+    font-size: 36px;
+    font-weight: 600;
+    color: rgb(92, 92, 92);
+    background: linear-gradient(to right, rgb(255, 255, 255), transparent);
+}
+
+.button-diamond-price {
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    width: 300px;
+    height: 80px;
+    border-radius: 70px 0 0 70px;
+    margin-left: -55px;
+    border: 4px solid #0C8DA6;
+
+    font-size: 36px;
+    font-weight: 600;
+    color: rgb(92, 92, 92);
+    background: linear-gradient(to right, rgb(255, 255, 255), transparent);
 }
 
 .card-silver {
@@ -242,10 +315,21 @@ h1 {
 }
 
 .card-gold {
-    background-color: gold;
+    background: rgb(255, 196, 0);
 }
 
 .card-diamond {
-    background-color: darkturquoise;
+    background-color: #0C8DA6;
+}
+
+@media(max-width: 1057px) {
+    header {
+        padding-top: 60px;
+    }
+
+    .container-stamp {
+        margin-top: 900px;
+        flex-direction: column;
+    }
 }
 </style>
