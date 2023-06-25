@@ -76,29 +76,29 @@
         </footer>
       </div>
       <transition name="modal">
-      <div v-if="isModalVisible" class="modal-mask">
-        <div class="modal-wrapper">
-          <div class="modal-container">
-            <div class="botao">
-              <button class="delete" @click="openModal"></button>
+      <div v-if="isModalVisible" ref="modalMask" class="modal-mask column is-full">
+        <div class="modal-wrapper column is-full">
+          <div class="modal-container column is-6">
+            <div class="field columns is-desktop">
+              <div class="column">
+                <input class="input is-info " type="text" placeholder="Nome" v-model="caregiverFound.firstName">
+                <input class="input is-info " type="text" placeholder="Sobrenome" v-model="caregiverFound.lastName">
+                <input class="input is-info " type="number" placeholder="Telefone" v-model="caregiverFound.contact">
+                <input class="input is-info " type="text" placeholder="Email" v-model="caregiverFound.user.login">
+                <input class="input is-info " type="text" placeholder="CPF" v-model="caregiverFound.cpf">
+                <input class="input is-info " type="text" placeholder="Espaço físico m²" v-model="caregiverFound.physicalSpace">
+                <input class="input is-info " type="text" placeholder="Gasto mensal" v-model="caregiverFound.spending">
+              </div>
+              <div class="column">
+                <input class="input is-info " type="text" placeholder="CEP" v-model="caregiverFound.address.cep">
+                <input class="input is-info " type="text" placeholder="Rua/Avenida" v-model="caregiverFound.address.road">
+                <input class="input is-info " type="number" placeholder="Número" v-model="caregiverFound.address.houseNumber">
+                <input class="input is-info " type="text" placeholder="Bairro" style="margin-bottom: 15px" v-model="caregiverFound.address.neighborhood">
+              </div>
             </div>
-            <p class="subtitle is-6">Editar cadastro de usuário</p>
-            <div class="field">
-              <input class="input is-info is-small" type="text" placeholder="Nome" v-model="caregiverFound.firstName">
-              <input class="input is-info is-small" type="text" placeholder="Sobrenome" v-model="caregiverFound.lastName">
-              <input class="input is-info is-small" type="number" placeholder="Telefone" v-model="caregiverFound.contact">
-              <input class="input is-info is-small" type="text" placeholder="Email" v-model="caregiverFound.user.login">
-              <input class="input is-info is-small" type="text" placeholder="CPF" v-model="caregiverFound.cpf">
-              Endereço
-              <input class="input is-info is-small" type="text" placeholder="CEP" v-model="caregiverFound.address.cep">
-              <input class="input is-info is-small" type="text" placeholder="Rua/Avenida" v-model="caregiverFound.address.road">
-              <input class="input is-info is-small" type="number" placeholder="Número" v-model="caregiverFound.address.houseNumber">
-              <input class="input is-info is-small" type="text" placeholder="Bairro" style="margin-bottom: 15px" v-model="caregiverFound.address.neighborhood">
-              <input class="input is-info is-small" type="text" placeholder="Espaço físico m²" v-model="caregiverFound.physicalSpace">
-              <input class="input is-info is-small" type="text" placeholder="Gasto mensal" v-model="caregiverFound.spending">
-            </div>
-            <div class="control">
-              <button class="button is-link" @click="EditCaregiver(caregiverFound)">Salvar</button>
+            <div class="control" style="gap: 10px">
+              <button class="button is-link" @click="EditCaregiver(caregiverFound)" style="margin-right: 10px">Salvar</button>
+              <button class="button is-danger" style="margin-left: 10px" @click="openModal">Fechar</button>
             </div>
           </div>
         </div>
@@ -107,7 +107,6 @@
     </div>
   </div>
 </template>
-
 
 <script lang="ts">
 import Vue from "vue";
@@ -120,11 +119,38 @@ import {ProviderClient} from "@/client/Provider.client";
 import {Caregiver} from "@/model/Caregiver";
 import {Associate} from "@/model/Associate";
 import {Provider} from "@/model/Provider";
+import {AddressClient} from "@/client/Address.client";
+import {Address} from "@/model/Address";
+import moment from "moment";
 
 interface Tab {
   label: string;
   icon: string;
   isActive: boolean;
+}
+interface caregiver {
+  "id": number,
+  "active": boolean,
+  "register": string,
+  "update": string,
+  "firstName": string,
+  "lastName": string,
+  "contact": string,
+  "cpf": string,
+  "address": {
+    "id": number
+  },
+  "physicalSpace": string,
+  "spending": string,
+  "capacityAnimals": number,
+  "user": {
+    "id": number,
+    "enabled": boolean,
+    "username": string,
+    "accountNonExpired": boolean,
+    "credentialsNonExpired": boolean,
+    "accountNonLocked": boolean
+  }
 }
 @Component
 export default class ManagerUsers extends Vue {
@@ -139,6 +165,9 @@ export default class ManagerUsers extends Vue {
   public caregiverClient: CaregiverClient = new CaregiverClient()
   public providerClient: ProviderClient = new ProviderClient()
   public caregiverFound: Caregiver = new Caregiver()
+  public addressClient: AddressClient = new AddressClient()
+  public address: Address = new Address()
+
   public mounted(): void {
     this.ListUsersProvider();
     this.ListUsersAssociate();
@@ -220,8 +249,40 @@ export default class ManagerUsers extends Vue {
     }
   }
 
-  public EditCaregiver(caregiver: Caregiver): void {
-    this.caregiverClient.update(caregiver).then(
+  public EditCaregiver(data: Caregiver): void {
+    this.addressClient.update(data.address).then(
+        success => {
+          console.log(success)
+        },
+        error => {
+          console.log(error)
+        }
+    )
+    const caregiverData: caregiver = {
+      id: data.id,
+      active: data.active,
+      register: moment().format('DD/MM/YYYY HH:mm:ss'),
+      update: moment().format('DD/MM/YYYY HH:mm:ss'),
+      firstName: data.firstName,
+      lastName: data.lastName,
+      contact: data.contact,
+      cpf: data.cpf,
+      address: {
+        id: data.address.id
+      },
+      physicalSpace: data.physicalSpace,
+      spending: data.spending,
+      capacityAnimals: data.capacityAnimals,
+      user: {
+        id: data.user.id,
+        enabled: data.user.enabled,
+        username: data.user.username,
+        accountNonExpired: data.user.accountNonExpired,
+        credentialsNonExpired: data.user.credentialsNonExpired,
+        accountNonLocked: data.user.accountNonLocked
+      }
+    };
+    this.caregiverClient.update(caregiverData).then(
         success => {
           console.log(success)
         },
@@ -230,8 +291,9 @@ export default class ManagerUsers extends Vue {
         }
     )
   }
-  public openModal(objeto: Caregiver) {
-    this.caregiverFound = objeto
+
+  public openModal(caregiver: Caregiver) {
+    this.caregiverFound = caregiver
     if(this.isModalVisible){
       this.isModalVisible = false
       console.log(this.isModalVisible)
@@ -240,6 +302,16 @@ export default class ManagerUsers extends Vue {
       console.log(this.isModalVisible)
     }
   }
+  public closeModalOutside(event: MouseEvent): void {
+    const modalMask = this.$refs.modalMask as HTMLElement;
+
+    if (event.target === modalMask) {
+      this.isModalVisible = false;
+      console.log(this.isModalVisible);
+      modalMask.removeEventListener('click', this.closeModalOutside);
+    }
+  }
+
 }
 
 </script>
@@ -268,8 +340,6 @@ tr{
 }
 
 .modal-container {
-  width: 300px;
-  min-height: 300px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -293,9 +363,14 @@ tr{
   transform: scale(1.1);
 }
 
-.botao{
-  position: absolute;
-  margin-left: 246px;
-  margin-top: -15px;
+.field{
+  flex-direction: row;
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .field{
+    flex-direction: column;
+  }
 }
 </style>

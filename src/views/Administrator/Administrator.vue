@@ -64,8 +64,6 @@ a{
 </style>
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
-import {Occurrences} from "@/model/Occurrences";
-import {User} from "@/model/User";
 import {AdminClient} from "@/client/Admin.client";
 import {pendings} from "@/model/Pending";
 import {Message} from "@/model/Message";

@@ -13,9 +13,14 @@ export class User {
     caregiver!: Caregiver;
     provider!: Provider;
     associate!: Associate;
+    username!: string;
     occurrences!: Occurrences;
     approved!: boolean;
     pending!: boolean;
     rejected!: boolean;
     roles!: Role;
+    accountNonExpired!: boolean;
+    credentialsNonExpired!: boolean;
+    accountNonLocked!: boolean;
+    enabled!: boolean;
 }
