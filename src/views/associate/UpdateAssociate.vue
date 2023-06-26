@@ -182,7 +182,7 @@
                         </div>
 
                         <div class="control">
-                            <button id="cadastrar" @click="fillAssociate(); onClickUpdate(); "
+                            <button id="cadastrar" @click="onClickUpdate()"
                                 class="button is-success is-focused">Salvar</button>
                         </div>
                     </div>
@@ -257,47 +257,48 @@ export default class Register extends Vue {
         )
     }
 
-    public fillAssociate(): void{
+    public fillAssociate(): void {
         this.updateData = {
-                    id: this.associate?.id,
-                    register: this.associate.register,
-                    firstName: this.associate?.firstName,
-                    lastName: this.associate?.lastName,
-                    contact: this.associate?.contact,
-                    cpf: this.associate?.cpf,
-                    address: {
-                        id: this.associate?.address?.id,
-                        cep: this.associate?.address?.cep,
-                        neighborhood: this.associate?.address?.neighborhood,
-                        road: this.associate?.address?.road,
-                        houseNumber: this.associate?.address?.houseNumber,
-                        active: this.associate?.address?.active,
-                        register: this.associate?.address?.register,
-                        update: this.associate?.address?.update
-                    },
-                    user: {
-                        id: this.associate?.user?.id,
-                        login: this.associate?.user?.login,
-                        password: this.associate?.user?.password,
-                        newPassword: this.associate?.user?.newPassword,
-                        confirmPassword: this.associate?.user?.confirmPassword,
-                        admin: this.associate?.user?.admin,
-                        approved: this.associate?.user?.approved,
-                        pending: this.associate?.user?.pending,
-                        rejected: this.associate?.user?.rejected,
-                        caregiver: this.associate?.user?.caregiver,
-                        provider: this.associate?.user?.provider,
-                        associate: this.associate?.user?.associate,
-                        occurrences: this.associate?.user?.occurrences
-                    },
-                    active: this.associate?.active,
-                    update: this.associate.update
-                };
-                console.log(this.updateData);
+            id: this.associate?.id,
+            register: this.associate.register,
+            firstName: this.associate?.firstName,
+            lastName: this.associate?.lastName,
+            contact: this.associate?.contact,
+            cpf: this.associate?.cpf,
+            address: {
+                id: this.associate?.address?.id,
+                cep: this.associate?.address?.cep,
+                neighborhood: this.associate?.address?.neighborhood,
+                road: this.associate?.address?.road,
+                houseNumber: this.associate?.address?.houseNumber,
+                active: this.associate?.address?.active,
+                register: this.associate?.address?.register,
+                update: this.associate?.address?.update
+            },
+            user: {
+                id: this.associate?.user?.id,
+                login: this.associate?.user?.login,
+                password: this.associate?.user?.password,
+                newPassword: this.associate?.user?.newPassword,
+                confirmPassword: this.associate?.user?.confirmPassword,
+                admin: this.associate?.user?.admin,
+                approved: this.associate?.user?.approved,
+                pending: this.associate?.user?.pending,
+                rejected: this.associate?.user?.rejected,
+                caregiver: this.associate?.user?.caregiver,
+                provider: this.associate?.user?.provider,
+                associate: this.associate?.user?.associate,
+                occurrences: this.associate?.user?.occurrences
+            },
+            active: this.associate?.active,
+            update: this.associate.update
+        };
+        console.log(this.updateData);
     }
 
     public onClickUpdate(): void {
         this.validateFormAssociate();
+        this.fillAssociate();
         if (this.allIputsValidsAssociate() === true) {
             this.associateClient.update(this.updateData).then(
                 success => {

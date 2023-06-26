@@ -8,7 +8,7 @@
                         Minha conta
                     </a>
                     <div class="navbar-dropdown">
-                        <a class="navbar-item">
+                        <a @click="clickUpdate" class="navbar-item">
                             Meus dados
                         </a>
                         <a id="sair" class="navbar-item">
@@ -94,9 +94,15 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import { UserClient } from '@/client/User.client'
 import { Associate } from '@/model/Associate';
+import router from '@/router';
 
 @Component
 export default class HomeAssociate extends Vue {
+
+    public clickUpdate() {
+        var id = Number(this.$route.params.id)
+        router.push({ path: `/associado/update/${id}` })
+    }
 
 }
 </script>
