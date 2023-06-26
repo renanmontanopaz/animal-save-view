@@ -83,7 +83,7 @@
               <div class="column">
                 <input class="input is-info " type="text" placeholder="Nome" v-model="caregiverFound.firstName">
                 <input class="input is-info " type="text" placeholder="Sobrenome" v-model="caregiverFound.lastName">
-                <input class="input is-info " type="number" placeholder="Telefone" v-model="caregiverFound.contact">
+                <input class="input is-info " type="text" placeholder="Telefone" v-model="caregiverFound.contact">
                 <input class="input is-info " type="text" placeholder="Email" v-model="caregiverFound.user.login">
                 <input class="input is-info " type="text" placeholder="CPF" v-model="caregiverFound.cpf">
                 <input class="input is-info " type="text" placeholder="Espaço físico m²" v-model="caregiverFound.physicalSpace">
@@ -144,12 +144,7 @@ interface caregiver {
   "spending": string,
   "capacityAnimals": number,
   "user": {
-    "id": number,
-    "enabled": boolean,
-    "username": string,
-    "accountNonExpired": boolean,
-    "credentialsNonExpired": boolean,
-    "accountNonLocked": boolean
+    "id": number
   }
 }
 @Component
@@ -275,11 +270,6 @@ export default class ManagerUsers extends Vue {
       capacityAnimals: data.capacityAnimals,
       user: {
         id: data.user.id,
-        enabled: data.user.enabled,
-        username: data.user.username,
-        accountNonExpired: data.user.accountNonExpired,
-        credentialsNonExpired: data.user.credentialsNonExpired,
-        accountNonLocked: data.user.accountNonLocked
       }
     };
     this.caregiverClient.update(caregiverData).then(

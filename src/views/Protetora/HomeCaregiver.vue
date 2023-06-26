@@ -2,7 +2,7 @@
     <main>
         <header>
             <div id="container-title" class="panel is-primary">
-                <img id="logo" src="../../assets/Capturar.svg">
+                <img id="logo" src="../../assets/Logo.png">
                 <div id="dropdown" class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
                         Minha conta
