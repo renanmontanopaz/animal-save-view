@@ -24,13 +24,15 @@ export interface pendings
         id: number,
         login: string,
         password: string,
+        approved: boolean,
+        pending: boolean,
+        rejected: boolean
         roles:
             {
                 id: number,
                 authority: string
             }
         ,
-        enabled: boolean,
         authorities:[
             {
                 id: number,
@@ -42,7 +44,4 @@ export interface pendings
         accountNonExpired: boolean,
         accountNonLocked: boolean
     },
-    approved: boolean,
-    pending: boolean,
-    rejected: boolean
 }

@@ -10,7 +10,7 @@
           </div>
           <p >Selecione o Protetor(a)</p>
           <div class="select is-normal field">
-            <select v-model="Ocorrencia.caregiver">
+            <select v-model="Ocorrencia.user">
               <option v-for="item2 in caregiverList" :value="item2" >{{item2.firstName}}</option>
             </select>
           </div>
@@ -79,7 +79,8 @@ import {CaregiverClient} from "@/client/Caregiver.client";
 import {Caregiver} from "@/model/Caregiver";
 import {OcurrencesClient} from "@/client/Ocurrences.client";
 import {Occurrences} from "@/model/Occurrences";
-import RegisterPublic from "@/views/administrator/RegisterPublic.vue";
+import RegisterPublic from "@/views/Administrator/RegisterPublic.vue";
+import router from "@/router";
 
 export interface ocurrencia{
   id: number;
@@ -90,7 +91,7 @@ export interface ocurrencia{
   description: string;
   referenceLocal: string;
   situation: string;
-  caregiver: {
+  user: {
     id: number
   }
 }
@@ -98,6 +99,7 @@ export interface ocurrencia{
 export default class Modal extends Vue {
   @Prop() Ocorrencia!: Occurrences;
   @Prop() ListOcorrences: any;
+  @Prop() fechaModal!: Function
   public caregiverClient: CaregiverClient = new CaregiverClient();
   public caregiverList: Caregiver[] = [];
   public caregiver: Caregiver = new Caregiver();
@@ -131,14 +133,14 @@ export default class Modal extends Vue {
       description: this.Ocorrencia.description,
       referenceLocal: this.Ocorrencia.referenceLocal,
       situation: this.Ocorrencia.situation,
-      caregiver: {
-        id: this.Ocorrencia.caregiver.id
+      user: {
+        id: this.Ocorrencia.user.id
       }
     };
     this.occurrenceClient.update(objetoEnviado).then(
         success => {
           console.log(success)
-          this.ListOcorrences;
+          this.fechaModal()
         },
         error => {
           console.log(error)

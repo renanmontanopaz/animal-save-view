@@ -8,9 +8,14 @@ export class User {
     id!: number;
     login!: string;
     password!: string;
+    newPassword!: string;
+    confirmPassword!: string;
     admin!: Admin;
     caregiver!: Caregiver;
     provider!: Provider;
     associate!: Associate;
     occurrences!: Occurrences;
+    approved!: boolean;
+    pending!: boolean;
+    rejected!: boolean;
 }

@@ -1,7 +1,9 @@
 <template>
   <main>
-    <div class="box column is-4" style="justify-content: center; display: flex">
-      <div class="column is-10">
+    <div class="column is-4" style="align-items: center; justify-content: space-around; display: flex; flex-direction: column">
+      <div class="box" style="align-items: center; justify-content: space-around; display: flex; flex-direction: column; height: 450px; width: 100%">
+      <p class="title">Login</p>
+      <div class="column is-8">
         <div class="field">
           <p class="control has-icons-left has-icons-right">
             <input class="input" type="email" placeholder="Email" v-model="login.login" />
@@ -29,22 +31,38 @@
             </div>
           </div>
         </div>
-        <div class="field">
-          <p class="control">
-            <button class="button is-success" @click="onClickLogin">
-              Login
-            </button>
-          </p>
-        </div>
+      </div>
+      <div class="field">
+        <p class="control">
+          <button class="button is-success" @click="onClickLogin">
+            Login
+          </button>
+        </p>
+      </div>
       </div>
     </div>
   </main>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 main {
   align-items: center;
   justify-content: center;
   display: flex;
+  height: 100vh;
+  background-color: #002d4c;
+}
+main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo com opacidade */
+  z-index: -1;
+}
+.box{
+
 }
 </style>
 <script lang="ts">
@@ -55,6 +73,7 @@ import { Token } from "@/model/Token";
 import { LoginUser } from "@/model/Login";
 import { Message } from "@/model/Message";
 import jwt_decode from "jwt-decode";
+import router from "@/router";
 
 @Component
 export default class Login extends Vue {
@@ -95,11 +114,15 @@ export default class Login extends Vue {
 
         const approved: boolean = decodedToken.approved;
 
+        const id: number = decodedToken.id;
+
         if (approved == true && authorities.includes("ROLE_ADMIN")) {
           window.location.href = "/administrador";
+          console.log('chegou no adm')
         } 
         else if (approved == true && authorities.includes("ROLE_ASSOCIATE")) {
-          window.location.href = "/associado";
+          router.push({ path:`/associado/${id}` })
+          window.location.href = `/associado/${id}`;
         } 
         else if (approved == true && authorities.includes("ROLE_PROVIDER")) {
           window.location.href = "/fornecedor";
