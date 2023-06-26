@@ -9,7 +9,6 @@
           <th>Descrição</th>
           <th>Local de Referência</th>
           <th>Situação</th>
-          <th>ID da Ocorrência</th>
         </tr>
       </thead>
       <tbody>
@@ -19,7 +18,6 @@
           <td>{{ occurrence.description }}</td>
           <td>{{ occurrence.referenceLocal }}</td>
           <td>{{ occurrence.situation }}</td>
-          <td>{{ occurrence.id }}</td>
         </tr>
       </tbody>
     </table>
