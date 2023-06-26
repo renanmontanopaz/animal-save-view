@@ -42,4 +42,13 @@ export class UserClient {
         }
     }
 
+    public async newPassword(newPassword: string, id: number) : Promise<void> {
+        try {
+            return(await this.axiosClient.put(`/new/password/${id}`, newPassword)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
 }

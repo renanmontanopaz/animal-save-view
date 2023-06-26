@@ -172,6 +172,11 @@
                         </div>
 
                         <div class="control">
+                            <button v-if="selectUpdatePassword === true" id="cadastrar" @click="onClickUpdatePassword()"
+                                class="button is-success is-focused">Salvar</button>
+                        </div>
+
+                        <div class="control">
                             <button v-if="selectUpdatePassword === false" @click="clickUpdatePassword"
                                 class="button is-link is-danger">Alterar Senha</button>
                         </div>
@@ -182,7 +187,7 @@
                         </div>
 
                         <div class="control">
-                            <button id="cadastrar" @click="onClickUpdate()"
+                            <button v-if="selectUpdatePassword === false" id="cadastrar" @click="onClickUpdate()"
                                 class="button is-success is-focused">Salvar</button>
                         </div>
                     </div>
@@ -303,6 +308,30 @@ export default class Register extends Vue {
             this.associateClient.update(this.updateData).then(
                 success => {
                     console.log('Associado editado com sucesso!!!');
+                    this.notificationSave = true;
+                },
+                error => {
+                    console.log(error);
+                }
+            )
+        }
+    }
+
+    public allIputsValidsNewPassword(): boolean {
+        if (this.inputPassword !== 'input is-danger' && this.inputConfirmPassword !== 'input is-danger') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public onClickUpdatePassword(): void {
+        this.validateInputPassword();
+        this.validateConfirmPassword();
+        if (this.allIputsValidsNewPassword() === true) {
+            this.userClient.newPassword(this.associate.user.newPassword, this.associate.user.id).then(
+                success => {
+                    console.log('Senha editada com sucesso!!!');
                     this.notificationSave = true;
                 },
                 error => {
@@ -489,13 +518,13 @@ export default class Register extends Vue {
 
     //PASSWORD
     public validateInputPassword() {
-        if (!this.associate.user.password) {
+        if (!this.associate.user.newPassword) {
             this.errorMessagePassword = ['O campo "Senha" é obrigatório!'];
             this.inputPassword = 'input is-danger';
-        } else if (this.associate.user.password.length <= 4) {
+        } else if (this.associate.user.newPassword.length <= 4) {
             this.errorMessagePassword = ['O campo "Senha" deve ter no mínimo 5 caracteres!'];
             this.inputPassword = 'input is-danger';
-        } else if (this.associate.user.password.length >= 11) {
+        } else if (this.associate.user.newPassword.length >= 11) {
             this.errorMessagePassword = ['O campo "Senha" deve ter no máximo 10 caracteres!'];
             this.inputPassword = 'input is-danger';
         } else {
@@ -509,7 +538,7 @@ export default class Register extends Vue {
         if (!this.associate.user.confirmPassword) {
             this.errorMessageConfirmPassword = ['O campo "Confirmar Senha" é obrigatório!'];
             this.inputConfirmPassword = 'input is-danger';
-        } else if (this.associate.user.confirmPassword !== this.associate.user.password) {
+        } else if (this.associate.user.confirmPassword !== this.associate.user.newPassword) {
             this.errorMessageConfirmPassword = ['As senhas não correspondem!'];
             this.inputConfirmPassword = 'input is-danger';
         } else {
