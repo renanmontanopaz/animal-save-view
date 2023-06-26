@@ -41,7 +41,7 @@
         <button @click="RegisterOccurences()" class="butt is-success is-focused is-medium">Cadastrar</button>
       </div>
       <div class="columns" v-if="notificacao.ativo">
-        <div class="column is-12">
+        <div class="column is-6">
           <div :class="notificacao.classe" v-if="isVisible">
             <button @click="onClickFecharNotificacao" class="delete"></button>
             {{ notificacao.mensagem }}
