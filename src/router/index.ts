@@ -8,7 +8,8 @@ import Header from '@/views/LandingPage/Header.vue';
 import Login from "@/views/Login.vue";
 import RegisterAnimal from "@/views/Protetora/RegisterAnimals.vue";
 import Register from "@/views/RegisterUsers/Register.vue";
-import Associate from "@/views/associate/Associate.vue";
+import HomeAssociate from "@/views/Associate/HomeAssociate.vue";
+import UpdateAssociate from "@/views/Associate/UpdateAssociate.vue"
 import Administrator from "@/views/Administrator/Administrator.vue";
 import { Token } from "@/model/Token";
 import Modal from "@/views/Modal.vue";
@@ -42,9 +43,23 @@ const routes: Array<RouteConfig> = [
     component: Header,
   },
   {
-    path: "/associado",
+    path: "/associado/:id",
     name: "Associado",
-    component: Associate,
+    component: HomeAssociate,
+    beforeEnter: function (to, from, next) {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        next("/login");
+      } else {
+        next();
+      }
+    },
+  },
+  {
+    path: "/associado/update/:id",
+    name: "Editar associado",
+    component: UpdateAssociate,
     beforeEnter: function (to, from, next) {
       const token = localStorage.getItem("token");
 
