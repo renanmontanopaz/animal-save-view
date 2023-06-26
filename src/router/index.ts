@@ -11,6 +11,7 @@ import Register from "@/views/RegisterUsers/Register.vue";
 import HomeAssociate from "@/views/Associate/HomeAssociate.vue";
 import UpdateAssociate from "@/views/Associate/UpdateAssociate.vue"
 import Administrator from "@/views/Administrator/Administrator.vue";
+import HomeCaregiver from "@/views/Protetora/HomeCaregiver.vue";
 import { Token } from "@/model/Token";
 import Modal from "@/views/Modal.vue";
 import HeaderVue from '@/views/LandingPage/Header.vue';
@@ -26,7 +27,11 @@ const routes: Array<RouteConfig> = [
     name: "RegisterAnimal",
     component: RegisterAnimal,
   },
-
+  {
+    path: "/protetora",
+    name: "protetora",
+    component: HomeCaregiver,
+  },
   {
     path: "/register",
     name: "register",
