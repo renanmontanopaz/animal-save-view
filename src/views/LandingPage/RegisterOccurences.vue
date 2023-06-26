@@ -1,28 +1,31 @@
 <template>
-  <section>
+  <section class="container_occurences">
+    <div class="text">
+      <h1>CADASTRO DE OCORRÊNCIAS</h1>
+    </div>
     <div class="column is-two-fifths">
       <div class="field">
         <label class="label">Nome</label>
         <div class="control">
-          <input class="input" type="text" v-model="occurences.name" placeholder="Digite seu Nome aqui">
+          <input class="input" type="text" v-model="occurences.name">
         </div>
       </div>
       <div class="field">
         <label class="label">Contato</label>
         <div class="control">
-          <input class="input" type="text" v-model="occurences.contact" placeholder="Digite seu Telefone aqui">
+          <input class="input" type="text" v-model="occurences.contact">
         </div>
       </div>
       <div class="field">
         <label class="label">Descrição</label>
         <div class="control">
-          <input class="input" type="textarea" v-model="occurences.description" placeholder="Como que era o Animal?">
+          <input class="input" type="textarea" v-model="occurences.description">
         </div>
       </div>
       <div class="field">
         <label class="label">Ponto de referencia</label>
         <div class="control">
-          <input class="input" type="text" v-model="occurences.referenceLocal" placeholder="">
+          <input class="input" type="text" v-model="occurences.referenceLocal">
         </div>
       </div>
       <div class="field">
@@ -35,7 +38,7 @@
         </div>
       </div>
       <div class="control">
-        <button @click="RegisterOccurences()" class="button is-success is-focused">Cadastrar</button>
+        <button @click="RegisterOccurences()" class="butt is-success is-focused is-medium">Cadastrar</button>
       </div>
       <div class="columns" v-if="notificacao.ativo">
         <div class="column is-12">
@@ -99,5 +102,46 @@ export default class RegisterOccurences extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.column {}
+@import url("https://fonts.googleapis.com/css2?family=Concert+One&family=Poppins:ital,wght@0,200;0,400;0,600;1,100&display=swap");
+
+.container_occurences {
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 2em;
+  padding-left: 2em;
+
+  .text {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: clamp(0.5em, 2em , 3em);
+    line-height: 1.2em;
+    color: #002D4C;
+  }
+
+  .column {
+    padding: 3em;
+
+    .label {
+      color: #002D4C;
+    }
+  }
+  .butt {
+        width: 8em;
+        height: 3em;
+        background: #FBBD08;
+        border-radius: 0.5em;
+        border: none;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 1.2em;
+        line-height: 1.5em;
+        color: #002D4C;
+        margin-right: 2em;
+      }
+}
 </style>
