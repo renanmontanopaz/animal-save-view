@@ -1,5 +1,8 @@
-import axios, {AxiosInstance} from "axios";
 import {Admin} from "@/model/Admin";
+import {AxiosInstance} from "axios";
+import axios from "../auth"
+import {pendings} from "@/model/Pending";
+import {User} from "@/model/User";
 export class AdminClient {
 
     private axiosClient: AxiosInstance;
@@ -30,9 +33,44 @@ export class AdminClient {
         }
     }
 
+    public async listUsers(): Promise<User[]> {
+        try {
+            return (await this.axiosClient.get<User[]>(`/listusers`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
     public async findById(id: number): Promise<Admin> {
         try {
-            return (await this.axiosClient.get<Admin>(`/findbyid${id}`)).data
+            return (await this.axiosClient.get<Admin>(`/findbyid/${id}`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async findAllPending(): Promise<pendings[]> {
+        try {
+            return (await this.axiosClient.get<pendings[]>(`/approves/pending`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async updateStatusPendingToApproved(id: number): Promise<void> {
+        try {
+            return (await this.axiosClient.put(`/approved/user/${id}`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+    public async updateStatusUserPendingToRejected(id: number): Promise<void> {
+        try {
+            return (await this.axiosClient.put(`/rejected/user/${id}`)).data
         }
         catch (error:any) {
             return Promise.reject(error.response)

@@ -18,7 +18,7 @@
                 <div v-if="select === '1'">
                     <article v-if="notificationSave" class="message is-success">
                         <div class="message-header">
-                            <p>Success</p>
+                            <h3>Sucesso</h3>
                             <button @click="closeNotification" class="delete" aria-label="delete"></button>
                         </div>
                         <div class="message-body">
@@ -29,7 +29,7 @@
 
                     <article v-if="notificationErrorAssociate" class="message is-danger">
                         <div class="message-header">
-                            <p>Erro</p>
+                            <h3>Erro</h3>
                             <button @click="closeNotificationErrorAssociate" class="delete" aria-label="delete"></button>
                         </div>
                         <div class="message-body">
@@ -39,7 +39,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Primeiro nome</label>
+                            <label class="label">Primeiro nome *</label>
                             <div class="control">
                                 <input @blur="validateInputFirstName" v-model="associate.firstName"
                                     :class="`${inputFirstName}`" type="text" placeholder="Primeiro nome" />
@@ -52,7 +52,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Sobrenome</label>
+                            <label class="label">Sobrenome *</label>
                             <div class="control">
                                 <input @blur="validateInputLastName" v-model="associate.lastName"
                                     :class="`${inputLastName}`" type="text" placeholder="Sobrenome">
@@ -67,10 +67,10 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Contato</label>
+                            <label class="label">Contato *</label>
                             <div class="control">
                                 <input @blur="validateInputContact" v-model="associate.contact" :class="`${inputContact}`"
-                                    type="text" placeholder="Exemplo: 45 9 0000-0000">
+                                    type="text" placeholder="Exemplo: 45 9 00000000">
                                 <p v-if="errorMessageContact">
                                 <ul>
                                     <li v-for="error in errorMessageContact" :key="error">{{ error }}</li>
@@ -80,7 +80,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">CPF</label>
+                            <label class="label">CPF *</label>
                             <div class="control">
                                 <input @blur="validateInputCpf" v-model="associate.cpf" :class="`${inputCpf}`" type="text"
                                     placeholder="Exemplo: 000.000.000-00">
@@ -93,43 +93,25 @@
                         </div>
                     </div>
 
-                    <div class="aling_inputs">
-                        <div class="field">
-                            <label class="label">Email</label>
-                            <div class="control has-icons-left">
-                                <input @blur="validateInputEmail" v-model="associate.user.login" :class="`${inputEmail}`"
-                                    type="text" placeholder="Exemplo: exemplo@gmail.com">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-user"></i>
-                                </span>
-                                <p v-if="errorMessageEmail">
-                                <ul>
-                                    <li v-for="error in errorMessageEmail" :key="error">{{ error }}</li>
-                                </ul>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="field">
-                            <label class="label">Senha</label>
-                            <div class="control has-icons-left">
-                                <input @blur="validateInputPassword" v-model="associate.user.password"
-                                    :class="`${inputPassword}`" type="password" placeholder="Mín. 5 dig e Máx. 10 dig">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-lock"></i>
-                                </span>
-                                <p v-if="errorMessagePassword">
-                                <ul>
-                                    <li v-for="error in errorMessagePassword" :key="error">{{ error }}</li>
-                                </ul>
-                                </p>
-                            </div>
+                    <div class="field">
+                        <label class="label">Email *</label>
+                        <div class="control has-icons-left">
+                            <input @blur="validateInputEmail" v-model="associate.user.login" :class="`${inputEmail}`"
+                                type="text" placeholder="Exemplo: exemplo@gmail.com">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <p v-if="errorMessageEmail">
+                            <ul>
+                                <li v-for="error in errorMessageEmail" :key="error">{{ error }}</li>
+                            </ul>
+                            </p>
                         </div>
                     </div>
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Cep</label>
+                            <label class="label">Cep *</label>
                             <div class="control">
                                 <input v-model="associate.address.cep" @blur="validateInputCep" :class="`${inputCep}`"
                                     type="number" placeholder="Exemplo: 01001-000">
@@ -160,7 +142,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Número</label>
+                            <label class="label">Número *</label>
                             <div class="control">
                                 <input v-model="associate.address.houseNumber" @blur="validateInputNumber"
                                     :class="`${inputNumber}`" type="number" placeholder="Número">
@@ -177,7 +159,7 @@
                 <div v-if="select === '2'">
                     <article v-if="notificationSaveProvider" class="message is-success">
                         <div class="message-header">
-                            <p>Success</p>
+                            <h3>Sucesso</h3>
                             <button @click="closeNotificationProvider" class="delete" aria-label="delete"></button>
                         </div>
                         <div class="message-body">
@@ -188,7 +170,7 @@
 
                     <article v-if="notificationErrorProvider" class="message is-danger">
                         <div class="message-header">
-                            <p>Erro</p>
+                            <h3>Erro</h3>
                             <button @click="closeNotificationErrorProvider" class="delete" aria-label="delete"></button>
                         </div>
                         <div class="message-body">
@@ -198,7 +180,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Nome fantasia</label>
+                            <label class="label">Nome fantasia *</label>
                             <div class="control">
                                 <input v-model="provider.fantasyName" @blur="validateInputNameFantasy"
                                     :class="`${inputNameFantasy}`" type="text" placeholder="Nome fantasia">
@@ -211,7 +193,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Nome empresarial</label>
+                            <label class="label">Nome empresarial *</label>
                             <div class="control">
                                 <input v-model="provider.businessName" @blur="validateInputNameBusiness"
                                     :class="`${inputNameBusiness}`" type="text" placeholder="Nome empresarial">
@@ -226,10 +208,10 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Contato</label>
+                            <label class="label">Contato *</label>
                             <div class="control">
                                 <input v-model="provider.contact" @blur="validateInputContactProvider"
-                                    :class="`${inputContactProvider}`" type="text" placeholder="Exemplo: (45) 9 0000-0000">
+                                    :class="`${inputContactProvider}`" type="text" placeholder="Exemplo: 45 9 00000000">
                                 <p v-if="errorMessageContactProvider">
                                 <ul>
                                     <li v-for="error in errorMessageContactProvider" :key="error">{{ error }}</li>
@@ -239,7 +221,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">CNPJ</label>
+                            <label class="label">CNPJ *</label>
                             <div class="control">
                                 <input v-model="provider.cnpj" @blur="validateInputCpnjProvider"
                                     :class="`${inputCnpjProvider}`" type="text" placeholder="Exemplo: 00.000.000/0001-00">
@@ -252,44 +234,25 @@
                         </div>
                     </div>
 
-                    <div class="aling_inputs">
-                        <div class="field">
-                            <label class="label">Email</label>
-                            <div class="control has-icons-left">
-                                <input v-model="provider.user.login" @blur="validateInputEmailProvider"
-                                    :class="`${inputEmailProvider}`" type="text" placeholder="Exemplo: exemplo@gmail.com">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-user"></i>
-                                </span>
-                                <p v-if="errorMessageEmailProvider">
-                                <ul>
-                                    <li v-for="error in errorMessageEmailProvider" :key="error">{{ error }}</li>
-                                </ul>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="field">
-                            <label class="label">Senha</label>
-                            <div class="control has-icons-left">
-                                <input v-model="provider.user.password" @blur="validateInputPasswordProvider"
-                                    :class="`${inputPasswordProvider}`" type="password"
-                                    placeholder="Mín. 5 dig e Máx. 10 dig">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-lock"></i>
-                                </span>
-                                <p v-if="errorMessagePasswordProvider">
-                                <ul>
-                                    <li v-for="error in errorMessagePasswordProvider" :key="error">{{ error }}</li>
-                                </ul>
-                                </p>
-                            </div>
+                    <div class="field">
+                        <label class="label">Email *</label>
+                        <div class="control has-icons-left">
+                            <input v-model="provider.user.login" @blur="validateInputEmailProvider"
+                                :class="`${inputEmailProvider}`" type="text" placeholder="Exemplo: exemplo@gmail.com">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <p v-if="errorMessageEmailProvider">
+                            <ul>
+                                <li v-for="error in errorMessageEmailProvider" :key="error">{{ error }}</li>
+                            </ul>
+                            </p>
                         </div>
                     </div>
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Cep</label>
+                            <label class="label">Cep *</label>
                             <div class="control">
                                 <input v-model="provider.address.cep" @blur="validateInputCepProvider"
                                     :class="`${inputCepProvider}`" type="number" placeholder="Exemplo: 01001-000">
@@ -319,7 +282,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Número</label>
+                            <label class="label">Número *</label>
                             <div class="control">
                                 <input v-model="provider.address.houseNumber" @blur="validateInputNumberProvider"
                                     :class="`${inputNumberProvider}`" type="number" placeholder="Número">
@@ -336,7 +299,7 @@
                 <div v-if="select === '3'">
                     <article v-if="notificationSaveCaregiver" class="message is-success">
                         <div class="message-header">
-                            <p>Success</p>
+                            <h3>Sucesso</h3>
                             <button @click="closeNotificationCaregiver" class="delete" aria-label="delete"></button>
                         </div>
                         <div class="message-body">
@@ -347,7 +310,7 @@
 
                     <article v-if="notificationErrorCaregiver" class="message is-danger">
                         <div class="message-header">
-                            <p>Erro</p>
+                            <h3>Erro</h3>
                             <button @click="closeNotificationErrorCaregiver" class="delete" aria-label="delete"></button>
                         </div>
                         <div class="message-body">
@@ -357,7 +320,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Primeiro nome</label>
+                            <label class="label">Primeiro nome *</label>
                             <div class="control">
                                 <input v-model="caregiver.firstName" @blur="validateInputFirstNameCaregiver"
                                     :class="`${inputFirstNameCaregiver}`" type="text" placeholder="Primeiro nome">
@@ -370,7 +333,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Sobrenome</label>
+                            <label class="label">Sobrenome *</label>
                             <div class="control">
                                 <input v-model="caregiver.lastName" @blur="validateInputLastNameCaregiver"
                                     :class="`${inputLastNameCaregiver}`" type="text" placeholder="Sobrenome">
@@ -385,10 +348,10 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Contato</label>
+                            <label class="label">Contato *</label>
                             <div class="control">
                                 <input v-model="caregiver.contact" @blur="validateInputContactCaregiver"
-                                    :class="`${inputContactCaregiver}`" type="text" placeholder="Exemplo: (45) 9 0000-0000">
+                                    :class="`${inputContactCaregiver}`" type="text" placeholder="Exemplo: 45 9 00000000">
                                 <p v-if="errorMessageContactCaregiver">
                                 <ul>
                                     <li v-for="error in errorMessageContactCaregiver" :key="error">{{ error }}</li>
@@ -398,7 +361,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">CPF</label>
+                            <label class="label">CPF *</label>
                             <div class="control">
                                 <input @blur="validateInputCpfCaregiver" v-model="caregiver.cpf"
                                     :class="`${inputCpfCaregiver}`" type="text" placeholder="Exemplo: 000.000.000-00">
@@ -413,7 +376,7 @@
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Espaço físico disponível</label>
+                            <label class="label">Espaço físico disponível *</label>
                             <div class="control">
                                 <input v-model="caregiver.physicalSpace" @blur="validateInputPhysicalSpaceCaregiver"
                                     :class="`${inputPhysicalSpaceCaregiver}`" type="text"
@@ -427,11 +390,14 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Gastos mensais</label>
-                            <div class="control">
+                            <label class="label">Gastos mensais *</label>
+                            <div class="control has-icons-left">
                                 <input v-model="caregiver.spending" @blur="validateInputSpending"
                                     :class="`${inputSpendingCaregiver}`" type="text"
                                     placeholder="Exemplo: 20,00 ,  2.000,00.">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </span>
                                 <p v-if="errorMessageSpendingCaregiver">
                                 <ul>
                                     <li v-for="error in errorMessageSpendingCaregiver" :key="error">{{ error }}</li>
@@ -439,9 +405,11 @@
                                 </p>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Capacidade de animais</label>
+                            <label class="label">Capacidade de animais *</label>
                             <div class="control">
                                 <input v-model="caregiver.capacityAnimals" @blur="validateInputCapacityAnimalsCaregiver"
                                     :class="`${inputCapacityAnimalsCaregiver}`" type="number"
@@ -453,11 +421,9 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Email</label>
+                            <label class="label">Email *</label>
                             <div class="control has-icons-left">
                                 <input v-model="caregiver.user.login" @blur="validateInputEmailCaregiver"
                                     :class="`${inputEmailCaregiver}`" type="text" placeholder="Exemplo: exemplo@gmail.com">
@@ -471,28 +437,11 @@
                                 </p>
                             </div>
                         </div>
-
-                        <div class="field">
-                            <label class="label">Senha</label>
-                            <div class="control has-icons-left">
-                                <input v-model="caregiver.user.password" @blur="validateInputPasswordCaregiver"
-                                    :class="`${inputPasswordCaregiver}`" type="password"
-                                    placeholder="Mín. 5 dig e Máx. 10 dig">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-lock"></i>
-                                </span>
-                                <p v-if="errorMessagePasswordCaregiver">
-                                <ul>
-                                    <li v-for="error in errorMessagePasswordCaregiver" :key="error">{{ error }}</li>
-                                </ul>
-                                </p>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="aling_inputs">
                         <div class="field">
-                            <label class="label">Cep</label>
+                            <label class="label">Cep *</label>
                             <div class="control">
                                 <input v-model="caregiver.address.cep" @blur="validateInputCepCaregiver"
                                     :class="`${inputCepCaregiver}`" type="text" placeholder="Exemplo: 01001-000">
@@ -523,7 +472,7 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Número</label>
+                            <label class="label">Número *</label>
                             <div class="control">
                                 <input v-model="caregiver.address.houseNumber" @blur="validateInputNumberCaregiver"
                                     :class="`${inputNumberCaregiver}`" type="number" placeholder="Número">
@@ -545,7 +494,8 @@
                         </div>
 
                         <div class="control">
-                            <button @click="onClickRegister()" class="button is-success is-focused">Cadastrar</button>
+                            <button id="cadastrar" @click="onClickRegister()"
+                                class="button is-success is-focused">Cadastrar</button>
                         </div>
                     </div>
                 </div>
@@ -554,7 +504,7 @@
     </main>
 </template>
   
-<script lang="ts">
+<script lang="ts" scoped>
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import axios from 'axios';
@@ -601,7 +551,6 @@ export default class Register extends Vue {
     public inputContact: string = 'input';
     public inputCpf: string = 'input';
     public inputEmail: string = 'input';
-    public inputPassword: string = 'input';
     public inputCep: string = 'input';
     public inputNumber: string = 'input';
 
@@ -611,7 +560,6 @@ export default class Register extends Vue {
     public errorMessageContact: string[] = [];
     public errorMessageCpf: string[] = [];
     public errorMessageEmail: string[] = [];
-    public errorMessagePassword: string[] = [];
     public errorMessageCep: string[] = [];
     public errorMessageNumber: string[] = [];
 
@@ -622,7 +570,6 @@ export default class Register extends Vue {
     public inputContactProvider: string = 'input';
     public inputCnpjProvider: string = 'input';
     public inputEmailProvider: string = 'input';
-    public inputPasswordProvider: string = 'input';
     public inputCepProvider: string = 'input';
     public inputNumberProvider: string = 'input';
 
@@ -632,7 +579,6 @@ export default class Register extends Vue {
     public errorMessageContactProvider: string[] = [];
     public errorMessageCnpjProvider: string[] = [];
     public errorMessageEmailProvider: string[] = [];
-    public errorMessagePasswordProvider: string[] = [];
     public errorMessageCepProvider: string[] = [];
     public errorMessageNumberProvider: string[] = [];
 
@@ -645,7 +591,6 @@ export default class Register extends Vue {
     public inputCapacityAnimalsCaregiver: string = 'input';
     public inputCpfCaregiver: string = 'input';
     public inputEmailCaregiver: string = 'input';
-    public inputPasswordCaregiver: string = 'input';
     public inputCepCaregiver: string = 'input';
     public inputNumberCaregiver: string = 'input';
 
@@ -658,7 +603,6 @@ export default class Register extends Vue {
     public errorMessageCapacityAnimalsCaregiver: string[] = [];
     public errorMessageCpfCaregiver: string[] = [];
     public errorMessageEmailCaregiver: string[] = [];
-    public errorMessagePasswordCaregiver: string[] = [];
     public errorMessageCepCaregiver: string[] = [];
     public errorMessageNumberCaregiver: string[] = [];
 
@@ -680,7 +624,6 @@ export default class Register extends Vue {
         this.inputContact = 'input';
         this.inputCpf = 'input';
         this.inputEmail = 'input';
-        this.inputPassword = 'input';
         this.inputCep = 'input';
         this.inputNumber = 'input';
     }
@@ -723,7 +666,7 @@ export default class Register extends Vue {
 
     //ASSOCIATE
     public validatePhoneNumber(phoneNumber: string): boolean {
-        const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
+        const phoneNumberRegex = /^(?:\d{2}\s\d{9}|\d{2}\s\d\s\d{4}-\d{4}|\d{2}\s\d\s\d{8})$/;
         return phoneNumberRegex.test(this.associate.contact);
     };
 
@@ -736,7 +679,7 @@ export default class Register extends Vue {
             this.errorMessageContact = ['O campo "Contato" é obrigatório!'];
             this.inputContact = 'input is-danger';
         } else {
-            this.errorMessageContact = ['Siga o seguinte formato: "45 9 0000-0000"!'];
+            this.errorMessageContact = ['Siga o seguinte formato: "45 9 00000000"!'];
             this.inputContact = 'input is-danger';
         }
     }
@@ -772,23 +715,6 @@ export default class Register extends Vue {
         } else {
             this.errorMessageEmail = [];
             this.inputEmail = 'input is-success';
-        }
-    }
-
-    //ASSOCIATE
-    public validateInputPassword() {
-        if (!this.associate.user.password) {
-            this.errorMessagePassword = ['O campo "Senha" é obrigatório!'];
-            this.inputPassword = 'input is-danger';
-        } else if (this.associate.user.password.length <= 4) {
-            this.errorMessagePassword = ['O campo "Senha" deve ter no mínimo 5 caracteres!'];
-            this.inputPassword = 'input is-danger';
-        } else if (this.associate.user.password.length >= 11) {
-            this.errorMessagePassword = ['O campo "Senha" deve ter no máximo 10 caracteres!'];
-            this.inputPassword = 'input is-danger';
-        } else {
-            this.errorMessagePassword = [];
-            this.inputPassword = 'input is-success';
         }
     }
 
@@ -861,7 +787,6 @@ export default class Register extends Vue {
             this.validateInputContact();
             this.validateInputCpf();
             this.validateInputEmail();
-            this.validateInputPassword();
             this.validateInputCep();
             this.validateInputNumber();
         }
@@ -869,7 +794,7 @@ export default class Register extends Vue {
 
     //ASSOCIATE
     public allIputsValidsAssociate(): boolean {
-        if (this.inputFirstName !== 'input is-danger' && this.inputLastName !== 'input is-danger' && this.inputContact !== 'input is-danger' && this.inputCpf !== 'input is-danger' && this.inputEmail !== 'input is-danger' && this.inputPassword !== 'input is-danger' && this.inputCep !== 'input is-danger' && this.inputNumber !== 'input is-danger') {
+        if (this.inputFirstName !== 'input is-danger' && this.inputLastName !== 'input is-danger' && this.inputContact !== 'input is-danger' && this.inputCpf !== 'input is-danger' && this.inputEmail !== 'input is-danger' && this.inputCep !== 'input is-danger' && this.inputNumber !== 'input is-danger') {
             return true;
         } else {
             return false;
@@ -885,7 +810,6 @@ export default class Register extends Vue {
         this.inputContactProvider = 'input';
         this.inputCnpjProvider = 'input';
         this.inputEmailProvider = 'input';
-        this.inputPasswordProvider = 'input';
         this.inputCepProvider = 'input';
         this.inputNumberProvider = 'input';
     }
@@ -930,7 +854,7 @@ export default class Register extends Vue {
 
     //PROVIDER
     public validatePhoneNumberProvider(phoneNumber: string): boolean {
-        const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
+        const phoneNumberRegex = /^(?:\d{2}\s\d{9}|\d{2}\s\d\s\d{4}-\d{4}|\d{2}\s\d\s\d{8})$/;
         return phoneNumberRegex.test(this.provider.contact);
     };
 
@@ -943,7 +867,7 @@ export default class Register extends Vue {
             this.errorMessageContactProvider = ['O campo "Contato" é obrigatório!'];
             this.inputContactProvider = 'input is-danger';
         } else {
-            this.errorMessageContactProvider = ['Siga o seguinte formato: "45 9 0000-0000"!'];
+            this.errorMessageContactProvider = ['Siga o seguinte formato: "45 9 00000000"!'];
             this.inputContactProvider = 'input is-danger';
         }
     }
@@ -973,23 +897,6 @@ export default class Register extends Vue {
         } else {
             this.errorMessageEmailProvider = [];
             this.inputEmailProvider = 'input is-success';
-        }
-    }
-
-    //PROVIDER
-    public validateInputPasswordProvider() {
-        if (!this.provider.user.password) {
-            this.errorMessagePasswordProvider = ['O campo "Senha" é obrigatório!'];
-            this.inputPasswordProvider = 'input is-danger';
-        } else if (this.provider.user.password.length <= 4) {
-            this.errorMessagePasswordProvider = ['O campo "Senha" deve ter no mínimo 5 caracteres!'];
-            this.inputPasswordProvider = 'input is-danger';
-        } else if (this.provider.user.password.length >= 11) {
-            this.errorMessagePasswordProvider = ['O campo "Senha" deve ter no máximo 10 caracteres!'];
-            this.inputPasswordProvider = 'input is-danger';
-        } else {
-            this.errorMessagePasswordProvider = [];
-            this.inputPasswordProvider = 'input is-success';
         }
     }
 
@@ -1062,7 +969,6 @@ export default class Register extends Vue {
             this.validateInputContactProvider();
             this.validateInputCpnjProvider();
             this.validateInputEmailProvider();
-            this.validateInputPasswordProvider();
             this.validateInputCepProvider();
             this.validateInputNumberProvider();
         }
@@ -1070,7 +976,7 @@ export default class Register extends Vue {
 
     //PROVIDER
     public allIputsValidsProvider(): boolean {
-        if (this.inputNameFantasy !== 'input is-danger' && this.inputNameBusiness !== 'input is-danger' && this.inputContactProvider !== 'input is-danger' && this.inputCnpjProvider !== 'input is-danger' && this.inputEmailProvider !== 'input is-danger' && this.inputPasswordProvider !== 'input is-danger' && this.inputCepProvider !== 'input is-danger' && this.inputNumberProvider !== 'input is-danger') {
+        if (this.inputNameFantasy !== 'input is-danger' && this.inputNameBusiness !== 'input is-danger' && this.inputContactProvider !== 'input is-danger' && this.inputCnpjProvider !== 'input is-danger' && this.inputEmailProvider !== 'input is-danger' && this.inputCepProvider !== 'input is-danger' && this.inputNumberProvider !== 'input is-danger') {
             return true;
         } else {
             return false;
@@ -1089,7 +995,6 @@ export default class Register extends Vue {
         this.inputCapacityAnimalsCaregiver = 'input';
         this.inputCpfCaregiver = 'input';
         this.inputEmailCaregiver = 'input';
-        this.inputPasswordCaregiver = 'input';
         this.inputCepCaregiver = 'input';
         this.inputNumberCaregiver = 'input';
     }
@@ -1132,7 +1037,7 @@ export default class Register extends Vue {
 
     //CAREGIVER
     public validatePhoneNumberCaregiver(phoneNumber: string): boolean {
-        const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/;
+        const phoneNumberRegex = /^(?:\d{2}\s\d{9}|\d{2}\s\d\s\d{4}-\d{4}|\d{2}\s\d\s\d{8})$/;
         return phoneNumberRegex.test(this.caregiver.contact);
     };
 
@@ -1241,23 +1146,6 @@ export default class Register extends Vue {
     }
 
     //CAREGIVER
-    public validateInputPasswordCaregiver() {
-        if (!this.caregiver.user.password) {
-            this.errorMessagePasswordCaregiver = ['O campo "Senha" é obrigatório!'];
-            this.inputPasswordCaregiver = 'input is-danger';
-        } else if (this.caregiver.user.password.length <= 4) {
-            this.errorMessagePasswordCaregiver = ['O campo "Senha" deve ter no mínimo 5 caracteres!'];
-            this.inputPasswordCaregiver = 'input is-danger';
-        } else if (this.caregiver.user.password.length >= 11) {
-            this.errorMessagePasswordCaregiver = ['O campo "Senha" deve ter no máximo 10 caracteres!'];
-            this.inputPasswordCaregiver = 'input is-danger';
-        } else {
-            this.errorMessagePasswordCaregiver = [];
-            this.inputPasswordCaregiver = 'input is-success';
-        }
-    }
-
-    //CAREGIVER
     async fetchAddressCaregiver(): Promise<void> {
         if (this.caregiver.address.cep.length === 8) {
             try {
@@ -1329,7 +1217,6 @@ export default class Register extends Vue {
             this.validateInputSpending();
             this.validateInputCapacityAnimalsCaregiver();
             this.validateInputEmailCaregiver();
-            this.validateInputPasswordCaregiver();
             this.validateInputCepCaregiver();
             this.validateInputNumberCaregiver();
         }
@@ -1337,7 +1224,7 @@ export default class Register extends Vue {
 
     //CAREGIVER
     public allIputsValidsCaregiver(): boolean {
-        if (this.inputFirstNameCaregiver !== 'input is-danger' && this.inputLastNameCaregiver !== 'input is-danger' && this.inputContactCaregiver !== 'input is-danger' && this.inputPhysicalSpaceCaregiver !== 'input is-danger' && this.inputSpendingCaregiver !== 'input is-danger' && this.inputCapacityAnimalsCaregiver !== 'input is-danger' && this.inputCpfCaregiver !== 'input is-danger' && this.inputEmailCaregiver !== 'input is-danger' && this.inputPasswordCaregiver !== 'input is-danger' && this.inputCepCaregiver !== 'input is-danger' && this.inputNumberCaregiver !== 'input is-danger') {
+        if (this.inputFirstNameCaregiver !== 'input is-danger' && this.inputLastNameCaregiver !== 'input is-danger' && this.inputContactCaregiver !== 'input is-danger' && this.inputPhysicalSpaceCaregiver !== 'input is-danger' && this.inputSpendingCaregiver !== 'input is-danger' && this.inputCapacityAnimalsCaregiver !== 'input is-danger' && this.inputCpfCaregiver !== 'input is-danger' && this.inputEmailCaregiver !== 'input is-danger' && this.inputCepCaregiver !== 'input is-danger' && this.inputNumberCaregiver !== 'input is-danger') {
             return true;
         } else {
             return false;
@@ -1358,7 +1245,7 @@ export default class Register extends Vue {
                         this.associate = new Associate();
                     },
                     error => {
-                        if (error != undefined) {
+                        if (error.status === 400) {
                             this.notificationErrorAssociate = true;
                             this.notificationSave = false;
                         }
@@ -1379,7 +1266,7 @@ export default class Register extends Vue {
                             this.provider = new Provider();
                         },
                         error => {
-                            if (error != undefined) {
+                            if (error.status === 400) {
                                 this.notificationErrorProvider = true;
                                 this.notificationSaveProvider = false;
                             }
@@ -1400,10 +1287,10 @@ export default class Register extends Vue {
                         this.caregiver = new Caregiver();
                     },
                     error => {
-                        if (error != undefined) {
-                                this.notificationErrorCaregiver = true;
-                                this.notificationSaveCaregiver = false;
-                            }
+                        if (error.status === 400) {
+                            this.notificationErrorCaregiver = true;
+                            this.notificationSaveCaregiver = false;
+                        }
                         console.log(error);
                     }
                 )
@@ -1442,12 +1329,26 @@ main {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    padding: 20px;
+    height: 100vh;
+
+    background-image: url(../../assets/background-register.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.9;
 
     .section_register {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+
+        background-color: rgba(0, 0, 0, 0.65);
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .container_form {
@@ -1459,8 +1360,21 @@ main {
         gap: 30px;
     }
 
+    .label {
+        color: white;
+    }
+
+    input {
+        border: 2px solid;
+    }
+
     .field {
         width: 700px;
+    }
+
+    p {
+        font-size: 16px;
+        color: red;
     }
 
     .container_buttons {
@@ -1476,6 +1390,15 @@ main {
 
             .button {
                 width: 200px;
+            }
+
+            .button:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            }
+
+            #cadastrar {
+                background: #FBBD08;
             }
         }
     }

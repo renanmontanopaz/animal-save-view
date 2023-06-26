@@ -1,10 +1,12 @@
 <template>
   <main>
-    <div class="box column is-4" style="justify-content: center; display: flex">
-      <div class="column is-10">
+    <div class="column is-4" style="align-items: center; justify-content: space-around; display: flex; flex-direction: column">
+      <div class="box" style="align-items: center; justify-content: space-around; display: flex; flex-direction: column; height: 450px; width: 100%">
+      <p class="title">Login</p>
+      <div class="column is-8">
         <div class="field">
           <p class="control has-icons-left has-icons-right">
-            <input class="input" type="email" placeholder="Email" v-model="login.login">
+            <input class="input" type="email" placeholder="Email" v-model="login.login" />
             <span class="icon is-small is-left">
               <i class="fas fa-envelope"></i>
             </span>
@@ -15,7 +17,7 @@
         </div>
         <div class="field">
           <p class="control has-icons-left">
-            <input class="input" type="password" placeholder="Password" v-model="login.password">
+            <input class="input" type="password" placeholder="Password" v-model="login.password" />
             <span class="icon is-small is-left">
               <i class="fas fa-lock"></i>
             </span>
@@ -29,41 +31,59 @@
             </div>
           </div>
         </div>
-        <div class="field">
-          <p class="control">
-            <button class="button is-success" @click="onClickLogin">
-              Login
-            </button>
-          </p>
-        </div>
+      </div>
+      <div class="field">
+        <p class="control">
+          <button class="button is-success" @click="onClickLogin">
+            Login
+          </button>
+        </p>
+      </div>
       </div>
     </div>
   </main>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 main {
   align-items: center;
   justify-content: center;
   display: flex;
+  height: 100vh;
+  background-color: #002d4c;
+}
+main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo com opacidade */
+  z-index: -1;
+}
+.box{
+
 }
 </style>
 <script lang="ts">
-
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import { UserClient } from "@/client/User.client";
 import { Token } from "@/model/Token";
 import { LoginUser } from "@/model/Login";
 import { Message } from "@/model/Message";
-import jwt_decode from "jwt-decode"
+import jwt_decode from "jwt-decode";
+import router from "@/router";
 
 @Component
 export default class Login extends Vue {
   private userClient: UserClient = new UserClient();
 
   public login: LoginUser = new LoginUser();
-  public token: Token = new Token();
+  public tokenLogin: Token = new Token();
   public notificacao: Message = new Message();
+
+  mounted(): void { }
 
   isVisible = false;
 
@@ -72,32 +92,69 @@ export default class Login extends Vue {
 
     setTimeout(() => {
       this.isVisible = false;
-    }, 4000); // Tempo em milissegundos (5 segundos)
+    }, 4000);
   }
-  public onClickLogin(): void {
-    console.log(this.login)
-    this.userClient.login(this.login).then(
-      success => {
-        this.token = success
-        //const token2 = success
-        const tokenString = success.toString();
-        const decodedToken: { [key: string]: any } = jwt_decode(tokenString);
-        const userAccess: string = decodedToken.access;
 
-        console.log(decodedToken); // Imprime o tipo de acesso do usuário
+  public extractAuthorities(decodedToken: { [key: string]: any }): string[] {
+    if (decodedToken.authorities && Array.isArray(decodedToken.authorities)) {
+      return decodedToken.authorities;
+    }
+    return [];
+  }
+
+  public onClickLogin(): void {
+    this.userClient.login(this.login).then(
+      (success) => {
+        this.tokenLogin = this.tokenLogin.new(true, `${success}`);
+        const tokenString = this.tokenLogin.token.toString();
+        const decodedToken: { [key: string]: any } = jwt_decode(tokenString);
+
+        const userAccess: string = decodedToken.access;
+        const authorities: string[] = this.extractAuthorities(decodedToken);
+
+        const approved: boolean = decodedToken.approved;
+
+        const id: number = decodedToken.id;
+
+        if (approved == true && authorities.includes("ROLE_ADMIN")) {
+          window.location.href = "/administrador";
+          console.log('chegou no adm')
+        } 
+        else if (approved == true && authorities.includes("ROLE_ASSOCIATE")) {
+          router.push({ path:`/associado/${id}` })
+          window.location.href = `/associado/${id}`;
+        } 
+        else if (approved == true && authorities.includes("ROLE_PROVIDER")) {
+          window.location.href = "/fornecedor";
+        } 
+        else if (approved == true && authorities.includes("ROLE_CAREGIVER")) {
+          window.location.href = "/protetora";
+        } 
+        else if (approved == false) {
+          this.showComponent();
+          this.notificacao = this.notificacao.new(
+            true,
+            "notification is-danger",
+            "Usuário com aprovação pendente ou rejeitada!"
+          );
+        }
+
+        console.log(decodedToken);
+        localStorage.setItem("token", this.tokenLogin.token);
       },
-      error => {
+      (error) => {
         this.showComponent();
         this.notificacao = this.notificacao.new(
-          true, 'notification is-danger', 'Usuário ou senha incorreto'/*+ error.config.data*/
-        )
+          true,
+          "notification is-danger",
+          "Usuário ou senha incorreto"
+        );
       }
-    )
+    );
   }
 
   public onClickFecharNotificacao(): void {
-    this.notificacao = new Message()
+    this.notificacao = new Message();
   }
 }
-
 </script>
