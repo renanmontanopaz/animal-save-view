@@ -1,6 +1,15 @@
 <template>
     <main>
         <section>
+            <article v-if="notificationSave" class="message is-success">
+                <div class="message-header">
+                    <h3>Sucesso</h3>
+                    <button @click="closeNotification" class="delete" aria-label="delete"></button>
+                </div>
+                <div class="message-body">
+                    Perfil atualizado com sucesso!
+                </div>
+            </article>
             <div class="control">
                 <h1 class="title">Editar perfil</h1>
             </div>
@@ -157,6 +166,7 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import { cnpj } from 'cpf-cnpj-validator'
 import axios from 'axios'
+import { Message } from '@/model/Message'
 
 @Component
 export default class UpdateProviderView extends Vue {
@@ -184,6 +194,10 @@ export default class UpdateProviderView extends Vue {
     public errorMessagePasswordProvider: string[] = []
     public errorMessageCepProvider: string[] = []
     public errorMessageNumberProvider: string[] = []
+
+    public notificacao: Message = new Message();
+
+    public notificationSave: boolean = false;
 
     private id = Number(this.$route.params.id)
 
@@ -380,6 +394,10 @@ export default class UpdateProviderView extends Vue {
         } else {
             return false
         }
+    }
+
+    public closeNotification() {
+        this.notificationSave = false;
     }
 }
 </script>

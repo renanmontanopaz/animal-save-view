@@ -1,6 +1,16 @@
 <template>
     <main>
         <section>
+            <article v-if="notificationSave" class="message is-success">
+                <div class="message-header">
+                    <h3>Sucesso</h3>
+                    <button @click="closeNotification" class="delete" aria-label="delete"></button>
+                </div>
+                <div class="message-body">
+                    Serviço registrado com sucesso!
+                </div>
+            </article>
+
             <div class="control">
                 <h1 class="title">Cadastro de Serviço</h1>
             </div>
@@ -88,6 +98,7 @@ import { TaskClient } from "@/client/Task.client";
 import { Task } from "@/model/Task";
 import Vue from "vue";
 import Component from 'vue-class-component';
+import { Message } from '@/model/Message'
 
 @Component
 export default class RegisterServiceView extends Vue {
@@ -104,6 +115,10 @@ export default class RegisterServiceView extends Vue {
     public errorMessageCost: string[] = []
     public errorMessageMonthlyAmount: string[] = []
     public errorMessageDescription: string[] = []
+
+    public notificacao: Message = new Message();
+
+    public notificationSave: boolean = false;
 
     public onClickRegister(): void {
         if (this.allInputsValids() === true) {
@@ -188,6 +203,10 @@ export default class RegisterServiceView extends Vue {
         } else {
             return false
         }
+    }
+
+    public closeNotification() {
+        this.notificationSave = false;
     }
 }
 </script>

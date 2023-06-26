@@ -1,6 +1,15 @@
 <template>
     <section>
         <main>
+            <article v-if="notificationSave" class="message is-success">
+                <div class="message-header">
+                    <h3>Sucesso</h3>
+                    <button @click="closeNotification" class="delete" aria-label="delete"></button>
+                </div>
+                <div class="message-body">
+                    Serviço atualizado com sucesso!
+                </div>
+            </article>
             <div class="control">
                 <h1 class="title">Editar Serviço</h1>
             </div>
@@ -84,6 +93,7 @@
 import { TaskClient } from '@/client/Task.client';
 import { Task } from '@/model/Task';
 import { Component, Vue } from 'vue-property-decorator'
+import { Message } from '@/model/Message'
 
 @Component
 export default class EditServiceView extends Vue {
@@ -105,6 +115,10 @@ export default class EditServiceView extends Vue {
     public errorMessageCost: string[] = []
     public errorMessageMonthlyAmount: string[] = []
     public errorMessageDescription: string[] = []
+
+    public notificacao: Message = new Message();
+
+    public notificationSave: boolean = false;
 
     public mounted(): void {
         this.getTask()
@@ -202,6 +216,10 @@ export default class EditServiceView extends Vue {
         } else {
             return false
         }
+    }
+
+    public closeNotification() {
+        this.notificationSave = false;
     }
 }
 </script>
