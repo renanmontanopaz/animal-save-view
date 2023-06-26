@@ -15,6 +15,7 @@ import HomeCaregiver from "@/views/Protetora/HomeCaregiver.vue";
 import { Token } from "@/model/Token";
 import Modal from "@/views/Modal.vue";
 import HeaderVue from '@/views/LandingPage/Header.vue';
+import ListOccurrence from "@/views/Protetora/ListOcurrences.vue";
 
 Vue.use(VueRouter);
 const loginInstance = new Login();
@@ -32,6 +33,12 @@ const routes: Array<RouteConfig> = [
     name: "protetora",
     component: HomeCaregiver,
   },
+  {
+    path: "/protetora/list-occurrence",
+    name: "ListOccurrence",
+    component: ListOccurrence,
+  },
+
   {
     path: "/register",
     name: "register",
