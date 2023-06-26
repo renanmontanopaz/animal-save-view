@@ -394,6 +394,7 @@
   </main>
 </template>
 
+
 <script lang="ts" scoped>
 import { Component, Vue } from 'vue-property-decorator';
 import { Occurrences } from "@/model/Occurrences";
