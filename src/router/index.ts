@@ -16,6 +16,10 @@ import { Token } from "@/model/Token";
 import Modal from "@/views/Modal.vue";
 import HeaderVue from '@/views/LandingPage/Header.vue';
 import ListOccurrence from "@/views/Protetora/ListOcurrences.vue";
+import ProviderView from "@/views/Provider/ProviderView.vue";
+import RegisterServiceView from "@/views/Provider/RegisterServiceView.vue";
+import UpdateProviderView from "@/views/Provider/UpdateProviderView.vue";
+import EditServiceView from "@/views/Provider/UpdateServiceView.vue";
 
 Vue.use(VueRouter);
 const loginInstance = new Login();
@@ -23,6 +27,26 @@ const tokenLogin: Token = loginInstance.tokenLogin;
 const user: string = loginInstance.tokenLogin.token;
 const userauth: boolean = loginInstance.tokenLogin.auth;
 const routes: Array<RouteConfig> = [
+  {
+    path: "/update-service",
+    name: "update-service",
+    component: EditServiceView,
+  },
+  {
+    path: "/update-provider",
+    name: "update-provider",
+    component: UpdateProviderView,
+  },
+  {
+    path: "/register-provider",
+    name: "register-provider",
+    component: RegisterServiceView,
+  },
+  {
+    path: "/provider",
+    name: "provider",
+    component: ProviderView,
+  },
   {
     path: "/protetora/register-animal",
     name: "RegisterAnimal",
