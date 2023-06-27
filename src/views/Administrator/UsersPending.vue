@@ -300,6 +300,12 @@
                 </div>
             </div>
 
+            <div v-if="isLoading" class="loading-container">
+                <div class="loading-indicator">
+                    <span class="loading-text">Carregando...</span><span class="loading-dots"></span>
+                </div>
+            </div>
+
             <div class="columns" v-if="notificacao.ativo">
                 <div class="column is-12">
                     <div :class="notificacao.classe" v-if="isVisible">
@@ -340,8 +346,9 @@
                                     :disabled="select !== '0'"
                                     @click="findByIdAssociate(item.id)"><strong>Detalhar</strong></button>
                                 <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
-                                    @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
+                                    :disabled="select !== '0' || isLoading" @click="updateToApproved(item.user.id)">
+                                    <strong>Aprovar</strong>
+                                </button>
                                 <button :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0'"
                                     @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
@@ -448,7 +455,8 @@ export default class UsersPending extends Vue {
 
     public allPending: pendings[] = [];
 
-    isVisible = false;
+    public isVisible: boolean = false;
+    public isLoading: boolean = false;
 
     public select: string = '0';
 
@@ -498,6 +506,7 @@ export default class UsersPending extends Vue {
     }
 
     public updateToApproved(id: number): void {
+        this.isLoading = true;
         this.adminClient.updateStatusPendingToApproved(id).then(
             success => {
                 this.showComponent();
@@ -505,10 +514,12 @@ export default class UsersPending extends Vue {
                     true, 'notification is-success', 'Usuário Aprovado!'
                 )
                 this.onClickRequisicao()
-                this.select = "0"
+                this.select = "0";
+                this.isLoading = false;
             },
             error => {
-                console.log(error)
+                console.log(error);
+                this.isLoading = false;
             }
         )
     }
@@ -601,6 +612,35 @@ a {
 #notOccurrence {
     font-size: 50px;
     padding: 30px;
+}
+
+.loading-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loading-indicator {
+    font-size: 48px;
+    font-weight: bold;
+    color: #5e5e5e;
+    opacity: 0;
+    animation: loading-indicator-animation 1.35s infinite;
+}
+
+@keyframes loading-indicator-animation {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 </style>
   
