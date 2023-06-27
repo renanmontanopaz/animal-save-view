@@ -301,9 +301,7 @@
             </div>
 
             <div v-if="isLoading" class="loading-container">
-                <div class="loading-indicator">
-                    <span class="loading-text">Carregando...</span><span class="loading-dots"></span>
-                </div>
+                <div class="loading-spinner"></div>
             </div>
 
             <div class="columns" v-if="notificacao.ativo">
@@ -621,25 +619,22 @@ a {
     transform: translate(-50%, -50%);
 }
 
-.loading-indicator {
-    font-size: 48px;
-    font-weight: bold;
-    color: #5e5e5e;
-    opacity: 0;
-    animation: loading-indicator-animation 1.35s infinite;
+.loading-spinner {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 8px solid rgba(107, 107, 107, 0.1);
+    border-top-color: #636363;
+    animation: loading-spinner-animation 0.8s linear infinite;
 }
 
-@keyframes loading-indicator-animation {
+@keyframes loading-spinner-animation {
     0% {
-        opacity: 0;
-    }
-
-    50% {
-        opacity: 1;
+        transform: rotate(0deg);
     }
 
     100% {
-        opacity: 0;
+        transform: rotate(360deg);
     }
 }
 </style>
