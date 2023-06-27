@@ -167,17 +167,17 @@
                             </div>
                             <div id="container-bottons" class="field is-grouped">
                                 <div class="control">
-                                    <button @click="updateToRejected(provider.user.id)"
+                                    <button :disabled="isLoading" @click="updateToRejected(provider.user.id)"
                                         class="button is-danger is-focused">Rejeitar</button>
                                 </div>
 
                                 <div class="control">
-                                    <button @click="updateToApproved(provider.user.id)"
+                                    <button :disabled="isLoading" @click="updateToApproved(provider.user.id)"
                                         class="button is-success is-focused">Aprovar</button>
                                 </div>
 
                                 <div class="control">
-                                    <button @click="closeModal" class="button is-info is-focused">Voltar</button>
+                                    <button :disabled="isLoading" @click="closeModal" class="button is-info is-focused">Voltar</button>
                                 </div>
                             </div>
                         </div>
@@ -282,17 +282,17 @@
                             </div>
                             <div id="container-bottons" class="field is-grouped">
                                 <div class="control">
-                                    <button @click="updateToRejected(caregiver.user.id)"
+                                    <button :disabled="isLoading" @click="updateToRejected(caregiver.user.id)"
                                         class="button is-danger is-focused">Rejeitar</button>
                                 </div>
 
                                 <div class="control">
-                                    <button @click="updateToApproved(caregiver.user.id)"
+                                    <button :disabled="isLoading" @click="updateToApproved(caregiver.user.id)"
                                         class="button is-success is-focused">Aprovar</button>
                                 </div>
 
                                 <div class="control">
-                                    <button @click="closeModal" class="button is-info is-focused">Voltar</button>
+                                    <button :disabled="isLoading" @click="closeModal" class="button is-info is-focused">Voltar</button>
                                 </div>
                             </div>
                         </div>
@@ -370,13 +370,13 @@
                                 Protetor(a)</td>
                             <td class="container_buttons">
                                 <button :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="findByIdProvider(item.id)"><strong>Detalhar</strong></button>
                                 <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
                                 <button :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
                             </td>
                         </tr>
@@ -398,13 +398,13 @@
                                 Protetor(a)</td>
                             <td class="container_buttons">
                                 <button :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="findByIdCaregiver(item.id)"><strong>Detalhar</strong></button>
                                 <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
                                 <button :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
                             </td>
                         </tr>
