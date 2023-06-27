@@ -75,12 +75,13 @@
                             </div>
                             <div id="container-bottons" class="field is-grouped">
                                 <div class="control">
-                                    <button @click="updateToApproved(associate.user.id)"
+                                    <button :disabled="isLoading" @click="updateToApproved(associate.user.id)"
                                         class="button is-success is-focused">Aprovar</button>
                                 </div>
 
                                 <div class="control">
-                                    <button @click="closeModal" class="button is-info is-focused">Voltar</button>
+                                    <button :disabled="isLoading" @click="closeModal"
+                                        class="button is-info is-focused">Voltar</button>
                                 </div>
                             </div>
                         </div>
@@ -162,12 +163,13 @@
                             </div>
                             <div id="container-bottons" class="field is-grouped">
                                 <div class="control">
-                                    <button @click="updateToApproved(provider.user.id)"
+                                    <button :disabled="isLoading" @click="updateToApproved(provider.user.id)"
                                         class="button is-success is-focused">Aprovar</button>
                                 </div>
 
                                 <div class="control">
-                                    <button @click="closeModal" class="button is-info is-focused">Voltar</button>
+                                    <button :disabled="isLoading" @click="closeModal"
+                                        class="button is-info is-focused">Voltar</button>
                                 </div>
                             </div>
                         </div>
@@ -272,17 +274,22 @@
                             </div>
                             <div id="container-bottons" class="field is-grouped">
                                 <div class="control">
-                                    <button @click="updateToApproved(caregiver.user.id)"
+                                    <button :disabled="isLoading" @click="updateToApproved(caregiver.user.id)"
                                         class="button is-success is-focused">Aprovar</button>
                                 </div>
 
                                 <div class="control">
-                                    <button @click="closeModal" class="button is-info is-focused">Voltar</button>
+                                    <button :disabled="isLoading" @click="closeModal"
+                                        class="button is-info is-focused">Voltar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div v-if="isLoading" class="loading-container">
+                <div class="loading-spinner"></div>
             </div>
 
             <div class="columns" v-if="notificacao.ativo">
@@ -322,10 +329,10 @@
                                 Protetor(a)</td>
                             <td class="container_buttons">
                                 <button :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="findByIdAssociate(item.id)"><strong>Detalhar</strong></button>
                                 <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
                             </td>
                         </tr>
@@ -347,10 +354,10 @@
                                 Protetor(a)</td>
                             <td class="container_buttons">
                                 <button :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="findByIdProvider(item.id)"><strong>Detalhar</strong></button>
                                 <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
                             </td>
                         </tr>
@@ -372,10 +379,10 @@
                                 Protetor(a)</td>
                             <td class="container_buttons">
                                 <button :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="findByIdCaregiver(item.id)"><strong>Detalhar</strong></button>
                                 <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
                             </td>
                         </tr>
@@ -424,7 +431,8 @@ export default class UsersRejected extends Vue {
 
     public allRejected: pendings[] = [];
 
-    isVisible = false;
+    public isVisible: boolean = false;
+    public isLoading: boolean = false;
 
     public select: string = '0';
 
@@ -474,17 +482,20 @@ export default class UsersRejected extends Vue {
     }
 
     public updateToApproved(id: number): void {
+        this.isLoading = true;
         this.adminClient.updateStatusPendingToApproved(id).then(
             success => {
                 this.showComponent();
                 this.notificacao = this.notificacao.new(
                     true, 'notification is-success', 'Usuário Aprovado!'
                 )
-                this.onClickRequisicao()
-                this.select = "0"
+                this.onClickRequisicao();
+                this.select = "0";
+                this.isLoading = false;
             },
             error => {
                 console.log(error)
+                this.isLoading = false;
             }
         )
     }
@@ -561,6 +572,32 @@ a {
 #notOccurrence {
     font-size: 50px;
     padding: 30px;
+}
+
+.loading-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loading-spinner {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 8px solid rgba(107, 107, 107, 0.1);
+    border-top-color: #636363;
+    animation: loading-spinner-animation 0.8s linear infinite;
+}
+
+@keyframes loading-spinner-animation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 </style>
   

@@ -75,12 +75,12 @@
                             </div>
                             <div id="container-bottons" class="field is-grouped">
                                 <div class="control">
-                                    <button @click="updateToRejected(associate.user.id)"
+                                    <button :disabled="isLoading" @click="updateToRejected(associate.user.id)"
                                         class="button is-danger is-focused">Rejeitar</button>
                                 </div>
 
                                 <div class="control">
-                                    <button @click="closeModal" class="button is-info is-focused">Voltar</button>
+                                    <button :disabled="isLoading" @click="closeModal" class="button is-info is-focused">Voltar</button>
                                 </div>
                             </div>
                         </div>
@@ -162,12 +162,12 @@
                             </div>
                             <div id="container-bottons" class="field is-grouped">
                                 <div class="control">
-                                    <button @click="updateToRejected(provider.user.id)"
+                                    <button :disabled="isLoading" @click="updateToRejected(provider.user.id)"
                                         class="button is-danger is-focused">Rejeitar</button>
                                 </div>
 
                                 <div class="control">
-                                    <button @click="closeModal" class="button is-info is-focused">Voltar</button>
+                                    <button :disabled="isLoading" @click="closeModal" class="button is-info is-focused">Voltar</button>
                                 </div>
                             </div>
                         </div>
@@ -272,17 +272,21 @@
                             </div>
                             <div id="container-bottons" class="field is-grouped">
                                 <div class="control">
-                                    <button @click="updateToRejected(caregiver.user.id)"
+                                    <button :disabled="isLoading" @click="updateToRejected(caregiver.user.id)"
                                         class="button is-danger is-focused">Rejeitar</button>
                                 </div>
 
                                 <div class="control">
-                                    <button @click="closeModal" class="button is-info is-focused">Voltar</button>
+                                    <button :disabled="isLoading" @click="closeModal" class="button is-info is-focused">Voltar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div v-if="isLoading" class="loading-container">
+                <div class="loading-spinner"></div>
             </div>
 
             <div class="columns" v-if="notificacao.ativo">
@@ -322,10 +326,10 @@
                                 Protetor(a)</td>
                             <td class="container_buttons">
                                 <button :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="findByIdAssociate(item.id)"><strong>Detalhar</strong></button>
                                 <button :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
                             </td>
                         </tr>
@@ -347,10 +351,10 @@
                                 Protetor(a)</td>
                             <td class="container_buttons">
                                 <button :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="findByIdProvider(item.id)"><strong>Detalhar</strong></button>
                                 <button :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
                             </td>
                         </tr>
@@ -372,10 +376,10 @@
                                 Protetor(a)</td>
                             <td class="container_buttons">
                                 <button :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="findByIdCaregiver(item.id)"><strong>Detalhar</strong></button>
                                 <button :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
                             </td>
                         </tr>
@@ -424,7 +428,8 @@ export default class UsersApproved extends Vue {
 
     public allApproved: pendings[] = [];
 
-    isVisible = false;
+    public isVisible: boolean = false;
+    public isLoading: boolean = false;
 
     public select: string = '0';
 
@@ -474,17 +479,20 @@ export default class UsersApproved extends Vue {
     }
 
     public updateToRejected(id: number): void {
+        this.isLoading = true;
         this.adminClient.updateStatusUserPendingToRejected(id).then(
             success => {
                 this.showComponent();
                 this.notificacao = this.notificacao.new(
                     true, 'notification is-danger', 'Usuário Rejeitado!'/*+ error.config.data*/
                 )
-                this.onClickRequisicao()
-                this.select = "0"
+                this.onClickRequisicao();
+                this.select = "0";
+                this.isLoading = false;
             },
             error => {
-                console.log(error)
+                console.log(error);
+                this.isLoading = false;
             }
         )
     }
@@ -561,6 +569,32 @@ a {
 #notOccurrence {
     font-size: 50px;
     padding: 30px;
+}
+
+.loading-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loading-spinner {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 8px solid rgba(107, 107, 107, 0.1);
+    border-top-color: #636363;
+    animation: loading-spinner-animation 0.8s linear infinite;
+}
+
+@keyframes loading-spinner-animation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 </style>
   
