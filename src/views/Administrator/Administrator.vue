@@ -8,8 +8,10 @@
         </a>
       </p>
       <UsersPending v-if="tabs[0].isActive"></UsersPending>
-      <RegisterPublic v-if="tabs[1].isActive"></RegisterPublic>
-      <ManagerUsers v-if="tabs[2].isActive"></ManagerUsers>
+      <UsersApproved v-if="tabs[1].isActive"></UsersApproved>
+      <UsersRejected v-if="tabs[2].isActive"></UsersRejected>
+      <RegisterPublic v-if="tabs[3].isActive"></RegisterPublic>
+      <ManagerUsers v-if="tabs[4].isActive"></ManagerUsers>
     </div>
   </main>
 </template>
@@ -23,6 +25,8 @@ import { Message } from "@/model/Message";
 import RegisterPublic from "@/views/Administrator/RegisterPublic.vue";
 import ManagerUsers from "@/views/Administrator/ManagerUsers.vue";
 import UsersPending from "@/views/Administrator/UsersPending.vue";
+import UsersApproved from "@/views/Administrator/UsersApproved.vue";
+import UsersRejected from "@/views/Administrator/UsersRejected.vue";
 import { AssociateClient } from '@/client/Associate.client';
 import { Associate } from '@/model/Associate';
 import { ProviderClient } from '@/client/Provider.client';
@@ -41,6 +45,8 @@ interface Tab {
     RegisterPublic,
     ManagerUsers,
     UsersPending,
+    UsersApproved,
+    UsersRejected
   }
 })
 export default class Administrator extends Vue {
@@ -63,6 +69,8 @@ export default class Administrator extends Vue {
 
   tabs: Tab[] = [
     { label: 'Usuários Pendentes', icon: 'fas fa-image', isActive: true },
+    { label: 'Usuários Aprovados', icon: 'fas fa-image', isActive: false },
+    { label: 'Usuários Rejeitados', icon: 'fas fa-image', isActive: false },
     { label: 'Registro Público', icon: 'fas fa-image', isActive: false },
     { label: 'Gerenciar Usuários', icon: 'fas fa-image', isActive: false }
   ];

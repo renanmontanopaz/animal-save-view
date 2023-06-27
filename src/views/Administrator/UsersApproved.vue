@@ -80,11 +80,6 @@
                                 </div>
 
                                 <div class="control">
-                                    <button @click="updateToApproved(associate.user.id)"
-                                        class="button is-success is-focused">Aprovar</button>
-                                </div>
-
-                                <div class="control">
                                     <button @click="closeModal" class="button is-info is-focused">Voltar</button>
                                 </div>
                             </div>
@@ -169,11 +164,6 @@
                                 <div class="control">
                                     <button @click="updateToRejected(provider.user.id)"
                                         class="button is-danger is-focused">Rejeitar</button>
-                                </div>
-
-                                <div class="control">
-                                    <button @click="updateToApproved(provider.user.id)"
-                                        class="button is-success is-focused">Aprovar</button>
                                 </div>
 
                                 <div class="control">
@@ -287,11 +277,6 @@
                                 </div>
 
                                 <div class="control">
-                                    <button @click="updateToApproved(caregiver.user.id)"
-                                        class="button is-success is-focused">Aprovar</button>
-                                </div>
-
-                                <div class="control">
                                     <button @click="closeModal" class="button is-info is-focused">Voltar</button>
                                 </div>
                             </div>
@@ -322,7 +307,7 @@
                     <tbody>
                         <tr class="table-row"
                             v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_ASSOCIATE'"
-                            v-for="item in allPending">
+                            v-for="item in allApproved" @click="findByIdAssociate(item.id)">
                             <td>{{ item.user.id }}</td>
                             <td>{{ item.register }}</td>
                             <td>{{ item.businessName == null ? item.firstName + " " + item.lastName : item.businessName
@@ -336,12 +321,6 @@
                             <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'">
                                 Protetor(a)</td>
                             <td class="container_buttons">
-                                <button :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
-                                    @click="findByIdAssociate(item.id)"><strong>Detalhar</strong></button>
-                                <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
-                                    @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
                                 <button :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0'"
                                     @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
@@ -350,7 +329,7 @@
 
                         <tr class="table-row"
                             v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_PROVIDER'"
-                            v-for="item in allPending" @click="findByIdProvider(item.id)">
+                            v-for="item in allApproved" @click="findByIdProvider(item.id)">
                             <td>{{ item.user.id }}</td>
                             <td>{{ item.register }}</td>
                             <td>{{ item.businessName == null ? item.firstName + " " + item.lastName : item.businessName
@@ -364,9 +343,6 @@
                             <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'">
                                 Protetor(a)</td>
                             <td class="container_buttons">
-                                <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
-                                    @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
                                 <button :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0'"
                                     @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
@@ -375,7 +351,7 @@
 
                         <tr class="table-row"
                             v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'"
-                            v-for="item in allPending" @click="findByIdCaregiver(item.id)">
+                            v-for="item in allApproved" @click="findByIdCaregiver(item.id)">
                             <td>{{ item.user.id }}</td>
                             <td>{{ item.register }}</td>
                             <td>{{ item.businessName == null ? item.firstName + " " + item.lastName : item.businessName
@@ -389,9 +365,6 @@
                             <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'">
                                 Protetor(a)</td>
                             <td class="container_buttons">
-                                <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
-                                    @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
                                 <button :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0'"
                                     @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
@@ -399,7 +372,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <h1 id="notOccurrence" v-if="allPending.length === 0">Nenhum usuário pendente!<br /><i
+                <h1 id="notOccurrence" v-if="allApproved.length === 0">Nenhum usuário pendente!<br /><i
                         class="fa-solid fa-file-circle-xmark"></i></h1>
             </div>
         </div>
@@ -428,7 +401,7 @@ import { CaregiverClient } from '@/client/Caregiver.client';
         ManagerUsers
     }
 })
-export default class UsersPending extends Vue {
+export default class UsersApproved extends Vue {
     public adminClient: AdminClient = new AdminClient();
     public associateClient: AssociateClient = new AssociateClient();
     public providerClient: ProviderClient = new ProviderClient();
@@ -440,7 +413,7 @@ export default class UsersPending extends Vue {
     public provider: Provider = new Provider();
     public caregiver: Caregiver = new Caregiver();
 
-    public allPending: pendings[] = [];
+    public allApproved: pendings[] = [];
 
     isVisible = false;
 
@@ -451,9 +424,9 @@ export default class UsersPending extends Vue {
     }
 
     public onClickRequisicao(): void {
-        this.adminClient.findAllPending().then(
+        this.adminClient.findAllApproved().then(
             success => {
-                this.allPending = success
+                this.allApproved = success
             },
             error => {
                 console.log(error)
@@ -488,22 +461,6 @@ export default class UsersPending extends Vue {
                 this.select = "3"
             },
             error => console.log(error)
-        )
-    }
-
-    public updateToApproved(id: number): void {
-        this.adminClient.updateStatusPendingToApproved(id).then(
-            success => {
-                this.showComponent();
-                this.notificacao = this.notificacao.new(
-                    true, 'notification is-success', 'Usuário Aprovado!'
-                )
-                this.onClickRequisicao()
-                this.select = "0"
-            },
-            error => {
-                console.log(error)
-            }
         )
     }
 
