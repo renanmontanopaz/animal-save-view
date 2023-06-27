@@ -71,8 +71,8 @@
           </div>
         </div>
         <footer class="card-footer">
-          <a class="card-footer-item" style="background-color: #FFDC7D; color: black" @click="openModal(item)">Editar</a>
-          <a class="card-footer-item" style="background-color: #F03A5F; color: white" @click="EditActiveCaregiver(item.id)">Deletar</a>
+          <a class="card-footer-item" @click="openModal(item.id)">Editar</a>
+          <a class="card-footer-item" @click="EditActiveCaregiver(item.id)">Deletar</a>
         </footer>
       </div>
       <transition name="modal">
@@ -84,7 +84,6 @@
                 <input class="input is-info " type="text" placeholder="Nome" v-model="caregiverFound.firstName">
                 <input class="input is-info " type="text" placeholder="Sobrenome" v-model="caregiverFound.lastName">
                 <input class="input is-info " type="text" placeholder="Telefone" v-model="caregiverFound.contact">
-                <input class="input is-info " type="text" placeholder="Email" v-model="caregiverFound.user.login">
                 <input class="input is-info " type="text" placeholder="CPF" v-model="caregiverFound.cpf">
                 <input class="input is-info " type="text" placeholder="Espaço físico m²" v-model="caregiverFound.physicalSpace">
                 <input class="input is-info " type="text" placeholder="Gasto mensal" v-model="caregiverFound.spending">
@@ -96,9 +95,17 @@
                 <input class="input is-info " type="text" placeholder="Bairro" style="margin-bottom: 15px" v-model="caregiverFound.address.neighborhood">
               </div>
             </div>
+            <div class="columns" v-if="notificacao.ativo">
+              <div class="column is-12">
+                <div :class="notificacao.classe" v-if="isVisible">
+                  <button @click="onClickFecharNotificacao" class="delete"></button>
+                  {{ notificacao.mensagem }}
+                </div>
+              </div>
+            </div>
             <div class="control" style="gap: 10px">
-              <button class="button is-link" @click="EditCaregiver(caregiverFound)" style="margin-right: 10px">Salvar</button>
               <button class="button is-danger" style="margin-left: 10px" @click="openModal">Fechar</button>
+              <button class="button is-link" @click="EditCaregiver(caregiverFound)" style="margin-right: 10px">Salvar</button>
             </div>
           </div>
         </div>
@@ -143,9 +150,6 @@ interface caregiver {
   "physicalSpace": string,
   "spending": string,
   "capacityAnimals": number,
-  "user": {
-    "id": number
-  }
 }
 @Component
 export default class ManagerUsers extends Vue {
@@ -162,7 +166,6 @@ export default class ManagerUsers extends Vue {
   public caregiverFound: Caregiver = new Caregiver()
   public addressClient: AddressClient = new AddressClient()
   public address: Address = new Address()
-
   public mounted(): void {
     this.ListUsersProvider();
     this.ListUsersAssociate();
@@ -268,13 +271,16 @@ export default class ManagerUsers extends Vue {
       physicalSpace: data.physicalSpace,
       spending: data.spending,
       capacityAnimals: data.capacityAnimals,
-      user: {
-        id: data.user.id,
-      }
     };
     this.caregiverClient.update(caregiverData).then(
         success => {
           console.log(success)
+          this.showComponent();
+          this.notificacao = this.notificacao.new(
+              true,
+              "notification is-primary",
+              "Usuário editado com sucesso"
+          );
         },
         error => {
           console.log(error)
@@ -282,8 +288,9 @@ export default class ManagerUsers extends Vue {
     )
   }
 
-  public openModal(caregiver: Caregiver) {
-    this.caregiverFound = caregiver
+  public openModal(id:number) {
+    this.caregiverFound = this.userCaregiverList.find((item) => item.id === id)!;
+    //this.userCaregiverList = [new Caregiver()];
     if(this.isModalVisible){
       this.isModalVisible = false
       console.log(this.isModalVisible)
@@ -300,6 +307,18 @@ export default class ManagerUsers extends Vue {
       console.log(this.isModalVisible);
       modalMask.removeEventListener('click', this.closeModalOutside);
     }
+  }
+
+  public onClickFecharNotificacao(): void {
+    this.notificacao = new Message();
+  }
+
+  public showComponent(): void {
+    this.isVisible = true;
+
+    setTimeout(() => {
+      this.isVisible = false;
+    }, 4000);
   }
 
 }
