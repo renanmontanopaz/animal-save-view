@@ -75,17 +75,17 @@
                             </div>
                             <div id="container-bottons" class="field is-grouped">
                                 <div class="control">
-                                    <button @click="updateToRejected(associate.user.id)"
+                                    <button :disabled="isLoading" @click="updateToRejected(associate.user.id)"
                                         class="button is-danger is-focused">Rejeitar</button>
                                 </div>
 
                                 <div class="control">
-                                    <button @click="updateToApproved(associate.user.id)"
+                                    <button :disabled="isLoading" @click="updateToApproved(associate.user.id)"
                                         class="button is-success is-focused">Aprovar</button>
                                 </div>
 
                                 <div class="control">
-                                    <button @click="closeModal" class="button is-info is-focused">Voltar</button>
+                                    <button :disabled="isLoading" @click="closeModal" class="button is-info is-focused">Voltar</button>
                                 </div>
                             </div>
                         </div>
@@ -341,14 +341,14 @@
                                 Protetor(a)</td>
                             <td class="container_buttons">
                                 <button :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="findByIdAssociate(item.id)"><strong>Detalhar</strong></button>
                                 <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0' || isLoading" @click="updateToApproved(item.user.id)">
                                     <strong>Aprovar</strong>
                                 </button>
                                 <button :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0'"
+                                    :disabled="select !== '0' || isLoading"
                                     @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
                             </td>
                         </tr>
@@ -523,17 +523,20 @@ export default class UsersPending extends Vue {
     }
 
     public updateToRejected(id: number): void {
+        this.isLoading = true;
         this.adminClient.updateStatusUserPendingToRejected(id).then(
             success => {
                 this.showComponent();
                 this.notificacao = this.notificacao.new(
-                    true, 'notification is-danger', 'Usuário Rejeitado!'/*+ error.config.data*/
+                    true, 'notification is-danger', 'Usuário Rejeitado!'
                 )
-                this.onClickRequisicao()
-                this.select = "0"
+                this.onClickRequisicao();
+                this.select = "0";
+                this.isLoading = false;
             },
             error => {
-                console.log(error)
+                console.log(error);
+                this.isLoading = false;
             }
         )
     }
