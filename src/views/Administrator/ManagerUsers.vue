@@ -32,10 +32,7 @@
                   <td>Sobrenome</td>
                   <td><strong>{{item.lastName}}</strong></td>
                 </tr>
-                <tr>
-                  <td>Contato</td>
-                  <td><strong>{{item.contact}}<br/>{{item.user.login}}</strong></td>
-                </tr>
+
                 <tr>
                   <td>CPF</td>
                   <td><strong>{{item.cpf}}</strong></td>
@@ -49,14 +46,6 @@
                 <tr>
                   <td>Espaço físico</td>
                   <td><strong>{{item.physicalSpace+" M²"}}</strong></td>
-                </tr>
-                <tr>
-                  <td>Credenciais de Login</td>
-                  <td><strong>{{item.user.login}}<br/>Senha: Criptografada</strong></td>
-                </tr>
-                <tr>
-                  <td>Tipo de Usuário</td>
-                  <td><strong v-if="item.user.roles[0].authority === 'ROLE_CAREGIVER'">Protetor(a)</strong></td>
                 </tr>
                 <tr>
                   <td>Data do Cadastro</td>
@@ -112,6 +101,91 @@
       </div>
       </transition>
     </div>
+    <div class="panel-block columns is-desktop" v-if="tabs[1].isActive" style=" align-items: flex-start; flex-wrap: wrap; gap: 10px">
+
+      <div class="card column" v-for="item in userAssociateList">
+        <header class="card-header">
+          <p class="card-header-title" style="margin-bottom: 5px">
+            {{item.firstName}}
+          </p>
+          <button class="card-header-icon" aria-label="more options" @click="openDrop(item.id, item.firstName)">
+            <p style="margin-top: 10px">Detalhar</p>
+            <span class="icon">
+            <i class="fas fa-angle-down" :id="item.firstName" aria-hidden="true"></i>
+          </span>
+          </button>
+        </header>
+        <div class="card-content" v-if="select == item.id">
+          <div class="content" :id="item.lastName">
+            <table style="text-align: start;overflow-wrap: break-word;" class="table is-striped is-narrow is-hoverable">
+              <tr><td></td><td></td></tr>
+              <tr>
+                <td>Nome</td>
+                <td><strong>{{item.firstName}}</strong></td>
+              </tr>
+              <tr>
+                <td>Sobrenome</td>
+                <td><strong>{{item.lastName}}</strong></td>
+              </tr>
+
+              <tr>
+                <td>CPF</td>
+                <td><strong>{{item.cpf}}</strong></td>
+              </tr>
+              <tr>
+                <td>Endereço</td>
+                <td><strong>{{"CEP: "+item.address.cep}}<br/>{{"Rua: "+item.address.road}}<br/>{{"Número: "+item.address.houseNumber}}
+                  <br/>{{"Bairro: "+item.address.neighborhood}}
+                </strong></td>
+              </tr>
+              <tr>
+                <td>Data do Cadastro</td>
+                <td><strong>{{item.register}}</strong></td>
+              </tr>
+            </table>
+
+          </div>
+        </div>
+        <footer class="card-footer">
+          <a class="card-footer-item" @click="openModalAssociate(item.id)">Editar</a>
+          <a class="card-footer-item" @click="EditActiveCaregiver(item.id)">Deletar</a>
+        </footer>
+      </div>
+      <transition name="modal">
+        <div v-if="isModalVisible" ref="modalMask" class="modal-mask column is-full">
+          <div class="modal-wrapper column is-full">
+            <div class="modal-container column is-6">
+              <div class="field columns is-desktop">
+                <div class="column">
+                  <input class="input is-info " type="text" placeholder="Nome" v-model="associateFound.firstName">
+                  <input class="input is-info " type="text" placeholder="Sobrenome" v-model="associateFound.lastName">
+                  <input class="input is-info " type="text" placeholder="Telefone" v-model="associateFound.contact">
+                  <input class="input is-info " type="text" placeholder="CPF" v-model="associateFound.cpf">
+                </div>
+                <div class="column">
+                  <input class="input is-info " type="text" placeholder="CEP" v-model="associateFound.address.cep">
+                  <input class="input is-info " type="text" placeholder="Rua/Avenida" v-model="associateFound.address.road">
+                  <input class="input is-info " type="number" placeholder="Número" v-model="associateFound.address.houseNumber">
+                  <input class="input is-info " type="text" placeholder="Bairro" style="margin-bottom: 15px" v-model="associateFound.address.neighborhood">
+                </div>
+              </div>
+              <div class="columns" v-if="notificacao.ativo">
+                <div class="column is-12">
+                  <div :class="notificacao.classe" v-if="isVisible">
+                    <button @click="onClickFecharNotificacao" class="delete"></button>
+                    {{ notificacao.mensagem }}
+                  </div>
+                </div>
+              </div>
+              <div class="control" style="gap: 10px">
+                <button class="button is-danger" style="margin-left: 10px" @click="openModal">Fechar</button>
+                <button class="button is-link" @click="EditAssociate(associateFound)" style="margin-right: 10px">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -129,6 +203,8 @@ import {Provider} from "@/model/Provider";
 import {AddressClient} from "@/client/Address.client";
 import {Address} from "@/model/Address";
 import moment from "moment";
+import {AnimalClient} from "@/client/Animal.client";
+import {Animal} from "@/model/Animal";
 
 interface Tab {
   label: string;
@@ -145,11 +221,32 @@ interface caregiver {
   "contact": string,
   "cpf": string,
   "address": {
-    "id": number
+    "id": number,
+    "cep": string,
+    "neighborhood": string,
+    "road": string;
+    "houseNumber": number,
   },
   "physicalSpace": string,
   "spending": string,
   "capacityAnimals": number,
+}
+interface associate {
+  "id": number,
+  "active": boolean,
+  "register": string,
+  "update": string,
+  "firstName": string,
+  "lastName": string,
+  "contact": string,
+  "cpf": string,
+  "address": {
+    "id": number,
+    "cep": string,
+    "neighborhood": string,
+    "road": string;
+    "houseNumber": number,
+  },
 }
 @Component
 export default class ManagerUsers extends Vue {
@@ -164,8 +261,11 @@ export default class ManagerUsers extends Vue {
   public caregiverClient: CaregiverClient = new CaregiverClient()
   public providerClient: ProviderClient = new ProviderClient()
   public caregiverFound: Caregiver = new Caregiver()
+  public associateFound: Associate = new Associate()
   public addressClient: AddressClient = new AddressClient()
   public address: Address = new Address()
+  public animalClient: AnimalClient = new AnimalClient()
+  public animalList: Animal[] = []
   public mounted(): void {
     this.ListUsersProvider();
     this.ListUsersAssociate();
@@ -247,6 +347,17 @@ export default class ManagerUsers extends Vue {
     }
   }
 
+  public openModalAssociate(id:number) {
+    this.associateFound = this.userAssociateList.find((item) => item.id === id)!;
+    this.ListUsersCareriver()
+    if(this.isModalVisible){
+      this.isModalVisible = false
+      console.log(this.isModalVisible)
+    } else {
+      this.isModalVisible = true;
+      console.log(this.isModalVisible)
+    }
+  }
   public EditCaregiver(data: Caregiver): void {
     this.addressClient.update(data.address).then(
         success => {
@@ -266,7 +377,11 @@ export default class ManagerUsers extends Vue {
       contact: data.contact,
       cpf: data.cpf,
       address: {
-        id: data.address.id
+        id: data.address.id,
+        cep: data.address.cep,
+        neighborhood: data.address.neighborhood,
+        road: data.address.road,
+        houseNumber: data.address.houseNumber,
       },
       physicalSpace: data.physicalSpace,
       spending: data.spending,
@@ -287,10 +402,59 @@ export default class ManagerUsers extends Vue {
         }
     )
   }
+  public EditAssociate(data: Associate): void {
+    this.addressClient.update(data.address).then(
+        success => {
+          console.log(success)
+        },
+        error => {
+          console.log(error)
+        }
+    )
+    const associateData: associate = {
+      id: data.id,
+      active: data.active,
+      register: moment().format('DD/MM/YYYY HH:mm:ss'),
+      update: moment().format('DD/MM/YYYY HH:mm:ss'),
+      firstName: data.firstName,
+      lastName: data.lastName,
+      contact: data.contact,
+      cpf: data.cpf,
+      address: {
+        id: data.address.id,
+        cep: data.address.cep,
+        neighborhood: data.address.neighborhood,
+        road: data.address.road,
+        houseNumber: data.address.houseNumber,
+      },
+    };
+    this.associateClient.update(associateData).then(
+        success => {
+          console.log(success)
+          this.showComponent();
+          this.notificacao = this.notificacao.new(
+              true,
+              "notification is-primary",
+              "Usuário editado com sucesso"
+          );
+        },
+        error => {
+          console.log(error)
+        }
+    )
+  }
 
   public openModal(id:number) {
     this.caregiverFound = this.userCaregiverList.find((item) => item.id === id)!;
-    //this.userCaregiverList = [new Caregiver()];
+    this.animalClient.findAllByCaregiver(id).then(
+        success => {
+          console.log(success)
+        },
+        error => {
+          console.log(error)
+        }
+    )
+    this.ListUsersCareriver()
     if(this.isModalVisible){
       this.isModalVisible = false
       console.log(this.isModalVisible)
