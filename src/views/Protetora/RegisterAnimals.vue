@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="containerFlex">
     <div class="title">Cadastrar Animal</div>
     <form @submit.prevent="onSubmit">
       <div class="field">
@@ -151,5 +151,12 @@ export default class Register extends Vue {
   align-self: center;
   font-size: xx-large;
   font-weight: bold;
+}
+
+.containerFlex {
+  display: flex;
+  flex-direction: column;
+  margin: 5%;
+  align-self: flex-start;
 }
 </style>
