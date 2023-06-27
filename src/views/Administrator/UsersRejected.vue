@@ -307,7 +307,7 @@
                     <tbody>
                         <tr class="table-row"
                             v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_ASSOCIATE'"
-                            v-for="item in allRejected" @click="findByIdAssociate(item.id)">
+                            v-for="item in allRejected">
                             <td>{{ item.user.id }}</td>
                             <td>{{ item.register }}</td>
                             <td>{{ item.businessName == null ? item.firstName + " " + item.lastName : item.businessName
@@ -321,6 +321,9 @@
                             <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'">
                                 Protetor(a)</td>
                             <td class="container_buttons">
+                                <button :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
+                                    :disabled="select !== '0'"
+                                    @click="findByIdAssociate(item.id)"><strong>Detalhar</strong></button>
                                 <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0'"
                                     @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
@@ -329,7 +332,7 @@
 
                         <tr class="table-row"
                             v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_PROVIDER'"
-                            v-for="item in allRejected" @click="findByIdProvider(item.id)">
+                            v-for="item in allRejected">
                             <td>{{ item.user.id }}</td>
                             <td>{{ item.register }}</td>
                             <td>{{ item.businessName == null ? item.firstName + " " + item.lastName : item.businessName
@@ -343,6 +346,9 @@
                             <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'">
                                 Protetor(a)</td>
                             <td class="container_buttons">
+                                <button :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
+                                    :disabled="select !== '0'"
+                                    @click="findByIdProvider(item.id)"><strong>Detalhar</strong></button>
                                 <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0'"
                                     @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
@@ -351,7 +357,7 @@
 
                         <tr class="table-row"
                             v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'"
-                            v-for="item in allRejected" @click="findByIdCaregiver(item.id)">
+                            v-for="item in allRejected">
                             <td>{{ item.user.id }}</td>
                             <td>{{ item.register }}</td>
                             <td>{{ item.businessName == null ? item.firstName + " " + item.lastName : item.businessName
@@ -365,6 +371,9 @@
                             <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'">
                                 Protetor(a)</td>
                             <td class="container_buttons">
+                                <button :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
+                                    :disabled="select !== '0'"
+                                    @click="findByIdCaregiver(item.id)"><strong>Detalhar</strong></button>
                                 <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0'"
                                     @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
@@ -540,10 +549,6 @@ a {
 
 .panel.is-primary .panel-tabs a.is-active {
     border-bottom-color: hsl(171deg, 100%, 41%);
-}
-
-.table-row {
-    cursor: pointer;
 }
 
 .container_buttons {

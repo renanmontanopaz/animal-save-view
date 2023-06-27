@@ -1,6 +1,6 @@
 <template>
   <main class="content column">
-    <div class="panel is-primary">
+    <div class="panel">
       <p class="panel-heading">Gestão de Acesso</p>
       <p class="panel-tabs">
         <a v-for="(tab, index) in tabs" :key="index" :class="{ 'is-active': tab.isActive }" @click="activateTab(tab)">
@@ -91,9 +91,4 @@ export default class Administrator extends Vue {
 .panel.is-primary .panel-tabs a.is-active {
   border-bottom-color: hsl(171deg, 100%, 41%);
 }
-
-.table-row {
-  cursor: pointer;
-}
-
 </style>
