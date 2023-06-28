@@ -36,7 +36,7 @@
 <script lang="ts" scoped>
 import { Vue, Component } from "vue-property-decorator";
 import ListOcurrence from "@/views/Protetora/ListOcurrences.vue";
-import ListAnimal from "@/views/Protetora/RegisterAnimals.vue";
+import ListAnimal from "@/views/Protetora/ListAnimals.vue";
 
 interface Tab {
   label: string;
