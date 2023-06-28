@@ -5,10 +5,10 @@
       <thead>
         <tr>
           <th>Nome</th>
-          <th>Contato</th>
-          <th>Descrição</th>
-          <th>Local de Referência</th>
-          <th>Situação</th>
+          <th>Raça</th>
+          <th>Tipo</th>
+          <th>Tamanho</th>
+          <th>Cor</th>
         </tr>
       </thead>
       <tbody>
