@@ -95,7 +95,11 @@ export default class Register extends Vue {
   animalClient: AnimalClient = new AnimalClient();
 
   async created() {
-    this.animals = await this.animalClient.listAll();
+    const allAnimals = await this.animalClient.listAll();
+    const caregiverId = Number(this.$route.params.id); // Acessando o id da URL
+    this.animals = allAnimals.filter(
+      (animal) => animal.caregiver?.id === caregiverId
+    );
   }
 
   public fillAssociate(): void {
