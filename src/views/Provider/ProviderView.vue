@@ -1,32 +1,53 @@
 <template>
-    <div class="columns is-fullwidth">
-        <h1 class="title">Lista de Serviços</h1>
+    <section>
+        <main>
+            <header class="header">
+                <section class="section_container">
+                    <article class="article_container">
+                        <img src="../../assets/Logo.png" alt="Logo do animal-save" />
+                    </article>
+                    <nav class="nav_container">
+                        <button class="button is-primary" @click="onClickEditProfile(provider.id)">
+                            <h1>Meus dados</h1>
+                        </button>
+                        <button class="button is-primary" @click="onClickRegisterService()">
+                            Cadastrar serviço
+                        </button>
+                    </nav>
+                </section>
+            </header>
+            <div class="columns is-fullwidth">
+                <h1 class="title">Lista de Serviços</h1>
 
-        <table class="table is-bordered">
-            <thead>
-                <tr>
-                    <th>Serviço</th>
-                    <th>Opções</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="item in taskList">
-                    <th class="serviceField"> {{ item.name }}</th>
+                <table class="table is-bordered">
+                    <thead>
+                        <tr>
+                            <th>Serviço</th>
+                            <th>Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in taskList">
+                            <th class="serviceField"> {{ item.name }}</th>
 
-                    <th>
-                        <div class="align_buttons">
-                            <button @click="onClickEdit(item.id)" class="button is-warning is-focused">Editar</button>
-                            <button @click="onClickDelete()" class="button is-danger is-focused">Apagar</button>
-                        </div>
-                    </th>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                            <th>
+                                <div class="align_buttons">
+                                    <button @click="onClickEdit(item.id)"
+                                        class="button is-warning is-focused">Editar</button>
+                                    <button @click="onClickDelete()" class="button is-danger is-focused">Apagar</button>
+                                </div>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </section>
 </template>
 
 <script lang="ts">
 import { TaskClient } from '@/client/Task.client';
+import { Provider } from '@/model/Provider';
 import { Task } from '@/model/Task';
 import router from '@/router';
 import { Component, Vue } from 'vue-property-decorator'
@@ -36,7 +57,11 @@ export default class ProviderView extends Vue {
 
     private taskClient: TaskClient = new TaskClient
     public taskList: Task[] = []
-    public task: Task = new Task();
+    public task: Task = new Task()
+
+    public provider: Provider = new Provider()
+
+    public id: Number = 0
 
     public mounted(): void {
         this.listarTasks()
@@ -64,14 +89,57 @@ export default class ProviderView extends Vue {
         )
     }
 
-    public onClickEdit(id: number) {
-        router.push({ path: `/update/${id}` })
+    public onClickEditProfile(providerId: Number) {
+        router.push({ path: `/updateProvider/${providerId}` })
     }
 
+    public onClickRegisterService() {
+        this.id = Number(this.$route.params.id)
+        router.push({ path: `/registerService/${this.id}` })
+    }
+
+    public onClickEdit(id: number) {
+        var id = Number(this.$route.params.id)
+        router.push({ path: `/updateService/${id}` })
+    }
 }
 </script>
 
 <style lang="scss" scoped>
+.header {
+    position: relative;
+    width: 100%;
+    height: 93px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .section_container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 310px;
+    }
+
+    .article_container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav_container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 66px;
+
+        h1 {
+            text-decoration: none;
+        }
+    }
+}
+
 .columns {
     h1 {
         font-size: 36px;
