@@ -37,6 +37,7 @@
 import { Vue, Component } from "vue-property-decorator";
 import ListOcurrence from "@/views/Protetora/ListOcurrences.vue";
 import ListAnimal from "@/views/Protetora/ListAnimals.vue";
+import RegisterAnimal from "@/views/Protetora/RegisterAnimals.vue";
 
 interface Tab {
   label: string;
@@ -54,12 +55,19 @@ export default class HomeCaregiver extends Vue {
       isActive: true,
       component: ListOcurrence,
     },
-    // { label: 'Serviços de fornecedores', icon: 'fas fa-image', isActive: false },
+
     {
       label: "Meus animais",
       icon: "fas fa-image",
       isActive: false,
       component: ListAnimal,
+    },
+
+    {
+      label: "Cadastrar Animal",
+      icon: "fas fa-image",
+      isActive: false,
+      component: RegisterAnimal,
     },
   ];
   activateTab(tab: Tab): void {
