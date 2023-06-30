@@ -17,6 +17,10 @@ import ProviderView from "@/views/Provider/ProviderView.vue";
 import RegisterServiceView from "@/views/Provider/RegisterServiceView.vue";
 import UpdateProviderView from "@/views/Provider/UpdateProviderView.vue";
 import EditServiceView from "@/views/Provider/UpdateServiceView.vue";
+import Provider from "@/views/Provider/ProviderView.vue"
+import RegisterService from "@/views/Provider/RegisterServiceView.vue"
+import UpdateProvider from "@/views/Provider/UpdateProviderView.vue"
+import UpdateService from "@/views/Provider/UpdateServiceView.vue"
 
 Vue.use(VueRouter);
 const loginInstance = new Login();
@@ -130,6 +134,62 @@ const routes: Array<RouteConfig> = [
     beforeEnter: function (to, from, next) {
       const token = localStorage.getItem("token");
       console.log(token);
+      if (!token) {
+        next("/login");
+      } else {
+        next();
+      }
+    },
+  },
+  {
+    path: "/fornecedor/:id",
+    name: "Provider",
+    component: Provider,
+    beforeEnter: function (to, from, next) {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        next("/login");
+      } else {
+        next();
+      }
+    },
+  },
+  {
+    path: "/registerService/:id",
+    name: "RegisterService",
+    component: RegisterService,
+    beforeEnter: function (to, from, next) {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        next("/login");
+      } else {
+        next();
+      }
+    },
+  },
+  {
+    path: "/updateProvider/:id",
+    name: "updateProvider",
+    component: UpdateProvider,
+    beforeEnter: function (to, from, next) {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        next("/login");
+      } else {
+        next();
+      }
+    },
+  },
+  {
+    path: "/updateService/:id",
+    name: "updateService",
+    component: UpdateService,
+    beforeEnter: function (to, from, next) {
+      const token = localStorage.getItem("token");
+
       if (!token) {
         next("/login");
       } else {
