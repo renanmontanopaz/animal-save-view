@@ -140,7 +140,7 @@ export default class Login extends Vue {
         }
 
         console.log(decodedToken);
-        localStorage.setItem("token", this.tokenLogin.token);
+        sessionStorage.setItem("token", this.tokenLogin.token);
       },
       (error) => {
         this.showComponent();

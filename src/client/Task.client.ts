@@ -1,5 +1,6 @@
 import axios, {AxiosInstance} from "axios";
 import {Task} from "@/model/Task";
+import {Provider} from "@/model/Provider";
 
 export class TaskClient {
     private axiosClient: AxiosInstance;
@@ -34,6 +35,15 @@ export class TaskClient {
     public async findById(id: number) : Promise<Task> {
         try {
             return(await this.axiosClient.get<Task>(`/findbyid/${id}`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async findTaskByIdProvider(id:number): Promise<Task[]> {
+        try {
+            return(await this.axiosClient.get<Task[]>(`/findTaskByIdProvider/${id}`)).data
         }
         catch (error:any) {
             return Promise.reject(error.response)

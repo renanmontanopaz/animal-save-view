@@ -32,10 +32,7 @@
                   <td>Sobrenome</td>
                   <td><strong>{{item.lastName}}</strong></td>
                 </tr>
-                <tr>
-                  <td>Contato</td>
-                  <td><strong>{{item.contact}}<br/>{{item.user.login}}</strong></td>
-                </tr>
+
                 <tr>
                   <td>CPF</td>
                   <td><strong>{{item.cpf}}</strong></td>
@@ -51,14 +48,6 @@
                   <td><strong>{{item.physicalSpace+" M²"}}</strong></td>
                 </tr>
                 <tr>
-                  <td>Credenciais de Login</td>
-                  <td><strong>{{item.user.login}}<br/>Senha: Criptografada</strong></td>
-                </tr>
-                <tr>
-                  <td>Tipo de Usuário</td>
-                  <td><strong v-if="item.user.roles[0].authority === 'ROLE_CAREGIVER'">Protetor(a)</strong></td>
-                </tr>
-                <tr>
                   <td>Data do Cadastro</td>
                   <td><strong>{{item.register}}</strong></td>
                 </tr>
@@ -66,13 +55,21 @@
                   <td>Gasto Mensal</td>
                   <td><strong>{{item.spending}}</strong></td>
                 </tr>
+                <tr>
+                  <td>Animais</td>
+                  <td>
+                  <section class="modal-card-body" style="height: 100px; padding: 0; width: 100%">
+                    <p v-for="item in animalList"><strong>{{item.name}}</strong></p>
+                  </section>
+                  </td>
+                </tr>
               </table>
 
           </div>
         </div>
         <footer class="card-footer">
-          <a class="card-footer-item" style="background-color: #FFDC7D; color: black" @click="openModal(item)">Editar</a>
-          <a class="card-footer-item" style="background-color: #F03A5F; color: white" @click="EditActiveCaregiver(item.id)">Deletar</a>
+          <a class="card-footer-item" @click="openModal(item.id)">Editar</a>
+          <a class="card-footer-item" @click="EditActiveCaregiver(item.id)">Deletar</a>
         </footer>
       </div>
       <transition name="modal">
@@ -84,7 +81,6 @@
                 <input class="input is-info " type="text" placeholder="Nome" v-model="caregiverFound.firstName">
                 <input class="input is-info " type="text" placeholder="Sobrenome" v-model="caregiverFound.lastName">
                 <input class="input is-info " type="text" placeholder="Telefone" v-model="caregiverFound.contact">
-                <input class="input is-info " type="text" placeholder="Email" v-model="caregiverFound.user.login">
                 <input class="input is-info " type="text" placeholder="CPF" v-model="caregiverFound.cpf">
                 <input class="input is-info " type="text" placeholder="Espaço físico m²" v-model="caregiverFound.physicalSpace">
                 <input class="input is-info " type="text" placeholder="Gasto mensal" v-model="caregiverFound.spending">
@@ -96,13 +92,199 @@
                 <input class="input is-info " type="text" placeholder="Bairro" style="margin-bottom: 15px" v-model="caregiverFound.address.neighborhood">
               </div>
             </div>
+            <div class="columns" v-if="notificacao.ativo">
+              <div class="column is-12">
+                <div :class="notificacao.classe" v-if="isVisible">
+                  <button @click="onClickFecharNotificacao" class="delete"></button>
+                  {{ notificacao.mensagem }}
+                </div>
+              </div>
+            </div>
             <div class="control" style="gap: 10px">
-              <button class="button is-link" @click="EditCaregiver(caregiverFound)" style="margin-right: 10px">Salvar</button>
               <button class="button is-danger" style="margin-left: 10px" @click="openModal">Fechar</button>
+              <button class="button is-link" @click="EditCaregiver(caregiverFound)" style="margin-right: 10px">Salvar</button>
             </div>
           </div>
         </div>
       </div>
+      </transition>
+    </div>
+    <div class="panel-block columns is-desktop" v-if="tabs[1].isActive" style=" align-items: flex-start; flex-wrap: wrap; gap: 10px">
+
+      <div class="card column" v-for="item2 in userAssociateList">
+        <header class="card-header">
+          <p class="card-header-title" style="margin-bottom: 5px">
+            {{item2.firstName}}
+          </p>
+          <button class="card-header-icon" aria-label="more options" @click="openDropAssociate(item2.id, item2.firstName)">
+            <p style="margin-top: 10px">Detalhar</p>
+            <span class="icon">
+            <i class="fas fa-angle-down" :id="item2.firstName" aria-hidden="true"></i>
+          </span>
+          </button>
+        </header>
+        <div class="card-content" v-if="selectAssociate == item2.id">
+          <div class="content" :id="item2.lastName">
+            <table style="text-align: start;overflow-wrap: break-word;" class="table is-striped is-narrow is-hoverable">
+              <tr><td></td><td></td></tr>
+              <tr>
+                <td>Nome</td>
+                <td><strong>{{item2.firstName}}</strong></td>
+              </tr>
+              <tr>
+                <td>Sobrenome</td>
+                <td><strong>{{item2.lastName}}</strong></td>
+              </tr>
+
+              <tr>
+                <td>CPF</td>
+                <td><strong>{{item2.cpf}}</strong></td>
+              </tr>
+              <tr>
+                <td>Endereço</td>
+                <td><strong>{{"CEP: "+item2.address.cep}}<br/>{{"Rua: "+item2.address.road}}<br/>{{"Número: "+item2.address.houseNumber}}
+                  <br/>{{"Bairro: "+item2.address.neighborhood}}
+                </strong></td>
+              </tr>
+              <tr>
+                <td>Data do Cadastro</td>
+                <td><strong>{{item2.register}}</strong></td>
+              </tr>
+            </table>
+
+          </div>
+        </div>
+        <footer class="card-footer">
+          <a class="card-footer-item" @click="openModalAssociate(item2.id)">Editar</a>
+          <a class="card-footer-item" @click="EditActiveAssociate(item2.id)">Deletar</a>
+        </footer>
+      </div>
+      <transition name="modal">
+        <div v-if="isModalVisible" ref="modalMask" class="modal-mask column is-full">
+          <div class="modal-wrapper column is-full">
+            <div class="modal-container column is-6">
+              <div class="field columns is-desktop">
+                <div class="column">
+                  <input class="input is-info " type="text" placeholder="Nome" v-model="associateFound.firstName">
+                  <input class="input is-info " type="text" placeholder="Sobrenome" v-model="associateFound.lastName">
+                  <input class="input is-info " type="text" placeholder="Telefone" v-model="associateFound.contact">
+                  <input class="input is-info " type="text" placeholder="CPF" v-model="associateFound.cpf">
+                </div>
+                <div class="column">
+                  <input class="input is-info " type="text" placeholder="CEP" v-model="associateFound.address.cep">
+                  <input class="input is-info " type="text" placeholder="Rua/Avenida" v-model="associateFound.address.road">
+                  <input class="input is-info " type="number" placeholder="Número" v-model="associateFound.address.houseNumber">
+                  <input class="input is-info " type="text" placeholder="Bairro" style="margin-bottom: 15px" v-model="associateFound.address.neighborhood">
+                </div>
+              </div>
+              <div class="columns" v-if="notificacao.ativo">
+                <div class="column is-12">
+                  <div :class="notificacao.classe" v-if="isVisible">
+                    <button @click="onClickFecharNotificacao" class="delete"></button>
+                    {{ notificacao.mensagem }}
+                  </div>
+                </div>
+              </div>
+              <div class="control" style="gap: 10px">
+                <button class="button is-danger" style="margin-left: 10px" @click="openModalAssociate">Fechar</button>
+                <button class="button is-link" @click="EditAssociate(associateFound)" style="margin-right: 10px">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+    </div>
+    <div class="panel-block columns is-desktop" v-if="tabs[2].isActive" style=" align-items: flex-start; flex-wrap: wrap; gap: 10px">
+
+      <div class="card column" v-for="item3 in userProviderList">
+        <header class="card-header">
+          <p class="card-header-title" style="margin-bottom: 5px">
+            {{item3.businessName}}
+          </p>
+          <button class="card-header-icon" aria-label="more options" @click="openDropProvider(item3.id, item3.cnpj)">
+            <p style="margin-top: 10px">Detalhar</p>
+            <span class="icon">
+            <i class="fas fa-angle-down" :id="item3.cnpj" aria-hidden="true"></i>
+          </span>
+          </button>
+        </header>
+        <div class="card-content" v-if="selectProvider == item3.id">
+          <div class="content" :id="item3.fantasyName">
+            <table style="text-align: start;overflow-wrap: break-word;" class="table is-striped is-narrow is-hoverable">
+              <tr><td></td><td></td></tr>
+              <tr>
+                <td>Nome da Empresa</td>
+                <td><strong>{{item3.businessName}}</strong></td>
+              </tr>
+              <tr>
+                <td>Nome Fantasia</td>
+                <td><strong>{{item3.fantasyName}}</strong></td>
+              </tr>
+
+              <tr>
+                <td>CNPJ</td>
+                <td><strong>{{item3.cnpj}}</strong></td>
+              </tr>
+              <tr>
+                <td>Endereço</td>
+                <td><strong>{{"CEP: "+item3.address.cep}}<br/>{{"Rua: "+item3.address.road}}<br/>{{"Número: "+item3.address.houseNumber}}
+                  <br/>{{"Bairro: "+item3.address.neighborhood}}
+                </strong></td>
+              </tr>
+              <tr>
+                <td>Data do Cadastro</td>
+                <td><strong>{{item3.register}}</strong></td>
+              </tr>
+              <tr>
+                <td>Serviços Oferecidos</td>
+                <td>
+                  <section class="modal-card-body" style="height: 100px; padding: 0; width: 100%">
+                    <p v-for="item in taskList"><strong>{{item.name}}</strong></p>
+                  </section>
+                </td>
+              </tr>
+            </table>
+
+          </div>
+        </div>
+        <footer class="card-footer">
+          <a class="card-footer-item" @click="openModalProvider(item3.id)">Editar</a>
+          <a class="card-footer-item" @click="EditActiveProvider(item3.id)">Deletar</a>
+        </footer>
+      </div>
+      <transition name="modal">
+        <div v-if="isModalVisible" ref="modalMask" class="modal-mask column is-full">
+          <div class="modal-wrapper column is-full">
+            <div class="modal-container column is-6">
+              <div class="field columns is-desktop">
+                <div class="column">
+                  <input class="input is-info " type="text" placeholder="Nome da empresa" v-model="providerFound.businessName">
+                  <input class="input is-info " type="text" placeholder="Nome fantasia" v-model="providerFound.fantasyName">
+                  <input class="input is-info " type="text" placeholder="Telefone" v-model="providerFound.contact">
+                  <input class="input is-info " type="text" placeholder="CNPJ" v-model="providerFound.cnpj">
+                </div>
+                <div class="column">
+                  <input class="input is-info " type="text" placeholder="CEP" v-model="providerFound.address.cep">
+                  <input class="input is-info " type="text" placeholder="Rua/Avenida" v-model="providerFound.address.road">
+                  <input class="input is-info " type="number" placeholder="Número" v-model="providerFound.address.houseNumber">
+                  <input class="input is-info " type="text" placeholder="Bairro" style="margin-bottom: 15px" v-model="providerFound.address.neighborhood">
+                </div>
+              </div>
+              <div class="columns" v-if="notificacao.ativo">
+                <div class="column is-12">
+                  <div :class="notificacao.classe" v-if="isVisible">
+                    <button @click="onClickFecharNotificacao" class="delete"></button>
+                    {{ notificacao.mensagem }}
+                  </div>
+                </div>
+              </div>
+              <div class="control" style="gap: 10px">
+                <button class="button is-danger" style="margin-left: 10px" @click="openModalProvider">Fechar</button>
+                <button class="button is-link" @click="EditProvider(providerFound)" style="margin-right: 10px">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </transition>
     </div>
   </div>
@@ -122,6 +304,10 @@ import {Provider} from "@/model/Provider";
 import {AddressClient} from "@/client/Address.client";
 import {Address} from "@/model/Address";
 import moment from "moment";
+import {AnimalClient} from "@/client/Animal.client";
+import {Animal} from "@/model/Animal";
+import {Task} from "@/model/Task";
+import {TaskClient} from "@/client/Task.client";
 
 interface Tab {
   label: string;
@@ -138,14 +324,49 @@ interface caregiver {
   "contact": string,
   "cpf": string,
   "address": {
-    "id": number
+    "id": number,
+    "cep": string,
+    "neighborhood": string,
+    "road": string;
+    "houseNumber": number,
   },
   "physicalSpace": string,
   "spending": string,
   "capacityAnimals": number,
-  "user": {
-    "id": number
-  }
+}
+interface associate {
+  "id": number,
+  "active": boolean,
+  "register": string,
+  "update": string,
+  "firstName": string,
+  "lastName": string,
+  "contact": string,
+  "cpf": string,
+  "address": {
+    "id": number,
+    "cep": string,
+    "neighborhood": string,
+    "road": string;
+    "houseNumber": number,
+  },
+}
+interface provider {
+  "id": number,
+  "active": boolean,
+  "register": string,
+  "update": string,
+  "fantasyName": string,
+  "businessName": string,
+  "contact": string,
+  "cnpj": string,
+  "address": {
+    "id": number,
+    "cep": string,
+    "neighborhood": string,
+    "road": string;
+    "houseNumber": number,
+  },
 }
 @Component
 export default class ManagerUsers extends Vue {
@@ -160,9 +381,14 @@ export default class ManagerUsers extends Vue {
   public caregiverClient: CaregiverClient = new CaregiverClient()
   public providerClient: ProviderClient = new ProviderClient()
   public caregiverFound: Caregiver = new Caregiver()
+  public associateFound: Associate = new Associate()
+  public providerFound: Provider = new Provider()
   public addressClient: AddressClient = new AddressClient()
   public address: Address = new Address()
-
+  public animalClient: AnimalClient = new AnimalClient()
+  public animalList: Animal[] = []
+  public taskList: Task[] = []
+  public taskClient: TaskClient = new TaskClient()
   public mounted(): void {
     this.ListUsersProvider();
     this.ListUsersAssociate();
@@ -213,7 +439,8 @@ export default class ManagerUsers extends Vue {
   }
 
   public select: number = 0;
-
+  public selectAssociate: number = 0;
+  public selectProvider: number = 0;
   public openDrop(id:number, icone:string) {
     const icon = document.getElementById(`${icone}`) as HTMLElement;
     if(this.select === id){
@@ -225,6 +452,51 @@ export default class ManagerUsers extends Vue {
       icon.classList.remove('fas', 'fa-angle-down');
       icon.classList.add('fa', 'fa-angle-up');
     }
+    this.animalClient.findAllByCaregiver(id).then(
+        success => {
+          this.animalList = success
+          console.log(success)
+        },
+        error => {
+          console.log(error)
+        }
+    )
+  }
+  public openDropAssociate(id2:number, icone2:string) {
+    const icon = document.getElementById(`${icone2}`) as HTMLElement;
+    if(this.selectAssociate === id2){
+      this.selectAssociate = 0;
+      icon.classList.remove('fa', 'fa-angle-up');
+      icon.classList.add('fas', 'fa-angle-down');
+    } else {
+      this.selectAssociate = id2;
+      icon.classList.remove('fas', 'fa-angle-down');
+      icon.classList.add('fa', 'fa-angle-up');
+    }
+
+  }
+  public openDropProvider(id3:number, icone3:string) {
+    this.taskClient.findTaskByIdProvider(id3).then(
+        success => {
+          this.taskList = success
+          console.log(success)
+        },
+        error => {
+          console.log(error)
+        }
+    )
+    const icon = document.getElementById(`${icone3}`) as HTMLElement;
+    if(this.selectProvider === id3){
+      this.selectProvider = 0;
+      console.log(icon)
+      icon.classList.remove('fa', 'fa-angle-up');
+      icon.classList.add('fas', 'fa-angle-down');
+    } else {
+      this.selectProvider = id3;
+      icon.classList.remove('fas', 'fa-angle-down');
+      icon.classList.add('fa', 'fa-angle-up');
+    }
+
   }
   public EditActiveCaregiver(id:number): void {
     const foundCaregiver = this.userCaregiverList.find((item) => item.id === id);
@@ -244,6 +516,28 @@ export default class ManagerUsers extends Vue {
     }
   }
 
+  public openModalAssociate(id:number) {
+    this.associateFound = this.userAssociateList.find((item) => item.id === id)!;
+    this.ListUsersAssociate()
+    if(this.isModalVisible){
+      this.isModalVisible = false
+      console.log(this.isModalVisible)
+    } else {
+      this.isModalVisible = true;
+      console.log(this.isModalVisible)
+    }
+  }
+  public openModalProvider(id:number) {
+    this.providerFound = this.userProviderList.find((item) => item.id === id)!;
+    this.ListUsersProvider()
+    if(this.isModalVisible){
+      this.isModalVisible = false
+      console.log(this.isModalVisible)
+    } else {
+      this.isModalVisible = true;
+      console.log(this.isModalVisible)
+    }
+  }
   public EditCaregiver(data: Caregiver): void {
     this.addressClient.update(data.address).then(
         success => {
@@ -263,18 +557,25 @@ export default class ManagerUsers extends Vue {
       contact: data.contact,
       cpf: data.cpf,
       address: {
-        id: data.address.id
+        id: data.address.id,
+        cep: data.address.cep,
+        neighborhood: data.address.neighborhood,
+        road: data.address.road,
+        houseNumber: data.address.houseNumber,
       },
       physicalSpace: data.physicalSpace,
       spending: data.spending,
       capacityAnimals: data.capacityAnimals,
-      user: {
-        id: data.user.id,
-      }
     };
     this.caregiverClient.update(caregiverData).then(
         success => {
           console.log(success)
+          this.showComponent();
+          this.notificacao = this.notificacao.new(
+              true,
+              "notification is-primary",
+              "Usuário editado com sucesso"
+          );
         },
         error => {
           console.log(error)
@@ -282,8 +583,129 @@ export default class ManagerUsers extends Vue {
     )
   }
 
-  public openModal(caregiver: Caregiver) {
-    this.caregiverFound = caregiver
+  public EditActiveAssociate(id:number): void {
+    const foundAssociate = this.userAssociateList.find((item) => item.id === id);
+    console.log(foundAssociate)
+    if (foundAssociate !== undefined) {
+      foundAssociate.active = false;
+      this.associateClient.disable(id).then(
+          success => {
+            console.log(success)
+          },
+          error => {
+            console.log(error)
+          }
+      )
+    } else {
+      console.log('Não foi encontrado um associado com o ID fornecido.');
+    }
+  }
+
+  public EditAssociate(data: Associate): void {
+    this.addressClient.update(data.address).then(
+        success => {
+          console.log(success)
+        },
+        error => {
+          console.log(error)
+        }
+    )
+    const associateData: associate = {
+      id: data.id,
+      active: data.active,
+      register: moment().format('DD/MM/YYYY HH:mm:ss'),
+      update: moment().format('DD/MM/YYYY HH:mm:ss'),
+      firstName: data.firstName,
+      lastName: data.lastName,
+      contact: data.contact,
+      cpf: data.cpf,
+      address: {
+        id: data.address.id,
+        cep: data.address.cep,
+        neighborhood: data.address.neighborhood,
+        road: data.address.road,
+        houseNumber: data.address.houseNumber,
+      },
+    };
+    this.associateClient.update(associateData).then(
+        success => {
+          console.log(success)
+          this.showComponent();
+          this.notificacao = this.notificacao.new(
+              true,
+              "notification is-primary",
+              "Usuário editado com sucesso"
+          );
+        },
+        error => {
+          console.log(error)
+        }
+    )
+  }
+
+  public EditActiveProvider(id:number): void {
+    const foundProvider = this.userProviderList.find((item) => item.id === id);
+    console.log(foundProvider)
+    if (foundProvider !== undefined) {
+      foundProvider.active = false;
+      this.providerClient.disable(id).then(
+          success => {
+            console.log(success)
+          },
+          error => {
+            console.log(error)
+          }
+      )
+    } else {
+      console.log('Não foi encontrado um provider com o ID fornecido.');
+    }
+  }
+  public EditProvider(data: Provider): void {
+    this.addressClient.update(data.address).then(
+        success => {
+          console.log(success)
+        },
+        error => {
+          console.log(error)
+        }
+    )
+    const providerData: provider = {
+      id: data.id,
+      active: data.active,
+      register: moment().format('DD/MM/YYYY HH:mm:ss'),
+      update: moment().format('DD/MM/YYYY HH:mm:ss'),
+      businessName: data.businessName,
+      fantasyName: data.fantasyName,
+      contact: data.contact,
+      cnpj: data.cnpj,
+      address: {
+        id: data.address.id,
+        cep: data.address.cep,
+        neighborhood: data.address.neighborhood,
+        road: data.address.road,
+        houseNumber: data.address.houseNumber,
+      },
+    };
+    this.providerClient.update(providerData).then(
+        success => {
+          console.log(success)
+          this.showComponent();
+          this.notificacao = this.notificacao.new(
+              true,
+              "notification is-primary",
+              "Empresa editada com sucesso"
+          );
+        },
+        error => {
+          console.log(error)
+        }
+    )
+  }
+
+  public openModal(id:number) {
+    this.caregiverFound = this.userCaregiverList.find((item) => item.id === id)!;
+
+    this.ListUsersCareriver()
     if(this.isModalVisible){
       this.isModalVisible = false
       console.log(this.isModalVisible)
@@ -292,14 +714,17 @@ export default class ManagerUsers extends Vue {
       console.log(this.isModalVisible)
     }
   }
-  public closeModalOutside(event: MouseEvent): void {
-    const modalMask = this.$refs.modalMask as HTMLElement;
 
-    if (event.target === modalMask) {
-      this.isModalVisible = false;
-      console.log(this.isModalVisible);
-      modalMask.removeEventListener('click', this.closeModalOutside);
-    }
+  public onClickFecharNotificacao(): void {
+    this.notificacao = new Message();
+  }
+
+  public showComponent(): void {
+    this.isVisible = true;
+
+    setTimeout(() => {
+      this.isVisible = false;
+    }, 4000);
   }
 
 }

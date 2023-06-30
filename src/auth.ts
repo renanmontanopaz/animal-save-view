@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Obtém o token do localStorage
-const token = localStorage.getItem('token');
+const token = sessionStorage.getItem('token');
 
 // Configura o token como um cabeçalho padrão em todas as requisições
 if (token) {

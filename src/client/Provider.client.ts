@@ -40,7 +40,7 @@ export class ProviderClient {
         }
     }
 
-    public async update(provider: Provider) : Promise<void> {
+    public async update(provider: any) : Promise<void> {
         try {
             return(await this.axiosClient.put(`/update/${provider.id}`, provider)).data
         }
