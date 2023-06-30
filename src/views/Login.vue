@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="column is-4" style="align-items: center; justify-content: space-around; display: flex; flex-direction: column">
+    <div class="column is-3" style="align-items: center; justify-content: space-around; display: flex; flex-direction: column">
       <div class="box" style="align-items: center; justify-content: space-around; display: flex; flex-direction: column; height: 450px; width: 100%">
         <img src="../assets/Logo.png"/>
       <div class="column is-8">
@@ -54,7 +54,7 @@ main {
   justify-content: center;
   display: flex;
   height: 100vh;
-  background-image: linear-gradient(to bottom right, #002D4C, #FBBD08);
+  background-color:  #002D4C;
 }
 main::before {
   content: "";
