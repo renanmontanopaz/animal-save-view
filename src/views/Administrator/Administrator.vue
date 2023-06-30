@@ -3,7 +3,7 @@
     <div class="panel">
       <p class="panel-heading">Gestão de Acesso</p>
       <p class="panel-tabs">
-        <a v-for="(tab, index) in tabs" :key="index" :class="{ 'is-active': tab.isActive }" @click="activateTab(tab)">
+        <a v-for="(tab, index) in tabs" :key="index" :class="{'is-active':tab.isActive}" @click="activateTab(tab)">
           <span>{{ tab.label }}</span>
         </a>
       </p>

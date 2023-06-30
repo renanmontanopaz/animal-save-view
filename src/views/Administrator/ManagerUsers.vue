@@ -13,9 +13,9 @@
           <p class="card-header-title" style="margin-bottom: 5px">
             {{item.firstName}}
           </p>
-          <button class="card-header-icon" aria-label="more options" @click="openDrop(item.id, item.firstName)">
+          <button class="card-header-icon" aria-label="more options" @click="openDrop(item.id)">
             <p style="margin-top: 10px">Detalhar</p>
-            <span class="icon">
+            <span :class="'icon '+ item.cpf">
             <i class="fas fa-angle-down" :id="item.firstName" aria-hidden="true"></i>
           </span>
           </button>
@@ -69,7 +69,6 @@
         </div>
         <footer class="card-footer">
           <a class="card-footer-item" @click="openModal(item.id)">Editar</a>
-          <a class="card-footer-item" @click="EditActiveCaregiver(item.id)">Deletar</a>
         </footer>
       </div>
       <transition name="modal">
@@ -116,10 +115,10 @@
           <p class="card-header-title" style="margin-bottom: 5px">
             {{item2.firstName}}
           </p>
-          <button class="card-header-icon" aria-label="more options" @click="openDropAssociate(item2.id, item2.firstName)">
+          <button class="card-header-icon" aria-label="more options" @click="openDropAssociate(item2.id)">
             <p style="margin-top: 10px">Detalhar</p>
-            <span class="icon">
-            <i class="fas fa-angle-down" :id="item2.firstName" aria-hidden="true"></i>
+            <span :class="'icon '+ item2.cpf">
+            <i class="fas fa-angle-down" :id="item2.lastName" aria-hidden="true"></i>
           </span>
           </button>
         </header>
@@ -156,7 +155,6 @@
         </div>
         <footer class="card-footer">
           <a class="card-footer-item" @click="openModalAssociate(item2.id)">Editar</a>
-          <a class="card-footer-item" @click="EditActiveAssociate(item2.id)">Deletar</a>
         </footer>
       </div>
       <transition name="modal">
@@ -201,9 +199,9 @@
           <p class="card-header-title" style="margin-bottom: 5px">
             {{item3.businessName}}
           </p>
-          <button class="card-header-icon" aria-label="more options" @click="openDropProvider(item3.id, item3.cnpj)">
+          <button class="card-header-icon" aria-label="more options" @click="openDropProvider(item3.id)">
             <p style="margin-top: 10px">Detalhar</p>
-            <span class="icon">
+            <span :class="'icon '+ item3.businessName">
             <i class="fas fa-angle-down" :id="item3.cnpj" aria-hidden="true"></i>
           </span>
           </button>
@@ -249,7 +247,6 @@
         </div>
         <footer class="card-footer">
           <a class="card-footer-item" @click="openModalProvider(item3.id)">Editar</a>
-          <a class="card-footer-item" @click="EditActiveProvider(item3.id)">Deletar</a>
         </footer>
       </div>
       <transition name="modal">
@@ -286,6 +283,7 @@
           </div>
         </div>
       </transition>
+
     </div>
   </div>
 </template>
@@ -441,16 +439,13 @@ export default class ManagerUsers extends Vue {
   public select: number = 0;
   public selectAssociate: number = 0;
   public selectProvider: number = 0;
-  public openDrop(id:number, icone:string) {
-    const icon = document.getElementById(`${icone}`) as HTMLElement;
+  public openDrop(id:number) {
+
     if(this.select === id){
       this.select = 0;
-      icon.classList.remove('fa', 'fa-angle-up');
-      icon.classList.add('fas', 'fa-angle-down');
+
     } else {
       this.select = id;
-      icon.classList.remove('fas', 'fa-angle-down');
-      icon.classList.add('fa', 'fa-angle-up');
     }
     this.animalClient.findAllByCaregiver(id).then(
         success => {
@@ -462,20 +457,15 @@ export default class ManagerUsers extends Vue {
         }
     )
   }
-  public openDropAssociate(id2:number, icone2:string) {
-    const icon = document.getElementById(`${icone2}`) as HTMLElement;
+  public openDropAssociate(id2:number) {
     if(this.selectAssociate === id2){
       this.selectAssociate = 0;
-      icon.classList.remove('fa', 'fa-angle-up');
-      icon.classList.add('fas', 'fa-angle-down');
     } else {
       this.selectAssociate = id2;
-      icon.classList.remove('fas', 'fa-angle-down');
-      icon.classList.add('fa', 'fa-angle-up');
     }
 
   }
-  public openDropProvider(id3:number, icone3:string) {
+  public openDropProvider(id3:number) {
     this.taskClient.findTaskByIdProvider(id3).then(
         success => {
           this.taskList = success
@@ -485,35 +475,12 @@ export default class ManagerUsers extends Vue {
           console.log(error)
         }
     )
-    const icon = document.getElementById(`${icone3}`) as HTMLElement;
     if(this.selectProvider === id3){
       this.selectProvider = 0;
-      console.log(icon)
-      icon.classList.remove('fa', 'fa-angle-up');
-      icon.classList.add('fas', 'fa-angle-down');
     } else {
       this.selectProvider = id3;
-      icon.classList.remove('fas', 'fa-angle-down');
-      icon.classList.add('fa', 'fa-angle-up');
     }
 
-  }
-  public EditActiveCaregiver(id:number): void {
-    const foundCaregiver = this.userCaregiverList.find((item) => item.id === id);
-    console.log(foundCaregiver)
-    if (foundCaregiver !== undefined) {
-      foundCaregiver.active = false;
-      this.caregiverClient.disable(id).then(
-          success => {
-            console.log(success)
-          },
-          error => {
-            console.log(error)
-          }
-      )
-    } else {
-      console.log('Não foi encontrado um cuidador com o ID fornecido.');
-    }
   }
 
   public openModalAssociate(id:number) {
@@ -583,24 +550,6 @@ export default class ManagerUsers extends Vue {
     )
   }
 
-  public EditActiveAssociate(id:number): void {
-    const foundAssociate = this.userAssociateList.find((item) => item.id === id);
-    console.log(foundAssociate)
-    if (foundAssociate !== undefined) {
-      foundAssociate.active = false;
-      this.associateClient.disable(id).then(
-          success => {
-            console.log(success)
-          },
-          error => {
-            console.log(error)
-          }
-      )
-    } else {
-      console.log('Não foi encontrado um associado com o ID fornecido.');
-    }
-  }
-
   public EditAssociate(data: Associate): void {
     this.addressClient.update(data.address).then(
         success => {
@@ -641,24 +590,6 @@ export default class ManagerUsers extends Vue {
           console.log(error)
         }
     )
-  }
-
-  public EditActiveProvider(id:number): void {
-    const foundProvider = this.userProviderList.find((item) => item.id === id);
-    console.log(foundProvider)
-    if (foundProvider !== undefined) {
-      foundProvider.active = false;
-      this.providerClient.disable(id).then(
-          success => {
-            console.log(success)
-          },
-          error => {
-            console.log(error)
-          }
-      )
-    } else {
-      console.log('Não foi encontrado um provider com o ID fornecido.');
-    }
   }
   public EditProvider(data: Provider): void {
     this.addressClient.update(data.address).then(
@@ -704,7 +635,6 @@ export default class ManagerUsers extends Vue {
 
   public openModal(id:number) {
     this.caregiverFound = this.userCaregiverList.find((item) => item.id === id)!;
-
     this.ListUsersCareriver()
     if(this.isModalVisible){
       this.isModalVisible = false
@@ -731,6 +661,18 @@ export default class ManagerUsers extends Vue {
 
 </script>
 <style scoped>
+.card-header{
+  background-color: #002D4C;
+}
+.card-header-title{
+  color: white;
+}
+.card-header-icon p{
+  color: white;
+}
+.card-header-icon span{
+  color: white;
+}
 td{
   overflow-wrap: break-word;
 }

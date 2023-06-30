@@ -30,17 +30,17 @@ const routes: Array<RouteConfig> = [
     component: EditServiceView,
   },
   {
-    path: "/update-provider",
+    path: "/update-Provider",
     name: "update-provider",
     component: UpdateProviderView,
   },
   {
-    path: "/register-provider",
+    path: "/register-Provider",
     name: "register-provider",
     component: RegisterServiceView,
   },
   {
-    path: "/provider",
+    path: "/Provider",
     name: "provider",
     component: ProviderView,
   },
