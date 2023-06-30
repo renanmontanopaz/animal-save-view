@@ -130,7 +130,8 @@ export default class Login extends Vue {
           window.location.href = `/associado/${id}`;
         } 
         else if (approved == true && authorities.includes("ROLE_PROVIDER")) {
-          window.location.href = "/fornecedor";
+          router.push({path:`/fornecedor/${id}`})
+          window.location.href = `/fornecedor/${id}`;
         } 
         else if (approved == true && authorities.includes("ROLE_CAREGIVER")) {
           window.location.href = "/protetora";
