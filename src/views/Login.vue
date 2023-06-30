@@ -2,7 +2,7 @@
   <main>
     <div class="column is-4" style="align-items: center; justify-content: space-around; display: flex; flex-direction: column">
       <div class="box" style="align-items: center; justify-content: space-around; display: flex; flex-direction: column; height: 450px; width: 100%">
-      <p class="title">Login</p>
+        <img src="../assets/Logo.png"/>
       <div class="column is-8">
         <div class="field">
           <p class="control has-icons-left has-icons-right">
@@ -32,24 +32,29 @@
           </div>
         </div>
       </div>
-      <div class="field">
-        <p class="control">
-          <button class="button is-success" @click="onClickLogin">
+      <div class="control field column is-8" style="justify-content: space-around; display: flex">
+
+          <router-link to="/"><button class="button is-danger is-outlined">Voltar</button></router-link>
+          <button class="button is-link is-outlined" @click="onClickLogin">
             Login
           </button>
-        </p>
+
       </div>
+        <div style="justify-content: flex-start; align-items: flex-start; display: flex; width: 100%">
+          <router-link to="/register"> Não é Cadastrado ? </router-link>
+        </div>
       </div>
     </div>
   </main>
 </template>
 <style lang="scss" scoped>
+
 main {
   align-items: center;
   justify-content: center;
   display: flex;
   height: 100vh;
-  background-color: #002d4c;
+  background-image: linear-gradient(to bottom right, #002D4C, #FBBD08);
 }
 main::before {
   content: "";
