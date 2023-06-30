@@ -161,13 +161,12 @@
                                 </div>
                             </div>
                             <div id="container-bottons" class="field is-grouped">
+                              <div class="control">
+                                <button :disabled="isLoading" @click="closeModal" class="button is-info is-focused">Voltar</button>
+                              </div>
                                 <div class="control">
                                     <button :disabled="isLoading" @click="updateToRejected(provider.user.id)"
                                         class="button is-danger is-focused">Rejeitar</button>
-                                </div>
-
-                                <div class="control">
-                                    <button :disabled="isLoading" @click="closeModal" class="button is-info is-focused">Voltar</button>
                                 </div>
                             </div>
                         </div>
