@@ -194,6 +194,7 @@ export default class UpdateProviderView extends Vue {
     public errorMessagePasswordProvider: string[] = []
     public errorMessageCepProvider: string[] = []
     public errorMessageNumberProvider: string[] = []
+    public updateData: Provider = new Provider()
 
     public notificacao: Message = new Message();
 
@@ -203,6 +204,7 @@ export default class UpdateProviderView extends Vue {
 
     public mounted(): void {
         this.getProvider()
+        this.fillProvider()
     }
 
     private getProvider(): void {
@@ -212,6 +214,46 @@ export default class UpdateProviderView extends Vue {
             },
             error => console.log(error)
         )
+    }
+
+    public fillProvider(): void {
+        this.updateData = {
+            id: this.provider?.id,
+            register: this.provider?.register,
+            fantasyName: this.provider?.fantasyName,
+            businessName: this.provider?.businessName,
+            cnpj: this.provider?.cnpj,
+            contact: this.provider?.contact,
+            tasks: this.provider?.tasks,
+            address: {
+                id: this.provider?.address?.id,
+                active: this.provider?.address?.active,
+                register: this.provider?.address?.register,
+                update: this.provider?.address?.update,
+                cep: this.provider?.address?.cep,
+                neighborhood: this.provider?.address?.neighborhood,
+                road: this.provider?.address?.road,
+                houseNumber: this.provider?.address?.houseNumber,
+            },
+            user: {
+                id: this.provider?.user?.id,
+                login: this.provider?.user?.login,
+                password: this.provider?.user?.password,
+                newPassword: this.provider?.user?.newPassword,
+                confirmPassword: this.provider?.user?.confirmPassword,
+                admin: this.provider?.user?.admin,
+                approved: this.provider?.user?.approved,
+                pending: this.provider?.user?.pending,
+                rejected: this.provider?.user?.rejected,
+                caregiver: this.provider?.user?.caregiver,
+                provider: this.provider?.user?.provider,
+                associate: this.provider?.user?.associate,
+                occurrences: this.provider?.user?.occurrences
+            },
+            active: this.provider?.active,
+            update: this.provider.update
+        };
+        console.log(this.updateData);
     }
 
     public onClickUpdate(): void {
