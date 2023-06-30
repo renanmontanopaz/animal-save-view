@@ -14,12 +14,14 @@
       </thead>
       <tbody>
         <tr v-for="animal in animals" :key="animal.name">
-          <td>{{ animal.name }}</td>
-          <td>{{ animal.breed }}</td>
-          <td>{{ animal.animalType }}</td>
-          <td>{{ animal.animalSize }}</td>
-          <td>{{ animal.color }}</td>
-          <td>{{ takenVaccinations(animal.vaccination) }}</td>
+          <td v-html="formatText(animal.name, 20)"></td>
+          <td v-html="formatText(animal.breed, 20)"></td>
+          <td v-html="formatText(animal.animalType, 20)"></td>
+          <td v-html="formatText(animal.animalSize, 20)"></td>
+          <td v-html="formatText(animal.color, 20)"></td>
+          <td
+            v-html="formatText(takenVaccinations(animal.vaccination), 20)"
+          ></td>
         </tr>
       </tbody>
     </table>
@@ -85,6 +87,23 @@ export default class Register extends Vue {
       .map(([key, value]) => translationMap[key])
       .join(", ");
   }
+
+  formatText(text: string, maxLength: number): string {
+    const words = text.split(" ");
+    let lineLength = 0;
+    let formattedText = "";
+
+    for (let word of words) {
+      if (lineLength + word.length > maxLength) {
+        formattedText += "<br />";
+        lineLength = 0;
+      }
+      formattedText += word + " ";
+      lineLength += word.length + 1;
+    }
+
+    return formattedText;
+  }
 }
 </script>
 
@@ -98,6 +117,7 @@ th,
 td {
   padding: 10px;
   border: 1px solid black;
+  text-align: center !important;
 }
 .title {
   align-self: center;
