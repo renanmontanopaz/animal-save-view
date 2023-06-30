@@ -476,8 +476,6 @@ export default class ManagerUsers extends Vue {
 
   }
   public openDropProvider(id3:number, icone3:string) {
-    console.log(id3)
-    console.log(icone3)
     this.taskClient.findTaskByIdProvider(id3).then(
         success => {
           this.taskList = success
@@ -490,6 +488,7 @@ export default class ManagerUsers extends Vue {
     const icon = document.getElementById(`${icone3}`) as HTMLElement;
     if(this.selectProvider === id3){
       this.selectProvider = 0;
+      console.log(icon)
       icon.classList.remove('fa', 'fa-angle-up');
       icon.classList.add('fas', 'fa-angle-down');
     } else {
