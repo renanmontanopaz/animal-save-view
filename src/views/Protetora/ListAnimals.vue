@@ -9,6 +9,7 @@
           <th>Tipo</th>
           <th>Tamanho</th>
           <th>Cor</th>
+          <th>Vacinas Tomadas</th>
         </tr>
       </thead>
       <tbody>
@@ -18,6 +19,7 @@
           <td>{{ animal.animalType }}</td>
           <td>{{ animal.animalSize }}</td>
           <td>{{ animal.color }}</td>
+          <td>{{ takenVaccinations(animal.vaccination) }}</td>
         </tr>
       </tbody>
     </table>
@@ -39,6 +41,7 @@ import { UserClient } from "@/client/User.client";
 import { AnimalClient } from "@/client/Animal.client";
 import { AnimalType } from "../../model/enum/AnimalType";
 import { Caregiver } from "../../model/Caregiver";
+import { Vaccination } from "../../model/Vaccination";
 
 @Component
 export default class Register extends Vue {
@@ -62,6 +65,25 @@ export default class Register extends Vue {
         (animal) => animal.caregiver?.id === caregiverId
       );
     }
+  }
+
+  takenVaccinations(vaccination: { [key: string]: boolean }) {
+    const allowedKeys = [
+      "rabies",
+      "canineParvovirus",
+      "distemper",
+      "canineHepatitis",
+    ];
+    const translationMap: Record<string, string> = {
+      rabies: "Raiva",
+      canineParvovirus: "Parvovirose canina",
+      distemper: "Cinomose",
+      canineHepatitis: "Hepatite canina",
+    };
+    return Object.entries(vaccination)
+      .filter(([key, value]) => allowedKeys.includes(key) && value)
+      .map(([key, value]) => translationMap[key])
+      .join(", ");
   }
 }
 </script>
