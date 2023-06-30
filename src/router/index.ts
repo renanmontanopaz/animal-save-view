@@ -13,10 +13,10 @@ import { Token } from "@/model/Token";
 import Modal from "@/views/Modal.vue";
 import HeaderVue from '@/views/LandingPage/Header.vue';
 import ListOccurrence from "@/views/Protetora/ListOcurrences.vue";
-import ProviderView from "@/views/provider/ProviderView.vue";
-import RegisterServiceView from "@/views/provider/RegisterServiceView.vue";
-import UpdateProviderView from "@/views/provider/UpdateProviderView.vue";
-import EditServiceView from "@/views/provider/UpdateServiceView.vue";
+import ProviderView from "@/views/Provider/ProviderView.vue";
+import RegisterServiceView from "@/views/Provider/RegisterServiceView.vue";
+import UpdateProviderView from "@/views/Provider/UpdateProviderView.vue";
+import EditServiceView from "@/views/Provider/UpdateServiceView.vue";
 
 Vue.use(VueRouter);
 const loginInstance = new Login();
