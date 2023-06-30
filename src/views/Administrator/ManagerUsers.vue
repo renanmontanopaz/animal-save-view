@@ -156,7 +156,7 @@
         </div>
         <footer class="card-footer">
           <a class="card-footer-item" @click="openModalAssociate(item2.id)">Editar</a>
-          <a class="card-footer-item" @click="EditActiveCaregiver(item2.id)">Deletar</a>
+          <a class="card-footer-item" @click="EditActiveAssociate(item2.id)">Deletar</a>
         </footer>
       </div>
       <transition name="modal">
@@ -208,7 +208,7 @@
           </span>
           </button>
         </header>
-        <div class="card-content" v-if="selectAssociate == item3.id">
+        <div class="card-content" v-if="selectProvider == item3.id">
           <div class="content" :id="item3.fantasyName">
             <table style="text-align: start;overflow-wrap: break-word;" class="table is-striped is-narrow is-hoverable">
               <tr><td></td><td></td></tr>
@@ -234,6 +234,14 @@
               <tr>
                 <td>Data do Cadastro</td>
                 <td><strong>{{item3.register}}</strong></td>
+              </tr>
+              <tr>
+                <td>Serviços Oferecidos</td>
+                <td>
+                  <section class="modal-card-body" style="height: 100px; padding: 0; width: 100%">
+                    <p v-for="item in taskList"><strong>{{item.name}}</strong></p>
+                  </section>
+                </td>
               </tr>
             </table>
 
@@ -298,6 +306,8 @@ import {Address} from "@/model/Address";
 import moment from "moment";
 import {AnimalClient} from "@/client/Animal.client";
 import {Animal} from "@/model/Animal";
+import {Task} from "@/model/Task";
+import {TaskClient} from "@/client/Task.client";
 
 interface Tab {
   label: string;
@@ -377,6 +387,8 @@ export default class ManagerUsers extends Vue {
   public address: Address = new Address()
   public animalClient: AnimalClient = new AnimalClient()
   public animalList: Animal[] = []
+  public taskList: Task[] = []
+  public taskClient: TaskClient = new TaskClient()
   public mounted(): void {
     this.ListUsersProvider();
     this.ListUsersAssociate();
@@ -450,27 +462,38 @@ export default class ManagerUsers extends Vue {
         }
     )
   }
-  public openDropAssociate(id:number, icone2:string) {
+  public openDropAssociate(id2:number, icone2:string) {
     const icon = document.getElementById(`${icone2}`) as HTMLElement;
-    if(this.selectAssociate === id){
+    if(this.selectAssociate === id2){
       this.selectAssociate = 0;
       icon.classList.remove('fa', 'fa-angle-up');
       icon.classList.add('fas', 'fa-angle-down');
     } else {
-      this.selectAssociate = id;
+      this.selectAssociate = id2;
       icon.classList.remove('fas', 'fa-angle-down');
       icon.classList.add('fa', 'fa-angle-up');
     }
 
   }
-  public openDropProvider(id:number, icone3:string) {
+  public openDropProvider(id3:number, icone3:string) {
+    console.log(id3)
+    console.log(icone3)
+    this.taskClient.findTaskByIdProvider(id3).then(
+        success => {
+          this.taskList = success
+          console.log(success)
+        },
+        error => {
+          console.log(error)
+        }
+    )
     const icon = document.getElementById(`${icone3}`) as HTMLElement;
-    if(this.selectProvider === id){
+    if(this.selectProvider === id3){
       this.selectProvider = 0;
       icon.classList.remove('fa', 'fa-angle-up');
       icon.classList.add('fas', 'fa-angle-down');
     } else {
-      this.selectProvider = id;
+      this.selectProvider = id3;
       icon.classList.remove('fas', 'fa-angle-down');
       icon.classList.add('fa', 'fa-angle-up');
     }
@@ -560,6 +583,25 @@ export default class ManagerUsers extends Vue {
         }
     )
   }
+
+  public EditActiveAssociate(id:number): void {
+    const foundAssociate = this.userAssociateList.find((item) => item.id === id);
+    console.log(foundAssociate)
+    if (foundAssociate !== undefined) {
+      foundAssociate.active = false;
+      this.associateClient.disable(id).then(
+          success => {
+            console.log(success)
+          },
+          error => {
+            console.log(error)
+          }
+      )
+    } else {
+      console.log('Não foi encontrado um associado com o ID fornecido.');
+    }
+  }
+
   public EditAssociate(data: Associate): void {
     this.addressClient.update(data.address).then(
         success => {
@@ -602,7 +644,24 @@ export default class ManagerUsers extends Vue {
     )
   }
 
-  public EditProvider(data: Associate): void {
+  public EditActiveProvider(id:number): void {
+    const foundProvider = this.userProviderList.find((item) => item.id === id);
+    console.log(foundProvider)
+    if (foundProvider !== undefined) {
+      foundProvider.active = false;
+      this.providerClient.disable(id).then(
+          success => {
+            console.log(success)
+          },
+          error => {
+            console.log(error)
+          }
+      )
+    } else {
+      console.log('Não foi encontrado um provider com o ID fornecido.');
+    }
+  }
+  public EditProvider(data: Provider): void {
     this.addressClient.update(data.address).then(
         success => {
           console.log(success)
@@ -611,15 +670,15 @@ export default class ManagerUsers extends Vue {
           console.log(error)
         }
     )
-    const associateData: associate = {
+    const providerData: provider = {
       id: data.id,
       active: data.active,
       register: moment().format('DD/MM/YYYY HH:mm:ss'),
       update: moment().format('DD/MM/YYYY HH:mm:ss'),
-      firstName: data.firstName,
-      lastName: data.lastName,
+      businessName: data.businessName,
+      fantasyName: data.fantasyName,
       contact: data.contact,
-      cpf: data.cpf,
+      cnpj: data.cnpj,
       address: {
         id: data.address.id,
         cep: data.address.cep,
@@ -628,14 +687,14 @@ export default class ManagerUsers extends Vue {
         houseNumber: data.address.houseNumber,
       },
     };
-    this.associateClient.update(associateData).then(
+    this.providerClient.update(providerData).then(
         success => {
           console.log(success)
           this.showComponent();
           this.notificacao = this.notificacao.new(
               true,
               "notification is-primary",
-              "Usuário editado com sucesso"
+              "Empresa editada com sucesso"
           );
         },
         error => {
@@ -654,15 +713,6 @@ export default class ManagerUsers extends Vue {
     } else {
       this.isModalVisible = true;
       console.log(this.isModalVisible)
-    }
-  }
-  public closeModalOutside(event: MouseEvent): void {
-    const modalMask = this.$refs.modalMask as HTMLElement;
-
-    if (event.target === modalMask) {
-      this.isModalVisible = false;
-      console.log(this.isModalVisible);
-      modalMask.removeEventListener('click', this.closeModalOutside);
     }
   }
 
