@@ -79,7 +79,7 @@
 
             <div class="field is-grouped">
                 <div class="control">
-                    <router-link to="/provider"><button class="button is-link is-light">Voltar</button></router-link>
+                    <button @click="onClickBack()" class="button is-link is-light">Voltar</button>
                 </div>
                 <div class="control">
                     <button @click="onClickUpdate()" class="button is-primary is-focused">Atualizar</button>
@@ -220,6 +220,10 @@ export default class EditServiceView extends Vue {
 
     public closeNotification() {
         this.notificationSave = false;
+    }
+
+    public onClickBack() {
+        this.$router.go(-1);
     }
 }
 </script>
