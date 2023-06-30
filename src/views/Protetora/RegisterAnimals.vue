@@ -1,6 +1,17 @@
 <template>
   <div class="containerFlex">
     <div class="title">Cadastrar Animal</div>
+    <article v-if="notificationSave" class="message is-success">
+      <div class="message-header">
+        <h3>Sucesso</h3>
+        <button
+          @click="closeNotification"
+          class="delete"
+          aria-label="delete"
+        ></button>
+      </div>
+      <div class="message-body">Animal cadastrado com sucesso!</div>
+    </article>
     <form @submit.prevent="onSubmit">
       <div class="field">
         <label class="label">Tipo</label>
@@ -77,6 +88,7 @@ export default class Register extends Vue {
   public animalSizes = Object.values(AnimalSize).filter((value) =>
     isNaN(Number(value))
   );
+  public notificationSave: boolean = false;
   private animalClient: AnimalClient = new AnimalClient();
   private userClient: UserClient = new UserClient();
   public animalMock = {
@@ -88,7 +100,7 @@ export default class Register extends Vue {
     color: "",
     vaccines: ["Raiva", "Parvovirose Canina", "Cinomose", "Hepatite Canina"],
     selectedVaccines: [],
-    observation: "",
+    observation: " ",
     caregiver: {
       id: "",
     },
@@ -98,6 +110,7 @@ export default class Register extends Vue {
     const animalForm = await this.fromMock(this.animalMock);
     console.log(animalForm);
     await this.animalClient.save(animalForm);
+    this.notificationSave = true;
   }
 
   public async getCaregiver() {
@@ -118,8 +131,10 @@ export default class Register extends Vue {
     animalForm.animalSize = mock.size;
     animalForm.color = mock.color;
     animalForm.age = Number(mock.age);
-    animalForm.observation = mock.observation;
-
+    if (mock.observation) animalForm.observation = mock.observation;
+    else {
+      animalForm.observation = "";
+    }
     let vaccination = new Vaccination();
     vaccination.rabies = false;
     vaccination.canineHepatitis = false;
@@ -152,6 +167,9 @@ export default class Register extends Vue {
       }
     }
   }
+  public closeNotification() {
+    this.notificationSave = false;
+  }
 }
 </script>
 
@@ -161,6 +179,9 @@ export default class Register extends Vue {
   align-self: center;
   font-size: xx-large;
   font-weight: bold;
+}
+.panel.is-primary .panel-tabs a.is-active {
+  border-bottom-color: hsl(171deg, 100%, 41%);
 }
 
 .containerFlex {
