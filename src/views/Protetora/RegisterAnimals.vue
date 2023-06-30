@@ -46,11 +46,6 @@
         <input class="input" type="text" v-model="animalMock.observation" />
       </div>
 
-      <div class="field">
-        <label class="label">ID da Cuidadora Responsável</label>
-        <input class="input" type="text" v-model="animalMock.caregiver.id" />
-      </div>
-
       <button class="button is-primary" type="submit">Register</button>
     </form>
   </div>
@@ -65,6 +60,7 @@ import { Caregiver } from "@/model/Caregiver";
 import { Animal } from "@/model/Animal";
 import { Vaccination } from "@/model/Vaccination";
 import { AnimalClient } from "@/client/Animal.client";
+import { UserClient } from "@/client/User.client";
 
 interface IAttributeMap {
   [key: string]: string;
@@ -82,6 +78,7 @@ export default class Register extends Vue {
     isNaN(Number(value))
   );
   private animalClient: AnimalClient = new AnimalClient();
+  private userClient: UserClient = new UserClient();
   public animalMock = {
     type: AnimalType.CACHORRO,
     size: AnimalSize.MEDIO,
@@ -97,12 +94,22 @@ export default class Register extends Vue {
     },
   };
 
-  public onSubmit() {
-    console.log(this.fromMock(this.animalMock));
-    this.animalClient.save(this.fromMock(this.animalMock));
+  public async onSubmit() {
+    const animalForm = await this.fromMock(this.animalMock);
+    console.log(animalForm);
+    await this.animalClient.save(animalForm);
   }
 
-  fromMock(mock: any): Animal {
+  public async getCaregiver() {
+    const userId = Number(this.$route.params.id);
+    const caregiver = await this.userClient.findCaregiverByIdUser(userId);
+    if (caregiver) {
+      const caregiverId = caregiver.id;
+      return caregiverId;
+    } else return 0;
+  }
+
+  public async fromMock(mock: any): Promise<Animal> {
     const animalForm: Partial<Animal> = {};
 
     animalForm.name = mock.name;
@@ -112,15 +119,18 @@ export default class Register extends Vue {
     animalForm.color = mock.color;
     animalForm.age = Number(mock.age);
     animalForm.observation = mock.observation;
+
     let vaccination = new Vaccination();
     vaccination.rabies = false;
     vaccination.canineHepatitis = false;
     vaccination.distemper = false;
     vaccination.canineParvovirus = false;
+
     this.setAttributesTrue(vaccination, mock.selectedVaccines);
+
     animalForm.vaccination = vaccination;
     animalForm.caregiver = new Caregiver();
-    animalForm.caregiver.id = mock.caregiver.id;
+    animalForm.caregiver.id = await this.getCaregiver();
 
     return animalForm as Animal;
   }
