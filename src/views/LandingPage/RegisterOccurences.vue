@@ -164,31 +164,54 @@ export default class RegisterOccurences extends Vue {
   }
 
   public resetInputsOccurences() {
-        this.inputFirstName = 'input';
-        this.inputContact = 'input';
-        this.inputDescription = 'input';
-        this.inputReference = 'input';
+    this.inputFirstName = 'input';
+    this.inputContact = 'input';
+    this.inputDescription = 'input';
+    this.inputReference = 'input';
+  }
+
+  public validateForm() {
+    this.validateInputName();
+    this.validateInputContact();
+    this.validateInputDescription();
+    this.validateInputReference();
+  }
+
+
+  public allIputsValidsOccurences(): boolean {
+    if (this.inputFirstName !== 'input is-danger' &&
+      this.inputContact !== 'input is-danger' &&
+      this.inputDescription !== 'input is-danger' &&
+      this.inputReference !== 'input is-danger') {
+      return true;
+    } else {
+      return false;
     }
+  }
 
   isVisible = false;
 
 
   public RegisterOccurences(): void {
-    this.ocurrencesClient.save(this.occurences).then(
-      success => {
-        console.log(success)
-        this.showComponent();
-        this.resetInputsOccurences();
-        this.notificacao = this.notificacao.new(
-          true,
-          "notification is-primary",
-          "Ocorrencia Cadastrada!"
-        )
-      },
-      error => {
-        console.log(error)
-      }
-    )
+    this.validateForm();
+
+    if (this.allIputsValidsOccurences() === true) {
+      this.ocurrencesClient.save(this.occurences).then(
+        success => {
+          console.log(success)
+          this.resetInputsOccurences();
+          this.showComponent();
+          this.notificacao = this.notificacao.new(
+            true,
+            "notification is-primary",
+            "Ocorrencia Cadastrada!"
+          )
+        },
+        error => {
+          console.log(error)
+        }
+      )
+    }
   }
 
   public onClickFecharNotificacao(): void {
