@@ -1,5 +1,5 @@
 <template>
-  <div class="content column is-12">
+  <div id="container-principal" class="content column is-12">
 
       <p class="panel-tabs">
         <a v-for="(tab, index) in tabs" :key="index" :class="{ 'is-active': tab.isActive }" @click="activateTab(tab)">
@@ -661,6 +661,12 @@ export default class ManagerUsers extends Vue {
 
 </script>
 <style scoped>
+
+#container-principal {
+  height: 100vh;
+  background-color: #EBE3CC;
+}
+
 .card-header{
   background-color: #002D4C;
 }
