@@ -65,7 +65,6 @@ export default class ProviderView extends Vue {
 
     public mounted(): void {
         this.listarTasks()
-        this.onClickDelete()
     }
 
     private listarTasks(): void {
@@ -90,17 +89,17 @@ export default class ProviderView extends Vue {
     }
 
     public onClickEditProfile(providerId: Number) {
-        router.push({ path: `/updateProvider/${providerId}` })
+        router.push({ path: `/atualizarFornecedor/${providerId}` })
     }
 
     public onClickRegisterService() {
         this.id = Number(this.$route.params.id)
-        router.push({ path: `/registerService/${this.id}` })
+        router.push({ path: `/cadastrarServico/${this.id}` })
     }
 
     public onClickEdit(id: number) {
         var id = Number(this.$route.params.id)
-        router.push({ path: `/updateService/${id}` })
+        router.push({ path: `/atualizarServico/${id}` })
     }
 }
 </script>
