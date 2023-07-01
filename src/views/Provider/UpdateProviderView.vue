@@ -178,7 +178,9 @@ export default class UpdateProviderView extends Vue {
 
     public provider: Provider = new Provider()
 
-    public providerList: Provider[] = []
+    private providerList: Provider[] = []
+
+    private id = Number(this.$route.params.id);
 
     public inputNameFantasy: string = 'input'
     public inputNameBusiness: string = 'input'
@@ -262,7 +264,7 @@ export default class UpdateProviderView extends Vue {
         this.validateFormProvider()
         this.fillProvider()
         if (this.allInputsValidsProvider() === true) {
-            this.providerClient.update(this.provider).then(
+            this.providerClient.update(this.updateData).then(
                 success => {
                     console.log('Fornecedor atualizado com sucesso!')
                     this.notificationSave = true;
