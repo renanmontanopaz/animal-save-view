@@ -8,7 +8,12 @@
         <div class="field">
           <label class="label">Nome</label>
           <div class="control">
-            <input class="input" type="text" v-model="occurences.name">
+            <input :class="`${inputFirstName}`" @blur="validateInputName" type="text" v-model="occurences.name">
+            <p v-if="errorMessageFirstName">
+            <ul>
+              <li v-if="error in errorMessageFirstName" :key="error"> {{ error }}</li>
+            </ul>
+            </p>
           </div>
         </div>
         <div class="field">
@@ -27,6 +32,7 @@
           <label class="label">Ponto de referencia</label>
           <div class="control">
             <input class="input" type="text" v-model="occurences.referenceLocal">
+
           </div>
         </div>
         <div class="field">
@@ -68,6 +74,28 @@ export default class RegisterOccurences extends Vue {
   public ocurrencesClient: OcurrencesClient = new OcurrencesClient();
   public occurences: Occurrences = new Occurrences;
   public notificacao: Message = new Message();
+
+  //Name
+  public inputFirstName: string = 'input';
+  public errorMessageFirstName: string[] = [];
+
+  public validateInputName() {
+    if (!this.occurences.name) {
+      this.errorMessageFirstName = ['O campo "Primeiro nome" é obrigatório!'];
+      this.inputFirstName = 'input is-danger';
+    }
+    else if (this.occurences.name.length > 15) {
+      this.errorMessageFirstName = ['O campo "Primeiro nome" deve ter no máximo 10 caracteres!'];
+      this.inputFirstName = 'input is-danger';
+    }
+    else if (this.occurences.name.length <= 2) {
+      this.errorMessageFirstName = ['O campo "Primeiro nome" deve ter no mínimo 3 caracteres!'];
+      this.inputFirstName = 'input is-danger';
+    } else {
+      this.errorMessageFirstName = [];
+      this.inputFirstName = 'input is-success';
+    }
+  }
 
   isVisible = false;
 
@@ -140,14 +168,14 @@ export default class RegisterOccurences extends Vue {
     }
   }
 
-  .controlButt{
+  .controlButt {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 4em;
     margin: 2em 0em;
   }
-  
+
   .butt {
     width: 6em;
     height: 3em;
@@ -161,8 +189,9 @@ export default class RegisterOccurences extends Vue {
     line-height: 1.5em;
     color: #002D4C;
   }
+
   .butt2 {
-    width: 6em;
+    width: 7em;
     height: 3em;
     background: #002D4C;
     border-radius: 0.5em;
