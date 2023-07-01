@@ -99,6 +99,8 @@ import { Task } from "@/model/Task";
 import Vue from "vue";
 import Component from 'vue-class-component';
 import { Message } from '@/model/Message'
+import { Provider } from '@/model/Provider'
+import { UserClient } from '@/client/User.client';
 
 interface taskInterface {
     name: string
@@ -115,6 +117,9 @@ export default class RegisterServiceView extends Vue {
     public task: Task = new Task()
 
     private taskClient: TaskClient = new TaskClient()
+    public provider: Provider = new Provider()
+    private userClient: UserClient = new UserClient();
+    public notificacao: Message = new Message();
 
     public inputName: string = 'input'
     public inputCost: string = 'input'
@@ -126,9 +131,21 @@ export default class RegisterServiceView extends Vue {
     public errorMessageMonthlyAmount: string[] = []
     public errorMessageDescription: string[] = []
 
-    public notificacao: Message = new Message();
-
     public notificationSave: boolean = false;
+
+    public mounted(): void {
+        this.getProviderByUser()
+    }
+
+    public getProviderByUser(): void {
+        var id = Number(this.$route.params.id)
+        this.userClient.findProviderByIdUser(id).then(
+            success => {
+                this.provider = success;
+            },
+            error => console.log(error)
+        )
+    }
 
     public onClickRegister(): void {
 
@@ -138,7 +155,7 @@ export default class RegisterServiceView extends Vue {
             monthlyAmount: this.task.monthlyAmount,
             description: this.task.description,
             provider: {
-                id: this.task.provider?.id
+                id: this.provider.id
             }
         }
         if (this.allInputsValids() === true) {
