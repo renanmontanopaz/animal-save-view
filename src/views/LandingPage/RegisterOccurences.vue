@@ -30,19 +30,24 @@
         <div class="field">
           <label class="label">Descrição</label>
           <div class="control">
-            <input :class="`${inputDescription}`" @blur="validateInputDescription" type="textarea" v-model="occurences.description">
+            <input :class="`${inputDescription}`" @blur="validateInputDescription" type="textarea"
+              v-model="occurences.description">
             <p v-if="errorMessageDescription">
-              <ul>
-                <li v-for="error in errorMessageDescription" :key="error">{{ error }}</li>
-              </ul>
+            <ul>
+              <li v-for="error in errorMessageDescription" :key="error">{{ error }}</li>
+            </ul>
             </p>
           </div>
         </div>
         <div class="field">
           <label class="label">Ponto de referencia</label>
           <div class="control">
-            <input class="input" type="text" v-model="occurences.referenceLocal">
-
+            <input :class="`${inputReference}`" @blur="validateInputReference" type="text" v-model="occurences.referenceLocal">
+            <p v-if="errorMessageReference">
+            <ul>
+              <li v-for="error in errorMessageReference" :key="error">{{ error }}</li>
+            </ul>
+            </p>
           </div>
         </div>
         <div class="field">
@@ -137,6 +142,17 @@ export default class RegisterOccurences extends Vue {
     if (!this.occurences.description) {
       this.errorMessageDescription = ['O campo "Descrição" é obrigatório!'];
       this.inputDescription = 'input is-danger';
+    }
+  }
+
+  //Referencia
+  public inputReference: string = 'input';
+  public errorMessageReference: string[] = [];
+
+  public validateInputReference() {
+    if (!this.occurences.referenceLocal) {
+      this.errorMessageReference = ['O campo "Descrição" é obrigatório!'];
+      this.inputReference = 'input is-danger';
     }
   }
 
