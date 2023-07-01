@@ -23,18 +23,21 @@
                     <thead>
                         <tr>
                             <th>Serviço</th>
+                            <th>Custo</th>
                             <th>Opções</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="item in taskList">
                             <th class="serviceField"> {{ item.name }}</th>
+                            <th class="serviceField"> {{ item.cost }}</th>
 
                             <th>
                                 <div class="align_buttons">
                                     <button @click="onClickEdit(item.id)"
                                         class="button is-warning is-focused">Editar</button>
-                                    <button @click="onClickDelete()" class="button is-danger is-focused">Apagar</button>
+                                    <button @click="onClickDelete(item.id)"
+                                        class="button is-danger is-focused">Apagar</button>
                                 </div>
                             </th>
                         </tr>
@@ -45,7 +48,7 @@
     </section>
 </template>
 
-<script lang="ts">
+<script lang="ts" scoped>
 import { TaskClient } from '@/client/Task.client';
 import { Provider } from '@/model/Provider';
 import { Task } from '@/model/Task';
@@ -71,7 +74,6 @@ export default class ProviderView extends Vue {
     public getProviderByUser(): void {
         var idTask = Number(this.$route.params.id)
         this.userClient.findProviderByIdUser(idTask).then(
-
             success => {
                 this.provider = success;
                 console.log(success);
@@ -90,10 +92,10 @@ export default class ProviderView extends Vue {
         )
     }
 
-    public onClickDelete(): void {
-        this.taskClient.disable(this.task.id).then(
+    public onClickDelete(id: number): void {
+        this.taskClient.disable(id).then(
             success => {
-                console.log('Serviço deletado com sucesso!')
+                console.log(success);
                 this.task = new Task()
             },
             error => {
@@ -114,7 +116,6 @@ export default class ProviderView extends Vue {
     }
 
     public onClickEdit(id: number) {
-        var id = Number(this.$route.params.id)
         router.push({ path: `/fornecedor/atualizarServico/${id}` })
     }
 }
