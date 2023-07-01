@@ -100,6 +100,16 @@ import Vue from "vue";
 import Component from 'vue-class-component';
 import { Message } from '@/model/Message'
 
+interface taskInterface {
+    name: string
+    cost: number
+    monthlyAmount: number
+    description: string
+    provider: {
+        id: number
+    }
+}
+
 @Component
 export default class RegisterServiceView extends Vue {
     public task: Task = new Task()
@@ -121,8 +131,18 @@ export default class RegisterServiceView extends Vue {
     public notificationSave: boolean = false;
 
     public onClickRegister(): void {
+
+        const taskHell: taskInterface = {
+            name: this.task.name,
+            cost: this.task.cost,
+            monthlyAmount: this.task.monthlyAmount,
+            description: this.task.description,
+            provider: {
+                id: this.task.provider?.id
+            }
+        }
         if (this.allInputsValids() === true) {
-            this.taskClient.save(this.task).then(
+            this.taskClient.save(taskHell).then(
                 success => {
                     console.log('Serviço cadastrado com sucesso!')
                     this.task = new Task()
