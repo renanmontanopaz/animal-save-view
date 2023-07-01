@@ -107,7 +107,13 @@ export default class Register extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+html,
+body {
+  background-color: #ebe3cc;
+  color: #002d4c;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -118,6 +124,7 @@ td {
   padding: 10px;
   border: 1px solid black;
   text-align: center !important;
+  vertical-align: middle;
 }
 .title {
   align-self: center;
