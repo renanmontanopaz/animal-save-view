@@ -30,7 +30,7 @@
         <div class="field">
           <label class="label">Descrição</label>
           <div class="control">
-            <input :class="`${inputDescription}`" @blur="validateInputDescription" type="textarea"
+            <input :class="`${inputDescription}`" @blur="validateInputDescription" type="text"
               v-model="occurences.description">
             <p v-if="errorMessageDescription">
             <ul>
@@ -42,7 +42,8 @@
         <div class="field">
           <label class="label">Ponto de referencia</label>
           <div class="control">
-            <input :class="`${inputReference}`" @blur="validateInputReference" type="text" v-model="occurences.referenceLocal">
+            <input :class="`${inputReference}`" @blur="validateInputReference" type="text"
+              v-model="occurences.referenceLocal">
             <p v-if="errorMessageReference">
             <ul>
               <li v-for="error in errorMessageReference" :key="error">{{ error }}</li>
@@ -142,6 +143,9 @@ export default class RegisterOccurences extends Vue {
     if (!this.occurences.description) {
       this.errorMessageDescription = ['O campo "Descrição" é obrigatório!'];
       this.inputDescription = 'input is-danger';
+    } else {
+      this.errorMessageDescription = [];
+      this.inputDescription = 'input is-success';
     }
   }
 
@@ -151,10 +155,20 @@ export default class RegisterOccurences extends Vue {
 
   public validateInputReference() {
     if (!this.occurences.referenceLocal) {
-      this.errorMessageReference = ['O campo "Descrição" é obrigatório!'];
+      this.errorMessageReference = ['O campo "Referência" é obrigatório!'];
       this.inputReference = 'input is-danger';
+    } else {
+      this.errorMessageReference = [];
+      this.inputReference = 'input is-success';
     }
   }
+
+  public resetInputsOccurences() {
+        this.inputFirstName = 'input';
+        this.inputContact = 'input';
+        this.inputDescription = 'input';
+        this.inputReference = 'input';
+    }
 
   isVisible = false;
 
@@ -164,6 +178,7 @@ export default class RegisterOccurences extends Vue {
       success => {
         console.log(success)
         this.showComponent();
+        this.resetInputsOccurences();
         this.notificacao = this.notificacao.new(
           true,
           "notification is-primary",
@@ -247,6 +262,7 @@ export default class RegisterOccurences extends Vue {
     font-size: 1.2em;
     line-height: 1.5em;
     color: #002D4C;
+    cursor: pointer;
   }
 
   .butt2 {
@@ -261,6 +277,13 @@ export default class RegisterOccurences extends Vue {
     font-size: 1.2em;
     line-height: 1.5em;
     color: #EBE3CC;
+
+  }
+
+  .controlButt :hover {
+    transform: scale(1.05);
+    transition: all 0.2s;
+    cursor: pointer;
   }
 }
 </style>
