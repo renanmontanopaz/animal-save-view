@@ -11,7 +11,7 @@
             <input :class="`${inputFirstName}`" @blur="validateInputName" type="text" v-model="occurences.name">
             <p v-if="errorMessageFirstName">
             <ul>
-              <li v-if="error in errorMessageFirstName" :key="error"> {{ error }}</li>
+              <li v-for="error in errorMessageFirstName" :key="error"> {{ error }}</li>
             </ul>
             </p>
           </div>
