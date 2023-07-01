@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="column is-3" style="align-items: center; justify-content: space-around; display: flex; flex-direction: column">
+    <div id="form-login" class="column is-3" style="align-items: center; justify-content: space-around; display: flex; flex-direction: column">
       <div class="box" style="align-items: center; justify-content: space-around; display: flex; flex-direction: column; height: 450px; width: 100%">
         <img src="../assets/Logo.png"/>
       <div class="column is-8">
@@ -32,16 +32,16 @@
           </div>
         </div>
       </div>
-      <div class="control field column is-8" style="justify-content: space-around; display: flex">
+      <div id="container-button" class="control field column is-8" style="justify-content: space-around; display: flex">
 
-          <router-link to="/"><button class="button is-danger is-outlined">Voltar</button></router-link>
-          <button class="button is-link is-outlined" @click="onClickLogin">
-            Login
-          </button>
+        <router-link to="/"><button id="button-voltar" class="button">Voltar</button></router-link>
+        <button id="button-login" class="button" @click="onClickLogin">
+          Login
+        </button>
 
       </div>
         <div style="justify-content: flex-start; align-items: flex-start; display: flex; width: 100%">
-          <router-link to="/register"> Não é Cadastrado ? </router-link>
+          <router-link id="not-register" to="/register"> Não é Cadastrado ? <br/> Cadastre-se agora! </router-link>
         </div>
       </div>
     </div>
@@ -66,9 +66,54 @@ main::before {
   background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo com opacidade */
   z-index: -1;
 }
-.box{
 
+#form-login {
+  width: 500px;
 }
+
+.box{
+  background-color: #EBE3CC;
+}
+
+#container-button {
+  gap: 10px;
+}
+
+#button-voltar {
+  width: 120px;
+  border: 2px solid #FBBD08;
+  color: #002D4C;
+  background-color: #EBE3CC;
+}
+
+#button-voltar:hover {
+  transform: scale(1.05);
+  background-color: #FBBD08;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#button-login {
+  width: 120px;
+  border: 2px solid #002D4C;
+  color: #002D4C;
+  background-color: #EBE3CC;
+}
+
+#button-login:hover {
+  transform: scale(1.05);
+  background-color: #002D4C;
+  color: #EBE3CC;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#not-register {
+  color: #002D4C;
+}
+
+#not-register:hover {
+  transform: scale(1.1);
+}
+
 </style>
 <script lang="ts">
 import Vue from "vue";
