@@ -61,7 +61,7 @@
           </div>
         </div>
         <div class="controlButt">
-          <button class="butt">Voltar</button>
+          <router-link to="/"><button class="butt">Voltar</button></router-link>
           <button @click="RegisterOccurences()" class="butt2 is-success is-focused is-medium">Cadastrar</button>
         </div>
         <div class="columns" v-if="notificacao.ativo">
