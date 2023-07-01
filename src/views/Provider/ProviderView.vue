@@ -51,24 +51,40 @@ import { Provider } from '@/model/Provider';
 import { Task } from '@/model/Task';
 import router from '@/router';
 import { Component, Vue } from 'vue-property-decorator'
+import { UserClient } from '@/client/User.client';
 
 @Component
 export default class ProviderView extends Vue {
 
-    private taskClient: TaskClient = new TaskClient
+    private taskClient: TaskClient = new TaskClient()
     public taskList: Task[] = []
     public task: Task = new Task()
 
     public provider: Provider = new Provider()
+    private userClient: UserClient = new UserClient()
 
     public mounted(): void {
-        this.listarTasks()
+        this.getProviderByUser()
     }
 
-    private listarTasks(): void {
-        this.taskClient.listAll().then(
+
+    public getProviderByUser(): void {
+        var idTask = Number(this.$route.params.id)
+        this.userClient.findProviderByIdUser(idTask).then(
+
             success => {
-                console.log('Listagem de serviços concluída');
+                this.provider = success;
+                console.log(success);
+                this.taskClient.findTaskByIdProvider(success.id).then(
+                    success => {
+                        this.taskList = success
+                        console.log(success)
+                        console.log(this.task)
+                    },
+                    error => {
+                        console.log(error)
+                    }
+                )
             },
             error => console.log(error)
         )
