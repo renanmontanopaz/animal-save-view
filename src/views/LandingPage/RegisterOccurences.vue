@@ -19,13 +19,23 @@
         <div class="field">
           <label class="label">Contato</label>
           <div class="control">
-            <input class="input" type="text" v-model="occurences.contact">
+            <input :class="`${inputContact}`" @blur="validateInputContact" type="text" v-model="occurences.contact">
+            <p v-if="errorMessageContact">
+            <ul>
+              <li v-for="error in errorMessageContact" :key="error">{{ error }}></li>
+            </ul>
+            </p>
           </div>
         </div>
         <div class="field">
           <label class="label">Descrição</label>
           <div class="control">
-            <input class="input" type="textarea" v-model="occurences.description">
+            <input :class="`${inputDescription}`" @blur="validateInputDescription" type="textarea" v-model="occurences.description">
+            <p v-if="errorMessageDescription">
+              <ul>
+                <li v-for="error in errorMessageDescription" :key="error">{{ error }}</li>
+              </ul>
+            </p>
           </div>
         </div>
         <div class="field">
@@ -94,6 +104,39 @@ export default class RegisterOccurences extends Vue {
     } else {
       this.errorMessageFirstName = [];
       this.inputFirstName = 'input is-success';
+    }
+  }
+
+  //Contato
+  public inputContact: string = 'input';
+  public errorMessageContact: string[] = [];
+
+  public validatePhoneNumber(phoneNumber: string): boolean {
+    const phoneNumberRegex = /^(?:\d{2}\s\d{9}|\d{2}\s\d\s\d{4}-\d{4}|\d{2}\s\d\s\d{8})$/;
+    return phoneNumberRegex.test(this.occurences.contact);
+  };
+
+  public validateInputContact() {
+    if (this.validatePhoneNumber(this.occurences.contact)) {
+      this.errorMessageContact = [];
+      this.inputContact = 'input is-success';
+    } else if (!this.occurences.contact) {
+      this.errorMessageContact = ['O campo "Contato" é obrigatório!'];
+      this.inputContact = 'input is-danger';
+    } else {
+      this.errorMessageContact = ['Siga o seguinte formato: "45 9 00000000"!'];
+      this.inputContact = 'input is-danger';
+    }
+  }
+
+  //Descrição
+  public inputDescription: string = 'input';
+  public errorMessageDescription: string[] = [];
+
+  public validateInputDescription() {
+    if (!this.occurences.description) {
+      this.errorMessageDescription = ['O campo "Descrição" é obrigatório!'];
+      this.inputDescription = 'input is-danger';
     }
   }
 
