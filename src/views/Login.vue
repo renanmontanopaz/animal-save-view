@@ -81,9 +81,8 @@ main::before {
 
 #button-voltar {
   width: 120px;
-  border: 2px solid #FBBD08;
+  background-color: #FBBD08;
   color: #002D4C;
-  background-color: #EBE3CC;
 }
 
 #button-voltar:hover {
@@ -94,9 +93,8 @@ main::before {
 
 #button-login {
   width: 120px;
-  border: 2px solid #002D4C;
-  color: #002D4C;
-  background-color: #EBE3CC;
+  background-color: #002D4C;
+  color: #EBE3CC;
 }
 
 #button-login:hover {
