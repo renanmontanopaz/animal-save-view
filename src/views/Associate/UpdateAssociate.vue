@@ -167,27 +167,27 @@
                 <div class="aling_buttons">
                     <div class="field is-grouped">
                         <div class="control">
-                            <button v-if="selectUpdatePassword === true" @click="backUpdatePassword"
+                            <button id="button-back-previous-pag" v-if="selectUpdatePassword === true" @click="backUpdatePassword"
                                 class="button is-link is-info">Página anterior</button>
                         </div>
 
                         <div class="control">
-                            <button v-if="selectUpdatePassword === true" id="cadastrar" @click="onClickUpdatePassword()"
+                            <button id="cadastrar" v-if="selectUpdatePassword === true" @click="onClickUpdatePassword()"
                                 class="button is-success is-focused">Salvar</button>
                         </div>
 
                         <div class="control">
-                            <button v-if="selectUpdatePassword === false" @click="clickUpdatePassword"
+                            <button id="button-back" v-if="selectUpdatePassword === false" @click="onClickBack"
+                                class="button is-link is-info">Voltar</button>
+                        </div>
+
+                        <div class="control">
+                            <button id="button-update-password" v-if="selectUpdatePassword === false" @click="clickUpdatePassword"
                                 class="button is-link is-danger">Alterar Senha</button>
                         </div>
 
                         <div class="control">
-                            <button v-if="selectUpdatePassword === false" @click="onClickBack"
-                                class="button is-link is-light">Voltar</button>
-                        </div>
-
-                        <div class="control">
-                            <button v-if="selectUpdatePassword === false" id="cadastrar" @click="onClickUpdate()"
+                            <button id="cadastrar" v-if="selectUpdatePassword === false" @click="onClickUpdate()"
                                 class="button is-success is-focused">Salvar</button>
                         </div>
                     </div>
@@ -582,7 +582,7 @@ main {
     flex-direction: column;
     padding: 20px;
     height: 100vh;
-    background-color: rgb(202, 202, 202);
+    background-color: #002D4C;
 
     #arrow {
         width: 40px;
@@ -598,7 +598,7 @@ main {
         align-items: center;
         flex-direction: column;
 
-        background-color: rgba(0, 0, 0, 0.65);
+        background-color: #EBE3CC;
         border: 1px solid #ccc;
         border-radius: 10px;
         padding: 20px;
@@ -615,7 +615,7 @@ main {
     }
 
     .label {
-        color: white;
+        color: #002D4C;
     }
 
     input {
@@ -652,7 +652,21 @@ main {
             }
 
             #cadastrar {
-                background: #FBBD08;
+                color: #002D4C;
+                background: #48C88F;
+            }
+
+            #button-back {
+                color: #002D4C;
+            }
+
+            #button-back-previous-pag {
+                color: #002D4C;
+            }
+
+            #button-update-password {
+                color: #002D4C;
+                background-color: #F64367;
             }
         }
     }

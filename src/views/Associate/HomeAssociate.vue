@@ -11,9 +11,11 @@
                         <a @click="clickUpdate" class="navbar-item">
                             Meus dados
                         </a>
-                        <a id="sair" class="navbar-item">
-                            Sair
-                        </a>
+                        <router-link to="/">
+                            <a id="sair" class="navbar-item">
+                                Sair
+                            </a>
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -112,6 +114,7 @@ main {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    background-color: #EBE3CC;
 }
 
 header {
