@@ -29,26 +29,6 @@ const user: string = loginInstance.tokenLogin.token;
 const userauth: boolean = loginInstance.tokenLogin.auth;
 const routes: Array<RouteConfig> = [
   {
-    path: "/update-service",
-    name: "update-service",
-    component: EditServiceView,
-  },
-  {
-    path: "/update-Provider",
-    name: "update-provider",
-    component: UpdateProviderView,
-  },
-  {
-    path: "/register-Provider",
-    name: "register-provider",
-    component: RegisterServiceView,
-  },
-  {
-    path: "/Provider",
-    name: "provider",
-    component: ProviderView,
-  },
-  {
     path: "/protetora/register-animal",
     name: "RegisterAnimal",
     component: RegisterAnimal,
@@ -90,7 +70,7 @@ const routes: Array<RouteConfig> = [
     name: "Associado",
     component: HomeAssociate,
     beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
 
       if (!token) {
         next("/login");
@@ -104,7 +84,7 @@ const routes: Array<RouteConfig> = [
     name: "Editar associado",
     component: UpdateAssociate,
     beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
 
       if (!token) {
         next("/login");
@@ -118,7 +98,7 @@ const routes: Array<RouteConfig> = [
     name: "Adminitrador",
     component: Administrator,
     beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       console.log(token);
       if (!token) {
         next("/login");
@@ -132,7 +112,7 @@ const routes: Array<RouteConfig> = [
     name: "Modal",
     component: Modal,
     beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       console.log(token);
       if (!token) {
         next("/login");
@@ -143,10 +123,10 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/fornecedor/:id",
-    name: "Provider",
+    name: "Fornecedor",
     component: Provider,
     beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
 
       if (!token) {
         next("/login");
@@ -156,46 +136,19 @@ const routes: Array<RouteConfig> = [
     },
   },
   {
-    path: "/registerService/:id",
-    name: "RegisterService",
+    path: "/fornecedor/cadastrarServico/:id",
+    name: "CadastrarServico",
     component: RegisterService,
-    beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        next("/login");
-      } else {
-        next();
-      }
-    },
   },
   {
-    path: "/updateProvider/:id",
-    name: "updateProvider",
+    path: "/fornecedor/atualizarFornecedor/:id",
+    name: "AtualizarFornecedor",
     component: UpdateProvider,
-    beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        next("/login");
-      } else {
-        next();
-      }
-    },
   },
   {
-    path: "/updateService/:id",
-    name: "updateService",
+    path: "/fornecedor/atualizarServico/:id",
+    name: "AtualizarServico",
     component: UpdateService,
-    beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        next("/login");
-      } else {
-        next();
-      }
-    },
   },
 ];
 
