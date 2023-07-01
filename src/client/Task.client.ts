@@ -41,6 +41,15 @@ export class TaskClient {
         }
     }
 
+    public async findTasksActives() : Promise<Task[]> {
+        try {
+            return(await this.axiosClient.get<Task[]>(`/actives`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
     public async findTaskByIdProvider(id:number): Promise<Task[]> {
         try {
             return(await this.axiosClient.get<Task[]>(`/findTaskByIdProvider/${id}`)).data
@@ -50,7 +59,7 @@ export class TaskClient {
         }
     }
 
-    public async update(task: Task) : Promise<void> {
+    public async update(task: any) : Promise<void> {
         try {
             return(await this.axiosClient.put(`/update/${task.id}`, task)).data
         }
