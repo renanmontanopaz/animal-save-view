@@ -14,7 +14,7 @@ export class TaskClient {
         })
     }
 
-    public async save(task: Task) : Promise<void> {
+    public async save(task: any) : Promise<void> {
         try{
             return(await this.axiosClient.post(`/register`, task)).data
         }
