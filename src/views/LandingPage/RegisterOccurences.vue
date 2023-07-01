@@ -38,11 +38,12 @@
             </select>
           </div>
         </div>
-        <div class="control">
-          <button @click="RegisterOccurences()" class="butt is-success is-focused is-medium">Cadastrar</button>
+        <div class="controlButt">
+          <button class="butt">Voltar</button>
+          <button @click="RegisterOccurences()" class="butt2 is-success is-focused is-medium">Cadastrar</button>
         </div>
         <div class="columns" v-if="notificacao.ativo">
-          <div class="column is-two-thirds">
+          <div class="column is-full">
             <div :class="notificacao.classe" v-if="isVisible">
               <button @click="onClickFecharNotificacao" class="delete"></button>
               {{ notificacao.mensagem }}
@@ -115,16 +116,16 @@ export default class RegisterOccurences extends Vue {
   justify-content: center;
   flex-direction: column;
   background-color: #002D4C;
-  
-  .occurences{
-    
+
+  .occurences {
     background-color: #EBE3CC;
+    border-radius: 10px;
   }
-  
+
   .text {
     font-family: 'Poppins';
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     font-size: clamp(0.5em, 2em, 3em);
     line-height: 1.2em;
     color: #002D4C;
@@ -139,11 +140,19 @@ export default class RegisterOccurences extends Vue {
     }
   }
 
+  .controlButt{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4em;
+    margin: 2em 0em;
+  }
+  
   .butt {
-    width: 8em;
+    width: 6em;
     height: 3em;
-    background: #FBBD08;
     border-radius: 0.5em;
+    background: #FBBD08;
     border: none;
     font-family: 'Poppins';
     font-style: normal;
@@ -151,8 +160,19 @@ export default class RegisterOccurences extends Vue {
     font-size: 1.2em;
     line-height: 1.5em;
     color: #002D4C;
-    margin-right: 2em;
-    margin-top: 2em;
+  }
+  .butt2 {
+    width: 6em;
+    height: 3em;
+    background: #002D4C;
+    border-radius: 0.5em;
+    border: none;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.2em;
+    line-height: 1.5em;
+    color: #EBE3CC;
   }
 }
 </style>
