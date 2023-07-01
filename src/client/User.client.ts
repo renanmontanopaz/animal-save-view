@@ -3,6 +3,7 @@ import {LoginUser} from "@/model/Login";
 import {Token} from "@/model/Token";
 import { User } from "@/model/User";
 import { Associate } from "@/model/Associate";
+import { Provider } from "@/model/Provider";
 export class UserClient {
     private axiosClient: AxiosInstance;
 
@@ -36,6 +37,15 @@ export class UserClient {
     public async findAssociateByIdUser(id: number) : Promise<Associate> {
         try {
             return(await this.axiosClient.get(`/findAssociateByIdUser/${id}`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async findProviderByIdUser(id: number) : Promise<Provider> {
+        try {
+            return(await this.axiosClient.get(`/findProviderByIdUser/${id}`)).data
         }
         catch (error:any) {
             return Promise.reject(error.response)
