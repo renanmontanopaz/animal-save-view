@@ -201,6 +201,7 @@ export default class RegisterOccurences extends Vue {
           console.log(success)
           this.resetInputsOccurences();
           this.showComponent();
+          this.occurences = new Occurrences()
           this.notificacao = this.notificacao.new(
             true,
             "notification is-primary",
