@@ -1,6 +1,9 @@
 <template>
     <section>
         <main>
+            <div class="control">
+                <h1 class="title">Editar Serviço</h1>
+            </div>
             <article v-if="notificationSave" class="message is-success">
                 <div class="message-header">
                     <h3>Sucesso</h3>
@@ -10,9 +13,6 @@
                     Serviço atualizado com sucesso!
                 </div>
             </article>
-            <div class="control">
-                <h1 class="title">Editar Serviço</h1>
-            </div>
             <div class="field">
                 <label class="label">Nome do serviço</label>
                 <div class="control has-icons-left">
@@ -89,11 +89,25 @@
     </section>
 </template>
 
-<script lang="ts">
+<script lang="ts" scoped>
 import { TaskClient } from '@/client/Task.client';
 import { Task } from '@/model/Task';
 import { Component, Vue } from 'vue-property-decorator'
 import { Message } from '@/model/Message'
+import { Provider } from '@/model/Provider'
+
+interface taskInterface {
+    id: number
+    active: boolean
+    register: Date
+    name: string
+    cost: number
+    monthlyAmount: number
+    description: string
+    provider: {
+        id: number
+    }
+}
 
 @Component
 export default class EditServiceView extends Vue {
@@ -101,10 +115,8 @@ export default class EditServiceView extends Vue {
     private taskClient: TaskClient = new TaskClient()
 
     public task: Task = new Task()
-
     public taskList: Task[] = []
-
-    private id = Number(this.$route.params.id)
+    public provider: Provider = new Provider()
 
     public inputName: string = 'input'
     public inputCost: string = 'input'
@@ -125,7 +137,8 @@ export default class EditServiceView extends Vue {
     }
 
     private getTask(): void {
-        this.taskClient.findById(this.id).then(
+        var id = Number(this.$route.params.id)
+        this.taskClient.findById(id).then(
             success => {
                 this.task = success
             },
@@ -134,8 +147,21 @@ export default class EditServiceView extends Vue {
     }
 
     public onClickUpdate(): void {
+        const getTask: taskInterface = {
+            id: this.task?.id,
+            active: this.task?.active,
+            register: this.task?.register,
+            name: this.task?.name,
+            cost: this.task?.cost,
+            monthlyAmount: this.task?.monthlyAmount,
+            description: this.task?.description,
+            provider: {
+                id: this.task?.provider.id,
+            }
+        }
+        this.validateFormProvider()
         if (this.allInputsValids() === true) {
-            this.taskClient.save(this.task).then(
+            this.taskClient.update(getTask).then(
                 success => {
                     console.log('Serviço atualizado com sucesso!')
                     this.task = new Task()
@@ -216,6 +242,13 @@ export default class EditServiceView extends Vue {
         } else {
             return false
         }
+    }
+
+    public validateFormProvider() {
+        this.validateInputName()
+        this.validateInputCost()
+        this.validadeInputMonthlyAmount()
+        this.validateInputDescription()
     }
 
     public closeNotification() {
