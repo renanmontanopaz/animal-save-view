@@ -93,7 +93,7 @@
     </main>
 </template>
 
-<script lang="ts">
+<script lang="ts" scoped>
 import { TaskClient } from "@/client/Task.client";
 import { Task } from "@/model/Task";
 import Vue from "vue";
