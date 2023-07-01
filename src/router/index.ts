@@ -113,22 +113,13 @@ const routes: Array<RouteConfig> = [
     path: "/administrador",
     name: "Adminitrador",
     component: Administrator,
-    beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
-      console.log(token);
-      if (!token) {
-        next("/login");
-      } else {
-        next();
-      }
-    },
   },
   {
     path: "",
     name: "Modal",
     component: Modal,
     beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       console.log(token);
       if (!token) {
         next("/login");
