@@ -7,7 +7,7 @@
                         <img src="../../assets/Logo.png" alt="Logo do animal-save" />
                     </article>
                     <nav class="nav_container">
-                        <button class="button is-primary" @click="onClickEditProfile(provider.id)">
+                        <button class="button is-primary" @click="onClickEditProfile()">
                             <h1>Meus dados</h1>
                         </button>
                         <button class="button is-primary" @click="onClickRegisterService()">
@@ -61,8 +61,6 @@ export default class ProviderView extends Vue {
 
     public provider: Provider = new Provider()
 
-    public id: Number = 0
-
     public mounted(): void {
         this.listarTasks()
     }
@@ -88,18 +86,20 @@ export default class ProviderView extends Vue {
         )
     }
 
-    public onClickEditProfile(providerId: Number) {
-        router.push({ path: `/atualizarFornecedor/${providerId}` })
+    public onClickEditProfile() {
+        var id = Number(this.$route.params.id)
+        router.push({ path: `/fornecedor/atualizarFornecedor/${id}` })
     }
 
     public onClickRegisterService() {
-        this.id = Number(this.$route.params.id)
-        router.push({ path: `/cadastrarServico/${this.id}` })
+        var id = String(this.$route.params.id)
+        sessionStorage.setItem('idProvider', id)
+        router.push({ path: `/fornecedor/cadastrarServico/${id}` })
     }
 
     public onClickEdit(id: number) {
         var id = Number(this.$route.params.id)
-        router.push({ path: `/atualizarServico/${id}` })
+        router.push({ path: `/fornecedor/atualizarServico/${id}` })
     }
 }
 </script>
