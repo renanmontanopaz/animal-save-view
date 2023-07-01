@@ -1,9 +1,24 @@
 <template>
   <main class="content column">
+    <header>
+      <div id="container-title" class="panel is-primary">
+        <img id="logo" src="../../assets/Logo.png">
+        <div id="dropdown" class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Minha conta
+          </a>
+          <div class="navbar-dropdown">
+            <a id="sair" class="navbar-item">
+              Sair
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
     <div class="panel">
-      <p class="panel-heading">Gestão de Acesso</p>
       <p class="panel-tabs">
-        <a v-for="(tab, index) in tabs" :key="index" :class="{'is-active':tab.isActive}" @click="activateTab(tab)">
+        <a v-for="(tab, index) in tabs" :key="index" :class="{ 'is-active': tab.isActive }" @click="activateTab(tab)">
           <span>{{ tab.label }}</span>
         </a>
       </p>
@@ -88,7 +103,62 @@ export default class Administrator extends Vue {
 
 <style scoped>
 
-.panel.is-primary .panel-tabs a.is-active {
-  border-bottom-color: hsl(171deg, 100%, 41%);
+main {
+  background-color: #EBE3CC;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 100%;
+  padding-bottom: 100px;
+
+  background-color: #EBE3CC;
+}
+
+#container-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+#logo {
+  width: 250px;
+}
+
+#dropdown {
+  font-weight: 600;
+  font-size: 20px;
+  color: black;
+}
+
+.navbar-item {
+  font-size: 16px;
+}
+
+#sair {
+  color: red;
+}
+
+#title {
+  font-size: 24px;
+}
+
+.panel-tabs {
+  display: flex;
+  font-size: 18px;
+  font-weight: 500;
+  color: #002D4C;
+}
+
+.panel-tabs a.is-active span {
+  color: #FBBD08;
+}
+
+.panel-tabs a {
+  color: #002D4C;
 }
 </style>
