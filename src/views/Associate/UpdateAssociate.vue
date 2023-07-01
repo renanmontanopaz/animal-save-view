@@ -652,20 +652,20 @@ main {
             }
 
             #cadastrar {
-                color: #002D4C;
+                color: white;
                 background: #48C88F;
             }
 
             #button-back {
-                color: #002D4C;
+                color: white;
             }
 
             #button-back-previous-pag {
-                color: #002D4C;
+                color: white;
             }
 
             #button-update-password {
-                color: #002D4C;
+                color: white;
                 background-color: #F64367;
             }
         }
