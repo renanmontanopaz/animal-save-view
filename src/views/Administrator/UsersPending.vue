@@ -606,7 +606,7 @@ main {
     background-color: #EBE3CC;
     border-radius: 10px;
     padding: 30px;
-    border: 2px solid black;
+    border: 2px solid #EBE3CC;
 }
 
 .container-inputs-modal {

@@ -8,9 +8,11 @@
             Minha conta
           </a>
           <div class="navbar-dropdown">
-            <a id="sair" class="navbar-item">
-              Sair
-            </a>
+            <router-link to="/login">
+              <a id="sair" class="navbar-item">
+                Sair
+              </a>
+            </router-link>
           </div>
         </div>
       </div>
@@ -102,7 +104,6 @@ export default class Administrator extends Vue {
 </script>
 
 <style scoped>
-
 main {
   background-color: #EBE3CC;
 }
