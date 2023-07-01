@@ -167,9 +167,12 @@ import { Component } from 'vue-property-decorator'
 import { cnpj } from 'cpf-cnpj-validator'
 import axios from 'axios'
 import { Message } from '@/model/Message'
+import { UserClient } from '@/client/User.client';
 
 @Component
 export default class UpdateProviderView extends Vue {
+
+    private userClient: UserClient = new UserClient();
 
     private providerClient: ProviderClient = new ProviderClient
 
@@ -200,17 +203,16 @@ export default class UpdateProviderView extends Vue {
 
     public notificationSave: boolean = false;
 
-    private id = Number(this.$route.params.id)
-
     public mounted(): void {
-        this.getProvider()
+        this.getProviderByUser()
         this.fillProvider()
     }
 
-    private getProvider(): void {
-        this.providerClient.findById(this.id).then(
+    public getProviderByUser(): void {
+        var id = Number(this.$route.params.id)
+        this.userClient.findProviderByIdUser(id).then(
             success => {
-                this.provider = success
+                this.provider = success;
             },
             error => console.log(error)
         )
@@ -257,11 +259,13 @@ export default class UpdateProviderView extends Vue {
     }
 
     public onClickUpdate(): void {
+        this.validateFormProvider()
+        this.fillProvider()
         if (this.allInputsValidsProvider() === true) {
-            this.providerClient.save(this.provider).then(
+            this.providerClient.update(this.provider).then(
                 success => {
                     console.log('Fornecedor atualizado com sucesso!')
-                    this.provider = new Provider()
+                    this.notificationSave = true;
                 },
                 error => {
                     console.log(error)
@@ -436,6 +440,17 @@ export default class UpdateProviderView extends Vue {
         } else {
             return false
         }
+    }
+
+    public validateFormProvider() {
+        this.validateInputNameFantasy()
+        this.validateInputNameBusiness()
+        this.validateInputContactProvider()
+        this.validateInputCpnjProvider()
+        this.validateInputEmailProvider()
+        this.validateInputPasswordProvider()
+        this.validateInputCepProvider()
+        this.validateInputNumberProvider()
     }
 
     public closeNotification() {
