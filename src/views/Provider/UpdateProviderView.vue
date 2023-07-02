@@ -171,10 +171,10 @@
                                     class="button is-link is-info" id="previous_button">Página anterior</button>
                                 <button v-if="selectUpdatePassword === true" @click="onClickUpdatePassword()"
                                     class="button is-success" id="save_button">Salvar</button>
-                                <button v-if="selectUpdatePassword === false" @click="clickUpdatePassword()"
-                                    class="button is-link is-danger" id="password_button">Alterar Senha</button>
                                 <button v-if="selectUpdatePassword === false" @click="onClickBack()"
                                     class="button is-link is-light" id="back_button">Voltar</button>
+                                <button v-if="selectUpdatePassword === false" @click="clickUpdatePassword()"
+                                    class="button is-link is-danger" id="password_button">Alterar Senha</button>
                                 <button v-if="selectUpdatePassword === false" @click="onClickUpdate()"
                                     class="button is-success" id="save_button">Salvar</button>
                             </div>
@@ -182,7 +182,6 @@
                     </div>
                 </div>
             </div>
-
         </main>
     </section>
 </template>
@@ -579,7 +578,7 @@ export default class UpdateProviderView extends Vue {
 
     #password_button {
         background-color: #F64367;
-        color: #002D4C;
+        color: #FFFFFF;
     }
 
     #back_button {
@@ -589,7 +588,7 @@ export default class UpdateProviderView extends Vue {
 
     #save_button {
         background-color: #48C88F;
-        color: #002D4C;
+        color: #FFFFFF;
     }
 
     #email_field {
@@ -623,6 +622,10 @@ export default class UpdateProviderView extends Vue {
     button:hover {
         filter: brightness(1.1);
         transform: scale(1.1);
+    }
+
+    p {
+        color: #F64367;
     }
 
     .main_form {

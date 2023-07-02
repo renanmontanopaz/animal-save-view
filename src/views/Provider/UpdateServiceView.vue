@@ -293,7 +293,7 @@ export default class EditServiceView extends Vue {
 
     #update_button {
         background-color: #48C88F;
-        color: #002D4C;
+        color: #FFFFFF;
     }
 
     #back_button {
@@ -328,7 +328,7 @@ export default class EditServiceView extends Vue {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 50%;
+        width: 40%;
         height: 50%;
         background-color: #EBE3CC;
         border-radius: 20px;

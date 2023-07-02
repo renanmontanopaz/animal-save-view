@@ -243,7 +243,7 @@ export default class ProviderView extends Vue {
 
     #delete_button {
         background-color: #F64367;
-        color: #002D4C;
+        color: #FFFFFF;
     }
 
     #title_h1 {
@@ -265,6 +265,7 @@ export default class ProviderView extends Vue {
     tr {
         border: 1.6px solid #003C6B;
     }
+
 
     .modal-mask {
         color: #002D4C;
@@ -336,7 +337,7 @@ export default class ProviderView extends Vue {
             #delete_button_modal {
                 width: 120px;
                 background-color: #F64367;
-                color: #002D4C;
+                color: #FFFFFF;
             }
 
             .modal-body {

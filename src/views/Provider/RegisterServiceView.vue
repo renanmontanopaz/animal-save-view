@@ -314,7 +314,7 @@ export default class RegisterServiceView extends Vue {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 50%;
+        width: 40%;
         height: 50%;
         background-color: #EBE3CC;
         border-radius: 20px;
