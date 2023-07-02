@@ -53,4 +53,18 @@ describe('Landing Page', () => {
     cy.get('.containerText > p').should('have.text', 'Juntos pela felicidade dos animais! Seja parte da nossa equipe, lutando por um mundo onde nenhum animal seja deixado para trás.');
   });
 
+  it('Deve exibir a tela Partners corretamente', () => {
+    cy.get('.containerParceiros').should('exist');
+    cy.get('.containerParceiros > :nth-child(1)').should('exist');
+    cy.get(':nth-child(1) > :nth-child(1) > .ImgCachorro').should('exist');
+    cy.get(':nth-child(1) > .containerImageParceiros').should('exist');
+    cy.get(':nth-child(1) > .containerImageParceiros > .containerImg').should('exist');
+    cy.get(':nth-child(2) > :nth-child(1) > .ImgCachorro').should('exist');
+    cy.get(':nth-child(2) > .containerImageParceiros').should('exist');
+    cy.get(':nth-child(2) > .containerImageParceiros > .containerImg').should('exist');
+    cy.get(':nth-child(3) > :nth-child(1) > .ImgCachorro').should('exist');
+    cy.get(':nth-child(3) > .containerImageParceiros').should('exist');
+    cy.get(':nth-child(3) > .containerImageParceiros > .containerImg').should('exist');
+  });
+
 });
