@@ -17,7 +17,7 @@
                 </section>
             </header>
             <div class="columns is-fullwidth">
-                <h1 class="title">Lista de Serviços</h1>
+                <h1 id="title_h1" class="title">Lista de Serviços</h1>
 
                 <table class="table is-bordered is-striped">
                     <thead>
@@ -123,88 +123,104 @@ export default class ProviderView extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 .section_form {
+    font-family: Poppins;
     min-height: 100vh;
     background-color: #EBE3CC;
+    font-family: Poppins;
 
     #edit_button {
         background-color: #FBBD08;
-        color: black;
+        color: #002D4C;
     }
 
     #delete_button {
         background-color: #F64367;
-        color: black;
+        color: #002D4C;
+    }
+
+    #title_h1 {
+        color: #002D4C;
     }
 
     #nav_h1 {
         color: #002D4C;
         cursor: pointer;
     }
-}
 
-.header {
-    position: relative;
-    width: 100%;
-    height: 93px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .section_container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 310px;
+    tr,
+    th {
+        background-color: #EBE3CC;
+        color: #002D4C;
     }
 
-    .article_container {
+
+    .header {
+        position: relative;
+        width: 100%;
+        height: 93px;
+
         display: flex;
         align-items: center;
         justify-content: center;
-    }
 
-    .nav_container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 66px;
+        .section_container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 310px;
+        }
 
-        h1 {
-            text-decoration: none;
+        .article_container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav_container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 66px;
+
+            h1 {
+                text-decoration: none;
+            }
         }
     }
-}
 
-.columns {
-    h1 {
-        font-size: 36px;
-        color: black;
-    }
+    .columns {
+        h1 {
+            font-size: 36px;
+            color: black;
+        }
 
-    table {
-        width: 70%;
-        background-color: #EBE3CC;
-    }
+        table {
+            width: 70%;
+            background-color: #EBE3CC;
+        }
 
-    .is-bordered {
-        border: 1px solid black;
-    }
+        .serviceField {
+            width: 79%;
+        }
 
-    .serviceField {
-        width: 79%;
-    }
+        .align_buttons {
+            display: flex;
+            gap: 10px;
+        }
 
-    .align_buttons {
         display: flex;
-        gap: 10px;
-    }
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 30px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 30px;
+        button {
+            font-family: Poppins;
+            font-weight: 300;
+        }
+    }
 }
 </style>

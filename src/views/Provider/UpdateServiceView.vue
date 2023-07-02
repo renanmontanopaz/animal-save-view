@@ -1,9 +1,9 @@
 <template>
-    <section>
-        <main style="display: flex; width: 100%; align-items: center; justify-content: center;">
+    <section class="section_form">
+        <main>
             <div class="column is-7">
                 <div class="control">
-                    <h1 class="title">Editar Serviço</h1>
+                    <h1 id="title_h1" class="title">Editar Serviço</h1>
                 </div>
                 <div class="columns" v-if="notificacao.ativo">
                     <div class="column is-12">
@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label">Nome do serviço</label>
+                    <label id="label" class="label">Nome do serviço</label>
                     <div class="control has-icons-left">
                         <input v-model="task.name" @blur="validateInputName" :class="`${inputName}`" class="input"
                             type="input" placeholder="Ex: Ração">
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="field">
-                    <label class="label">Custo</label>
+                    <label id="label" class="label">Custo</label>
                     <div class="control has-icons-left">
                         <input v-model="task.cost" @blur="validateInputCost" :class="`${inputCost}`" class="input"
                             type="input" placeholder="Ex: 100.00">
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="field">
-                    <label class="label">Valor mensal</label>
+                    <label id="label" class="label">Valor mensal</label>
                     <div class="control has-icons-left">
                         <input v-model="task.monthlyAmount" @blur="validadeInputMonthlyAmount"
                             :class="`${inputMonthlyAmount}`" class="input" type="input" placeholder="Ex: 10">
@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="field">
-                    <label class="label">Descrição</label>
+                    <label id="label" class="label">Descrição</label>
                     <div class="control has-icons-left">
                         <textarea v-model="task.description" @blur="validateInputDescription" :class="`${inputDescription}`"
                             class="input" placeholder="Descrição"></textarea>
@@ -77,9 +77,15 @@
                     </div>
                 </div>
 
-                <div class="field is-grouped column is-full" style="display: flex; justify-content: space-evenly;">
-                    <button @click="onClickBack()" class="button is-link is-light">Voltar</button>
-                    <button @click="onClickUpdate()" class="button is-primary is-focused">Atualizar</button>
+                <div class="field">
+                    <div class="container_buttons">
+                        <div class="control">
+                            <button @click="onClickBack()" class="button is-link is-light" id="back_button">Voltar</button>
+                        </div>
+                        <div class="control">
+                            <button @click="onClickUpdate()" class="button is-primary" id="update_button">Atualizar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -275,19 +281,62 @@ export default class EditServiceView extends Vue {
 
 <style lang="scss" scoped>
 @import "~bulma/bulma.sass";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-main {
+.section_form {
+    min-height: 100vh;
+    background-color: #EBE3CC;
+    font-family: Poppins;
 
-    .title {
-        padding: 20px 0px 20px 0px;
+    #update_button {
+        background-color: #48C88F;
+        color: #002D4C;
     }
 
-    textarea {
-        resize: none;
-        min-width: 300px;
-        min-height: 150px;
-        max-width: auto;
-        max-height: auto;
+    #back_button {
+        background-color: #FBBD08;
+        color: #002D4C;
+    }
+
+    #title_h1 {
+        color: #002D4C;
+    }
+
+    #label {
+        color: #002D4C;
+    }
+
+    main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+
+        .title {
+            padding: 20px 0px 20px 0px;
+        }
+
+        textarea {
+            resize: none;
+            min-width: 300px;
+            min-height: 150px;
+            max-width: auto;
+            max-height: auto;
+        }
+
+        .container_buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 0px;
+            gap: 0px 30px;
+
+            button {
+                width: 100px;
+                font-family: Poppins;
+                font-weight: 300;
+            }
+        }
     }
 }
 </style>

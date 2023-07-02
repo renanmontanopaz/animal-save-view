@@ -1,8 +1,8 @@
 <template>
-    <main>
-        <section>
+    <section class="section_form">
+        <main>
             <div class="control">
-                <h1 class="title">Editar perfil</h1>
+                <h1 id="title_h1" class="title">Editar perfil</h1>
             </div>
 
             <article v-if="notificationSave" class="message is-success">
@@ -17,7 +17,7 @@
 
             <div class="align_inputs">
                 <div class="field">
-                    <label class="label">Nome fantasia</label>
+                    <label id="label" class="label">Nome fantasia</label>
                     <div class="control">
                         <input v-model="provider.fantasyName" @blur="validateInputNameFantasy"
                             :class="`${inputNameFantasy}`" class="input" type="text" placeholder="Nome fantasia">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label">Nome empresarial</label>
+                    <label id="label" class="label">Nome empresarial</label>
                     <div class="control">
                         <input v-model="provider.businessName" @blur="validateInputNameBusiness"
                             :class="`${inputNameBusiness}`" class="input" type="text" placeholder="Nome empresarial">
@@ -44,7 +44,7 @@
 
             <div class="align_inputs">
                 <div class="field">
-                    <label class="label">Contato</label>
+                    <label id="label" class="label">Contato</label>
                     <div class="control">
                         <input v-model="provider.contact" @blur="validateInputContactProvider"
                             :class="`${inputContactProvider}`" class="input" type="text" placeholder="Ex: (45) 9 0000-0000">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label">CNPJ</label>
+                    <label id="label" class="label">CNPJ</label>
                     <div class="control">
                         <input v-model="provider.cnpj" @blur="validateInputCpnjProvider" :class="`${inputCnpjProvider}`"
                             class="input" type="text" placeholder="Ex: 00.000.000/0001-00">
@@ -71,7 +71,7 @@
 
             <div class="align_inputs">
                 <div class="field">
-                    <label class="label">Email</label>
+                    <label id="label" class="label">Email</label>
                     <div class="control has-icons-left">
                         <input v-model="provider.user.login" @blur="validateInputEmailProvider"
                             :class="`${inputEmailProvider}`" class="input" type="text" placeholder="Ex: exemplo@gmail.com">
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label">Senha</label>
+                    <label id="label" class="label">Senha</label>
                     <div class="control has-icons-left">
                         <input v-model="provider.user.password" @blur="validateInputPasswordProvider"
                             :class="`${inputPasswordProvider}`" class="input" type="password"
@@ -105,7 +105,7 @@
 
             <div class="align_inputs">
                 <div class="field">
-                    <label class="label">CEP</label>
+                    <label id="label" class="label">CEP</label>
                     <div class="control">
                         <input v-model="provider.address.cep" @blur="validateInputCepProvider"
                             :class="`${inputCepProvider}`" class="input" type="number" placeholder="Ex: 01001-000">
@@ -117,7 +117,7 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label">Bairro</label>
+                    <label id="label" class="label">Bairro</label>
                     <div class="control">
                         <input v-model="provider.address.neighborhood" class="input" type="text" placeholder="Bairro"
                             disabled>
@@ -127,7 +127,7 @@
 
             <div class="align_inputs">
                 <div class="field">
-                    <label class="label">Rua</label>
+                    <label id="label" class="label">Rua</label>
                     <div class="control">
                         <input v-model="provider.address.road" class="input" type="input" placeholder="Rua" disabled>
                     </div>
@@ -149,15 +149,15 @@
             <div class="container_buttons">
                 <div class="align_buttons">
                     <div class="control">
-                        <button @click="onClickBack()" class="button is-link is-light">Voltar</button>
+                        <button @click="onClickBack()" class="button is-link is-light" id="back_button">Voltar</button>
                     </div>
                     <div class="control">
-                        <button @click="onClickUpdate()" class="button is-success is-focused">Atualizar</button>
+                        <button @click="onClickUpdate()" class="button is-success" id="update_button">Atualizar</button>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </main>
+    </section>
 </template>
 
 <script lang="ts" scoped>
@@ -467,41 +467,72 @@ export default class UpdateProviderView extends Vue {
 </script>
 
 <style lang="scss" scoped>
-main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-    .title {
-        padding: 20px 0px 20px 0px;
+.section_form {
+    min-height: 100vh;
+    background-color: #EBE3CC;
+    font-family: Poppins;
+
+    #title_id {
+        color: #002D4C;
     }
 
-    .align_inputs {
-        display: flex;
-        gap: 30px;
+    #label {
+        color: #002D4C;
     }
 
-    .container_buttons {
+    #back_button {
+        background-color: #FBBD08;
+        color: #002D4C;
+    }
+
+    #update_button {
+        background-color: #48C88F;
+        color: #002D4C;
+    }
+
+    button {
+        font-family: Poppins;
+        font-weight: 300;
+    }
+
+    main {
         display: flex;
+        align-items: center;
         justify-content: center;
-        padding: 30px 0px;
+        flex-direction: column;
 
-        .align_buttons {
+        .title {
+            padding: 20px 0px 20px 0px;
+        }
+
+        .align_inputs {
+            display: flex;
+            gap: 30px;
+        }
+
+        .container_buttons {
             display: flex;
             justify-content: center;
-            align-items: center;
-            max-width: 405px;
-            gap: 25px;
+            padding: 30px 0px;
+
+            .align_buttons {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                max-width: 405px;
+                gap: 25px;
+            }
+
+            .button {
+                width: 200px;
+            }
         }
 
-        .button {
-            width: 200px;
+        .field {
+            width: 300px;
         }
-    }
-
-    .field {
-        width: 300px;
     }
 }
 </style>

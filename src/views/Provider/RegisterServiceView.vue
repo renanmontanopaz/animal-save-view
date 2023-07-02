@@ -82,7 +82,7 @@
                         <button @click="onClickBack()" class="button is-link is-light" id="back_button">Voltar</button>
                     </div>
                     <div class="control">
-                        <button @click="onClickRegister()" class="button is-success is-focused" id="register_button"
+                        <button @click="onClickRegister()" class="button is-success" id="register_button"
                             type="submit">Cadastrar</button>
                     </div>
                 </div>
@@ -268,6 +268,7 @@ export default class RegisterServiceView extends Vue {
 
 <style lang="scss" scoped>
 @import "~bulma/bulma.sass";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 .section_form {
     display: flex;
@@ -276,6 +277,7 @@ export default class RegisterServiceView extends Vue {
     width: 100%;
     min-height: 100vh;
     background-color: #EBE3CC;
+    font-family: Poppins;
 
     #back_button {
         background-color: #FBBD08;
@@ -294,31 +296,34 @@ export default class RegisterServiceView extends Vue {
     #label {
         color: #002D4C;
     }
-}
 
-main {
 
-    .title {
-        padding: 20px 0px 20px 0px;
-    }
+    main {
 
-    textarea {
-        resize: none;
-        min-width: 300px;
-        min-height: 150px;
-        max-width: auto;
-        max-height: auto;
-    }
+        .title {
+            padding: 20px 0px 20px 0px;
+        }
 
-    .container_buttons {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 30px 0px;
-        gap: 0px 30px;
+        textarea {
+            resize: none;
+            min-width: 300px;
+            min-height: 150px;
+            max-width: auto;
+            max-height: auto;
+        }
 
-        button {
-            width: 100px;
+        .container_buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 0px;
+            gap: 0px 30px;
+
+            button {
+                width: 100px;
+                font-family: Poppins;
+                font-weight: 300;
+            }
         }
     }
 }
