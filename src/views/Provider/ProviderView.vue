@@ -4,7 +4,10 @@
             <header class="header">
                 <section class="section_container">
                     <article class="article_container">
-                        <img src="../../assets/Logo.png" alt="Logo do animal-save" />
+                        <router-link to="/" id="logo" class="message_image">
+                            <img src="../../assets/Logo.png" alt="Logo do animal-save" />
+                            <div class="message">Voltar para a tela inicial</div>
+                        </router-link>
                     </article>
                     <nav class="nav_container">
                         <h1 class="label" id="nav_h1" @click="onClickEditProfile()">
@@ -34,9 +37,9 @@
 
                             <th>
                                 <div class="align_buttons">
-                                    <button @click="onClickEdit(item.id)" class="button is-warning is-focused"
+                                    <button @click="onClickEdit(item.id)" class="button is-warning"
                                         id="edit_button">Editar</button>
-                                    <button @click="onClickDelete(item.id)" class="button is-danger is-focused"
+                                    <button @click="onClickDelete(item.id)" class="button is-danger"
                                         id="delete_button">Apagar</button>
                                 </div>
                             </th>
@@ -131,6 +134,17 @@ export default class ProviderView extends Vue {
     background-color: #EBE3CC;
     font-family: Poppins;
 
+    #logo {
+        background-color: #EBE3CC;
+        border: none;
+        transition: transform 0.2s;
+        cursor: pointer;
+    }
+
+    #logo:hover {
+        transform: scale(1.1);
+    }
+
     #edit_button {
         background-color: #FBBD08;
         color: #002D4C;
@@ -148,7 +162,39 @@ export default class ProviderView extends Vue {
     #nav_h1 {
         color: #002D4C;
         cursor: pointer;
+        transition: transform 0.2s;
     }
+
+    #nav_h1:hover {
+        transform: scale(1.1);
+    }
+
+    .message {
+        font-family: Poppins;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #002D4C;
+        color: #EBE3CC;
+        padding: 5px;
+        border-radius: 4px;
+        opacity: 0;
+        transition: opacity 0.2s;
+        white-space: nowrap;
+        z-index: 1;
+    }
+
+    .message_image {
+        position: relative;
+        display: inline-block;
+    }
+
+    .message_image:hover .message {
+        opacity: 1;
+    }
+
+
 
     tr,
     th {
@@ -220,6 +266,12 @@ export default class ProviderView extends Vue {
         button {
             font-family: Poppins;
             font-weight: 300;
+            transition: transform 0.3s ease;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            filter: brightness(1.1);
         }
     }
 }
