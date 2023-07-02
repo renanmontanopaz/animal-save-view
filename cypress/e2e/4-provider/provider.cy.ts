@@ -38,4 +38,129 @@ describe('Provider View', () => {
         });
 
     })
+
+    context('Quando acessar a página de atualizar Fornecedor', () => {
+
+        it('Deve reenderizar a página atualizarFornecedor corretamente"', () => {
+            cy.visit('http://localhost:3000/fornecedor/atualizarFornecedor/2');
+            cy.get(':nth-child(1) > :nth-child(2) > .control > .input').should('exist')
+            cy.get('.main_form').should('exist')
+            cy.get('#title_h1').should('exist')
+            cy.get(':nth-child(1) > :nth-child(1) > #label').should('exist')
+            cy.get(':nth-child(1) > :nth-child(2) > #label').should('exist')
+            cy.get(':nth-child(2) > :nth-child(1) > #label').should('exist')
+            cy.get(':nth-child(2) > :nth-child(2) > #label').should('exist')
+            cy.get('#email_field > #label').should('exist')
+            cy.get(':nth-child(4) > :nth-child(1) > #label').should('exist')
+            cy.get(':nth-child(4) > :nth-child(2) > #label').should('exist')
+            cy.get(':nth-child(5) > :nth-child(1) > #label').should('exist')
+            cy.get(':nth-child(5) > :nth-child(2) > .label').should('exist')
+
+            cy.get(':nth-child(1) > :nth-child(1) > .control > .input').should('exist')
+            cy.get(':nth-child(1) > :nth-child(2) > .control > .input').should('exist')
+            cy.get(':nth-child(2) > :nth-child(1) > .control > .input').should('exist')
+            cy.get(':nth-child(2) > :nth-child(2) > .control > .input').should('exist')
+            cy.get('#email_field > .control > .input').should('exist')
+            cy.get(':nth-child(4) > :nth-child(1) > .control > .input').should('exist')
+            cy.get(':nth-child(4) > :nth-child(2) > .control > .input').should('exist', 'be.disabled')
+            cy.get(':nth-child(5) > :nth-child(1) > .control > .input').should('exist', 'be.disabled')
+            cy.get(':nth-child(5) > :nth-child(2) > .control > .input').should('exist')
+
+            cy.get('#back_button').should('exist')
+            cy.get('#password_button').should('exist')
+            cy.get('#save_button').should('exist')
+
+        });
+
+        it('Não deve atualizar as informações do fornecedor dando informações erradas no input"', () => {
+            cy.visit('http://localhost:3000/fornecedor/atualizarFornecedor/2');
+
+            cy.get(':nth-child(1) > :nth-child(1) > .control > .input').clear().type('Abc').should('have.value', 'Abc')
+            cy.get(':nth-child(1) > :nth-child(2) > .control > .input').clear().type('Ab').should('have.value', 'Ab')
+            cy.get(':nth-child(2) > :nth-child(1) > .control > .input').clear().type('123').should('have.value', '123')
+            cy.get(':nth-child(2) > :nth-child(2) > .control > .input').clear().type('1212132').should('have.value', '1212132')
+            cy.get('#email_field > .control > .input').clear().type('abcde@fghi.com').should('have.value', 'abcde@fghi.com')
+            cy.get(':nth-child(4) > :nth-child(1) > .control > .input').clear().type('12345678').should('have.value', '12345678')
+            cy.get(':nth-child(4) > :nth-child(2) > .control > .input').should('be.disabled')
+            cy.get(':nth-child(5) > :nth-child(1) > .control > .input').should('be.disabled')
+            cy.get(':nth-child(5) > :nth-child(2) > .control > .input').clear().type('1234567890').should('have.value', '1234567890')
+
+            cy.get('#save_button').click()
+
+        });
+
+        it('Deve atualizar o input de nome fantasia, nome empresarial, e exibir a mensagem de sucesso"', () => {
+            cy.visit('http://localhost:3000/fornecedor/atualizarFornecedor/2');
+
+            cy.get(':nth-child(1) > :nth-child(1) > .control > .input').clear().type('Provider').should('have.value', 'Provider')
+            cy.get(':nth-child(1) > :nth-child(2) > .control > .input').clear().type('Provider business').should('have.value', 'Provider business')
+
+            cy.get('#save_button').click()
+
+            cy.get('.notification').should('be.visible')
+
+        });
+
+        it('Deve renderizar a tela de alterar senha ao clicar no botão "Alterar Senha"', () => {
+            cy.visit('http://localhost:3000/fornecedor/atualizarFornecedor/2');
+
+            cy.get('#password_button').click()
+
+            cy.get('.section_form').should('exist')
+            cy.get('.main_form').should('exist')
+            cy.get('#title_h1').should('exist')
+
+            cy.get(':nth-child(1) > .label').should('exist')
+            cy.get(':nth-child(1) > .control > .input').should('exist')
+            cy.get(':nth-child(2) > .label').should('exist')
+            cy.get(':nth-child(2) > .control > .input').should('exist')
+            cy.get('#previous_button').should('exist')
+            cy.get('#save_button').should('exist')
+
+        });
+
+        it('Deve alterar a senha de "provider" para "Provider" e depois voltar a senha padrão', () => {
+            cy.visit('http://localhost:3000/fornecedor/atualizarFornecedor/2');
+
+            cy.get('#password_button').click()
+            cy.get(':nth-child(1) > .control > .input').type('Provider')
+            cy.get(':nth-child(2) > .control > .input').type('Provider')
+
+            cy.get('#save_button').click()
+
+            cy.get(':nth-child(1) > .control > .input').clear().type('provider')
+            cy.get(':nth-child(2) > .control > .input').clear().type('provider')
+
+            cy.get('#save_button').click()
+
+        });
+
+        it('Não deve alterar a senha sendo senhas diferentes e verifica se a mensagem de erro aparece', () => {
+            cy.visit('http://localhost:3000/fornecedor/atualizarFornecedor/2');
+
+            cy.get('#password_button').click()
+            cy.get(':nth-child(1) > .control > .input').type('Provider')
+            cy.get(':nth-child(2) > .control > .input').type('Providerr')
+
+            cy.get('#save_button').click()
+
+            cy.get('li').should('be.visible')
+
+        });
+
+        it('Deve renderizar o formulário de atualizarFornecedor o clicar em "Página anterior"', () => {
+            cy.visit('http://localhost:3000/fornecedor/atualizarFornecedor/2');
+
+            cy.get('#password_button').click()
+
+            cy.get('#previous_button').click()
+
+            cy.url().should('include', '/atualizarFornecedor/2')
+
+            cy.get(':nth-child(1) > :nth-child(2) > .control > .input').should('exist')
+            cy.get('.main_form').should('exist')
+            cy.get('#title_h1').should('exist')
+        });
+
+    })
 })
