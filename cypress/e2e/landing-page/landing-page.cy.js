@@ -78,5 +78,15 @@ describe('Landing Page', () => {
     cy.get('[src="/img/Facebook.dc5675c3.svg"]').should('exist');
     cy.get('[src="/img/Instagram.f3fe2f41.svg"]').should('exist');
   });
+});
 
+describe('RegisterOccurences', () => {
+  beforeEach(() => {
+    cy.viewport('macbook-15');
+    cy.visit('http://localhost:3000/');
+  });
+
+  it('Deve exibir o formulario Registro Público', () => {
+    
+  });
 });
