@@ -183,7 +183,17 @@ export default class Register extends Vue {
 .panel.is-primary .panel-tabs a.is-active {
   border-bottom-color: hsl(171deg, 100%, 41%);
 }
+.input {
+  box-shadow: inset 0 0.0625em 0.125em rgba(10, 10, 10, 0.05);
+  max-width: 100%;
+  width: 100%;
+  margin-left: 15px;
+}
 
+.vs--searchable .vs__dropdown-toggle {
+  cursor: text;
+  margin-left: 15px;
+}
 .containerFlex {
   display: flex;
   flex-direction: column;
