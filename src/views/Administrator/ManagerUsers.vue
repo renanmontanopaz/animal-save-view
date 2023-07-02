@@ -315,7 +315,7 @@ interface Tab {
 interface caregiver {
   "id": number,
   "active": boolean,
-  "register": string,
+  "register": Date,
   "update": string,
   "firstName": string,
   "lastName": string,
@@ -335,7 +335,7 @@ interface caregiver {
 interface associate {
   "id": number,
   "active": boolean,
-  "register": string,
+  "register": Date,
   "update": string,
   "firstName": string,
   "lastName": string,
@@ -352,7 +352,7 @@ interface associate {
 interface provider {
   "id": number,
   "active": boolean,
-  "register": string,
+  "register": Date,
   "update": string,
   "fantasyName": string,
   "businessName": string,
@@ -517,7 +517,7 @@ export default class ManagerUsers extends Vue {
     const caregiverData: caregiver = {
       id: data.id,
       active: data.active,
-      register: moment().format('DD/MM/YYYY HH:mm:ss'),
+      register: data.register,
       update: moment().format('DD/MM/YYYY HH:mm:ss'),
       firstName: data.firstName,
       lastName: data.lastName,
@@ -562,7 +562,7 @@ export default class ManagerUsers extends Vue {
     const associateData: associate = {
       id: data.id,
       active: data.active,
-      register: moment().format('DD/MM/YYYY HH:mm:ss'),
+      register: data.register,
       update: moment().format('DD/MM/YYYY HH:mm:ss'),
       firstName: data.firstName,
       lastName: data.lastName,
@@ -603,7 +603,7 @@ export default class ManagerUsers extends Vue {
     const providerData: provider = {
       id: data.id,
       active: data.active,
-      register: moment().format('DD/MM/YYYY HH:mm:ss'),
+      register: data.register,
       update: moment().format('DD/MM/YYYY HH:mm:ss'),
       businessName: data.businessName,
       fantasyName: data.fantasyName,
