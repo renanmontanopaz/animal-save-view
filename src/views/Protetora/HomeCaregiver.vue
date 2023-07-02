@@ -121,7 +121,7 @@ header {
 
 #title {
   font-size: 24px;
-  background-color: hsl(147, 100%, 41%);
+  background-color: #fbbd08;
   display: flex;
   justify-content: center;
 }
@@ -141,7 +141,7 @@ span {
 }
 
 .panel-tabs a.is-active span {
-  color: hsl(113, 100%, 41%);
+  color: #fbbd08;
 }
 
 .panel.is-primary {
