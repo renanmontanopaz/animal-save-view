@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="section_form">
         <main>
             <header class="header">
                 <section class="section_container">
@@ -7,19 +7,19 @@
                         <img src="../../assets/Logo.png" alt="Logo do animal-save" />
                     </article>
                     <nav class="nav_container">
-                        <button class="button is-primary" @click="onClickEditProfile()">
-                            <h1>Meus dados</h1>
-                        </button>
-                        <button class="button is-primary" @click="onClickRegisterService()">
+                        <h1 class="label" id="nav_h1" @click="onClickEditProfile()">
+                            Meus dados
+                        </h1>
+                        <h1 class="label" id="nav_h1" @click="onClickRegisterService()">
                             Cadastrar serviço
-                        </button>
+                        </h1>
                     </nav>
                 </section>
             </header>
             <div class="columns is-fullwidth">
                 <h1 class="title">Lista de Serviços</h1>
 
-                <table class="table is-bordered">
+                <table class="table is-bordered is-striped">
                     <thead>
                         <tr>
                             <th>Serviço</th>
@@ -34,10 +34,10 @@
 
                             <th>
                                 <div class="align_buttons">
-                                    <button @click="onClickEdit(item.id)"
-                                        class="button is-warning is-focused">Editar</button>
-                                    <button @click="onClickDelete(item.id)"
-                                        class="button is-danger is-focused">Apagar</button>
+                                    <button @click="onClickEdit(item.id)" class="button is-warning is-focused"
+                                        id="edit_button">Editar</button>
+                                    <button @click="onClickDelete(item.id)" class="button is-danger is-focused"
+                                        id="delete_button">Apagar</button>
                                 </div>
                             </th>
                         </tr>
@@ -123,6 +123,26 @@ export default class ProviderView extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.section_form {
+    min-height: 100vh;
+    background-color: #EBE3CC;
+
+    #edit_button {
+        background-color: #FBBD08;
+        color: black;
+    }
+
+    #delete_button {
+        background-color: #F64367;
+        color: black;
+    }
+
+    #nav_h1 {
+        color: #002D4C;
+        cursor: pointer;
+    }
+}
+
 .header {
     position: relative;
     width: 100%;
@@ -165,6 +185,11 @@ export default class ProviderView extends Vue {
 
     table {
         width: 70%;
+        background-color: #EBE3CC;
+    }
+
+    .is-bordered {
+        border: 1px solid black;
     }
 
     .serviceField {
