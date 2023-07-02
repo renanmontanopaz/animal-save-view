@@ -26,6 +26,7 @@
                     <thead>
                         <tr>
                             <th>Serviço</th>
+                            <th>Custo</th>
                             <th>Quantidade mensal</th>
                             <th>Opções</th>
                         </tr>
@@ -33,19 +34,57 @@
                     <tbody>
                         <tr v-for="item in taskList">
                             <th class="serviceField"> {{ item.name }}</th>
+                            <th class="serviceField"> {{ item.cost }}</th>
                             <th class="serviceField"> {{ item.monthlyAmount }}</th>
 
                             <th>
                                 <div class="align_buttons">
                                     <button @click="onClickEdit(item.id)" class="button is-warning"
                                         id="edit_button">Editar</button>
-                                    <button @click="onClickDelete(item.id)" class="button is-danger"
+                                    <button @click="onClickShowModal()" class="button is-danger"
                                         id="delete_button">Apagar</button>
                                 </div>
                             </th>
                         </tr>
                     </tbody>
                 </table>
+                <div v-if="showModal === true" v-for="item in taskList">
+                    <transition name="modal">
+                        <div class="modal-mask">
+                            <div class="modal-wrapper">
+                                <div class="modal-container">
+
+                                    <div class="modal-header">
+                                        <slot class="modal_title" name="header">
+                                            <h1 class="title" id="title_h1_modal">Atenção!</h1>
+                                        </slot>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <slot class="modal_body" name="body">
+                                            <h2 class="title center-text" id="title_h2_modal">
+                                                Excluir esse serviço é uma ação sem volta, tem certeza que deseja deletar?
+                                            </h2>
+                                        </slot>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <slot name="footer">
+                                            <button @blur="onCancelModal()" class="button is-link"
+                                                @click="showModal = false" id="edit_button">
+                                                Cancelar
+                                            </button>
+                                            <button :disabled="isButtonDisabled" class="button is-danger"
+                                                @click="onClickDelete(item.id)" id="delete_button_modal">
+                                                {{ isButtonDisabled ? remainingTime : 'Deletar' }}
+                                            </button>
+                                        </slot>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </transition>
+                </div>
             </div>
         </main>
     </section>
@@ -68,6 +107,12 @@ export default class ProviderView extends Vue {
 
     public provider: Provider = new Provider()
     private userClient: UserClient = new UserClient()
+
+    public showModal: boolean = false
+    public isButtonDisabled: boolean = false
+    remainingTime: number = 0
+    timer: ReturnType<typeof setInterval> | null = null;
+    cancelTimer: boolean = false;
 
     public mounted(): void {
         this.getProviderByUser()
@@ -107,6 +152,52 @@ export default class ProviderView extends Vue {
             }
         )
     }
+
+    public onClickShowModal(): void {
+        this.showModal = true
+        this.isButtonDisabled = true;
+        this.remainingTime = 4;
+        this.startTimer()
+
+        setTimeout(() => {
+            this.isButtonDisabled = false;
+        }, 4000);
+    }
+
+    startTimer(): void {
+        this.cancelTimer = false;
+        this.timer = setInterval(() => {
+            if (this.cancelTimer) {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                }
+                this.timer = null;
+                this.remainingTime = 0;
+                return;
+            }
+
+            this.remainingTime--;
+
+            if (this.remainingTime === 0) {
+                this.isButtonDisabled = false;
+                if (this.timer) {
+                    clearInterval(this.timer);
+                }
+                this.timer = null;
+            }
+        }, 1000);
+    }
+
+    onCancelModal(): void {
+        this.showModal = false
+        if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = null;
+        }
+        this.remainingTime = 0;
+        this.isButtonDisabled = false;
+    }
+
 
     public onClickEditProfile() {
         var id = Number(this.$route.params.id)
@@ -173,6 +264,99 @@ export default class ProviderView extends Vue {
     th,
     tr {
         border: 1.6px solid #003C6B;
+    }
+
+    .modal-mask {
+        color: #002D4C;
+        font-family: Poppins;
+
+        .modal-container {
+            border: 5px solid #002D4C;
+            display: flex;
+            flex-direction: column;
+            width: 500px;
+            height: 400px;
+            border-radius: 20px;
+            background-color: #EBE3CC;
+            animation: borderAnimation 1s 2;
+
+            @keyframes borderAnimation {
+                0% {
+                    border-color: #002D4C;
+                }
+
+                50% {
+                    border-color: #F64367;
+                }
+
+                100% {
+                    border-color: #002D4C;
+                }
+            }
+
+            #title_h1_modal {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                color: #002D4C;
+                font-size: 24px;
+                font-weight: 600;
+                margin: 0;
+                padding: 20px;
+                animation: titleAnimation 1s 2;
+            }
+
+            @keyframes titleAnimation {
+                0% {
+                    font-size: 24px;
+                    color: #002D4C;
+                }
+
+                50% {
+                    font-size: 28px;
+                    color: #F64367;
+                }
+
+                100% {
+                    font-size: 24px;
+                    color: #002D4C;
+                }
+            }
+
+            #title_h2_modal {
+                display: flex;
+                font-size: 20px;
+                align-items: center;
+                justify-content: center;
+                color: #002D4C;
+                font-weight: 300;
+            }
+
+            #delete_button_modal {
+                width: 120px;
+                background-color: #F64367;
+                color: #002D4C;
+            }
+
+            .modal-body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 60px;
+            }
+
+            .center-text {
+                text-align: center;
+            }
+
+            .modal-footer {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 50px;
+            }
+        }
     }
 
     .message {
