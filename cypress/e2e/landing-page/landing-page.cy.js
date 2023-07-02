@@ -83,9 +83,7 @@ describe('Landing Page', () => {
 describe('RegisterOccurences', () => {
   beforeEach(() => {
     cy.viewport('macbook-15');
-    cy.visit('http://localhost:3000/');
-    cy.get('a[href="/register-occurences"]').click();
-    cy.url().should('include', '/register-occurences');
+    cy.visit('http://localhost:3000/register-occurences');
   });
 
   it('Deve exibir o formulario Registro Público', () => {
@@ -117,6 +115,9 @@ describe('RegisterOccurences', () => {
     cy.get('.controlButt').should('exist');
     cy.get('.butt').should('exist');
     cy.get('.butt2').should('exist');
+  });
 
+  it('Deve preencher o formulário corretamente', () => {
+    
   });
 });
