@@ -1,18 +1,16 @@
 <template>
     <main>
         <section>
-            <article v-if="notificationSave" class="message is-success">
-                <div class="message-header">
-                    <h3>Sucesso</h3>
-                    <button @click="closeNotification" class="delete" aria-label="delete"></button>
-                </div>
-                <div class="message-body">
-                    Serviço registrado com sucesso!
-                </div>
-            </article>
-
             <div class="control">
                 <h1 class="title">Cadastro de Serviço</h1>
+            </div>
+            <div class="columns" v-if="notificacao.ativo">
+                <div class="column is-12">
+                    <div :class="notificacao.classe" v-if="isVisible">
+                        <button @click="onClickFecharNotificacao" class="delete"></button>
+                        {{ notificacao.mensagem }}
+                    </div>
+                </div>
             </div>
             <div class="field">
                 <label class="label">Nome do serviço</label>
@@ -114,6 +112,8 @@ interface taskInterface {
 
 @Component
 export default class RegisterServiceView extends Vue {
+
+    isVisible = false;
     public task: Task = new Task()
 
     private taskClient: TaskClient = new TaskClient()
@@ -163,6 +163,12 @@ export default class RegisterServiceView extends Vue {
                 success => {
                     console.log('Serviço cadastrado com sucesso!')
                     this.task = new Task()
+                    this.showComponent();
+                    this.notificacao = this.notificacao.new(
+                        true,
+                        "notification is-primary",
+                        "Serviço cadastrado com sucesso!"
+                    );
                 },
                 error => {
                     console.log(error);
@@ -242,8 +248,16 @@ export default class RegisterServiceView extends Vue {
         }
     }
 
-    public closeNotification() {
-        this.notificationSave = false;
+    public onClickFecharNotificacao(): void {
+        this.notificacao = new Message();
+    }
+
+    public showComponent(): void {
+        this.isVisible = true;
+
+        setTimeout(() => {
+            this.isVisible = false;
+        }, 4000);
     }
 
     public onClickBack() {
