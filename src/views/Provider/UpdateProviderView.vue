@@ -1,192 +1,165 @@
 <template>
-    <section class="section_form">
-        <main class="main_form">
+    <main>
+        <section>
+            <article v-if="notificationSave" class="message is-success">
+                <div class="message-header">
+                    <h3>Sucesso</h3>
+                    <button @click="closeNotification" class="delete" aria-label="delete"></button>
+                </div>
+                <div class="message-body">
+                    Perfil atualizado com sucesso!
+                </div>
+            </article>
             <div class="control">
-                <h1 id="title_h1" class="title">Editar perfil</h1>
+                <h1 class="title">Editar perfil</h1>
             </div>
 
-            <div class="columns" v-if="notificacao.ativo">
-                <div class="column is-12">
-                    <div :class="notificacao.classe" v-if="isVisible">
-                        <button @click="onClickFecharNotificacao" class="delete"></button>
-                        {{ notificacao.mensagem }}
+            <div class="align_inputs">
+                <div class="field">
+                    <label class="label">Nome fantasia</label>
+                    <div class="control">
+                        <input v-model="provider.fantasyName" @blur="validateInputNameFantasy"
+                            :class="`${inputNameFantasy}`" class="input" type="text" placeholder="Nome fantasia">
+                        <p v-if="errorMessageNameFantasy">
+                        <ul>
+                            <li v-for="error in errorMessageNameFantasy" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
                     </div>
                 </div>
-            </div>
-
-            <div v-if="selectUpdatePassword === false">
-                <div class="align_inputs">
-                    <div class="field">
-                        <label id="label" class="label">Nome fantasia</label>
-                        <div class="control">
-                            <input v-model="provider.fantasyName" @blur="validateInputNameFantasy"
-                                :class="`${inputNameFantasy}`" class="input" type="text" placeholder="Nome fantasia">
-                            <p v-if="errorMessageNameFantasy">
-                            <ul>
-                                <li v-for="error in errorMessageNameFantasy" :key="error">{{ error }}</li>
-                            </ul>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label id="label" class="label">Nome empresarial</label>
-                        <div class="control">
-                            <input v-model="provider.businessName" @blur="validateInputNameBusiness"
-                                :class="`${inputNameBusiness}`" class="input" type="text" placeholder="Nome empresarial">
-                            <p v-if="errorMessageNameBusiness">
-                            <ul>
-                                <li v-for="error in errorMessageNameBusiness" :key="error">{{ error }}</li>
-                            </ul>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="align_inputs">
-                    <div class="field">
-                        <label id="label" class="label">Contato</label>
-                        <div class="control">
-                            <input v-model="provider.contact" @blur="validateInputContactProvider"
-                                :class="`${inputContactProvider}`" class="input" type="text"
-                                placeholder="Ex: (45) 9 0000-0000">
-                            <p v-if="errorMessageContactProvider">
-                            <ul>
-                                <li v-for="error in errorMessageContactProvider" :key="error">{{ error }}</li>
-                            </ul>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label id="label" class="label">CNPJ</label>
-                        <div class="control">
-                            <input v-model="provider.cnpj" @blur="validateInputCpnjProvider" :class="`${inputCnpjProvider}`"
-                                class="input" type="text" placeholder="Ex: 00.000.000/0001-00">
-                            <p v-if="errorMessageCnpjProvider">
-                            <ul>
-                                <li v-for="error in errorMessageCnpjProvider" :key="error">{{ error }}</li>
-                            </ul>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="align_inputs">
-                    <div class="field" id="email_field">
-                        <label id="label" class="label">Email</label>
-                        <div class="control has-icons-left">
-                            <input v-model="provider.user.login" @blur="validateInputEmailProvider"
-                                :class="`${inputEmailProvider}`" class="input" type="text"
-                                placeholder="Ex: exemplo@gmail.com">
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-user"></i>
-                            </span>
-                            <p v-if="errorMessageEmailProvider">
-                            <ul>
-                                <li v-for="error in errorMessageEmailProvider" :key="error">{{ error }}</li>
-                            </ul>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="align_inputs">
-                    <div class="field">
-                        <label id="label" class="label">CEP</label>
-                        <div class="control">
-                            <input v-model="provider.address.cep" @blur="validateInputCepProvider"
-                                :class="`${inputCepProvider}`" class="input" type="number" placeholder="Ex: 01001-000">
-                            <p v-if="errorMessageCepProvider">
-                            <ul>
-                                <li v-for="error in errorMessageCepProvider" :key="error">{{ error }}</li>
-                            </ul>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label id="label" class="label">Bairro</label>
-                        <div class="control">
-                            <input v-model="provider.address.neighborhood" class="input" type="text" placeholder="Bairro"
-                                disabled>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="align_inputs">
-                    <div class="field">
-                        <label id="label" class="label">Rua</label>
-                        <div class="control">
-                            <input v-model="provider.address.road" class="input" type="input" placeholder="Rua" disabled>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">Número</label>
-                        <div class="control">
-                            <input v-model="provider.address.houseNumber" @blur="validateInputNumberProvider"
-                                :class="`${inputNumberProvider}`" class="input" type="number" placeholder="Número">
-                            <p v-if="errorMessageNumberProvider">
-                            <ul>
-                                <li v-for="error in errorMessageNumberProvider" :key="error">{{ error }}</li>
-                            </ul>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div v-if="selectUpdatePassword === true">
-                <div class="aling_inputs">
-                    <div class="field">
-                        <label class="label">Nova senha</label>
-                        <div class="control">
-                            <input @blur="validateInputPasswordProvider" v-model="provider.user.newPassword"
-                                :class="`${inputPasswordProvider}`" type="password" placeholder="Nova senha" />
-                            <p v-if="errorMessagePassword">
-                            <ul>
-                                <li v-for="error in errorMessagePassword" :key="error">{{ error }}</li>
-                            </ul>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Confirme a senha</label>
-                        <div class="control">
-                            <input @blur="validateConfirmPasswordProvider" v-model="provider.user.confirmPassword"
-                                :class="`${inputConfirmPasswordProvider}`" type="password" placeholder="Confirme a senha">
-                            <p v-if="errorMessageConfirmPassword">
-                            <ul>
-                                <li v-for="error in errorMessageConfirmPassword" :key="error">{{ error }}</li>
-                            </ul>
-                            </p>
-                        </div>
+                <div class="field">
+                    <label class="label">Nome empresarial</label>
+                    <div class="control">
+                        <input v-model="provider.businessName" @blur="validateInputNameBusiness"
+                            :class="`${inputNameBusiness}`" class="input" type="text" placeholder="Nome empresarial">
+                        <p v-if="errorMessageNameBusiness">
+                        <ul>
+                            <li v-for="error in errorMessageNameBusiness" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
                     </div>
                 </div>
             </div>
+
+            <div class="align_inputs">
+                <div class="field">
+                    <label class="label">Contato</label>
+                    <div class="control">
+                        <input v-model="provider.contact" @blur="validateInputContactProvider"
+                            :class="`${inputContactProvider}`" class="input" type="text" placeholder="Ex: (45) 9 0000-0000">
+                        <p v-if="errorMessageContactProvider">
+                        <ul>
+                            <li v-for="error in errorMessageContactProvider" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">CNPJ</label>
+                    <div class="control">
+                        <input v-model="provider.cnpj" @blur="validateInputCpnjProvider" :class="`${inputCnpjProvider}`"
+                            class="input" type="text" placeholder="Ex: 00.000.000/0001-00">
+                        <p v-if="errorMessageCnpjProvider">
+                        <ul>
+                            <li v-for="error in errorMessageCnpjProvider" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="align_inputs">
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control has-icons-left">
+                        <input v-model="provider.user.login" @blur="validateInputEmailProvider"
+                            :class="`${inputEmailProvider}`" class="input" type="text" placeholder="Ex: exemplo@gmail.com">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <p v-if="errorMessageEmailProvider">
+                        <ul>
+                            <li v-for="error in errorMessageEmailProvider" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Senha</label>
+                    <div class="control has-icons-left">
+                        <input v-model="provider.user.password" @blur="validateInputPasswordProvider"
+                            :class="`${inputPasswordProvider}`" class="input" type="password"
+                            placeholder="Mín. 5 dig e Máx. 10 dig">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        <p v-if="errorMessagePasswordProvider">
+                        <ul>
+                            <li v-for="error in errorMessagePasswordProvider" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="align_inputs">
+                <div class="field">
+                    <label class="label">CEP</label>
+                    <div class="control">
+                        <input v-model="provider.address.cep" @blur="validateInputCepProvider"
+                            :class="`${inputCepProvider}`" class="input" type="number" placeholder="Ex: 01001-000">
+                        <p v-if="errorMessageCepProvider">
+                        <ul>
+                            <li v-for="error in errorMessageCepProvider" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Bairro</label>
+                    <div class="control">
+                        <input v-model="provider.address.neighborhood" class="input" type="text" placeholder="Bairro"
+                            disabled>
+                    </div>
+                </div>
+            </div>
+
+            <div class="align_inputs">
+                <div class="field">
+                    <label class="label">Rua</label>
+                    <div class="control">
+                        <input v-model="provider.address.road" class="input" type="input" placeholder="Rua" disabled>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Número</label>
+                    <div class="control">
+                        <input v-model="provider.address.houseNumber" @blur="validateInputNumberProvider"
+                            :class="`${inputNumberProvider}`" class="input" type="number" placeholder="Número">
+                        <p v-if="errorMessageNumberProvider">
+                        <ul>
+                            <li v-for="error in errorMessageNumberProvider" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
             <div class="container_buttons">
                 <div class="align_buttons">
-                    <div class="field is-grouped is-grouped-centered">
-                        <div class="control">
-                            <div class="buttons is-flex">
-                                <button v-if="selectUpdatePassword === true" @click="backUpdatePassword()"
-                                    class="button is-link is-info" id="previous_button">Página anterior</button>
-                                <button v-if="selectUpdatePassword === true" @click="onClickUpdatePassword()"
-                                    class="button is-success" id="save_button">Salvar</button>
-                                <button v-if="selectUpdatePassword === false" @click="onClickBack()"
-                                    class="button is-link is-light" id="back_button">Voltar</button>
-                                <button v-if="selectUpdatePassword === false" @click="clickUpdatePassword()"
-                                    class="button is-link is-danger" id="password_button">Alterar Senha</button>
-                                <button v-if="selectUpdatePassword === false" @click="onClickUpdate()"
-                                    class="button is-success" id="save_button">Salvar</button>
-                            </div>
-                        </div>
+                    <div class="control">
+                        <router-link to="/provider"><button class="button is-link is-light">Voltar</button></router-link>
+                    </div>
+                    <div class="control">
+                        <button @click="onClickUpdate()" class="button is-success is-focused">Atualizar</button>
                     </div>
                 </div>
             </div>
-        </main>
-    </section>
+        </section>
+    </main>
 </template>
 
-<script lang="ts" scoped>
+<script lang="ts">
 import { ProviderClient } from '@/client/Provider.client'
 import { Provider } from '@/model/Provider'
 import Vue from 'vue'
@@ -194,20 +167,15 @@ import { Component } from 'vue-property-decorator'
 import { cnpj } from 'cpf-cnpj-validator'
 import axios from 'axios'
 import { Message } from '@/model/Message'
-import { UserClient } from '@/client/User.client';
 
 @Component
 export default class UpdateProviderView extends Vue {
-
-    isVisible = false;
-
-    private userClient: UserClient = new UserClient();
 
     private providerClient: ProviderClient = new ProviderClient
 
     public provider: Provider = new Provider()
 
-    public selectUpdatePassword: boolean = false;
+    public providerList: Provider[] = []
 
     public inputNameFantasy: string = 'input'
     public inputNameBusiness: string = 'input'
@@ -215,7 +183,6 @@ export default class UpdateProviderView extends Vue {
     public inputCnpjProvider: string = 'input'
     public inputEmailProvider: string = 'input'
     public inputPasswordProvider: string = 'input'
-    public inputConfirmPasswordProvider: string = 'input';
     public inputCepProvider: string = 'input'
     public inputNumberProvider: string = 'input'
 
@@ -227,120 +194,38 @@ export default class UpdateProviderView extends Vue {
     public errorMessagePasswordProvider: string[] = []
     public errorMessageCepProvider: string[] = []
     public errorMessageNumberProvider: string[] = []
-    public errorMessagePassword: string[] = [];
-    public errorMessageConfirmPassword: string[] = [];
-    public updateData: Provider = new Provider()
 
     public notificacao: Message = new Message();
 
     public notificationSave: boolean = false;
 
+    private id = Number(this.$route.params.id)
+
     public mounted(): void {
-        this.getProviderByUser()
-        this.fillProvider()
+        this.getProvider()
     }
 
-    public getProviderByUser(): void {
-        var id = Number(this.$route.params.id)
-        this.userClient.findProviderByIdUser(id).then(
+    private getProvider(): void {
+        this.providerClient.findById(this.id).then(
             success => {
-                this.provider = success;
+                this.provider = success
             },
             error => console.log(error)
         )
     }
 
-    public fillProvider(): void {
-        this.updateData = {
-            id: this.provider?.id,
-            register: this.provider?.register,
-            fantasyName: this.provider?.fantasyName,
-            businessName: this.provider?.businessName,
-            cnpj: this.provider?.cnpj,
-            contact: this.provider?.contact,
-            tasks: this.provider?.tasks,
-            address: {
-                id: this.provider?.address?.id,
-                active: this.provider?.address?.active,
-                register: this.provider?.address?.register,
-                update: this.provider?.address?.update,
-                cep: this.provider?.address?.cep,
-                neighborhood: this.provider?.address?.neighborhood,
-                road: this.provider?.address?.road,
-                houseNumber: this.provider?.address?.houseNumber,
-            },
-            user: {
-                id: this.provider?.user?.id,
-                login: this.provider?.user?.login,
-                password: this.provider?.user?.password,
-                newPassword: this.provider?.user?.newPassword,
-                confirmPassword: this.provider?.user?.confirmPassword,
-                admin: this.provider?.user?.admin,
-                approved: this.provider?.user?.approved,
-                pending: this.provider?.user?.pending,
-                rejected: this.provider?.user?.rejected,
-                caregiver: this.provider?.user?.caregiver,
-                provider: this.provider?.user?.provider,
-                associate: this.provider?.user?.associate,
-                occurrences: this.provider?.user?.occurrences
-            },
-            active: this.provider?.active,
-            update: this.provider.update
-        };
-    }
-
     public onClickUpdate(): void {
-        this.validateFormProvider()
-        this.fillProvider()
         if (this.allInputsValidsProvider() === true) {
-            this.providerClient.update(this.updateData).then(
+            this.providerClient.save(this.provider).then(
                 success => {
                     console.log('Fornecedor atualizado com sucesso!')
-                    this.notificationSave = true;
-                    this.showComponent();
-                    this.notificacao = this.notificacao.new(
-                        true,
-                        "notification is-primary",
-                        "Perfil atualizado com sucesso!"
-                    );
+                    this.provider = new Provider()
                 },
                 error => {
                     console.log(error)
                 }
             )
         }
-    }
-
-    public allIputsValidsNewPassword(): boolean {
-        if (this.inputPasswordProvider !== 'input is-danger' && this.inputConfirmPasswordProvider !== 'input is-danger') {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public onClickUpdatePassword(): void {
-        this.validateInputPasswordProvider();
-        this.validateConfirmPasswordProvider();
-        if (this.allIputsValidsNewPassword() === true) {
-            this.userClient.newPassword(this.provider.user.newPassword, this.provider.user.id).then(
-                success => {
-                    console.log('Senha editada com sucesso!!!');
-                    this.notificationSave = true;
-                },
-                error => {
-                    console.log(error);
-                }
-            )
-        }
-    }
-
-    public clickUpdatePassword() {
-        this.selectUpdatePassword = true;
-    }
-
-    public backUpdatePassword() {
-        this.selectUpdatePassword = false;
     }
 
     public validateInputNameFantasy() {
@@ -380,8 +265,8 @@ export default class UpdateProviderView extends Vue {
     }
 
     public validatePhoneNumberProvider(phoneNumber: string): boolean {
-        const phoneNumberRegex = /^(?:\d{2}\s\d{9}|\d{2}\s\d\s\d{4}-\d{4}|\d{2}\s\d\s\d{8})$/;
-        return phoneNumberRegex.test(this.provider.contact);
+        const phoneNumberRegex = /^\d{2}\s\d\s\d{4}-\d{4}$/
+        return phoneNumberRegex.test(this.provider.contact)
     }
 
     public validateInputContactProvider() {
@@ -428,31 +313,18 @@ export default class UpdateProviderView extends Vue {
     }
 
     public validateInputPasswordProvider() {
-        if (!this.provider.user.newPassword) {
-            this.errorMessagePassword = ['O campo "Senha" é obrigatório!'];
-            this.inputPasswordProvider = 'input is-danger';
-        } else if (this.provider.user.newPassword.length <= 4) {
-            this.errorMessagePassword = ['O campo "Senha" deve ter no mínimo 5 caracteres!'];
-            this.inputPasswordProvider = 'input is-danger';
-        } else if (this.provider.user.newPassword.length >= 11) {
-            this.errorMessagePassword = ['O campo "Senha" deve ter no máximo 10 caracteres!'];
-            this.inputPasswordProvider = 'input is-danger';
+        if (!this.provider.user.password) {
+            this.errorMessagePasswordProvider = ['O campo "Senha" é obrigatório!']
+            this.inputPasswordProvider = 'input is-danger'
+        } else if (this.provider.user.password.length <= 4) {
+            this.errorMessagePasswordProvider = ['O campo "Senha" deve ter no mínimo 5 caracteres!']
+            this.inputPasswordProvider = 'input is-danger'
+        } else if (this.provider.user.password.length >= 11) {
+            this.errorMessagePasswordProvider = ['O campo "Senha" deve ter no máximo 10 caracteres!']
+            this.inputPasswordProvider = 'input is-danger'
         } else {
-            this.errorMessagePassword = [];
-            this.inputPasswordProvider = 'input is-success';
-        }
-    }
-
-    public validateConfirmPasswordProvider() {
-        if (!this.provider.user.confirmPassword) {
-            this.errorMessageConfirmPassword = ['O campo "Confirmar Senha" é obrigatório!'];
-            this.inputConfirmPasswordProvider = 'input is-danger';
-        } else if (this.provider.user.confirmPassword !== this.provider.user.newPassword) {
-            this.errorMessageConfirmPassword = ['As senhas não correspondem!'];
-            this.inputConfirmPasswordProvider = 'input is-danger';
-        } else {
-            this.errorMessageConfirmPassword = [];
-            this.inputConfirmPasswordProvider = 'input is-success';
+            this.errorMessagePasswordProvider = []
+            this.inputPasswordProvider = 'input is-success'
         }
     }
 
@@ -524,151 +396,48 @@ export default class UpdateProviderView extends Vue {
         }
     }
 
-    public validateFormProvider() {
-        this.validateInputNameFantasy()
-        this.validateInputNameBusiness()
-        this.validateInputContactProvider()
-        this.validateInputCpnjProvider()
-        this.validateInputEmailProvider()
-        this.validateInputCepProvider()
-        this.validateInputNumberProvider()
-    }
-
-    public onClickFecharNotificacao(): void {
-        this.notificacao = new Message();
-    }
-
-    public showComponent(): void {
-        this.isVisible = true;
-
-        setTimeout(() => {
-            this.isVisible = false;
-        }, 4000);
-    }
-
-    public onClickBack() {
-        this.$router.go(-1);
+    public closeNotification() {
+        this.notificationSave = false;
     }
 }
 </script>
 
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
-.section_form {
+main {
     display: flex;
-    justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background-color: #002D4C;
-    font-family: Poppins;
+    justify-content: center;
+    flex-direction: column;
 
-    #title_h1 {
-        color: #002D4C;
+    .title {
+        padding: 20px 0px 20px 0px;
     }
 
-    #label {
-        color: #002D4C;
+    .align_inputs {
+        display: flex;
+        gap: 30px;
     }
 
-    #previous_button {
-        background-color: #002D4C;
-        color: #FFFFFF;
-    }
-
-    #password_button {
-        background-color: #F64367;
-        color: #FFFFFF;
-    }
-
-    #back_button {
-        background-color: #FBBD08;
-        color: #002D4C;
-    }
-
-    #save_button {
-        background-color: #48C88F;
-        color: #FFFFFF;
-    }
-
-    #email_field {
-        width: 630px;
-        margin-bottom: 10px;
-    }
-
-    .buttons.is-flex {
+    .container_buttons {
         display: flex;
         justify-content: center;
-    }
+        padding: 30px 0px;
 
-    textarea,
-    input {
-        border: 1px solid #EBE3CC;
-        transition: border-color 0.3s ease;
-    }
-
-    textarea:hover,
-    input:hover {
-        border: 2px solid #002D4C;
-    }
-
-    button {
-        max-width: 300px;
-        font-family: Poppins;
-        font-weight: 300;
-        transition: transform 0.3s ease;
-    }
-
-    button:hover {
-        filter: brightness(1.1);
-        transform: scale(1.1);
-    }
-
-    p {
-        color: #F64367;
-    }
-
-    .main_form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 50%;
-        height: 50%;
-        background-color: #EBE3CC;
-        border-radius: 20px;
-
-        .title {
-            padding: 20px 0px 20px 0px;
-        }
-
-        .align_inputs {
-            display: flex;
-            gap: 30px;
-        }
-
-        .container_buttons {
+        .align_buttons {
             display: flex;
             justify-content: center;
-            padding: 30px 0px;
             align-items: center;
-
-            .align_buttons {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                max-width: 405px;
-                gap: 25px;
-            }
-
-            .button {
-                width: 200px;
-            }
+            max-width: 405px;
+            gap: 25px;
         }
 
-        .field {
-            width: 300px;
+        .button {
+            width: 200px;
         }
+    }
+
+    .field {
+        width: 300px;
     }
 }
 </style>
