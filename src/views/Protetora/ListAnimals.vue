@@ -79,15 +79,11 @@
                   placeholder="Cor"
                   v-model="selectedAnimal.color"
                 />
-                <div
-                  class="column"
-                  v-for="(value, key) in selectedAnimal.vaccination"
-                  :key="key"
-                >
+                <div class="column" v-for="key in knownVaccineKeys" :key="key">
                   <input
                     type="checkbox"
                     v-model="selectedAnimal.vaccination[key]"
-                  />{{ key }}
+                  />{{ vaccineNames[key] }}
                 </div>
               </div>
             </div>
@@ -162,10 +158,13 @@ interface animal {
   animalSize: AnimalSize;
   vaccination: {
     id: number;
-    // canineParvovirus: boolean;
-    // distemper: boolean;
-    // canineHepatitis: boolean;
-    // rabies: boolean;
+    active: boolean;
+    register: string;
+    update: string;
+    canineParvovirus: boolean;
+    distemper: boolean;
+    canineHepatitis: boolean;
+    rabies: boolean;
   };
   color: string;
   observation: string;
@@ -188,7 +187,6 @@ export default class Register extends Vue {
   selectedAnimal: any = null;
   isModalVisible = false;
   animals: any[] = [];
-  // public animalMock: animal = new animal
   animalClient: AnimalClient = new AnimalClient();
   public animalFound: Animal = new Animal();
   public animalList: Animal[] = [];
@@ -196,6 +194,12 @@ export default class Register extends Vue {
   public animalTest: Animal = new Animal();
   isVisible = false;
   private caregiverLogado: Caregiver = new Caregiver();
+  public knownVaccineKeys: string[] = [
+    "canineParvovirus",
+    "distemper",
+    "canineHepatitis",
+    "rabies",
+  ];
 
   async created() {
     const allAnimals = await this.animalClient.listAll();
@@ -249,11 +253,10 @@ export default class Register extends Vue {
     return formattedText;
   }
 
-  openEditModal(animal: number) {
+  openEditModal(animalId: number) {
     this.isModalVisible = true;
-    console.log(this.selectedAnimal);
-
-    this.selectedAnimal = this.animals.find((item) => item.id === animal);
+    const originalAnimal = this.animals.find((item) => item.id === animalId);
+    this.selectedAnimal = JSON.parse(JSON.stringify(originalAnimal));
     console.log(this.selectedAnimal);
   }
 
@@ -272,10 +275,13 @@ export default class Register extends Vue {
       animalSize: data.animalSize,
       vaccination: {
         id: data.vaccination.id,
-        // canineParvovirus: data.vaccination.canineParvovirus,
-        // distemper: data.vaccination.distemper,
-        // canineHepatitis: data.vaccination.canineHepatitis,
-        // rabies: data.vaccination.rabies,
+        active: data.vaccination.active,
+        register: moment().format("DD/MM/YYYY HH:mm:ss"),
+        update: moment().format("DD/MM/YYYY HH:mm:ss"),
+        canineParvovirus: data.vaccination.canineParvovirus,
+        distemper: data.vaccination.distemper,
+        canineHepatitis: data.vaccination.canineHepatitis,
+        rabies: data.vaccination.rabies,
       },
       color: data.color,
       observation: data.observation,
@@ -285,33 +291,11 @@ export default class Register extends Vue {
       },
     };
 
-    const animalMock: animal = {
-      id: 1,
-      active: true,
-      register: moment().format("DD/MM/YYYY HH:mm:ss"),
-      update: moment().format("DD/MM/YYYY HH:mm:ss"),
-      name: "Bino",
-      breed: "vira-lata",
-      animalType: AnimalType.CACHORRO,
-      animalSize: AnimalSize.MEDIO,
-      color: "preto",
-      age: 3,
-      observation: "Funcionou !",
-      caregiver: {
-        id: 1,
-      },
-      vaccination: {
-        id: 1,
-      },
-    };
     console.log("animalData:");
     console.log(animalData);
-    console.log("animalFound");
-    console.log(this.animalFound);
 
-    // this.animalClient.update(animalData).then(
-    this.animalClient.update(animalMock).then(
-      (success) => {
+    this.animalClient.update(animalData).then(
+      async (success) => {
         console.log(success);
         this.showComponent();
         this.notificacao = this.notificacao.new(
@@ -319,6 +303,16 @@ export default class Register extends Vue {
           "notification is-primary",
           "Animal editado com sucesso"
         );
+        const allAnimals = await this.animalClient.listAll();
+        const caregiverId = this.caregiverLogado.id;
+
+        this.animals = allAnimals.filter(
+          (animal) => animal.caregiver?.id === caregiverId
+        );
+
+        setTimeout(() => {
+          this.isModalVisible = false;
+        }, 200);
       },
       (error) => {
         console.log(error);
@@ -326,25 +320,12 @@ export default class Register extends Vue {
     );
   }
 
-  parseDate(dateString: string): Date {
-    let parts = dateString.split(/[/ :]/);
-    return new Date(
-      Number(parts[2]),
-      Number(parts[1]) - 1,
-      Number(parts[0]),
-      Number(parts[3]),
-      Number(parts[4]),
-      Number(parts[5])
-    );
-  }
-
-  // try {
-  //   await this.animalClient.update(this.selectedAnimal);
-  //   this.$toasted.success("Animal atualizado com sucesso");
-  //   this.isModalVisible = false;
-  // } catch (e) {
-  //   this.$toasted.error("Erro ao atualizar o animal");
-  // }
+  public vaccineNames: Record<string, string> = {
+    canineParvovirus: "Parvovirose canina",
+    distemper: "Cinomose",
+    canineHepatitis: "Hepatite canina",
+    rabies: "Raiva",
+  };
 
   public showComponent(): void {
     this.isVisible = true;
