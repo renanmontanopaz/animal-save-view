@@ -1,87 +1,84 @@
 <template>
     <section>
-        <main>
-            <div class="control">
-                <h1 class="title">Editar Serviço</h1>
-            </div>
-            <article v-if="notificationSave" class="message is-success">
-                <div class="message-header">
-                    <h3>Sucesso</h3>
-                    <button @click="closeNotification" class="delete" aria-label="delete"></button>
-                </div>
-                <div class="message-body">
-                    Serviço atualizado com sucesso!
-                </div>
-            </article>
-            <div class="field">
-                <label class="label">Nome do serviço</label>
-                <div class="control has-icons-left">
-                    <input v-model="task.name" @blur="validateInputName" :class="`${inputName}`" class="input" type="input"
-                        placeholder="Ex: Ração">
-                    <span class="icon is-small is-left">
-                        <i class="fa fa-bag-shopping"></i>
-                    </span>
-                    <p v-if="errorMessageName">
-                    <ul>
-                        <li v-for="error in errorMessageName" :key="error">{{ error }}</li>
-                    </ul>
-                    </p>
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="label">Custo</label>
-                <div class="control has-icons-left">
-                    <input v-model="task.cost" @blur="validateInputCost" :class="`${inputCost}`" class="input" type="input"
-                        placeholder="Ex: 100.00">
-                    <span class="icon is-small is-left">
-                        <i class="fa fa-money-bill"></i>
-                    </span>
-                    <p v-if="errorMessageCost">
-                    <ul>
-                        <li v-for="error in errorMessageCost" :key="error">{{ error }}</li>
-                    </ul>
-                    </p>
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="label">Valor mensal</label>
-                <div class="control has-icons-left">
-                    <input v-model="task.monthlyAmount" @blur="validadeInputMonthlyAmount" :class="`${inputMonthlyAmount}`"
-                        class="input" type="input" placeholder="Ex: 10">
-                    <span class="icon is-small is-left">
-                        <i class="fa fa-chart-line"></i>
-                    </span>
-                    <p v-if="errorMessageMonthlyAmount">
-                    <ul>
-                        <li v-for="error in errorMessageMonthlyAmount" :key="error">{{ error }}</li>
-                    </ul>
-                    </p>
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="label">Descrição</label>
-                <div class="control has-icons-left">
-                    <textarea v-model="task.description" @blur="validateInputDescription" :class="`${inputDescription}`"
-                        class="input" placeholder="Descrição"></textarea>
-                    <span class="icon is-small is-left">
-                        <i class="fa fa-list"></i>
-                    </span>
-                    <p v-if="errorMessageDescription">
-                    <ul>
-                        <li v-for="error in errorMessageDescription" :key="error">{{ error }}</li>
-                    </ul>
-                    </p>
-                </div>
-            </div>
-
-            <div class="field is-grouped">
+        <main style="display: flex; width: 100%; align-items: center; justify-content: center;">
+            <div class="column is-7">
                 <div class="control">
+                    <h1 class="title">Editar Serviço</h1>
+                </div>
+                <div class="columns" v-if="notificacao.ativo">
+                    <div class="column is-12">
+                        <div :class="notificacao.classe" v-if="isVisible">
+                            <button @click="onClickFecharNotificacao" class="delete"></button>
+                            {{ notificacao.mensagem }}
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Nome do serviço</label>
+                    <div class="control has-icons-left">
+                        <input v-model="task.name" @blur="validateInputName" :class="`${inputName}`" class="input"
+                            type="input" placeholder="Ex: Ração">
+                        <span class="icon is-small is-left">
+                            <i class="fa fa-bag-shopping"></i>
+                        </span>
+                        <p v-if="errorMessageName">
+                        <ul>
+                            <li v-for="error in errorMessageName" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Custo</label>
+                    <div class="control has-icons-left">
+                        <input v-model="task.cost" @blur="validateInputCost" :class="`${inputCost}`" class="input"
+                            type="input" placeholder="Ex: 100.00">
+                        <span class="icon is-small is-left">
+                            <i class="fa fa-money-bill"></i>
+                        </span>
+                        <p v-if="errorMessageCost">
+                        <ul>
+                            <li v-for="error in errorMessageCost" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Valor mensal</label>
+                    <div class="control has-icons-left">
+                        <input v-model="task.monthlyAmount" @blur="validadeInputMonthlyAmount"
+                            :class="`${inputMonthlyAmount}`" class="input" type="input" placeholder="Ex: 10">
+                        <span class="icon is-small is-left">
+                            <i class="fa fa-chart-line"></i>
+                        </span>
+                        <p v-if="errorMessageMonthlyAmount">
+                        <ul>
+                            <li v-for="error in errorMessageMonthlyAmount" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Descrição</label>
+                    <div class="control has-icons-left">
+                        <textarea v-model="task.description" @blur="validateInputDescription" :class="`${inputDescription}`"
+                            class="input" placeholder="Descrição"></textarea>
+                        <span class="icon is-small is-left">
+                            <i class="fa fa-list"></i>
+                        </span>
+                        <p v-if="errorMessageDescription">
+                        <ul>
+                            <li v-for="error in errorMessageDescription" :key="error">{{ error }}</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="field is-grouped column is-full" style="display: flex; justify-content: space-evenly;">
                     <button @click="onClickBack()" class="button is-link is-light">Voltar</button>
-                </div>
-                <div class="control">
                     <button @click="onClickUpdate()" class="button is-primary is-focused">Atualizar</button>
                 </div>
             </div>
@@ -111,6 +108,7 @@ interface taskInterface {
 
 @Component
 export default class EditServiceView extends Vue {
+    isVisible = false;
 
     private taskClient: TaskClient = new TaskClient()
 
@@ -165,6 +163,12 @@ export default class EditServiceView extends Vue {
                 success => {
                     console.log('Serviço atualizado com sucesso!')
                     this.task = new Task()
+                    this.showComponent();
+                    this.notificacao = this.notificacao.new(
+                        true,
+                        "notification is-primary",
+                        "Serviço atualizado com sucesso!"
+                    );
                 },
                 error => {
                     console.log(error)
@@ -251,8 +255,16 @@ export default class EditServiceView extends Vue {
         this.validateInputDescription()
     }
 
-    public closeNotification() {
-        this.notificationSave = false;
+    public onClickFecharNotificacao(): void {
+        this.notificacao = new Message();
+    }
+
+    public showComponent(): void {
+        this.isVisible = true;
+
+        setTimeout(() => {
+            this.isVisible = false;
+        }, 4000);
     }
 
     public onClickBack() {
