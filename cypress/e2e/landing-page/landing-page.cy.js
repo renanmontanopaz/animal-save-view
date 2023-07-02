@@ -67,4 +67,16 @@ describe('Landing Page', () => {
     cy.get(':nth-child(3) > .containerImageParceiros > .containerImg').should('exist');
   });
 
+  it('Deve exibir a tela Footes corretamente', () => {
+    cy.get('.containerFooter').should('exist');
+    cy.get('.Logo').should('exist');
+    cy.get('.retaCentral').should('exist');
+    cy.get('.celular').should('exist');
+    cy.get('.telefone > h2').should('exist');
+    cy.get('.telefone > h2').should('have.text', '(45) 98413-5559');
+    cy.get('div.email > .email').should('exist');
+    cy.get('[src="/img/Facebook.dc5675c3.svg"]').should('exist');
+    cy.get('[src="/img/Instagram.f3fe2f41.svg"]').should('exist');
+  });
+
 });
