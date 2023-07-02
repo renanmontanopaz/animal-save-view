@@ -323,6 +323,10 @@ export default class EditServiceView extends Vue {
         border: 2px solid #002D4C;
     }
 
+    p {
+        color: #F64367;
+    }
+
 
     .main_form {
         display: flex;

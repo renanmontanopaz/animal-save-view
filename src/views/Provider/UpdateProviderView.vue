@@ -326,7 +326,12 @@ export default class UpdateProviderView extends Vue {
             this.userClient.newPassword(this.provider.user.newPassword, this.provider.user.id).then(
                 success => {
                     console.log('Senha editada com sucesso!!!');
-                    this.notificationSave = true;
+                    this.showComponent();
+                    this.notificacao = this.notificacao.new(
+                        true,
+                        "notification is-primary",
+                        "Senha atualizada com sucesso!"
+                    );
                 },
                 error => {
                     console.log(error);
