@@ -77,18 +77,18 @@
           <div class="modal-container column is-6">
             <div class="field columns is-desktop">
               <div class="column">
-                <input class="input is-info " type="text" placeholder="Nome" v-model="caregiverFound.firstName">
-                <input class="input is-info " type="text" placeholder="Sobrenome" v-model="caregiverFound.lastName">
-                <input class="input is-info " type="text" placeholder="Telefone" v-model="caregiverFound.contact">
-                <input class="input is-info " type="text" placeholder="CPF" v-model="caregiverFound.cpf">
-                <input class="input is-info " type="text" placeholder="Espaço físico m²" v-model="caregiverFound.physicalSpace">
-                <input class="input is-info " type="text" placeholder="Gasto mensal" v-model="caregiverFound.spending">
+                <input class="input" type="text" placeholder="Nome" v-model="caregiverFound.firstName">
+                <input class="input" type="text" placeholder="Sobrenome" v-model="caregiverFound.lastName">
+                <input class="input" type="text" placeholder="Telefone" v-model="caregiverFound.contact">
+                <input class="input" type="text" placeholder="CPF" v-model="caregiverFound.cpf">
+                <input class="input" type="text" placeholder="Espaço físico m²" v-model="caregiverFound.physicalSpace">
+                <input class="input" type="text" placeholder="Gasto mensal" v-model="caregiverFound.spending">
               </div>
               <div class="column">
-                <input class="input is-info " type="text" placeholder="CEP" v-model="caregiverFound.address.cep">
-                <input class="input is-info " type="text" placeholder="Rua/Avenida" v-model="caregiverFound.address.road">
-                <input class="input is-info " type="number" placeholder="Número" v-model="caregiverFound.address.houseNumber">
-                <input class="input is-info " type="text" placeholder="Bairro" style="margin-bottom: 15px" v-model="caregiverFound.address.neighborhood">
+                <input class="input" type="text" placeholder="CEP" v-model="caregiverFound.address.cep">
+                <input class="input" type="text" placeholder="Rua/Avenida" v-model="caregiverFound.address.road">
+                <input class="input" type="number" placeholder="Número" v-model="caregiverFound.address.houseNumber">
+                <input class="input" type="text" placeholder="Bairro" style="margin-bottom: 15px" v-model="caregiverFound.address.neighborhood">
               </div>
             </div>
             <div class="columns" v-if="notificacao.ativo">
@@ -99,9 +99,9 @@
                 </div>
               </div>
             </div>
-            <div class="control" style="gap: 10px">
-              <button class="button is-danger" style="margin-left: 10px" @click="openModal">Fechar</button>
-              <button class="button is-link" @click="EditCaregiver(caregiverFound)" style="margin-right: 10px">Salvar</button>
+            <div class="control column is-7" style="justify-content: space-between; display: flex">
+              <button class="button is-info is-focused" id="button-voltar"  style="margin-left: 10px" @click="openModal">Fechar</button>
+              <button class="button is-success is-focused" id="button-aprovar" @click="EditCaregiver(caregiverFound)" style="margin-right: 10px">Salvar</button>
             </div>
           </div>
         </div>
@@ -163,16 +163,16 @@
             <div class="modal-container column is-6">
               <div class="field columns is-desktop">
                 <div class="column">
-                  <input class="input is-info " type="text" placeholder="Nome" v-model="associateFound.firstName">
-                  <input class="input is-info " type="text" placeholder="Sobrenome" v-model="associateFound.lastName">
-                  <input class="input is-info " type="text" placeholder="Telefone" v-model="associateFound.contact">
-                  <input class="input is-info " type="text" placeholder="CPF" v-model="associateFound.cpf">
+                  <input class="input" type="text" placeholder="Nome" v-model="associateFound.firstName">
+                  <input class="input" type="text" placeholder="Sobrenome" v-model="associateFound.lastName">
+                  <input class="input" type="text" placeholder="Telefone" v-model="associateFound.contact">
+                  <input class="input" type="text" placeholder="CPF" v-model="associateFound.cpf">
                 </div>
                 <div class="column">
-                  <input class="input is-info " type="text" placeholder="CEP" v-model="associateFound.address.cep">
-                  <input class="input is-info " type="text" placeholder="Rua/Avenida" v-model="associateFound.address.road">
-                  <input class="input is-info " type="number" placeholder="Número" v-model="associateFound.address.houseNumber">
-                  <input class="input is-info " type="text" placeholder="Bairro" style="margin-bottom: 15px" v-model="associateFound.address.neighborhood">
+                  <input class="input" type="text" placeholder="CEP" v-model="associateFound.address.cep">
+                  <input class="input" type="text" placeholder="Rua/Avenida" v-model="associateFound.address.road">
+                  <input class="input" type="number" placeholder="Número" v-model="associateFound.address.houseNumber">
+                  <input class="input" type="text" placeholder="Bairro" style="margin-bottom: 15px" v-model="associateFound.address.neighborhood">
                 </div>
               </div>
               <div class="columns" v-if="notificacao.ativo">
@@ -183,9 +183,9 @@
                   </div>
                 </div>
               </div>
-              <div class="control" style="gap: 10px">
-                <button class="button is-danger" style="margin-left: 10px" @click="openModalAssociate">Fechar</button>
-                <button class="button is-link" @click="EditAssociate(associateFound)" style="margin-right: 10px">Salvar</button>
+              <div class="control column is-7" style="justify-content: space-between; display: flex">
+                <button class="button is-info is-focused" id="button-voltar"  style="margin-left: 10px" @click="openModalAssociate">Fechar</button>
+                <button class="button is-success is-focused" id="button-aprovar" @click="EditAssociate(associateFound)" style="margin-right: 10px">Salvar</button>
               </div>
             </div>
           </div>
@@ -255,16 +255,16 @@
             <div class="modal-container column is-6">
               <div class="field columns is-desktop">
                 <div class="column">
-                  <input class="input is-info " type="text" placeholder="Nome da empresa" v-model="providerFound.businessName">
-                  <input class="input is-info " type="text" placeholder="Nome fantasia" v-model="providerFound.fantasyName">
-                  <input class="input is-info " type="text" placeholder="Telefone" v-model="providerFound.contact">
-                  <input class="input is-info " type="text" placeholder="CNPJ" v-model="providerFound.cnpj">
+                  <input class="input" type="text" placeholder="Nome da empresa" v-model="providerFound.businessName">
+                  <input class="input" type="text" placeholder="Nome fantasia" v-model="providerFound.fantasyName">
+                  <input class="input" type="text" placeholder="Telefone" v-model="providerFound.contact">
+                  <input class="input" type="text" placeholder="CNPJ" v-model="providerFound.cnpj">
                 </div>
                 <div class="column">
-                  <input class="input is-info " type="text" placeholder="CEP" v-model="providerFound.address.cep">
-                  <input class="input is-info " type="text" placeholder="Rua/Avenida" v-model="providerFound.address.road">
-                  <input class="input is-info " type="number" placeholder="Número" v-model="providerFound.address.houseNumber">
-                  <input class="input is-info " type="text" placeholder="Bairro" style="margin-bottom: 15px" v-model="providerFound.address.neighborhood">
+                  <input class="input" type="text" placeholder="CEP" v-model="providerFound.address.cep">
+                  <input class="input" type="text" placeholder="Rua/Avenida" v-model="providerFound.address.road">
+                  <input class="input" type="number" placeholder="Número" v-model="providerFound.address.houseNumber">
+                  <input class="input" type="text" placeholder="Bairro" style="margin-bottom: 15px" v-model="providerFound.address.neighborhood">
                 </div>
               </div>
               <div class="columns" v-if="notificacao.ativo">
@@ -275,9 +275,9 @@
                   </div>
                 </div>
               </div>
-              <div class="control" style="gap: 10px">
-                <button class="button is-danger" style="margin-left: 10px" @click="openModalProvider">Fechar</button>
-                <button class="button is-link" @click="EditProvider(providerFound)" style="margin-right: 10px">Salvar</button>
+              <div class="control column is-7" style="justify-content: space-between; display: flex">
+                <button class="button is-info is-focused" id="button-voltar"  style="margin-left: 10px" @click="openModalProvider">Fechar</button>
+                <button class="button is-success is-focused" id="button-aprovar" @click="EditProvider(providerFound)" style="margin-right: 10px">Salvar</button>
               </div>
             </div>
           </div>
@@ -736,4 +736,59 @@ tr{
     flex-direction: column;
   }
 }
+.panel-tabs a.is-active span {
+  color: #FBBD08;
+}
+.panel-tabs a {
+  color: #002D4C;
+}
+.card-footer-item{
+  color: #002D4C;
+}
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #EBE3CC;
+  border-radius: 10px;
+  padding: 30px;
+  border: 2px solid #EBE3CC;
+}
+#button-aprovar {
+  width: 110px;
+  height: 35px;
+  border-radius: 5px;
+  background-color: #48C88F;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+
+  font-family: 'Poppins';
+  font-style: normal;
+}
+
+#button-aprovar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#button-voltar {
+  width: 110px;
+  height: 35px;
+  border-radius: 5px;
+  background-color: #3b95fc;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+
+  font-family: 'Poppins';
+  font-style: normal;
+}
+
+#button-voltar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
 </style>

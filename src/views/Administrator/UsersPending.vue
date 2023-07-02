@@ -637,6 +637,9 @@ a {
     color: #002D4C;
     font-size: 14px;
     font-weight: 700;
+
+    font-family: 'Poppins';
+    font-style: normal;
 }
 
 #button-detalhar:hover {
@@ -649,9 +652,12 @@ a {
     height: 35px;
     border-radius: 5px;
     background-color: #F64367;
-    color: #002D4C;
+    color: white;
     font-size: 14px;
     font-weight: 700;
+
+    font-family: 'Poppins';
+    font-style: normal;
 }
 
 #button-rejeitar:hover {
@@ -664,9 +670,12 @@ a {
     height: 35px;
     border-radius: 5px;
     background-color: #48C88F;
-    color: #002D4C;
+    color: white;
     font-size: 14px;
     font-weight: 700;
+
+    font-family: 'Poppins';
+    font-style: normal;
 }
 
 #button-aprovar:hover {
@@ -679,9 +688,12 @@ a {
     height: 35px;
     border-radius: 5px;
     background-color: #3b95fc;
-    color: #002D4C;
+    color: white;
     font-size: 14px;
     font-weight: 700;
+
+    font-family: 'Poppins';
+    font-style: normal;
 }
 
 #button-voltar:hover {
@@ -726,5 +738,6 @@ td {
     100% {
         transform: rotate(360deg);
     }
-}</style>
+}
+</style>
   

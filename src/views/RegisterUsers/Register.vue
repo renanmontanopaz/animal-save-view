@@ -490,7 +490,8 @@
                 <div class="aling_buttons">
                     <div class="field is-grouped">
                         <div class="control">
-                            <router-link to="/"><button id="voltar" class="button is-link is-light">Voltar</button></router-link>
+                            <router-link to="/"><button id="voltar"
+                                    class="button is-link is-light">Voltar</button></router-link>
                         </div>
 
                         <div class="control">
@@ -1386,6 +1387,11 @@ main {
 
             .button {
                 width: 200px;
+
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 1.1em;
             }
 
             .button:hover {
