@@ -164,24 +164,25 @@
             </div>
             <div class="container_buttons">
                 <div class="align_buttons">
-                    <div class="field is-grouped">
-                        <button v-if="selectUpdatePassword === true" @click="backUpdatePassword()"
-                            class="button is-link is-info" id="previous_button">Página anterior</button>
-
-                        <button v-if="selectUpdatePassword === true" @click="onClickUpdatePassword()"
-                            class="button is-success" id="save_button">Salvar</button>
-
-                        <button v-if="selectUpdatePassword === false" @click="clickUpdatePassword()"
-                            class="button is-link is-danger" id="password_button">Alterar Senha</button>
-
-                        <button v-if="selectUpdatePassword === false" @click="onClickBack()" class="button is-link is-light"
-                            id="back_button">Voltar</button>
-
-                        <button v-if="selectUpdatePassword === false" @click="onClickUpdate()" class="button is-success"
-                            id="save_button">Salvar</button>
+                    <div class="field is-grouped is-grouped-centered">
+                        <div class="control">
+                            <div class="buttons is-flex">
+                                <button v-if="selectUpdatePassword === true" @click="backUpdatePassword()"
+                                    class="button is-link is-info" id="previous_button">Página anterior</button>
+                                <button v-if="selectUpdatePassword === true" @click="onClickUpdatePassword()"
+                                    class="button is-success" id="save_button">Salvar</button>
+                                <button v-if="selectUpdatePassword === false" @click="clickUpdatePassword()"
+                                    class="button is-link is-danger" id="password_button">Alterar Senha</button>
+                                <button v-if="selectUpdatePassword === false" @click="onClickBack()"
+                                    class="button is-link is-light" id="back_button">Voltar</button>
+                                <button v-if="selectUpdatePassword === false" @click="onClickUpdate()"
+                                    class="button is-success" id="save_button">Salvar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </main>
     </section>
 </template>
@@ -596,6 +597,11 @@ export default class UpdateProviderView extends Vue {
         margin-bottom: 10px;
     }
 
+    .buttons.is-flex {
+        display: flex;
+        justify-content: center;
+    }
+
     textarea,
     input {
         border: 1px solid #EBE3CC;
@@ -608,6 +614,7 @@ export default class UpdateProviderView extends Vue {
     }
 
     button {
+        max-width: 300px;
         font-family: Poppins;
         font-weight: 300;
         transition: transform 0.3s ease;
