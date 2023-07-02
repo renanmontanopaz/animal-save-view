@@ -143,6 +143,7 @@ export default class ProviderView extends Vue {
     public onClickDelete(id: number): void {
         this.taskClient.disable(id).then(
             success => {
+                this.showModal = false
                 console.log(success);
                 this.task = new Task()
                 this.getProviderByUser()
