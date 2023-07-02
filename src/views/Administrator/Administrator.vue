@@ -71,7 +71,6 @@ export default class Administrator extends Vue {
   public associateClient: AssociateClient = new AssociateClient();
   public providerClient: ProviderClient = new ProviderClient();
   public caregiverClient: CaregiverClient = new CaregiverClient();
-
   public notificacao: Message = new Message();
 
   public associate: Associate = new Associate();
