@@ -74,17 +74,22 @@
                                 </div>
                             </div>
                             <div id="container-bottons" class="field is-grouped">
-                              <div class="control">
-                                <button :disabled="isLoading" @click="closeModal" class="button is-info is-focused">Voltar</button>
-                              </div>
                                 <div class="control">
-                                    <button :disabled="isLoading" @click="updateToRejected(associate.user.id)"
+                                    <button id="button-voltar" :disabled="isLoading" @click="closeModal"
+                                        class="button is-info is-focused">Voltar</button>
+                                </div>
+
+                                <div class="control">
+                                    <button id="button-rejeitar" :disabled="isLoading"
+                                        @click="updateToRejected(associate.user.id)"
                                         class="button is-danger is-focused">Rejeitar</button>
                                 </div>
-                              <div class="control">
-                                <button :disabled="isLoading" @click="updateToApproved(associate.user.id)"
+
+                                <div class="control">
+                                    <button id="button-aprovar" :disabled="isLoading"
+                                        @click="updateToApproved(associate.user.id)"
                                         class="button is-success is-focused">Aprovar</button>
-                              </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -165,17 +170,20 @@
                             </div>
                             <div id="container-bottons" class="field is-grouped">
                                 <div class="control">
-                                    <button :disabled="isLoading" @click="updateToRejected(provider.user.id)"
+                                    <button id="button-voltar" :disabled="isLoading" @click="closeModal"
+                                        class="button is-info is-focused">Voltar</button>
+                                </div>
+
+                                <div class="control">
+                                    <button id="button-rejeitar" :disabled="isLoading"
+                                        @click="updateToRejected(provider.user.id)"
                                         class="button is-danger is-focused">Rejeitar</button>
                                 </div>
 
                                 <div class="control">
-                                    <button :disabled="isLoading" @click="updateToApproved(provider.user.id)"
+                                    <button id="button-aprovar" :disabled="isLoading"
+                                        @click="updateToApproved(provider.user.id)"
                                         class="button is-success is-focused">Aprovar</button>
-                                </div>
-
-                                <div class="control">
-                                    <button :disabled="isLoading" @click="closeModal" class="button is-info is-focused">Voltar</button>
                                 </div>
                             </div>
                         </div>
@@ -280,17 +288,20 @@
                             </div>
                             <div id="container-bottons" class="field is-grouped">
                                 <div class="control">
-                                    <button :disabled="isLoading" @click="updateToRejected(caregiver.user.id)"
+                                    <button id="button-voltar" :disabled="isLoading" @click="closeModal"
+                                        class="button is-info is-focused">Voltar</button>
+                                </div>
+
+                                <div class="control">
+                                    <button id="button-rejeitar" :disabled="isLoading"
+                                        @click="updateToRejected(caregiver.user.id)"
                                         class="button is-danger is-focused">Rejeitar</button>
                                 </div>
 
                                 <div class="control">
-                                    <button :disabled="isLoading" @click="updateToApproved(caregiver.user.id)"
+                                    <button id="button-aprovar" :disabled="isLoading"
+                                        @click="updateToApproved(caregiver.user.id)"
                                         class="button is-success is-focused">Aprovar</button>
-                                </div>
-
-                                <div class="control">
-                                    <button :disabled="isLoading" @click="closeModal" class="button is-info is-focused">Voltar</button>
                                 </div>
                             </div>
                         </div>
@@ -338,16 +349,19 @@
                             <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'">
                                 Protetor(a)</td>
                             <td class="container_buttons">
-                                <button :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
+                                <button id="button-detalhar"
+                                    :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0' || isLoading"
                                     @click="findByIdAssociate(item.id)"><strong>Detalhar</strong></button>
-                                <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
+                                <button id="button-rejeitar"
+                                    :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
+                                    :disabled="select !== '0' || isLoading"
+                                    @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
+                                <button id="button-aprovar"
+                                    :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0' || isLoading" @click="updateToApproved(item.user.id)">
                                     <strong>Aprovar</strong>
                                 </button>
-                                <button :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0' || isLoading"
-                                    @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
                             </td>
                         </tr>
 
@@ -367,15 +381,18 @@
                             <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'">
                                 Protetor(a)</td>
                             <td class="container_buttons">
-                                <button :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
+                                <button id="button-detalhar"
+                                    :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0' || isLoading"
                                     @click="findByIdProvider(item.id)"><strong>Detalhar</strong></button>
-                                <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0' || isLoading"
-                                    @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
-                                <button :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
+                                <button id="button-rejeitar"
+                                    :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0' || isLoading"
                                     @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
+                                <button id="button-aprovar"
+                                    :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
+                                    :disabled="select !== '0' || isLoading"
+                                    @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
                             </td>
                         </tr>
 
@@ -395,15 +412,18 @@
                             <td v-if="item.user.authorities.map((t) => (t.authority)).join(',') === 'ROLE_CAREGIVER'">
                                 Protetor(a)</td>
                             <td class="container_buttons">
-                                <button :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
+                                <button id="button-detalhar"
+                                    :class="['button', 'is-small', 'is-warning', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0' || isLoading"
                                     @click="findByIdCaregiver(item.id)"><strong>Detalhar</strong></button>
-                                <button :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
-                                    :disabled="select !== '0' || isLoading"
-                                    @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
-                                <button :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
+                                <button id="button-rejeitar"
+                                    :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0' || isLoading"
                                     @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
+                                <button id="button-aprovar"
+                                    :class="['button', 'is-small', 'is-success', { 'is-disabled': select !== '0' }]"
+                                    :disabled="select !== '0' || isLoading"
+                                    @click="updateToApproved(item.user.id)"><strong>Aprovar</strong></button>
                             </td>
                         </tr>
                     </tbody>
@@ -557,6 +577,11 @@ export default class UsersPending extends Vue {
 </script>
   
 <style scoped>
+main {
+    height: 100vh;
+    background-color: #EBE3CC;
+}
+
 .modal-container {
     position: fixed;
     top: 0;
@@ -578,10 +603,10 @@ export default class UsersPending extends Vue {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(228, 228, 228);
+    background-color: #EBE3CC;
     border-radius: 10px;
     padding: 30px;
-    border: 2px solid black;
+    border: 2px solid #EBE3CC;
 }
 
 .container-inputs-modal {
@@ -597,15 +622,83 @@ a {
     display: flex;
 }
 
-.panel.is-primary .panel-tabs a.is-active {
-    border-bottom-color: hsl(171deg, 100%, 41%);
-}
-
 .container_buttons {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
+}
+
+#button-detalhar {
+    width: 110px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: #FBBD08;
+    color: #002D4C;
+    font-size: 14px;
+    font-weight: 700;
+
+    font-family: 'Poppins';
+    font-style: normal;
+}
+
+#button-detalhar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#button-rejeitar {
+    width: 110px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: #F64367;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+
+    font-family: 'Poppins';
+    font-style: normal;
+}
+
+#button-rejeitar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#button-aprovar {
+    width: 110px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: #48C88F;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+
+    font-family: 'Poppins';
+    font-style: normal;
+}
+
+#button-aprovar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#button-voltar {
+    width: 110px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: #3b95fc;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+
+    font-family: 'Poppins';
+    font-style: normal;
+}
+
+#button-voltar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 #notOccurrence {
@@ -627,6 +720,14 @@ a {
     border: 8px solid rgba(107, 107, 107, 0.1);
     border-top-color: #636363;
     animation: loading-spinner-animation 0.8s linear infinite;
+}
+
+tr {
+    background-color: #EBE3CC;
+}
+
+td {
+    background-color: #EBE3CC;
 }
 
 @keyframes loading-spinner-animation {

@@ -490,7 +490,8 @@
                 <div class="aling_buttons">
                     <div class="field is-grouped">
                         <div class="control">
-                            <router-link to="/"><button class="button is-link is-light">Voltar</button></router-link>
+                            <router-link to="/"><button id="voltar"
+                                    class="button is-link is-light">Voltar</button></router-link>
                         </div>
 
                         <div class="control">
@@ -1332,11 +1333,7 @@ main {
     padding: 20px;
     height: 100vh;
 
-    background-image: url(../../assets/background-register.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    opacity: 0.9;
+    background-color: #002D4C;
 
     .section_register {
         display: flex;
@@ -1344,7 +1341,7 @@ main {
         align-items: center;
         flex-direction: column;
 
-        background-color: rgba(0, 0, 0, 0.65);
+        background-color: #EBE3CC;
         border: 1px solid #ccc;
         border-radius: 10px;
         padding: 20px;
@@ -1361,11 +1358,11 @@ main {
     }
 
     .label {
-        color: white;
+        color: #002D4C;
     }
 
     input {
-        border: 2px solid;
+        border: 2px solid #EBE3CC;
     }
 
     .field {
@@ -1390,6 +1387,11 @@ main {
 
             .button {
                 width: 200px;
+
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 1.1em;
             }
 
             .button:hover {
@@ -1397,8 +1399,13 @@ main {
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             }
 
-            #cadastrar {
+            #voltar {
+                color: #002D4C;
                 background: #FBBD08;
+            }
+
+            #cadastrar {
+                background: #002D4C;
             }
         }
     }
