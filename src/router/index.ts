@@ -44,38 +44,11 @@ const routes: Array<RouteConfig> = [
     name: "provider",
     component: ProviderView,
   },
-  {
-    path: "/protetora/register-animal/:id",
-    name: "RegisterAnimal",
-    component: RegisterAnimal,
-    beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
 
-      if (!token) {
-        next("/login");
-      } else {
-        next();
-      }
-    },
-  },
   {
     path: "/protetora/:id",
     name: "protetora",
     component: HomeCaregiver,
-    beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        next("/login");
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "/protetora/list-occurrence/:id",
-    name: "ListOccurrence",
-    component: ListOccurrence,
     beforeEnter: function (to, from, next) {
       const token = localStorage.getItem("token");
 
