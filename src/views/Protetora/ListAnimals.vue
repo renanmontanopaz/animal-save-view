@@ -24,7 +24,9 @@
             v-html="formatText(takenVaccinations(animal.vaccination), 20)"
           ></td>
           <td>
-            <button @click="openEditModal(animal.id)">Editar</button>
+            <button class="editButton" @click="openEditModal(animal.id)">
+              Editar
+            </button>
           </td>
         </tr>
       </tbody>
@@ -109,7 +111,7 @@
               <button
                 class="button is-link"
                 @click="editAnimal(selectedAnimal)"
-                style="margin-right: 10px"
+                style="margin-left: 10px"
               >
                 Salvar
               </button>
@@ -355,6 +357,11 @@ html,
 body {
   background-color: #ebe3cc;
   color: #002d4c;
+}
+
+.editButton {
+  background-color: #fbbd08;
+  border-radius: 3%;
 }
 
 table {
