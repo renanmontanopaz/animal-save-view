@@ -80,7 +80,7 @@
 
                                 <div class="control">
                                     <button id="button-rejeitar" :disabled="isLoading" @click="updateToRejected(associate.user.id)"
-                                        class="button is-danger is-focused">Rejeitar</button>
+                                        class="button is-danger is-focused">Desaprovar</button>
                                 </div>
                             </div>
                         </div>
@@ -166,7 +166,7 @@
                               </div>
                                 <div class="control">
                                     <button id="button-rejeitar" :disabled="isLoading" @click="updateToRejected(provider.user.id)"
-                                        class="button is-danger is-focused">Rejeitar</button>
+                                        class="button is-danger is-focused">Desaprovar</button>
                                 </div>
                             </div>
                         </div>
@@ -276,7 +276,7 @@
 
                                 <div class="control">
                                     <button id="button-rejeitar" :disabled="isLoading" @click="updateToRejected(caregiver.user.id)"
-                                        class="button is-danger is-focused">Rejeitar</button>
+                                        class="button is-danger is-focused">Desaprovar</button>
                                 </div>
                             </div>
                         </div>
@@ -329,7 +329,7 @@
                                     @click="findByIdAssociate(item.id)"><strong>Detalhar</strong></button>
                                 <button id="button-rejeitar" :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0' || isLoading"
-                                    @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
+                                    @click="updateToRejected(item.user.id)"><strong>Desaprovar</strong></button>
                             </td>
                         </tr>
 
@@ -354,7 +354,7 @@
                                     @click="findByIdProvider(item.id)"><strong>Detalhar</strong></button>
                                 <button id="button-rejeitar" :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0' || isLoading"
-                                    @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
+                                    @click="updateToRejected(item.user.id)"><strong>Desaprovar</strong></button>
                             </td>
                         </tr>
 
@@ -379,7 +379,7 @@
                                     @click="findByIdCaregiver(item.id)"><strong>Detalhar</strong></button>
                                 <button id="button-rejeitar" :class="['button', 'is-small', 'is-danger', { 'is-disabled': select !== '0' }]"
                                     :disabled="select !== '0' || isLoading"
-                                    @click="updateToRejected(item.user.id)"><strong>Rejeitar</strong></button>
+                                    @click="updateToRejected(item.user.id)"><strong>Desaprovar</strong></button>
                             </td>
                         </tr>
                     </tbody>
@@ -582,6 +582,9 @@ td {
     color: #002D4C;
     font-size: 14px;
     font-weight: 700;
+
+    font-family: 'Poppins';
+    font-style: normal;
 }
 
 #button-detalhar:hover {
@@ -594,9 +597,12 @@ td {
     height: 35px;
     border-radius: 5px;
     background-color: #F64367;
-    color: #002D4C;
+    color: white;
     font-size: 14px;
     font-weight: 700;
+
+    font-family: 'Poppins';
+    font-style: normal;
 }
 
 #button-rejeitar:hover {
@@ -609,9 +615,12 @@ td {
     height: 35px;
     border-radius: 5px;
     background-color: #3b95fc;
-    color: #002D4C;
+    color: white;
     font-size: 14px;
     font-weight: 700;
+
+    font-family: 'Poppins';
+    font-style: normal;
 }
 
 #button-voltar:hover {

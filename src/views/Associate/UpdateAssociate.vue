@@ -167,8 +167,8 @@
                 <div class="aling_buttons">
                     <div class="field is-grouped">
                         <div class="control">
-                            <button id="button-back-previous-pag" v-if="selectUpdatePassword === true" @click="backUpdatePassword"
-                                class="button is-link is-info">Página anterior</button>
+                            <button id="button-back-previous-pag" v-if="selectUpdatePassword === true"
+                                @click="backUpdatePassword" class="button is-link is-info">Página anterior</button>
                         </div>
 
                         <div class="control">
@@ -182,8 +182,8 @@
                         </div>
 
                         <div class="control">
-                            <button id="button-update-password" v-if="selectUpdatePassword === false" @click="clickUpdatePassword"
-                                class="button is-link is-danger">Alterar Senha</button>
+                            <button id="button-update-password" v-if="selectUpdatePassword === false"
+                                @click="clickUpdatePassword" class="button is-link is-danger">Alterar Senha</button>
                         </div>
 
                         <div class="control">
@@ -643,6 +643,10 @@ main {
             max-width: 405px;
 
             .button {
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 1.1em;
                 width: 200px;
             }
 
