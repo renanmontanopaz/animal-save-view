@@ -24,7 +24,7 @@
             v-html="formatText(takenVaccinations(animal.vaccination), 20)"
           ></td>
           <td>
-            <button class="editButton" @click="openEditModal(animal.id)">
+            <button id="button-editar" @click="openEditModal(animal.id)">
               Editar
             </button>
           </td>
@@ -102,13 +102,15 @@
             </div>
             <div class="control" style="gap: 10px">
               <button
+                id="button-voltar"
                 class="button is-danger"
                 style="margin-left: 10px"
                 @click="openModal"
               >
-                Fechar
+                Voltar
               </button>
               <button
+                id="button-aprovar"
                 class="button is-link"
                 @click="editAnimal(selectedAnimal)"
                 style="margin-left: 10px"
@@ -120,16 +122,6 @@
         </div>
       </div>
     </transition>
-
-    <!-- <Modal v-model="isModalVisible">
-      <div slot="body">
-        <input v-model="selectedAnimal.name" placeholder="Nome" />
-      </div>
-      <div slot="actions">
-        <button @click="isModalVisible = false">Fechar</button>
-        <button @click="editAnimal()">Salvar</button>
-      </div>
-    </Modal> -->
   </div>
 </template>
 
@@ -356,12 +348,29 @@ export default class Register extends Vue {
 html,
 body {
   background-color: #ebe3cc;
-  color: #002d4c;
 }
 
 .editButton {
   background-color: #fbbd08;
   border-radius: 3%;
+}
+
+#button-editar {
+  width: 110px;
+  height: 35px;
+  border-radius: 5px;
+  background-color: #fbbd08;
+  color: #002d4c;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: "Poppins";
+  font-style: normal;
+}
+
+#button-editar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 table {
@@ -372,9 +381,10 @@ table {
 th,
 td {
   padding: 10px !important;
-  border: 1px solid black;
+  border: 3px solid #afa588;
   text-align: center !important;
   vertical-align: middle !important;
+  color: #002d4c !important;
 }
 .title {
   align-self: center;
@@ -407,7 +417,7 @@ td {
 .modal-container {
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: #fff;
+  background-color: #ebe3cc;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
@@ -431,5 +441,41 @@ td {
 .field {
   flex-direction: row;
   display: flex;
+}
+
+#button-aprovar {
+  width: 110px;
+  height: 35px;
+  border-radius: 5px;
+  background-color: #48c88f;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+
+  font-family: "Poppins";
+  font-style: normal;
+}
+
+#button-aprovar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#button-voltar {
+  width: 110px;
+  height: 35px;
+  border-radius: 5px;
+  background-color: #3b95fc;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+
+  font-family: "Poppins";
+  font-style: normal;
+}
+
+#button-voltar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 </style>
