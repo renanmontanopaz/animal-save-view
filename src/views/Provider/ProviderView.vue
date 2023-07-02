@@ -22,7 +22,7 @@
             <div class="columns is-fullwidth">
                 <h1 id="title_h1" class="title">Lista de Serviços</h1>
 
-                <table class="table is-bordered is-striped">
+                <table class="table" id="table">
                     <thead>
                         <tr>
                             <th>Serviço</th>
@@ -96,16 +96,18 @@ export default class ProviderView extends Vue {
     }
 
     public onClickDelete(id: number): void {
-        this.taskClient.disable(id).then(
-            success => {
-                console.log(success);
-                this.task = new Task()
-                this.getProviderByUser()
-            },
-            error => {
-                console.log(error)
-            }
-        )
+        if (window.confirm("Tem certeza que deseja apagar este serviço?")) {
+            this.taskClient.disable(id).then(
+                success => {
+                    console.log(success);
+                    this.task = new Task()
+                    this.getProviderByUser()
+                },
+                error => {
+                    console.log(error)
+                }
+            )
+        }
     }
 
     public onClickEditProfile() {
@@ -167,6 +169,12 @@ export default class ProviderView extends Vue {
 
     #nav_h1:hover {
         transform: scale(1.1);
+    }
+
+    table,
+    th,
+    tr {
+        border: 1.6px solid #003C6B;
     }
 
     .message {
