@@ -237,59 +237,59 @@ describe('Provider View', () => {
             cy.get('#edit_button').should('be.visible')
             cy.get('#delete_button').should('be.visible')
         });
+    })
 
-        context('Quando o fornecedor deletar um serviço', () => {
+    context('Quando o fornecedor deletar um serviço', () => {
 
-            it('Deve renderizar a modal ao clicar em deletar serviço', () => {
-                cy.visit('http://localhost:3000/fornecedor/2');
+        it('Deve renderizar a modal ao clicar em deletar serviço', () => {
+            cy.visit('http://localhost:3000/fornecedor/2');
 
-                cy.get('#delete_button').click()
+            cy.get('#delete_button').click()
 
-                cy.get('.modal-wrapper').should('be.visible',)
-                cy.get('.modal-container').should('be.visible')
-                cy.get('#title_h1_modal').should('be.visible')
-                cy.get('.modal-body').should('be.visible')
-                cy.get('#title_h2_modal').should('be.visible')
-                cy.get('.modal-footer > #edit_button').should('be.visible')
-                cy.get('#delete_button_modal').should('be.visible')
+            cy.get('.modal-wrapper').should('be.visible',)
+            cy.get('.modal-container').should('be.visible')
+            cy.get('#title_h1_modal').should('be.visible')
+            cy.get('.modal-body').should('be.visible')
+            cy.get('#title_h2_modal').should('be.visible')
+            cy.get('.modal-footer > #edit_button').should('be.visible')
+            cy.get('#delete_button_modal').should('be.visible')
 
-            });
+        });
 
-            it('Deve voltar a tela de fornecedor ao clicar em "cancelar" na modal', () => {
-                cy.visit('http://localhost:3000/fornecedor/2');
+        it('Deve voltar a tela de fornecedor ao clicar em "cancelar" na modal', () => {
+            cy.visit('http://localhost:3000/fornecedor/2');
 
-                cy.get('#delete_button').click()
+            cy.get('#delete_button').click()
 
-                cy.get('.modal-footer > #edit_button').click()
+            cy.get('.modal-footer > #edit_button').click()
 
-                cy.get('tr > :nth-child(4)').should('exist')
-                cy.get('img').should('exist')
-                cy.get('.nav_container > :nth-child(1)').should('exist')
-                cy.get('.nav_container > :nth-child(2)').should('exist')
-                cy.get('#title_h1').should('exist')
-                cy.get('tr > :nth-child(1)').should('exist')
-                cy.get('tr > :nth-child(2)').should('exist')
-                cy.get('tr > :nth-child(3)').should('exist')
+            cy.get('tr > :nth-child(4)').should('exist')
+            cy.get('img').should('exist')
+            cy.get('.nav_container > :nth-child(1)').should('exist')
+            cy.get('.nav_container > :nth-child(2)').should('exist')
+            cy.get('#title_h1').should('exist')
+            cy.get('tr > :nth-child(1)').should('exist')
+            cy.get('tr > :nth-child(2)').should('exist')
+            cy.get('tr > :nth-child(3)').should('exist')
 
-            });
+        });
 
-            it('Deve deletar um serviço', () => {
-                cy.visit('http://localhost:3000/fornecedor/2');
+        it('Deve deletar um serviço', () => {
+            cy.visit('http://localhost:3000/fornecedor/2');
 
-                cy.get('#delete_button').click()
+            cy.get('#delete_button').click()
 
-                cy.wait(5200)
+            cy.wait(5200)
 
-                cy.get('#delete_button_modal').click()
+            cy.get('#delete_button_modal').click()
 
-                cy.get('tbody > tr > :nth-child(1)').should('not.exist')
-                cy.get('tbody > tr > :nth-child(2)').should('not.exist')
-                cy.get('tbody > tr > :nth-child(3)').should('not.exist')
+            cy.get('tbody > tr > :nth-child(1)').should('not.exist')
+            cy.get('tbody > tr > :nth-child(2)').should('not.exist')
+            cy.get('tbody > tr > :nth-child(3)').should('not.exist')
 
-                cy.get('#edit_button').should('not.exist')
-                cy.get('#delete_button').should('not.exist')
+            cy.get('#edit_button').should('not.exist')
+            cy.get('#delete_button').should('not.exist')
 
-            });
-        })
+        });
     })
 })
