@@ -11,4 +11,17 @@ describe('Landing Page', () => {
     cy.get('[href="/register"] > button').should('exist');
     cy.get('[href="/login"] > button').should('exist');
   });
+
+  it('Deve navegar corretamente', () => {
+    cy.get('a[href="/register-occurences"]').click();
+    cy.url().should('include', '/register-occurences');
+    cy.get('.butt').click();
+    cy.get('[href="/register"] > button').click();
+    cy.url().should('include', '/register');
+    cy.get('#voltar').click();
+    cy.get('[href="/login"] > button').click();
+    cy.url().should('include', '/login');
+    cy.get('#button-voltar').click();
+  });
+
 });
