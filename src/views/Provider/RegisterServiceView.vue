@@ -1,8 +1,8 @@
 <template>
-    <main>
-        <section>
+    <section class="section_form">
+        <main>
             <div class="control">
-                <h1 class="title">Cadastro de Serviço</h1>
+                <h1 id="title_h1" class="title">Cadastro de Serviço</h1>
             </div>
             <div class="columns" v-if="notificacao.ativo">
                 <div class="column is-12">
@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="field">
-                <label class="label">Nome do serviço</label>
+                <label id="label" class="label">Nome do serviço</label>
                 <div class="control has-icons-left">
                     <input v-model="task.name" @blur="validateInputName" :class="`${inputName}`" class="input" type="text"
                         placeholder="Ex: Ração">
@@ -29,7 +29,7 @@
             </div>
 
             <div class="field">
-                <label class="label">Custo</label>
+                <label id="label" class="label">Custo</label>
                 <div class="control has-icons-left">
                     <input v-model="task.cost" @blur="validateInputCost" :class="`${inputCost}`" class="input" type="number"
                         placeholder="Ex: 100.00">
@@ -45,7 +45,7 @@
             </div>
 
             <div class="field">
-                <label class="label">Valor mensal</label>
+                <label id="label" class="label">Valor mensal</label>
                 <div class="control has-icons-left">
                     <input v-model="task.monthlyAmount" @blur="validadeInputMonthlyAmount" :class="`${inputMonthlyAmount}`"
                         class="input" type="number" placeholder="Ex:10">
@@ -61,7 +61,7 @@
             </div>
 
             <div class="field">
-                <label class="label">Descrição</label>
+                <label id="label" class="label">Descrição</label>
                 <div class="control has-icons-left">
                     <textarea v-model="task.description" @blur="validateInputDescription" :class="`${inputDescription}`"
                         class="input" placeholder="Descrição"></textarea>
@@ -79,16 +79,16 @@
             <div class="field">
                 <div class="container_buttons">
                     <div class="control">
-                        <button @click="onClickBack()" class="button is-link is-light">Voltar</button>
+                        <button @click="onClickBack()" class="button is-link is-light" id="back_button">Voltar</button>
                     </div>
                     <div class="control">
-                        <button @click="onClickRegister()" class="button is-success is-focused"
+                        <button @click="onClickRegister()" class="button is-success is-focused" id="register_button"
                             type="submit">Cadastrar</button>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </main>
+    </section>
 </template>
 
 <script lang="ts" scoped>
@@ -268,6 +268,33 @@ export default class RegisterServiceView extends Vue {
 
 <style lang="scss" scoped>
 @import "~bulma/bulma.sass";
+
+.section_form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #EBE3CC;
+
+    #back_button {
+        background-color: #FBBD08;
+        color: #002D4C;
+    }
+
+    #register_button {
+        background-color: #002D4C;
+        color: #FFFFFF;
+    }
+
+    #title_h1 {
+        color: #002D4C;
+    }
+
+    #label {
+        color: #002D4C;
+    }
+}
 
 main {
 
