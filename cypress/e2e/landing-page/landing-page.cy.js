@@ -24,4 +24,25 @@ describe('Landing Page', () => {
     cy.get('#button-voltar').click();
   });
 
+  it('Deve exibir a tela Home corretamente', () => {
+    cy.get('.containerHome').should('exist');
+    cy.get('.containerHome > .containerText').should('exist');
+    cy.get('.TextNA').should('have.text', 'NA');
+    cy.get('.TextNA').should('exist');
+    cy.get('.containerDuvidaSpan').should('have.text', ' DUVIDA AJUDE');
+    cy.get('.containerDuvidaSpan').should('exist');
+    cy.get('.containerDuvidaCerteza > :nth-child(2)').should('have.text', ' CERTEZA ADOTE');
+    cy.get('.containerDuvidaCerteza > :nth-child(2)').should('exist');
+    cy.get('.TextP > :nth-child(1)').should('have.text', ' Nós da Animal Save somos bons em organização e arrecadação de recursos. ');
+    cy.get('.TextP > :nth-child(1)').should('exist');
+    cy.get('.TextP > :nth-child(2)').should('have.text', ' Nosso objetivo é prestar ajuda qualificada a quem já ajuda os animais. ');
+    cy.get('.TextP > :nth-child(2)').should('exist');
+    cy.get('.containerB').should('exist');
+    cy.get('.containerB > :nth-child(1)').should('exist');
+    cy.get('.containerB > :nth-child(2)').should('exist');
+    cy.get('.Rectangle > img').should('exist');
+    cy.get('.Pegada1 > img').should('exist');
+    cy.get('.dogLeao > img').should('exist');
+  });
+
 });
