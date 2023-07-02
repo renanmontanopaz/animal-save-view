@@ -163,4 +163,79 @@ describe('Provider View', () => {
         });
 
     })
+
+    context('Quando acessar a página de cadastrar serviço', () => {
+
+        it('Deve renderizar a tela de cadastrarServico ao clicar em "Cadastrar serviço"', () => {
+            cy.visit('http://localhost:3000/fornecedor/2');
+
+            cy.get('.nav_container > :nth-child(2)').click()
+
+            cy.get('.section_form').should('exist', 'be.visible')
+            cy.get('.main_form').should('exist', 'be.visible')
+            cy.get('#title_h1').should('exist', 'be.visible')
+            cy.get(':nth-child(2) > #label').should('exist', 'be.visible')
+            cy.get(':nth-child(2) > .control > .input').should('exist', 'be.visible')
+            cy.get(':nth-child(3) > #label').should('exist', 'be.visible')
+            cy.get(':nth-child(3) > .control > .input').should('exist', 'be.visible')
+            cy.get(':nth-child(4) > #label').should('exist', 'be.visible')
+            cy.get(':nth-child(4) > .control > .input').should('exist', 'be.visible')
+            cy.get(':nth-child(5) > #label').should('exist', 'be.visible')
+            cy.get(':nth-child(5) > .control > .input').should('exist', 'be.visible')
+            cy.get('#back_button').should('exist', 'be.visible')
+            cy.get('#register_button').should('exist', 'be.visible')
+
+        });
+
+        it('Deve voltar a tela anterior ao clicar no botão de "voltar" ', () => {
+            cy.visit('http://localhost:3000/fornecedor/2');
+
+            cy.get('.nav_container > :nth-child(2)').click()
+
+            cy.get('#back_button').click()
+
+            cy.url().should('include', '/fornecedor/2')
+            cy.url().should('not.include', '/cadastrarServico')
+
+        });
+
+        it('Não deve cadastrar um serviço preenchendo os campos incorretamente', () => {
+            cy.visit('http://localhost:3000/fornecedor/2');
+
+            cy.get('.nav_container > :nth-child(2)').click()
+
+            cy.get(':nth-child(2) > .control > .input').type('Ab')
+            cy.get(':nth-child(3) > .control > .input').type('0')
+            cy.get(':nth-child(4) > .control > .input').type('100000')
+            cy.get(':nth-child(5) > .control > .input').type('Ab')
+            cy.get('#register_button').click()
+
+        });
+
+        it('Deve cadastrar um serviço preenchendo os campos corretamente e exibir a mensagem de sucesso', () => {
+            cy.visit('http://localhost:3000/fornecedor/2');
+
+            cy.get('.nav_container > :nth-child(2)').click()
+
+            cy.get(':nth-child(2) > .control > .input').type('Ração')
+            cy.get(':nth-child(3) > .control > .input').type('100')
+            cy.get(':nth-child(4) > .control > .input').type('20')
+            cy.get(':nth-child(5) > .control > .input').type('Sacos de ração para os animais')
+            cy.get('#register_button').click()
+
+            cy.get('.notification').should('be.visible')
+
+        });
+
+        it('O serviço cadastrado deve estar sendo mostrado na tela do fornecedor', () => {
+            cy.visit('http://localhost:3000/fornecedor/2');
+
+            cy.get('tbody > tr > :nth-child(1)').should('be.visible', 'contain', 'Ração')
+            cy.get('tbody > tr > :nth-child(2)').should('be.visible', 'contain', '100')
+            cy.get('tbody > tr > :nth-child(3)').should('be.visible', 'contain', '20')
+
+            cy.get('#edit_button').should('be.visible')
+            cy.get('#delete_button').should('be.visible')
+        });
+    })
 })
