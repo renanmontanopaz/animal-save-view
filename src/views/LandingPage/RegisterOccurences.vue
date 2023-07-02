@@ -276,8 +276,8 @@ export default class RegisterOccurences extends Vue {
 
   .butt {
     width: 6em;
-    height: 3em;
-    border-radius: 0.5em;
+    height: 2em;
+    border-radius: 0.3em;
     background: #FBBD08;
     border: none;
     font-family: 'Poppins';
@@ -291,9 +291,9 @@ export default class RegisterOccurences extends Vue {
 
   .butt2 {
     width: 7em;
-    height: 3em;
+    height: 2em;
     background: #002D4C;
-    border-radius: 0.5em;
+    border-radius: 0.3em;
     border: none;
     font-family: 'Poppins';
     font-style: normal;
