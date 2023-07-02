@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="field">
-          <label class="label">Ponto de referencia</label>
+          <label class="label">Ponto de referência</label>
           <div class="control">
             <input :class="`${inputReference}`" @blur="validateInputReference" type="text"
               v-model="occurences.referenceLocal">
@@ -55,8 +55,8 @@
           <label class="label">Situação do Animal</label>
           <div class="select">
             <select v-model="occurences.situation">
-              <option value="EMERGENCIA">Emergencia</option>
-              <option value="URGENCIA">Urgencia</option>
+              <option value="EMERGENCIA">Emergência</option>
+              <option value="URGENCIA">Urgência</option>
             </select>
           </div>
         </div>

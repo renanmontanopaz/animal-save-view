@@ -84,9 +84,39 @@ describe('RegisterOccurences', () => {
   beforeEach(() => {
     cy.viewport('macbook-15');
     cy.visit('http://localhost:3000/');
+    cy.get('a[href="/register-occurences"]').click();
+    cy.url().should('include', '/register-occurences');
   });
 
   it('Deve exibir o formulario Registro Público', () => {
-    
+    cy.get('.container_occurences').should('exist');
+    cy.get('.text').should('exist');
+    cy.get('h1').should('exist');
+    cy.get('h1').should('have.text', 'CADASTRO DE OCORRÊNCIAS');
+    cy.get('.column').should('exist');
+    cy.get('.column > :nth-child(1)').should('exist');
+    cy.get(':nth-child(1) > .label').should('exist');
+    cy.get(':nth-child(1) > .label').should('have.text', 'Nome');
+    cy.get(':nth-child(1) > .control > .input').should('exist');
+    cy.get('.column > :nth-child(2)').should('exist');
+    cy.get(':nth-child(2) > .label').should('exist');
+    cy.get(':nth-child(2) > .label').should('have.text', 'Contato');
+    cy.get(':nth-child(2) > .control > .input').should('exist');
+    cy.get('.column > :nth-child(3)').should('exist');
+    cy.get(':nth-child(3) > .label').should('exist');
+    cy.get(':nth-child(3) > .label').should('have.text', 'Descrição');
+    cy.get(':nth-child(3) > .control > .input').should('exist');
+    cy.get('.column > :nth-child(4)').should('exist');
+    cy.get(':nth-child(4) > .label').should('exist');
+    cy.get(':nth-child(4) > .label').should('have.text', 'Ponto de referência');
+    cy.get(':nth-child(4) > .control > .input').should('exist');
+    cy.get('.column > :nth-child(5)').should('exist');
+    cy.get(':nth-child(5) > .label').should('exist');
+    cy.get(':nth-child(5) > .label').should('have.text', 'Situação do Animal');
+    cy.get('select').should('exist');
+    cy.get('.controlButt').should('exist');
+    cy.get('.butt').should('exist');
+    cy.get('.butt2').should('exist');
+
   });
 });
