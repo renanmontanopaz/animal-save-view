@@ -234,9 +234,86 @@ describe('Provider View', () => {
             cy.get('tbody > tr > :nth-child(2)').should('be.visible', 'contain', '100')
             cy.get('tbody > tr > :nth-child(3)').should('be.visible', 'contain', '20')
 
+
             cy.get('#edit_button').should('be.visible')
             cy.get('#delete_button').should('be.visible')
         });
+    })
+
+    context('Quando o fornecedor editar um serviço', () => {
+
+        it('Deve renderizar a tela de editar serviço ao clicar em "editar"', () => {
+            cy.visit('http://localhost:3000/fornecedor/2');
+
+            cy.get('#edit_button').click()
+
+            cy.get('.section_form').should('be.visible')
+            cy.get('.main_form').should('be.visible')
+            cy.get('#title_h1').should('be.visible')
+            cy.get(':nth-child(2) > #label').should('be.visible')
+            cy.get(':nth-child(2) > .control > .input').should('be.visible')
+            cy.get(':nth-child(3) > #label').should('be.visible')
+            cy.get(':nth-child(3) > .control > .input').should('be.visible')
+            cy.get(':nth-child(4) > #label').should('be.visible')
+            cy.get(':nth-child(4) > .control > .input').should('be.visible')
+            cy.get(':nth-child(5) > #label').should('be.visible')
+            cy.get(':nth-child(5) > .control > .input').should('be.visible')
+            cy.get('#back_button').should('be.visible')
+            cy.get('#update_button').should('be.visible')
+
+        });
+
+        it('Deve voltar a tela anterior ao clicar no botão de voltar', () => {
+            cy.visit('http://localhost:3000/fornecedor/2');
+
+            cy.get('#edit_button').click()
+
+            cy.get('#back_button').click()
+
+            cy.url().should('include', '/fornecedor/2');
+            cy.url().should('not.include', '/atualizarServico');
+
+        });
+
+        it('Não deve conseguir editar o serviço digitando errado nos campos', () => {
+            cy.visit('http://localhost:3000/fornecedor/2');
+
+            cy.get('#edit_button').click()
+
+            cy.get(':nth-child(2) > .control > .input').clear().type('Ab')
+            cy.get(':nth-child(3) > .control > .input').clear().type('100000')
+            cy.get(':nth-child(4) > .control > .input').clear().type('100000')
+            cy.get(':nth-child(5) > .control > .input').clear().type('Ab')
+
+            cy.get('#update_button').click()
+
+        });
+
+        it('Deve conseguir editar o serviço digitando corretamente nos campos e exibir a mensagem de sucesso', () => {
+            cy.visit('http://localhost:3000/fornecedor/2');
+
+            cy.get('#edit_button').click()
+
+            cy.get(':nth-child(2) > .control > .input').clear().type('Sacos de ração')
+            cy.get(':nth-child(3) > .control > .input').clear().type('200')
+            cy.get(':nth-child(4) > .control > .input').clear().type('50')
+            cy.get(':nth-child(5) > .control > .input').clear().type('Ração para os animaizinhos')
+
+            cy.get('#update_button').click()
+
+        });
+
+        it('O serviço Atualizado deve estar sendo mostrado na tela do fornecedor', () => {
+            cy.visit('http://localhost:3000/fornecedor/2');
+
+            cy.get('tbody > tr > :nth-child(1)').should('be.visible', 'contain', 'Sacos de ração')
+            cy.get('tbody > tr > :nth-child(2)').should('be.visible', 'contain', '200')
+            cy.get('tbody > tr > :nth-child(3)').should('be.visible', 'contain', '50')
+
+            cy.get('#edit_button').should('be.visible')
+            cy.get('#delete_button').should('be.visible')
+        });
+
     })
 
     context('Quando o fornecedor deletar um serviço', () => {
