@@ -2,9 +2,7 @@
   <section class="containerHome">
     <article class="containerText">
       <div class="TextH1">
-        <h1 class="TextNA">
-          NA
-        </h1>
+        <h1 class="TextNA">NA</h1>
         <div class="containerDuvidaCerteza">
           <h1 class="containerDuvidaSpan">
             DUVIDA
