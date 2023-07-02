@@ -86,7 +86,7 @@ const routes: Array<RouteConfig> = [
     name: "Associado",
     component: HomeAssociate,
     beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
 
       if (!token) {
         next("/login");
@@ -100,7 +100,7 @@ const routes: Array<RouteConfig> = [
     name: "Editar associado",
     component: UpdateAssociate,
     beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
 
       if (!token) {
         next("/login");
@@ -114,7 +114,7 @@ const routes: Array<RouteConfig> = [
     name: "Adminitrador",
     component: Administrator,
     beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       console.log(token);
       if (!token) {
         next("/login");
@@ -128,7 +128,7 @@ const routes: Array<RouteConfig> = [
     name: "Modal",
     component: Modal,
     beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       console.log(token);
       if (!token) {
         next("/login");
