@@ -23,14 +23,14 @@
                     <thead>
                         <tr>
                             <th>Serviço</th>
-                            <th>Custo</th>
+                            <th>Quantidade mensal</th>
                             <th>Opções</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="item in taskList">
                             <th class="serviceField"> {{ item.name }}</th>
-                            <th class="serviceField"> {{ item.cost }}</th>
+                            <th class="serviceField"> {{ item.monthlyAmount }}</th>
 
                             <th>
                                 <div class="align_buttons">
@@ -77,7 +77,7 @@ export default class ProviderView extends Vue {
             success => {
                 this.provider = success;
                 console.log(success);
-                this.taskClient.findTaskByIdProvider(success.id).then(
+                this.taskClient.findTasksActives().then(
                     success => {
                         this.taskList = success
                         console.log(success)
@@ -97,6 +97,7 @@ export default class ProviderView extends Vue {
             success => {
                 console.log(success);
                 this.task = new Task()
+                this.getProviderByUser()
             },
             error => {
                 console.log(error)
