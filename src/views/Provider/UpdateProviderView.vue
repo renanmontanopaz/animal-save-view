@@ -1,6 +1,6 @@
 <template>
     <section class="section_form">
-        <main>
+        <main class="main_form">
             <div class="control">
                 <h1 id="title_h1" class="title">Editar perfil</h1>
             </div>
@@ -560,10 +560,10 @@ export default class UpdateProviderView extends Vue {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #EBE3CC;
+    background-color: #002D4C;
     font-family: Poppins;
 
-    #title_id {
+    #title_h1 {
         color: #002D4C;
     }
 
@@ -596,16 +596,37 @@ export default class UpdateProviderView extends Vue {
         margin-bottom: 10px;
     }
 
+    textarea,
+    input {
+        border: 1px solid #EBE3CC;
+        transition: border-color 0.3s ease;
+    }
+
+    textarea:hover,
+    input:hover {
+        border: 2px solid #002D4C;
+    }
+
     button {
         font-family: Poppins;
         font-weight: 300;
+        transition: transform 0.3s ease;
     }
 
-    main {
+    button:hover {
+        filter: brightness(1.1);
+        transform: scale(1.1);
+    }
+
+    .main_form {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        flex-direction: column;
+        width: 50%;
+        height: 50%;
+        background-color: #EBE3CC;
+        border-radius: 20px;
 
         .title {
             padding: 20px 0px 20px 0px;

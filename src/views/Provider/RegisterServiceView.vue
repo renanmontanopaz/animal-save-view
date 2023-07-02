@@ -1,6 +1,6 @@
 <template>
     <section class="section_form">
-        <main>
+        <main class="main_form">
             <div class="control">
                 <h1 id="title_h1" class="title">Cadastro de Serviço</h1>
             </div>
@@ -276,7 +276,7 @@ export default class RegisterServiceView extends Vue {
     justify-content: center;
     width: 100%;
     min-height: 100vh;
-    background-color: #EBE3CC;
+    background-color: #002D4C;
     font-family: Poppins;
 
     #back_button {
@@ -297,8 +297,27 @@ export default class RegisterServiceView extends Vue {
         color: #002D4C;
     }
 
+    textarea,
+    input {
+        border: 1px solid #EBE3CC;
+        transition: border-color 0.3s ease;
+    }
 
-    main {
+    textarea:hover,
+    input:hover {
+        border: 2px solid #002D4C;
+    }
+
+
+    .main_form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        height: 50%;
+        background-color: #EBE3CC;
+        border-radius: 20px;
 
         .title {
             padding: 20px 0px 20px 0px;
@@ -323,7 +342,17 @@ export default class RegisterServiceView extends Vue {
                 width: 100px;
                 font-family: Poppins;
                 font-weight: 300;
+                transition: transform 0.3s ease;
             }
+
+            button:hover {
+                filter: brightness(1.1);
+                transform: scale(1.1);
+            }
+        }
+
+        .field {
+            width: 300px;
         }
     }
 }

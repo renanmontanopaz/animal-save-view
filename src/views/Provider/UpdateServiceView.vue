@@ -1,6 +1,6 @@
 <template>
     <section class="section_form">
-        <main>
+        <main class="main_form">
             <div class="column is-7">
                 <div class="control">
                     <h1 id="title_h1" class="title">Editar Serviço</h1>
@@ -284,8 +284,11 @@ export default class EditServiceView extends Vue {
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 .section_form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     min-height: 100vh;
-    background-color: #EBE3CC;
+    background-color: #002D4C;
     font-family: Poppins;
 
     #update_button {
@@ -299,6 +302,9 @@ export default class EditServiceView extends Vue {
     }
 
     #title_h1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: #002D4C;
     }
 
@@ -306,11 +312,26 @@ export default class EditServiceView extends Vue {
         color: #002D4C;
     }
 
-    main {
+    textarea,
+    input {
+        border: 1px solid #EBE3CC;
+        transition: border-color 0.3s ease;
+    }
+
+    textarea:hover,
+    input:hover {
+        border: 2px solid #002D4C;
+    }
+
+
+    .main_form {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 100%;
+        width: 50%;
+        height: 50%;
+        background-color: #EBE3CC;
+        border-radius: 20px;
 
         .title {
             padding: 20px 0px 20px 0px;
@@ -335,6 +356,12 @@ export default class EditServiceView extends Vue {
                 width: 100px;
                 font-family: Poppins;
                 font-weight: 300;
+                transition: transform 0.3s ease;
+            }
+
+            button:hover {
+                transform: scale(1.1);
+                filter: brightness(1.1);
             }
         }
     }
