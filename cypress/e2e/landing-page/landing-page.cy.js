@@ -45,4 +45,12 @@ describe('Landing Page', () => {
     cy.get('.dogLeao > img').should('exist');
   });
 
+  it('Deve exibir a tela About Us corretamente', () => {
+    cy.get('.containerQuemSomos').should('exist');
+    cy.get('.Pegadas2 > img').should('exist');
+    cy.get('.containerImage > img').should('exist');
+    cy.get('.containerText > p').should('exist');
+    cy.get('.containerText > p').should('have.text', 'Juntos pela felicidade dos animais! Seja parte da nossa equipe, lutando por um mundo onde nenhum animal seja deixado para trás.');
+  });
+
 });
