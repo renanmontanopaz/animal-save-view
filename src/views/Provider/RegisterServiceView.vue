@@ -253,15 +253,15 @@ export default class RegisterServiceView extends Vue {
     }
 
     public showComponent(): void {
-        this.isVisible = true;
+        this.isVisible = true
 
         setTimeout(() => {
-            this.isVisible = false;
+            this.isVisible = false
         }, 4000);
     }
 
     public onClickBack() {
-        this.$router.go(-1);
+        this.$router.go(-1)
     }
 }
 </script>

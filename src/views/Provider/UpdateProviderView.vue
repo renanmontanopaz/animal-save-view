@@ -535,7 +535,7 @@ export default class UpdateProviderView extends Vue {
     }
 
     public onClickFecharNotificacao(): void {
-        this.notificacao = new Message();
+        this.notificacao = new Message()
     }
 
     public showComponent(): void {

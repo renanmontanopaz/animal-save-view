@@ -169,7 +169,7 @@ export default class EditServiceView extends Vue {
                 success => {
                     console.log('Serviço atualizado com sucesso!')
                     this.task = new Task()
-                    this.showComponent();
+                    this.showComponent()
                     this.notificacao = this.notificacao.new(
                         true,
                         "notification is-primary",

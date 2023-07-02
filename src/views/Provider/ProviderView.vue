@@ -128,7 +128,7 @@ export default class ProviderView extends Vue {
                 this.taskClient.findTasksActives().then(
                     success => {
                         this.taskList = success
-                        console.log(success)
+                        console.log(success);
                         console.log(this.task)
                     },
                     error => {
