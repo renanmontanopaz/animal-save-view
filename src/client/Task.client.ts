@@ -14,7 +14,7 @@ export class TaskClient {
         })
     }
 
-    public async save(task: any) : Promise<void> {
+    public async save(task: Task) : Promise<void> {
         try{
             return(await this.axiosClient.post(`/register`, task)).data
         }
@@ -41,15 +41,6 @@ export class TaskClient {
         }
     }
 
-    public async findTasksActives() : Promise<Task[]> {
-        try {
-            return(await this.axiosClient.get<Task[]>(`/actives`)).data
-        }
-        catch (error:any) {
-            return Promise.reject(error.response)
-        }
-    }
-
     public async findTaskByIdProvider(id:number): Promise<Task[]> {
         try {
             return(await this.axiosClient.get<Task[]>(`/findTaskByIdProvider/${id}`)).data
@@ -59,7 +50,7 @@ export class TaskClient {
         }
     }
 
-    public async update(task: any) : Promise<void> {
+    public async update(task: Task) : Promise<void> {
         try {
             return(await this.axiosClient.put(`/update/${task.id}`, task)).data
         }

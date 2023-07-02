@@ -17,10 +17,6 @@ import ProviderView from "@/views/Provider/ProviderView.vue";
 import RegisterServiceView from "@/views/Provider/RegisterServiceView.vue";
 import UpdateProviderView from "@/views/Provider/UpdateProviderView.vue";
 import EditServiceView from "@/views/Provider/UpdateServiceView.vue";
-import Provider from "@/views/Provider/ProviderView.vue"
-import RegisterService from "@/views/Provider/RegisterServiceView.vue"
-import UpdateProvider from "@/views/Provider/UpdateProviderView.vue"
-import UpdateService from "@/views/Provider/UpdateServiceView.vue"
 
 Vue.use(VueRouter);
 const loginInstance = new Login();
@@ -28,6 +24,26 @@ const tokenLogin: Token = loginInstance.tokenLogin;
 const user: string = loginInstance.tokenLogin.token;
 const userauth: boolean = loginInstance.tokenLogin.auth;
 const routes: Array<RouteConfig> = [
+  {
+    path: "/update-service",
+    name: "update-service",
+    component: EditServiceView,
+  },
+  {
+    path: "/update-Provider",
+    name: "update-provider",
+    component: UpdateProviderView,
+  },
+  {
+    path: "/register-Provider",
+    name: "register-provider",
+    component: RegisterServiceView,
+  },
+  {
+    path: "/Provider",
+    name: "provider",
+    component: ProviderView,
+  },
   {
     path: "/protetora/register-animal",
     name: "RegisterAnimal",
@@ -120,35 +136,6 @@ const routes: Array<RouteConfig> = [
         next();
       }
     },
-  },
-  {
-    path: "/fornecedor/:id",
-    name: "Fornecedor",
-    component: Provider,
-    beforeEnter: function (to, from, next) {
-      const token = sessionStorage.getItem("token");
-
-      if (!token) {
-        next("/login");
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "/fornecedor/cadastrarServico/:id",
-    name: "CadastrarServico",
-    component: RegisterService,
-  },
-  {
-    path: "/fornecedor/atualizarFornecedor/:id",
-    name: "AtualizarFornecedor",
-    component: UpdateProvider,
-  },
-  {
-    path: "/fornecedor/atualizarServico/:id",
-    name: "AtualizarServico",
-    component: UpdateService,
   },
 ];
 
