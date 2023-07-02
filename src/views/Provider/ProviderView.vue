@@ -96,18 +96,16 @@ export default class ProviderView extends Vue {
     }
 
     public onClickDelete(id: number): void {
-        if (window.confirm("Tem certeza que deseja apagar este serviço?")) {
-            this.taskClient.disable(id).then(
-                success => {
-                    console.log(success);
-                    this.task = new Task()
-                    this.getProviderByUser()
-                },
-                error => {
-                    console.log(error)
-                }
-            )
-        }
+        this.taskClient.disable(id).then(
+            success => {
+                console.log(success);
+                this.task = new Task()
+                this.getProviderByUser()
+            },
+            error => {
+                console.log(error)
+            }
+        )
     }
 
     public onClickEditProfile() {
