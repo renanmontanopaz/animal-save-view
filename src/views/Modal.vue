@@ -4,22 +4,22 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="botao">
-            <button class="delete is-large" @click="close">
-              Fechar
-            </button>
+            <button class="delete is-large" @click="close">Fechar</button>
           </div>
-          <p >Selecione o Protetor(a)</p>
+          <p>Selecione o Protetor(a)</p>
           <div class="select is-normal field">
             <select v-model="Ocorrencia.user">
-              <option v-for="item2 in caregiverList" :value="item2" >{{item2.firstName}}</option>
+              <option v-for="item2 in caregiverList" :value="item2">
+                {{ item2.firstName }}
+              </option>
             </select>
           </div>
           <div class="control" style="margin-top: 10px">
-            <button class="button is-link control" @click="Cadaster()">Encaminhar</button>
+            <button class="button is-link control" @click="Cadaster()">
+              Encaminhar
+            </button>
           </div>
-          <div class="">
-
-          </div>
+          <div class=""></div>
         </div>
       </div>
     </div>
@@ -66,7 +66,7 @@
   transform: scale(1.1);
 }
 
-.botao{
+.botao {
   position: absolute;
   margin-left: 238px;
   margin-top: -19px;
@@ -74,53 +74,53 @@
 </style>
 <script lang="ts">
 import Vue from "vue";
-import {Component, Prop} from "vue-property-decorator";
-import {CaregiverClient} from "@/client/Caregiver.client";
-import {Caregiver} from "@/model/Caregiver";
-import {OcurrencesClient} from "@/client/Ocurrences.client";
-import {Occurrences} from "@/model/Occurrences";
+import { Component, Prop } from "vue-property-decorator";
+import { CaregiverClient } from "@/client/Caregiver.client";
+import { Caregiver } from "@/model/Caregiver";
+import { OcurrencesClient } from "@/client/Ocurrences.client";
+import { Occurrences } from "@/model/Occurrences";
 import RegisterPublic from "@/views/Administrator/RegisterPublic.vue";
 import router from "@/router";
 
-export interface ocurrencia{
+export interface ocurrencia {
   id: number;
   active: boolean;
-  register: Date,
+  register: Date;
   name: string;
   contact: string;
   description: string;
   referenceLocal: string;
   situation: string;
   user: {
-    id: number
-  }
+    id: number;
+  };
 }
 @Component
 export default class Modal extends Vue {
   @Prop() Ocorrencia!: Occurrences;
   @Prop() ListOcorrences: any;
-  @Prop() fechaModal!: Function
+  @Prop() fechaModal!: Function;
   public caregiverClient: CaregiverClient = new CaregiverClient();
   public caregiverList: Caregiver[] = [];
   public caregiver: Caregiver = new Caregiver();
   public occurrenceClient: OcurrencesClient = new OcurrencesClient();
   public occurrence: Occurrences = new Occurrences();
-  public register = new RegisterPublic;
-  private id: number = 0
+  public register = new RegisterPublic();
+  private id: number = 0;
   public mounted(): void {
-    this.listCaregiver()
+    this.listCaregiver();
   }
 
   public listCaregiver(): void {
     this.caregiverClient.listAll().then(
-        success => {
-          this.caregiverList = success
-          console.log(this.caregiverList)
-        },
-        error => {
-          console.log(error)
-        }
-    )
+      (success) => {
+        this.caregiverList = success;
+        console.log(this.caregiverList);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   public Cadaster(): void {
@@ -134,24 +134,21 @@ export default class Modal extends Vue {
       referenceLocal: this.Ocorrencia.referenceLocal,
       situation: this.Ocorrencia.situation,
       user: {
-        id: this.Ocorrencia.user.id
-      }
+        id: this.Ocorrencia.user.id,
+      },
     };
     this.occurrenceClient.update(objetoEnviado).then(
-        success => {
-          console.log(success)
-          this.fechaModal()
-        },
-        error => {
-          console.log(error)
-        }
-    )
-
+      (success) => {
+        console.log(success);
+        this.fechaModal();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
   close() {
-      this.$emit('close');
+    this.$emit("close");
   }
-
 }
-
 </script>

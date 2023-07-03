@@ -1,14 +1,16 @@
 <template>
   <section class="containerQuemSomos">
     <div class="Pegadas2">
-      <img src="../../assets/Pegadas.svg" alt="">
+      <img src="../../assets/Pegadas.svg" alt="" />
     </div>
     <div class="containerImage">
-      <img src="../../assets/FotoMenina.svg" alt="">
+      <img src="../../assets/FotoMenina.svg" alt="" />
     </div>
     <div class="containerText">
-      <p>Juntos pela felicidade dos animais! Seja parte da nossa equipe, lutando por um mundo onde nenhum animal seja
-        deixado para trás.</p>
+      <p>
+        Juntos pela felicidade dos animais! Seja parte da nossa equipe, lutando
+        por um mundo onde nenhum animal seja deixado para trás.
+      </p>
     </div>
   </section>
 </template>
@@ -23,7 +25,7 @@
   justify-content: center;
   width: 100%;
   height: 100vh;
-  background-color: #002D4C;
+  background-color: #002d4c;
   gap: 60px;
 
   .Pegadas2 {
@@ -42,18 +44,17 @@
 
   .containerText {
     width: 40%;
-    font-family: 'Poppins';
+    font-family: "Poppins";
     font-style: normal;
     font-weight: 600;
     font-size: 35px;
     line-height: 100px;
     text-align: center;
-    color: #EBE3CC;
+    color: #ebe3cc;
   }
 }
 
-@media (max-width:550px) {
-
+@media (max-width: 550px) {
   .containerQuemSomos {
     display: flex;
     align-items: center;
@@ -61,11 +62,11 @@
     flex-direction: column;
     width: 100%;
     height: 100vh;
-    background-color: #002D4C;
+    background-color: #002d4c;
     gap: 2em;
 
     .Pegadas2 {
-      display: none
+      display: none;
     }
 
     .containerImage {
@@ -75,13 +76,13 @@
 
     .containerText {
       width: 80%;
-      font-family: 'Poppins';
+      font-family: "Poppins";
       font-style: normal;
       font-weight: 600;
       font-size: 1.2em;
       line-height: 1.5em;
       text-align: center;
-      color: #EBE3CC;
+      color: #ebe3cc;
     }
   }
 }
@@ -89,11 +90,9 @@
 </style>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
 @Component
-export default class AboutUs extends Vue {
-
-}
+export default class AboutUs extends Vue {}
 </script>

@@ -4,18 +4,14 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="botao">
-            <button class="delete is-large" @click="close">
-              Fechar
-            </button>
+            <button class="delete is-large" @click="close">Fechar</button>
           </div>
-          <p>{{idCaregiver}}</p>
+          <p>{{ idCaregiver }}</p>
 
           <div class="control" style="margin-top: 10px">
-            <button class="button is-link control" >Encaminhar</button>
+            <button class="button is-link control">Encaminhar</button>
           </div>
-          <div class="">
-
-          </div>
+          <div class=""></div>
         </div>
       </div>
     </div>
@@ -23,17 +19,17 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop} from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
 import Vue from "vue";
-import {Caregiver} from "@/model/Caregiver";
+import { Caregiver } from "@/model/Caregiver";
 
 @Component
 export default class ModalManagerCaregiver extends Vue {
   @Prop() caregiver!: Caregiver;
   @Prop() idCaregiver!: number;
   close() {
-    this.$emit('close');
-    console.log(this.caregiver)
+    this.$emit("close");
+    console.log(this.caregiver);
   }
 }
 </script>

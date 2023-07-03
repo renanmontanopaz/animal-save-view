@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="containerFlex">
     <div class="title">Occorrências</div>
     <table>
       <thead>
@@ -55,5 +55,12 @@ td {
   align-self: center;
   font-size: xx-large;
   font-weight: bold;
+}
+.containerFlex {
+  display: flex;
+  flex-direction: column;
+  margin: 5%;
+  margin-top: -3%;
+  align-self: flex-start;
 }
 </style>

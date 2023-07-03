@@ -1,14 +1,36 @@
 <template>
   <main>
-    <div id="form-login" class="column is-3"
-      style="align-items: center; justify-content: space-around; display: flex; flex-direction: column">
-      <div class="box"
-        style="align-items: center; justify-content: space-around; display: flex; flex-direction: column; height: 450px; width: 100%">
+    <div
+      id="form-login"
+      class="column is-3"
+      style="
+        align-items: center;
+        justify-content: space-around;
+        display: flex;
+        flex-direction: column;
+      "
+    >
+      <div
+        class="box"
+        style="
+          align-items: center;
+          justify-content: space-around;
+          display: flex;
+          flex-direction: column;
+          height: 450px;
+          width: 100%;
+        "
+      >
         <img src="../assets/Logo.png" />
         <div class="column is-8">
           <div class="field">
             <p class="control has-icons-left has-icons-right">
-              <input class="input" type="email" placeholder="Email" v-model="login.login" />
+              <input
+                class="input"
+                type="email"
+                placeholder="Email"
+                v-model="login.login"
+              />
               <span class="icon is-small is-left">
                 <i class="fas fa-envelope"></i>
               </span>
@@ -19,7 +41,12 @@
           </div>
           <div class="field">
             <p class="control has-icons-left">
-              <input class="input" type="password" placeholder="Password" v-model="login.password" />
+              <input
+                class="input"
+                type="password"
+                placeholder="Password"
+                v-model="login.password"
+              />
               <span class="icon is-small is-left">
                 <i class="fas fa-lock"></i>
               </span>
@@ -28,22 +55,41 @@
           <div class="columns" v-if="notificacao.ativo">
             <div class="column is-12">
               <div :class="notificacao.classe" v-if="isVisible">
-                <button @click="onClickFecharNotificacao" class="delete"></button>
+                <button
+                  @click="onClickFecharNotificacao"
+                  class="delete"
+                ></button>
                 {{ notificacao.mensagem }}
               </div>
             </div>
           </div>
         </div>
-        <div id="container-button" class="control field column is-8" style="justify-content: space-around; display: flex">
-
-          <router-link to="/"><button id="button-voltar" class="button">Voltar</button></router-link>
+        <div
+          id="container-button"
+          class="control field column is-8"
+          style="justify-content: space-around; display: flex"
+        >
+          <router-link to="/"
+            ><button id="button-voltar" class="button">
+              Voltar
+            </button></router-link
+          >
           <button id="button-login" class="button" @click="onClickLogin">
             Login
           </button>
-
         </div>
-        <div style="justify-content: flex-start; align-items: flex-start; display: flex; width: 100%">
-          <router-link id="not-register" to="/register"> Não é Cadastrado ? <br /> Cadastre-se agora! </router-link>
+        <div
+          style="
+            justify-content: flex-start;
+            align-items: flex-start;
+            display: flex;
+            width: 100%;
+          "
+        >
+          <router-link id="not-register" to="/register">
+            Não é Cadastrado ? <br />
+            Cadastre-se agora!
+          </router-link>
         </div>
       </div>
     </div>
@@ -55,7 +101,7 @@ main {
   justify-content: center;
   display: flex;
   height: 100vh;
-  background-color: #002D4C;
+  background-color: #002d4c;
 }
 
 main::before {
@@ -75,7 +121,7 @@ main::before {
 }
 
 .box {
-  background-color: #EBE3CC;
+  background-color: #ebe3cc;
 }
 
 #container-button {
@@ -84,10 +130,10 @@ main::before {
 
 #button-voltar {
   width: 120px;
-  background-color: #FBBD08;
-  color: #002D4C;
+  background-color: #fbbd08;
+  color: #002d4c;
 
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-style: normal;
   font-weight: 400;
   font-size: 1.1em;
@@ -95,16 +141,16 @@ main::before {
 
 #button-voltar:hover {
   transform: scale(1.05);
-  background-color: #FBBD08;
+  background-color: #fbbd08;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 #button-login {
   width: 120px;
-  background-color: #002D4C;
-  color: #EBE3CC;
+  background-color: #002d4c;
+  color: #ebe3cc;
 
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-style: normal;
   font-weight: 400;
   font-size: 1.1em;
@@ -112,13 +158,13 @@ main::before {
 
 #button-login:hover {
   transform: scale(1.05);
-  background-color: #002D4C;
-  color: #EBE3CC;
+  background-color: #002d4c;
+  color: #ebe3cc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 #not-register {
-  color: #002D4C;
+  color: #002d4c;
 }
 
 #not-register:hover {
@@ -143,7 +189,7 @@ export default class Login extends Vue {
   public tokenLogin: Token = new Token();
   public notificacao: Message = new Message();
 
-  mounted(): void { }
+  mounted(): void {}
 
   isVisible = false;
 
@@ -178,20 +224,17 @@ export default class Login extends Vue {
 
         if (approved == true && authorities.includes("ROLE_ADMIN")) {
           window.location.href = "/administrador";
-          console.log('chegou no adm')
-        }
-        else if (approved == true && authorities.includes("ROLE_ASSOCIATE")) {
-          router.push({ path: `/associado/${id}` })
+          console.log("chegou no adm");
+        } else if (approved == true && authorities.includes("ROLE_ASSOCIATE")) {
+          router.push({ path: `/associado/${id}` });
           window.location.href = `/associado/${id}`;
-        }
-        else if (approved == true && authorities.includes("ROLE_PROVIDER")) {
-          router.push({ path: `/fornecedor/${id}` })
+        } else if (approved == true && authorities.includes("ROLE_PROVIDER")) {
+          router.push({ path: `/fornecedor/${id}` });
           window.location.href = `/fornecedor/${id}`;
-        }
-        else if (approved == true && authorities.includes("ROLE_CAREGIVER")) {
-          window.location.href = "/protetora";
-        }
-        else if (approved == false) {
+        } else if (approved == true && authorities.includes("ROLE_CAREGIVER")) {
+          router.push({ path: `/protetora/${id}` });
+          window.location.href = `/protetora/${id}`;
+        } else if (approved == false) {
           this.showComponent();
           this.notificacao = this.notificacao.new(
             true,

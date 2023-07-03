@@ -2,16 +2,12 @@
   <main class="content column">
     <header>
       <div id="container-title" class="panel is-primary">
-        <img id="logo" src="../../assets/Logo.png">
+        <img id="logo" src="../../assets/Logo.png" />
         <div id="dropdown" class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            Minha conta
-          </a>
+          <a class="navbar-link"> Minha conta </a>
           <div class="navbar-dropdown">
             <router-link to="/login">
-              <a id="sair" class="navbar-item">
-                Sair
-              </a>
+              <a id="sair" class="navbar-item"> Sair </a>
             </router-link>
           </div>
         </div>
@@ -20,7 +16,12 @@
 
     <div class="panel">
       <p class="panel-tabs">
-        <a v-for="(tab, index) in tabs" :key="index" :class="{ 'is-active': tab.isActive }" @click="activateTab(tab)">
+        <a
+          v-for="(tab, index) in tabs"
+          :key="index"
+          :class="{ 'is-active': tab.isActive }"
+          @click="activateTab(tab)"
+        >
           <span>{{ tab.label }}</span>
         </a>
       </p>
@@ -33,9 +34,8 @@
   </main>
 </template>
 
-
 <script lang="ts" scoped>
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from "vue-property-decorator";
 import { AdminClient } from "@/client/Admin.client";
 import { pendings } from "@/model/Pending";
 import { Message } from "@/model/Message";
@@ -44,12 +44,12 @@ import ManagerUsers from "@/views/Administrator/ManagerUsers.vue";
 import UsersPending from "@/views/Administrator/UsersPending.vue";
 import UsersApproved from "@/views/Administrator/UsersApproved.vue";
 import UsersRejected from "@/views/Administrator/UsersRejected.vue";
-import { AssociateClient } from '@/client/Associate.client';
-import { Associate } from '@/model/Associate';
-import { ProviderClient } from '@/client/Provider.client';
-import { Provider } from '@/model/Provider';
-import { Caregiver } from '@/model/Caregiver';
-import { CaregiverClient } from '@/client/Caregiver.client';
+import { AssociateClient } from "@/client/Associate.client";
+import { Associate } from "@/model/Associate";
+import { ProviderClient } from "@/client/Provider.client";
+import { Provider } from "@/model/Provider";
+import { Caregiver } from "@/model/Caregiver";
+import { CaregiverClient } from "@/client/Caregiver.client";
 
 interface Tab {
   label: string;
@@ -63,8 +63,8 @@ interface Tab {
     ManagerUsers,
     UsersPending,
     UsersApproved,
-    UsersRejected
-  }
+    UsersRejected,
+  },
 })
 export default class Administrator extends Vue {
   public adminClient: AdminClient = new AdminClient();
@@ -81,30 +81,29 @@ export default class Administrator extends Vue {
 
   isVisible = false;
 
-  public select: string = '0';
+  public select: string = "0";
 
   tabs: Tab[] = [
-    { label: 'Usuários Pendentes', icon: 'fas fa-image', isActive: true },
-    { label: 'Usuários Aprovados', icon: 'fas fa-image', isActive: false },
-    { label: 'Usuários Rejeitados', icon: 'fas fa-image', isActive: false },
-    { label: 'Registro Público', icon: 'fas fa-image', isActive: false },
-    { label: 'Gerenciar Usuários', icon: 'fas fa-image', isActive: false }
+    { label: "Usuários Pendentes", icon: "fas fa-image", isActive: true },
+    { label: "Usuários Aprovados", icon: "fas fa-image", isActive: false },
+    { label: "Usuários Rejeitados", icon: "fas fa-image", isActive: false },
+    { label: "Registro Público", icon: "fas fa-image", isActive: false },
+    { label: "Gerenciar Usuários", icon: "fas fa-image", isActive: false },
   ];
 
-  activeTab: Tab | null = this.tabs.find(tab => tab.isActive) || null;
+  activeTab: Tab | null = this.tabs.find((tab) => tab.isActive) || null;
   activateTab(tab: Tab): void {
     this.tabs.forEach((t: Tab) => {
-      t.isActive = (t === tab);
+      t.isActive = t === tab;
     });
     this.activeTab = tab.isActive ? tab : null;
   }
-
 }
 </script>
 
 <style scoped>
 main {
-  background-color: #EBE3CC;
+  background-color: #ebe3cc;
 }
 
 header {
@@ -115,7 +114,7 @@ header {
   width: 100%;
   padding-bottom: 100px;
 
-  background-color: #EBE3CC;
+  background-color: #ebe3cc;
 }
 
 #container-title {
@@ -151,14 +150,14 @@ header {
   display: flex;
   font-size: 18px;
   font-weight: 500;
-  color: #002D4C;
+  color: #002d4c;
 }
 
 .panel-tabs a.is-active span {
-  color: #FBBD08;
+  color: #fbbd08;
 }
 
 .panel-tabs a {
-  color: #002D4C;
+  color: #002d4c;
 }
 </style>
