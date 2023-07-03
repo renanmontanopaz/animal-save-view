@@ -1,128 +1,142 @@
 <template>
-  <div class="containerFlex">
-    <div class="title">Animais</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Raça</th>
-          <th>Tipo</th>
-          <th>Tamanho</th>
-          <th>Cor</th>
-          <th>Vacinas Tomadas</th>
-          <th>Editar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="animal in animals" :key="animal.name">
-          <td v-html="formatText(animal.name, 20)"></td>
-          <td v-html="formatText(animal.breed, 20)"></td>
-          <td v-html="formatText(animal.animalType, 20)"></td>
-          <td v-html="formatText(animal.animalSize, 20)"></td>
-          <td v-html="formatText(animal.color, 20)"></td>
-          <td
-            v-html="formatText(takenVaccinations(animal.vaccination), 20)"
-          ></td>
-          <td>
-            <button id="button-editar" @click="openEditModal(animal.id)">
-              Editar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <transition name="modal">
-      <div
-        v-if="isModalVisible"
-        ref="modalMask"
-        class="modal-mask column is-full"
-      >
-        <div class="modal-wrapper column is-full">
-          <div class="modal-container column is-6">
-            <div class="field columns is-desktop">
-              <div class="column">
-                <input
-                  class="input is-info"
-                  type="text"
-                  placeholder="Nome"
-                  v-model="selectedAnimal.name"
-                />
-
-                <input
-                  class="input is-info"
-                  type="text"
-                  placeholder="Raça"
-                  v-model="selectedAnimal.breed"
-                />
-
-                <select
-                  v-model="selectedAnimal.animalType"
-                  class="input is-info"
-                >
-                  <option disabled value="">TIPO</option>
-                  <option v-for="type in animalTypes" :key="type" :value="type">
-                    {{ type }}
-                  </option>
-                </select>
-
-                <select
-                  v-model="selectedAnimal.animalSize"
-                  class="input is-info"
-                >
-                  <option disabled value="">TAMANHO</option>
-                  <option v-for="size in animalSizes" :key="size" :value="size">
-                    {{ size }}
-                  </option>
-                </select>
-
-                <input
-                  class="input is-info"
-                  type="text"
-                  placeholder="Cor"
-                  v-model="selectedAnimal.color"
-                />
-                <div class="column" v-for="key in knownVaccineKeys" :key="key">
+  <main>
+    <div class="containerFlex">
+      <div class="title">Animais</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Raça</th>
+            <th>Tipo</th>
+            <th>Tamanho</th>
+            <th>Cor</th>
+            <th>Vacinas Tomadas</th>
+            <th>Editar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="animal in animals" :key="animal.name">
+            <td v-html="formatText(animal.name, 20)"></td>
+            <td v-html="formatText(animal.breed, 20)"></td>
+            <td v-html="formatText(animal.animalType, 20)"></td>
+            <td v-html="formatText(animal.animalSize, 20)"></td>
+            <td v-html="formatText(animal.color, 20)"></td>
+            <td
+              v-html="formatText(takenVaccinations(animal.vaccination), 20)"
+            ></td>
+            <td>
+              <button id="button-editar" @click="openEditModal(animal.id)">
+                Editar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <transition name="modal">
+        <div
+          v-if="isModalVisible"
+          ref="modalMask"
+          class="modal-mask column is-full"
+        >
+          <div class="modal-wrapper column is-full">
+            <div class="modal-container column is-6">
+              <div class="field columns is-desktop">
+                <div class="column">
                   <input
-                    type="checkbox"
-                    v-model="selectedAnimal.vaccination[key]"
-                  />{{ vaccineNames[key] }}
+                    class="input is-info"
+                    type="text"
+                    placeholder="Nome"
+                    v-model="selectedAnimal.name"
+                  />
+
+                  <input
+                    class="input is-info"
+                    type="text"
+                    placeholder="Raça"
+                    v-model="selectedAnimal.breed"
+                  />
+
+                  <select
+                    v-model="selectedAnimal.animalType"
+                    class="input is-info"
+                  >
+                    <option disabled value="">TIPO</option>
+                    <option
+                      v-for="type in animalTypes"
+                      :key="type"
+                      :value="type"
+                    >
+                      {{ type }}
+                    </option>
+                  </select>
+
+                  <select
+                    v-model="selectedAnimal.animalSize"
+                    class="input is-info"
+                  >
+                    <option disabled value="">TAMANHO</option>
+                    <option
+                      v-for="size in animalSizes"
+                      :key="size"
+                      :value="size"
+                    >
+                      {{ size }}
+                    </option>
+                  </select>
+
+                  <input
+                    class="input is-info"
+                    type="text"
+                    placeholder="Cor"
+                    v-model="selectedAnimal.color"
+                  />
+                  <div
+                    class="column"
+                    v-for="key in knownVaccineKeys"
+                    :key="key"
+                  >
+                    <input
+                      type="checkbox"
+                      v-model="selectedAnimal.vaccination[key]"
+                    />{{ vaccineNames[key] }}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="columns" v-if="notificacao.ativo">
-              <div class="column is-12">
-                <div :class="notificacao.classe" v-if="isVisible">
-                  <button
-                    @click="onClickFecharNotificacao"
-                    class="delete"
-                  ></button>
-                  {{ notificacao.mensagem }}
+              <div class="columns" v-if="notificacao.ativo">
+                <div class="column is-12">
+                  <div :class="notificacao.classe" v-if="isVisible">
+                    <button
+                      @click="onClickFecharNotificacao"
+                      class="delete"
+                    ></button>
+                    {{ notificacao.mensagem }}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="control" style="gap: 10px">
-              <button
-                id="button-voltar"
-                class="button is-danger"
-                style="margin-left: 10px"
-                @click="openModal"
-              >
-                Voltar
-              </button>
-              <button
-                id="button-aprovar"
-                class="button is-link"
-                @click="editAnimal(selectedAnimal)"
-                style="margin-left: 10px"
-              >
-                Salvar
-              </button>
+              <div class="control" style="gap: 10px">
+                <button
+                  id="button-voltar"
+                  class="button is-danger"
+                  style="margin-left: 10px"
+                  @click="openModal"
+                >
+                  Voltar
+                </button>
+                <button
+                  id="button-aprovar"
+                  class="button is-link"
+                  @click="editAnimal(selectedAnimal)"
+                  style="margin-left: 10px"
+                >
+                  Salvar
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </transition>
-  </div>
+      </transition>
+    </div>
+  </main>
 </template>
 
 <script lang="ts" scoped>
@@ -344,9 +358,8 @@ export default class Register extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
-html,
-body {
+<style scoped>
+main {
   background-color: #ebe3cc;
 }
 

@@ -87,6 +87,10 @@ export default class HomeCaregiver extends Vue {
 </script>
 
 <style scoped>
+main {
+  background-color: #ebe3cc;
+}
+
 header {
   display: flex;
   flex-direction: column;
