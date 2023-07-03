@@ -160,5 +160,5 @@ describe('RegisterOccurences', () => {
     cy.get(':nth-child(3) > .control > p > ul > li').should('be.visible');
     cy.get(':nth-child(4) > .control > p > ul > li').should('be.visible');
     cy.get('.select > p > ul > li').should('be.visible');
-  })
+  });
 });
