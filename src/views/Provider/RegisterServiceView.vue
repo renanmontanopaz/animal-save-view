@@ -197,16 +197,26 @@ export default class RegisterServiceView extends Vue {
 
     public validateInputCost() {
         if (!this.task.cost) {
-            this.errorMessageCost = ['O campo "Custo" é obrigatório!']
-            this.inputCost = 'input is-danger'
-        } else if (this.task.cost > 10000) {
-            this.errorMessageCost = ['O campo "Custo" tem um limite máximo de 10.000!']
-            this.inputCost = 'input is-danger'
+            this.errorMessageCost = ['O campo "Custo" é obrigatório!'];
+            this.inputCost = 'input is-danger';
         } else {
-            this.errorMessageCost = []
-            this.inputCost = 'input is-success'
+            const costValue = parseFloat(this.task.cost.toString().replace(',', '.'));
+
+            if (isNaN(costValue)) {
+                this.errorMessageCost = ['O campo "Custo" deve ser um número válido!'];
+                this.inputCost = 'input is-danger';
+            } else if (costValue > 10000) {
+                this.errorMessageCost = ['O campo "Custo" tem um limite máximo de 10.000!'];
+                this.inputCost = 'input is-danger';
+            } else {
+                this.errorMessageCost = [];
+                this.inputCost = 'input is-success';
+                this.task.cost = costValue;
+            }
         }
     }
+
+
 
     public validadeInputMonthlyAmount() {
         if (!this.task.monthlyAmount) {
@@ -309,7 +319,7 @@ export default class RegisterServiceView extends Vue {
     }
 
     p {
-       color: #F64367;
+        color: #F64367;
     }
 
 

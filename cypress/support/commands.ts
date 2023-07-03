@@ -1,4 +1,13 @@
 /// <reference types="cypress" />
+
+Cypress.on("uncaught:exception", (err: Error, runnable) => {
+
+    if (err.message.includes("Redirected when going from")) {
+        return false;
+    }
+    return true;
+});
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
