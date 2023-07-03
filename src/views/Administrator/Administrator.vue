@@ -2,7 +2,9 @@
   <main class="content column">
     <header>
       <div id="container-title" class="panel is-primary">
-        <img id="logo" src="../../assets/Logo.png" />
+        <router-link to="/" id="logo" class="message_image">
+          <img src="../../assets/Logo.png" alt="Logo do animal-save" />
+        </router-link>
         <div id="dropdown" class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link"> Minha conta </a>
           <div class="navbar-dropdown">
@@ -125,7 +127,10 @@ header {
 }
 
 #logo {
-  width: 250px;
+  background-color: #ebe3cc;
+  border: none;
+  transition: transform 0.2s;
+  cursor: pointer;
 }
 
 #dropdown {
