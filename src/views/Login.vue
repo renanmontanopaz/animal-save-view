@@ -19,7 +19,14 @@
           </div>
           <div class="field">
             <p class="control has-icons-left">
+              <input
+                class="input"
+                type="password"
+                placeholder="Password"
+                v-model="login.password"
+              />
               <input class="input" type="password" placeholder="Password" v-model="login.password" />
+
               <span class="icon is-small is-left">
                 <i class="fas fa-lock"></i>
               </span>
@@ -28,19 +35,21 @@
           <div class="columns" v-if="notificacao.ativo">
             <div class="column is-12">
               <div :class="notificacao.classe" v-if="isVisible">
+                <button
+                  @click="onClickFecharNotificacao"
+                  class="delete"
+                ></button>
                 <button @click="onClickFecharNotificacao" class="delete"></button>
                 {{ notificacao.mensagem }}
               </div>
             </div>
           </div>
-        </div>
+        </div> 
         <div id="container-button" class="control field column is-8" style="justify-content: space-around; display: flex">
-
           <router-link to="/"><button id="button-voltar" class="button">Voltar</button></router-link>
           <button id="button-login" class="button" @click="onClickLogin">
             Login
           </button>
-
         </div>
         <div style="justify-content: flex-start; align-items: flex-start; display: flex; width: 100%">
           <router-link id="not-register" to="/register"> Não é Cadastrado ? <br /> Cadastre-se agora! </router-link>
@@ -69,6 +78,7 @@ main::before {
   /* Cor de fundo com opacidade */
   z-index: -1;
 }
+
 
 #form-login {
   width: 500px;
@@ -143,7 +153,7 @@ export default class Login extends Vue {
   public tokenLogin: Token = new Token();
   public notificacao: Message = new Message();
 
-  mounted(): void { }
+  mounted(): void {}
 
   isVisible = false;
 
@@ -178,6 +188,8 @@ export default class Login extends Vue {
 
         if (approved == true && authorities.includes("ROLE_ADMIN")) {
           window.location.href = "/administrador";
+
+
           console.log('chegou no adm')
         }
         else if (approved == true && authorities.includes("ROLE_ASSOCIATE")) {
@@ -189,7 +201,8 @@ export default class Login extends Vue {
           window.location.href = `/fornecedor/${id}`;
         }
         else if (approved == true && authorities.includes("ROLE_CAREGIVER")) {
-          window.location.href = "/protetora";
+          router.push({ path: `/protetora/${id}` });
+          window.location.href = `/protetora/${id}`;
         }
         else if (approved == false) {
           this.showComponent();
