@@ -118,73 +118,98 @@ import { UserClient } from "@/client/User.client";
 
 @Component
 export default class ProviderView extends Vue {
-  private taskClient: TaskClient = new TaskClient();
-  public taskList: Task[] = [];
-  public task: Task = new Task();
 
-  public provider: Provider = new Provider();
-  private userClient: UserClient = new UserClient();
 
-  public showModal: boolean = false;
-  public isButtonDisabled: boolean = false;
-  remainingTime: number = 0;
-  timer: ReturnType<typeof setInterval> | null = null;
-  cancelTimer: boolean = false;
+    private taskClient: TaskClient = new TaskClient()
+    public taskList: Task[] = []
+    public task: Task = new Task()
 
-  public mounted(): void {
-    this.getProviderByUser();
-  }
+    public provider: Provider = new Provider()
+    private userClient: UserClient = new UserClient()
 
-  public getProviderByUser(): void {
-    var idTask = Number(this.$route.params.id);
-    this.userClient.findProviderByIdUser(idTask).then(
-      (success) => {
-        this.provider = success;
-        console.log(success);
-        this.taskClient.findTasksActives().then(
-          (success) => {
-            this.taskList = success;
-            console.log(success);
-            console.log(this.task);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      },
-      (error) => console.log(error)
-    );
-  }
+    public showModal: boolean = false
+    public isButtonDisabled: boolean = false
+    remainingTime: number = 0
+    timer: ReturnType<typeof setInterval> | null = null;
+    cancelTimer: boolean = false;
 
-  public onClickDelete(id: number): void {
-    this.taskClient.disable(id).then(
-      (success) => {
-        this.showModal = false;
-        console.log(success);
-        this.task = new Task();
-        this.getProviderByUser();
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
+    public mounted(): void {
+        this.getProviderByUser()
+    }
 
-  public onClickShowModal(): void {
-    this.showModal = true;
-    this.isButtonDisabled = true;
-    this.remainingTime = 4;
-    this.startTimer();
 
-    setTimeout(() => {
-      this.isButtonDisabled = false;
-    }, 4000);
-  }
+    public getProviderByUser(): void {
+        var idTask = Number(this.$route.params.id)
+        this.userClient.findProviderByIdUser(idTask).then(
+            success => {
+                this.provider = success;
+                console.log(success);
+                this.taskClient.findTasksActives().then(
+                    success => {
+                        this.taskList = success
+                        console.log(success)
+                        console.log(this.task)
+                    },
+                    error => {
+                        console.log(error)
+                    }
+                )
+            },
+            error => console.log(error)
+        )
+    }
 
-  startTimer(): void {
-    this.cancelTimer = false;
-    this.timer = setInterval(() => {
-      if (this.cancelTimer) {
+    public onClickDelete(id: number): void {
+        this.taskClient.disable(id).then(
+            success => {
+                this.showModal = false
+                console.log(success);
+                this.task = new Task()
+                this.getProviderByUser()
+            },
+            error => {
+                console.log(error)
+            }
+        )
+    }
+
+    public onClickShowModal(): void {
+        this.showModal = true
+        this.isButtonDisabled = true;
+        this.remainingTime = 4;
+        this.startTimer()
+
+        setTimeout(() => {
+            this.isButtonDisabled = false;
+        }, 4000);
+    }
+
+    startTimer(): void {
+        this.cancelTimer = false;
+        this.timer = setInterval(() => {
+            if (this.cancelTimer) {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                }
+                this.timer = null;
+                this.remainingTime = 0;
+                return;
+            }
+
+            this.remainingTime--;
+
+            if (this.remainingTime === 0) {
+                this.isButtonDisabled = false;
+                if (this.timer) {
+                    clearInterval(this.timer);
+                }
+                this.timer = null;
+            }
+        }, 1000);
+    }
+
+    onCancelModal(): void {
+        this.showModal = false
         if (this.timer) {
           clearInterval(this.timer);
         }
