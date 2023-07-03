@@ -1,17 +1,17 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Header from '@/views/LandingPage/Header.vue';
-import RegisterOccurences from '@/views/LandingPage/RegisterOccurences.vue';
+import Header from "@/views/LandingPage/Header.vue";
+import RegisterOccurences from "@/views/LandingPage/RegisterOccurences.vue";
 import Login from "@/views/Login.vue";
 import RegisterAnimal from "@/views/Protetora/RegisterAnimals.vue";
 import Register from "@/views/RegisterUsers/Register.vue";
 import HomeAssociate from "@/views/Associate/HomeAssociate.vue";
-import UpdateAssociate from "@/views/Associate/UpdateAssociate.vue"
+import UpdateAssociate from "@/views/Associate/UpdateAssociate.vue";
 import Administrator from "@/views/Administrator/Administrator.vue";
 import HomeCaregiver from "@/views/Protetora/HomeCaregiver.vue";
 import { Token } from "@/model/Token";
 import Modal from "@/views/Modal.vue";
-import HeaderVue from '@/views/LandingPage/Header.vue';
+import HeaderVue from "@/views/LandingPage/Header.vue";
 import ListOccurrence from "@/views/Protetora/ListOcurrences.vue";
 import ProviderView from "@/views/Provider/ProviderView.vue";
 import RegisterServiceView from "@/views/Provider/RegisterServiceView.vue";
@@ -28,20 +28,20 @@ const tokenLogin: Token = loginInstance.tokenLogin;
 const user: string = loginInstance.tokenLogin.token;
 const userauth: boolean = loginInstance.tokenLogin.auth;
 const routes: Array<RouteConfig> = [
+  
   {
-    path: "/protetora/register-animal",
-    name: "RegisterAnimal",
-    component: RegisterAnimal,
-  },
-  {
-    path: "/protetora",
+    path: "/protetora/:id",
     name: "protetora",
     component: HomeCaregiver,
-  },
-  {
-    path: "/protetora/list-occurrence",
-    name: "ListOccurrence",
-    component: ListOccurrence,
+    beforeEnter: function (to, from, next) {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        next("/login");
+      } else {
+        next();
+      }
+    },
   },
 
   {
@@ -65,7 +65,6 @@ const routes: Array<RouteConfig> = [
     component: RegisterOccurences,
   },
   {
-
     path: "/associado/:id",
     name: "Associado",
     component: HomeAssociate,
