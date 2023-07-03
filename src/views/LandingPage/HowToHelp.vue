@@ -11,8 +11,14 @@
           <p>Não custa quase nada ajudar! E é bem facil!</p>
           <ol>
             <li>Você faz o cadastro do seu nome e CPF/CNPJ</li>
-            <li>Você escolhe um valor para ajudar, que será debitado da sua conta mensalmente.</li>
-            <li>Você cadastra a sua conta corrente para o débito uma única vez, e pronto!</li>
+            <li>
+              Você escolhe um valor para ajudar, que será debitado da sua conta
+              mensalmente.
+            </li>
+            <li>
+              Você cadastra a sua conta corrente para o débito uma única vez, e
+              pronto!
+            </li>
           </ol>
         </section>
       </div>
@@ -20,16 +26,13 @@
   </div>
 </template>
 <script lang="ts">
-import {Component, Vue} from 'vue-property-decorator'
+import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class Modal extends Vue {
-
   close() {
-      this.$emit('close');
+    this.$emit("close");
   }
-  
 }
-
 </script>
 <style lang="scss" scoped></style>

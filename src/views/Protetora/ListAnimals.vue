@@ -344,7 +344,7 @@ export default class Register extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 html,
 body {
   background-color: #ebe3cc;
