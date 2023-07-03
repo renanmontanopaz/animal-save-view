@@ -46,6 +46,8 @@ describe('Landing Page', () => {
   });
 
   it('Deve exibir a tela About Us corretamente', () => {
+    cy.get('.containerQuemSomos').scrollIntoView();
+    cy.get('.containerQuemSomos').should('be.visible');
     cy.get('.containerQuemSomos').should('exist');
     cy.get('.Pegadas2 > img').should('exist');
     cy.get('.containerImage > img').should('exist');
@@ -54,6 +56,8 @@ describe('Landing Page', () => {
   });
 
   it('Deve exibir a tela Partners corretamente', () => {
+    cy.get('.containerParceiros').scrollIntoView();
+    cy.get('.containerParceiros').should('be.visible');
     cy.get('.containerParceiros').should('exist');
     cy.get('.containerParceiros > :nth-child(1)').should('exist');
     cy.get(':nth-child(1) > :nth-child(1) > .ImgCachorro').should('exist');
@@ -125,6 +129,11 @@ describe('RegisterOccurences', () => {
     cy.get('select').select('Emergência');
     cy.get('.butt2').click();
     cy.get('.notification').should('be.visible');
+  });
 
+  it('Deve retornar erro ao preencher o formulário errado', () => {
+    cy.get(':nth-child(1) > .control > .input').clear().type('Na');
+    cy.get('.column').click();
+    cy.get(':nth-child(1) > .control > p > ul > li').should('be.visible');
   });
 });
