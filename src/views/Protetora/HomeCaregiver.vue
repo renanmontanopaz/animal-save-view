@@ -12,8 +12,6 @@
         </div>
       </div>
 
-      <p id="title" class="panel-heading">Protetor(a)</p>
-
       <div id="content">
         <p class="panel-tabs">
           <a
@@ -138,6 +136,7 @@ header {
   display: flex;
   font-size: 24px;
   font-weight: 500;
+  margin-bottom: 10%;
 }
 
 span {

@@ -60,6 +60,7 @@ td {
   display: flex;
   flex-direction: column;
   margin: 5%;
+  margin-top: -3%;
   align-self: flex-start;
 }
 </style>

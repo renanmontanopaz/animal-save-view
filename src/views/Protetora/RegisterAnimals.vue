@@ -12,7 +12,7 @@
       </div>
       <div class="message-body">Animal cadastrado com sucesso!</div>
     </article>
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent="onSubmit" class="formGrid">
       <div class="field">
         <label class="label">Tipo</label>
         <v-select v-model="animalMock.type" :options="animalTypes"></v-select>
@@ -57,7 +57,9 @@
         <input class="input" type="text" v-model="animalMock.observation" />
       </div>
 
-      <button class="button is-primary" type="submit">Register</button>
+      <button id="registerButton" class="button is-primary" type="submit">
+        Register
+      </button>
     </form>
   </div>
 </template>
@@ -111,6 +113,7 @@ export default class Register extends Vue {
     console.log(animalForm);
     await this.animalClient.save(animalForm);
     this.notificationSave = true;
+    this.animalMock = this.defaultAnimalMock();
   }
 
   public async getCaregiver() {
@@ -120,6 +123,23 @@ export default class Register extends Vue {
       const caregiverId = caregiver.id;
       return caregiverId;
     } else return 0;
+  }
+
+  public defaultAnimalMock() {
+    return {
+      type: AnimalType.CACHORRO,
+      size: AnimalSize.MEDIO,
+      name: "",
+      breed: "",
+      age: "",
+      color: "",
+      vaccines: ["Raiva", "Parvovirose Canina", "Cinomose", "Hepatite Canina"],
+      selectedVaccines: [],
+      observation: " ",
+      caregiver: {
+        id: "",
+      },
+    };
   }
 
   public async fromMock(mock: any): Promise<Animal> {
@@ -181,13 +201,19 @@ export default class Register extends Vue {
   font-weight: bold;
 }
 .panel.is-primary .panel-tabs a.is-active {
-  border-bottom-color: hsl(171deg, 100%, 41%);
+  border-bottom-color: #48c88f;
 }
-.input {
+.input,
+.vs--searchable .vs__dropdown-toggle {
   box-shadow: inset 0 0.0625em 0.125em rgba(10, 10, 10, 0.05);
   max-width: 100%;
   width: 100%;
   margin-left: 15px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+#registerButton {
+  background-color: #48c88f;
 }
 
 .vs--searchable .vs__dropdown-toggle {
@@ -197,7 +223,20 @@ export default class Register extends Vue {
 .containerFlex {
   display: flex;
   flex-direction: column;
-  margin: 5%;
+  flex-wrap: wrap;
+  align-content: center;
   align-self: flex-start;
+  flex-grow: 1;
+  background-color: #ebe3cc;
+  margin-top: -3%;
+}
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+  align-items: start;
+}
+.formGrid .button {
+  grid-column: span 2;
 }
 </style>

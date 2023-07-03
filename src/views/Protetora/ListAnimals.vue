@@ -2,36 +2,38 @@
   <main>
     <div class="containerFlex">
       <div class="title">Animais</div>
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Raça</th>
-            <th>Tipo</th>
-            <th>Tamanho</th>
-            <th>Cor</th>
-            <th>Vacinas Tomadas</th>
-            <th>Editar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="animal in animals" :key="animal.name">
-            <td v-html="formatText(animal.name, 20)"></td>
-            <td v-html="formatText(animal.breed, 20)"></td>
-            <td v-html="formatText(animal.animalType, 20)"></td>
-            <td v-html="formatText(animal.animalSize, 20)"></td>
-            <td v-html="formatText(animal.color, 20)"></td>
-            <td
-              v-html="formatText(takenVaccinations(animal.vaccination), 20)"
-            ></td>
-            <td>
-              <button id="button-editar" @click="openEditModal(animal.id)">
-                Editar
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="scrollable">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Raça</th>
+              <th>Tipo</th>
+              <th>Tamanho</th>
+              <th>Cor</th>
+              <th>Vacinas Tomadas</th>
+              <th>Editar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="animal in animals" :key="animal.name">
+              <td v-html="formatText(animal.name, 20)"></td>
+              <td v-html="formatText(animal.breed, 20)"></td>
+              <td v-html="formatText(animal.animalType, 20)"></td>
+              <td v-html="formatText(animal.animalSize, 20)"></td>
+              <td v-html="formatText(animal.color, 20)"></td>
+              <td
+                v-html="formatText(takenVaccinations(animal.vaccination), 20)"
+              ></td>
+              <td>
+                <button id="button-editar" @click="openEditModal(animal.id)">
+                  Editar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <transition name="modal">
         <div
           v-if="isModalVisible"
@@ -147,13 +149,9 @@ import { UserClient } from "@/client/User.client";
 import { AnimalClient } from "@/client/Animal.client";
 import { AnimalType } from "../../model/enum/AnimalType";
 import { Caregiver } from "../../model/Caregiver";
-import { Vaccination } from "../../model/Vaccination";
 import { Animal } from "@/model/Animal";
 import { AnimalSize } from "../../model/enum/AnimalSize";
 import moment from "moment";
-import { Address } from "@/model/Address";
-import { Occurrences } from "@/model/Occurrences";
-import { User } from "@/model/User";
 
 interface animal {
   id: number;
@@ -368,14 +366,21 @@ main {
   border-radius: 3%;
 }
 
+.scrollable {
+  overflow-y: auto;
+  width: 1000px;
+  max-height: 640px;
+}
+
 #button-editar {
   width: 110px;
   height: 35px;
-  border-radius: 5px;
+  border-radius: 8px;
   background-color: #fbbd08;
   color: #002d4c;
   font-size: 14px;
   font-weight: 700;
+  border: none;
   cursor: pointer;
   font-family: "Poppins";
   font-style: normal;
@@ -410,6 +415,7 @@ td {
   flex-direction: column;
   margin: 5%;
   align-self: flex-start;
+  margin-top: -30%;
 }
 .modal-mask {
   position: fixed;
