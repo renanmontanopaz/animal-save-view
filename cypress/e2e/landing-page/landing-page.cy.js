@@ -118,6 +118,13 @@ describe('RegisterOccurences', () => {
   });
 
   it('Deve preencher o formulário corretamente', () => {
-    
+    cy.get(':nth-child(1) > .control > .input').clear().type('Joao');
+    cy.get(':nth-child(2) > .control > .input').clear().type('45 998216130');
+    cy.get(':nth-child(3) > .control > .input').clear().type('O animal é branco, porte pequeno, está mancando');
+    cy.get(':nth-child(4) > .control > .input').clear().type('Proximo ao mercado muffato, no centro');
+    cy.get('select').select('Emergência');
+    cy.get('.butt2').click();
+    cy.get('.notification').should('be.visible');
+
   });
 });
