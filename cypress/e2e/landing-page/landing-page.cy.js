@@ -133,7 +133,32 @@ describe('RegisterOccurences', () => {
 
   it('Deve retornar erro ao preencher o formulário errado', () => {
     cy.get(':nth-child(1) > .control > .input').clear().type('Na');
-    cy.get('.column').click();
+    cy.get(':nth-child(2) > .control > .input').click();
     cy.get(':nth-child(1) > .control > p > ul > li').should('be.visible');
+
+    cy.get(':nth-child(2) > .control > .input').clear().type('497846');
+    cy.get(':nth-child(3) > .control > .input').click();
+    cy.get(':nth-child(2) > .control > p > ul > li').should('be.visible');
+
+    cy.get(':nth-child(3) > .control > .input').click();
+    cy.get(':nth-child(4) > .control > .input').click();
+    cy.get(':nth-child(3) > .control > p > ul > li').should('be.visible');
+
+    cy.get(':nth-child(4) > .control > .input').click();
+    cy.get(':nth-child(3) > .control > .input').click();
+    cy.get(':nth-child(4) > .control > p > ul > li').should('be.visible');
+
+
+    cy.get('.butt2').click();
+    cy.get('.select > p > ul > li').should('be.visible');
   });
+
+  it('Deve retornar os erro ao clicar imediatamente quando clicar no cadastrar', () => {
+    cy.get('.butt2').click();
+    cy.get(':nth-child(1) > .control > p > ul > li').should('be.visible');
+    cy.get(':nth-child(2) > .control > p > ul > li').should('be.visible');
+    cy.get(':nth-child(3) > .control > p > ul > li').should('be.visible');
+    cy.get(':nth-child(4) > .control > p > ul > li').should('be.visible');
+    cy.get('.select > p > ul > li').should('be.visible');
+  })
 });

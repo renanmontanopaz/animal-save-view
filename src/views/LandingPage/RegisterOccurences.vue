@@ -54,10 +54,15 @@
         <div class="field">
           <label class="label">Situação do Animal</label>
           <div class="select">
-            <select v-model="occurences.situation">
+            <select :class="`${inputSituation}`" v-model="occurences.situation" @blur="validateInputSituation">
               <option value="EMERGENCIA">Emergência</option>
               <option value="URGENCIA">Urgência</option>
             </select>
+            <p v-if="errorMessageSituation">
+              <ul>
+                <li v-for="error in errorMessageSituation" :key="error">{{ error }}</li>
+              </ul>
+            </p>
           </div>
         </div>
         <div class="controlButt">
@@ -163,11 +168,25 @@ export default class RegisterOccurences extends Vue {
     }
   }
 
+  //Situação
+  public inputSituation: string = 'input';
+  public errorMessageSituation: string[] = [];
+  validateInputSituation() {
+    if (this.occurences.situation === 'EMERGENCIA' || this.occurences.situation === 'URGENCIA') {
+      this.errorMessageSituation = [''];
+      this.inputSituation = 'input is-success';
+    } else {
+      this.errorMessageSituation = ['O campo "Situação" é obrigatório!'];
+      this.inputSituation = 'input is-danger';
+    }
+  }
+
   public resetInputsOccurences() {
     this.inputFirstName = 'input';
     this.inputContact = 'input';
     this.inputDescription = 'input';
     this.inputReference = 'input';
+    this.inputSituation = 'input';
   }
 
   public validateForm() {
@@ -175,6 +194,7 @@ export default class RegisterOccurences extends Vue {
     this.validateInputContact();
     this.validateInputDescription();
     this.validateInputReference();
+    this.validateInputSituation();
   }
 
 
