@@ -11,9 +11,11 @@
                         <a @click="clickUpdate" class="navbar-item">
                             Meus dados
                         </a>
-                        <a id="sair" class="navbar-item">
-                            Sair
-                        </a>
+                        <router-link to="/">
+                            <a id="sair" class="navbar-item">
+                                Sair
+                            </a>
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -112,6 +114,7 @@ main {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    background-color: #EBE3CC;
 }
 
 header {
@@ -239,6 +242,8 @@ h1 {
     margin-left: -55px;
     border: 4px solid #c9c8c8;
 
+    font-family: 'Poppins';
+    font-style: normal;
     font-size: 36px;
     font-weight: 600;
     color: rgb(92, 92, 92);
@@ -269,9 +274,11 @@ h1 {
     border: none;
     cursor: pointer;
 
+    font-family: 'Poppins';
+    font-style: normal;
     font-size: 24px;
     font-weight: 600;
-    color: black;
+    color: #002D4C;
 }
 
 .button-sign:hover {
@@ -290,6 +297,8 @@ h1 {
     margin-left: -55px;
     border: 4px solid rgb(255, 196, 0);
 
+    font-family: 'Poppins';
+    font-style: normal;
     font-size: 36px;
     font-weight: 600;
     color: rgb(92, 92, 92);
@@ -306,6 +315,8 @@ h1 {
     margin-left: -55px;
     border: 4px solid #0C8DA6;
 
+    font-family: 'Poppins';
+    font-style: normal;
     font-size: 36px;
     font-weight: 600;
     color: rgb(92, 92, 92);

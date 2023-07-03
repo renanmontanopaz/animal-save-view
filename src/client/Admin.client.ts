@@ -60,6 +60,24 @@ export class AdminClient {
         }
     }
 
+    public async findAllApproved(): Promise<pendings[]> {
+        try {
+            return (await this.axiosClient.get<pendings[]>(`/approves/approved`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async findAllRejected(): Promise<pendings[]> {
+        try {
+            return (await this.axiosClient.get<pendings[]>(`/approves/rejected`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
     public async updateStatusPendingToApproved(id: number): Promise<void> {
         try {
             return (await this.axiosClient.put(`/approved/user/${id}`)).data

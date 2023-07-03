@@ -40,7 +40,7 @@ export class AssociateClient {
         }
     }
 
-    public async update(associate: Associate) : Promise<void> {
+    public async update(associate: any) : Promise<void> {
         try {
             return(await this.axiosClient.put(`/update/${associate.id}`, associate)).data
         }

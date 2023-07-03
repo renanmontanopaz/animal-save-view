@@ -4,6 +4,8 @@ import { Token } from "@/model/Token";
 import { User } from "@/model/User";
 import { Associate } from "@/model/Associate";
 import { Caregiver } from "@/model/Caregiver";
+import { Provider } from "@/model/Provider";
+
 export class UserClient {
   private axiosClient: AxiosInstance;
 
@@ -40,11 +42,31 @@ export class UserClient {
     }
   }
 
+
   public async findCaregiverByIdUser(id: number): Promise<Caregiver> {
     try {
       return (await this.axiosClient.get(`/findCaregiverByIdUser/${id}`)).data;
     } catch (error: any) {
       return Promise.reject(error.response);
+    }
+   }
+
+    public async findProviderByIdUser(id: number) : Promise<Provider> {
+        try {
+            return(await this.axiosClient.get(`/findProviderByIdUser/${id}`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async newPassword(newPassword: string, id: number) : Promise<void> {
+        try {
+            return(await this.axiosClient.put(`/new/password/${id}`, newPassword)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
     }
   }
 

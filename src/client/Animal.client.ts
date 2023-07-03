@@ -37,15 +37,23 @@ export class AnimalClient {
     }
   }
 
-  public async findAnimalByIdCaregiver(id: number): Promise<Animal[]> {
-    try {
-      return (
-        await this.axiosClient.get<Animal[]>(`/findAnimalByIdCaregiver/${id}`)
-      ).data;
-    } catch (error: any) {
-      return Promise.reject(error.response);
+    public async findAllByCaregiver(id: number) : Promise<Animal[]> {
+        try {
+            return(await this.axiosClient.get<Animal[]>(`/findAnimalByIdCaregiver/${id}`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
     }
-  }
+
+    public async findById(id: number) : Promise<Animal> {
+        try {
+            return(await this.axiosClient.get<Animal>(`/findbyid${id}`)).data
+        }
+        catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
 
   public async update(animal: any): Promise<void> {
     try {
