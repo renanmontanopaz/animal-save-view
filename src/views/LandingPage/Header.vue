@@ -7,19 +7,32 @@
             <img src="../../assets/Logo.png" />
           </a>
         </router-link>
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="true" data-target="navbarBasicExample"
-          :class="burguerClass" @click="toggleBurguer">
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="true"
+          data-target="navbarBasicExample"
+          :class="burguerClass"
+          @click="toggleBurguer"
+        >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
       </div>
-      <div id="navbarBasicExample columns is-5" class="navbar-menu" :class="menuClass">
+      <div
+        id="navbarBasicExample columns is-5"
+        class="navbar-menu"
+        :class="menuClass"
+      >
         <div class="navbar-end">
           <router-link to="/"> Home </router-link>
           <a @click="scrollToAboutUs"> Quem Somos </a>
           <a @click="scrollToPartners"> Parceiros </a>
-          <router-link to="/register-occurrences"> Registro Publico </router-link>
+          <router-link to="/register-occurences">
+            Registro Publico
+          </router-link>
         </div>
         <div class="navbar-end" id="divTres">
           <div class="navbar-item" id="divDois">
@@ -47,11 +60,11 @@
 </template>
 
 <script lang="ts">
-import Home from '@/views/LandingPage/Home.vue'
-import AboutUs from '@/views/LandingPage/AboutUs.vue'
-import Partners from '@/views/LandingPage/Partners.vue'
-import Footer from '@/views/LandingPage/Footer.vue'
-import { Component, Vue } from 'vue-property-decorator'
+import Home from "@/views/LandingPage/Home.vue";
+import AboutUs from "@/views/LandingPage/AboutUs.vue";
+import Partners from "@/views/LandingPage/Partners.vue";
+import Footer from "@/views/LandingPage/Footer.vue";
+import { Component, Vue } from "vue-property-decorator";
 
 @Component({
   components: {
@@ -61,18 +74,15 @@ import { Component, Vue } from 'vue-property-decorator'
     Footer,
   },
 })
-
 export default class Header extends Vue {
-
   burguerActive = false;
 
-
   get burguerClass(): string {
-    return this.burguerActive ? 'navbar-burger is-active' : 'navbar-burguer';
+    return this.burguerActive ? "navbar-burger is-active" : "navbar-burguer";
   }
 
   get menuClass(): string {
-    return this.burguerActive ? 'navbar-menu is-active' : 'navbar-menu';
+    return this.burguerActive ? "navbar-menu is-active" : "navbar-menu";
   }
 
   toggleBurguer(): void {
@@ -81,16 +91,15 @@ export default class Header extends Vue {
 
   scrollToAboutUs(event: MouseEvent): void {
     event.preventDefault();
-    const target = document.querySelector('#about-us-section') as HTMLElement;
-    target.scrollIntoView({ behavior: 'smooth' });
+    const target = document.querySelector("#about-us-section") as HTMLElement;
+    target.scrollIntoView({ behavior: "smooth" });
   }
 
   scrollToPartners(event: MouseEvent): void {
     event.preventDefault();
-    const target = document.querySelector('#partners-section') as HTMLElement;
-    target.scrollIntoView({ behavior: 'smooth' });
+    const target = document.querySelector("#partners-section") as HTMLElement;
+    target.scrollIntoView({ behavior: "smooth" });
   }
-
 }
 </script>
 <style lang="scss" scoped>
@@ -172,7 +181,7 @@ nav {
   }
 }
 
-@media (max-width:1024px) {
+@media (max-width: 1024px) {
   nav {
     padding: 0px;
     background-color: #ebe3cc !important;
@@ -193,7 +202,6 @@ nav {
     .navbar-menu {
       padding: 0;
       background-color: #ebe3cc;
-
     }
 
     .navbar-end {
@@ -242,7 +250,6 @@ nav {
         cursor: pointer;
         margin-bottom: 2em;
       }
-
     }
   }
 }

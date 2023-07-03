@@ -1,44 +1,96 @@
 <template>
   <main>
-    <div class="column is-4" style="align-items: center; justify-content: space-around; display: flex; flex-direction: column">
-      <div class="box" style="align-items: center; justify-content: space-around; display: flex; flex-direction: column; height: 450px; width: 100%">
-      <p class="title">Login</p>
-      <div class="column is-8">
-        <div class="field">
-          <p class="control has-icons-left has-icons-right">
-            <input class="input" type="email" placeholder="Email" v-model="login.login" />
-            <span class="icon is-small is-left">
-              <i class="fas fa-envelope"></i>
-            </span>
-            <span class="icon is-small is-right">
-              <i class="fas fa-check"></i>
-            </span>
-          </p>
-        </div>
-        <div class="field">
-          <p class="control has-icons-left">
-            <input class="input" type="password" placeholder="Password" v-model="login.password" />
-            <span class="icon is-small is-left">
-              <i class="fas fa-lock"></i>
-            </span>
-          </p>
-        </div>
-        <div class="columns" v-if="notificacao.ativo">
-          <div class="column is-12">
-            <div :class="notificacao.classe" v-if="isVisible">
-              <button @click="onClickFecharNotificacao" class="delete"></button>
-              {{ notificacao.mensagem }}
+    <div
+      id="form-login"
+      class="column is-3"
+      style="
+        align-items: center;
+        justify-content: space-around;
+        display: flex;
+        flex-direction: column;
+      "
+    >
+      <div
+        class="box"
+        style="
+          align-items: center;
+          justify-content: space-around;
+          display: flex;
+          flex-direction: column;
+          height: 450px;
+          width: 100%;
+        "
+      >
+        <img src="../assets/Logo.png" />
+        <div class="column is-8">
+          <div class="field">
+            <p class="control has-icons-left has-icons-right">
+              <input
+                class="input"
+                type="email"
+                placeholder="Email"
+                v-model="login.login"
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+              <span class="icon is-small is-right">
+                <i class="fas fa-check"></i>
+              </span>
+            </p>
+          </div>
+          <div class="field">
+            <p class="control has-icons-left">
+              <input
+                class="input"
+                type="password"
+                placeholder="Password"
+                v-model="login.password"
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+          </div>
+          <div class="columns" v-if="notificacao.ativo">
+            <div class="column is-12">
+              <div :class="notificacao.classe" v-if="isVisible">
+                <button
+                  @click="onClickFecharNotificacao"
+                  class="delete"
+                ></button>
+                {{ notificacao.mensagem }}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="field">
-        <p class="control">
-          <button class="button is-success" @click="onClickLogin">
+        <div
+          id="container-button"
+          class="control field column is-8"
+          style="justify-content: space-around; display: flex"
+        >
+          <router-link to="/"
+            ><button id="button-voltar" class="button">
+              Voltar
+            </button></router-link
+          >
+          <button id="button-login" class="button" @click="onClickLogin">
             Login
           </button>
-        </p>
-      </div>
+        </div>
+        <div
+          style="
+            justify-content: flex-start;
+            align-items: flex-start;
+            display: flex;
+            width: 100%;
+          "
+        >
+          <router-link id="not-register" to="/register">
+            Não é Cadastrado ? <br />
+            Cadastre-se agora!
+          </router-link>
+        </div>
       </div>
     </div>
   </main>
@@ -51,6 +103,7 @@ main {
   height: 100vh;
   background-color: #002d4c;
 }
+
 main::before {
   content: "";
   position: absolute;
@@ -58,11 +111,64 @@ main::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo com opacidade */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Cor de fundo com opacidade */
   z-index: -1;
 }
-.box{
 
+#form-login {
+  width: 500px;
+}
+
+.box {
+  background-color: #ebe3cc;
+}
+
+#container-button {
+  gap: 10px;
+}
+
+#button-voltar {
+  width: 120px;
+  background-color: #fbbd08;
+  color: #002d4c;
+
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.1em;
+}
+
+#button-voltar:hover {
+  transform: scale(1.05);
+  background-color: #fbbd08;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#button-login {
+  width: 120px;
+  background-color: #002d4c;
+  color: #ebe3cc;
+
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.1em;
+}
+
+#button-login:hover {
+  transform: scale(1.05);
+  background-color: #002d4c;
+  color: #ebe3cc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#not-register {
+  color: #002d4c;
+}
+
+#not-register:hover {
+  transform: scale(1.1);
 }
 </style>
 <script lang="ts">
@@ -83,7 +189,7 @@ export default class Login extends Vue {
   public tokenLogin: Token = new Token();
   public notificacao: Message = new Message();
 
-  mounted(): void { }
+  mounted(): void {}
 
   isVisible = false;
 
@@ -118,19 +224,17 @@ export default class Login extends Vue {
 
         if (approved == true && authorities.includes("ROLE_ADMIN")) {
           window.location.href = "/administrador";
-          console.log('chegou no adm')
-        } 
-        else if (approved == true && authorities.includes("ROLE_ASSOCIATE")) {
-          router.push({ path:`/associado/${id}` })
+          console.log("chegou no adm");
+        } else if (approved == true && authorities.includes("ROLE_ASSOCIATE")) {
+          router.push({ path: `/associado/${id}` });
           window.location.href = `/associado/${id}`;
-        } 
-        else if (approved == true && authorities.includes("ROLE_PROVIDER")) {
-          window.location.href = "/fornecedor";
-        } 
-        else if (approved == true && authorities.includes("ROLE_CAREGIVER")) {
-          window.location.href = "/protetora";
-        } 
-        else if (approved == false) {
+        } else if (approved == true && authorities.includes("ROLE_PROVIDER")) {
+          router.push({ path: `/fornecedor/${id}` });
+          window.location.href = `/fornecedor/${id}`;
+        } else if (approved == true && authorities.includes("ROLE_CAREGIVER")) {
+          router.push({ path: `/protetora/${id}` });
+          window.location.href = `/protetora/${id}`;
+        } else if (approved == false) {
           this.showComponent();
           this.notificacao = this.notificacao.new(
             true,
@@ -140,7 +244,7 @@ export default class Login extends Vue {
         }
 
         console.log(decodedToken);
-        localStorage.setItem("token", this.tokenLogin.token);
+        sessionStorage.setItem("token", this.tokenLogin.token);
       },
       (error) => {
         this.showComponent();

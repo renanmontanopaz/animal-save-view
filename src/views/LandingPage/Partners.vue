@@ -2,26 +2,38 @@
   <section class="containerParceiros">
     <article class="containerDivs">
       <div>
-        <img src="../../assets/AdesivoCachorro.svg" class="ImgCachorro" alt="">
+        <img
+          src="../../assets/AdesivoCachorro.svg"
+          class="ImgCachorro"
+          alt=""
+        />
       </div>
       <div class="containerImageParceiros">
-        <img src="../../assets/Uniamerica.svg" class="containerImg" alt="">
+        <img src="../../assets/Uniamerica.svg" class="containerImg" alt="" />
       </div>
     </article>
     <article class="containerDivs">
       <div>
-        <img src="../../assets/AdesivoCachorro.svg" class="ImgCachorro" alt="">
+        <img
+          src="../../assets/AdesivoCachorro.svg"
+          class="ImgCachorro"
+          alt=""
+        />
       </div>
       <div class="containerImageParceiros">
-        <img src="../../assets/Uniamerica.svg" class="containerImg" alt="">
+        <img src="../../assets/Uniamerica.svg" class="containerImg" alt="" />
       </div>
     </article>
     <article class="containerDivs">
       <div>
-        <img src="../../assets/AdesivoCachorro.svg" class="ImgCachorro" alt="">
+        <img
+          src="../../assets/AdesivoCachorro.svg"
+          class="ImgCachorro"
+          alt=""
+        />
       </div>
       <div class="containerImageParceiros">
-        <img src="../../assets/Uniamerica.svg" class="containerImg" alt="">
+        <img src="../../assets/Uniamerica.svg" class="containerImg" alt="" />
       </div>
     </article>
   </section>
@@ -34,7 +46,7 @@
 .containerParceiros {
   width: 100%;
   height: 100vh;
-  background-color: #EBE3CC;
+  background-color: #ebe3cc;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,7 +63,7 @@
     .containerImageParceiros {
       width: 300px;
       height: 250px;
-      background-color: #FBBD08;
+      background-color: #fbbd08;
       border-radius: 39px;
 
       display: flex;
@@ -65,12 +77,11 @@
   }
 }
 
-@media (max-width:550px) {
-
+@media (max-width: 550px) {
   .containerParceiros {
     width: 100%;
     height: 100vh;
-    background-color: #EBE3CC;
+    background-color: #ebe3cc;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -90,7 +101,7 @@
       .containerImageParceiros {
         width: 15em;
         height: 8em;
-        background-color: #FBBD08;
+        background-color: #fbbd08;
         border-radius: 1em;
 
         display: flex;
@@ -106,54 +117,12 @@
   }
 }
 
-@media (min-height:810px) and (max-height:950px) {
-
-  .containerParceiros {
-    width: 100%;
-    height: 100vh;
-    background-color: #EBE3CC;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 4.6em;
-
-    .containerDivs {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-
-      .ImgCachorro {
-        display: none;
-      }
-
-      .containerImageParceiros {
-        width: 17em;
-        height: 10em;
-        background-color: #FBBD08;
-        border-radius: 1em;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-
-        .containerImg {
-          width: 90%;
-        }
-      }
-    }
-  }
-}
 </style>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
 @Component
-export default class Partners extends Vue {
-
-}
+export default class Partners extends Vue {}
 </script>
