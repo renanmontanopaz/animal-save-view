@@ -124,36 +124,42 @@
             <div class="modal-container column is-6">
               <div class="field columns is-desktop">
                 <div class="column">
+                  <label>Nome</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="Nome"
                     v-model="caregiverFound.firstName"
                   />
+                  <label>Sobrenome</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="Sobrenome"
                     v-model="caregiverFound.lastName"
                   />
+                  <label>Telefone</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="Telefone"
                     v-model="caregiverFound.contact"
                   />
+                  <label>CPF</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="CPF"
                     v-model="caregiverFound.cpf"
                   />
+                  <label>Espaço Físico</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="Espaço físico m²"
                     v-model="caregiverFound.physicalSpace"
                   />
+                  <label>Gasto Mensal</label>
                   <input
                     class="input"
                     type="text"
@@ -162,24 +168,28 @@
                   />
                 </div>
                 <div class="column">
+                  <label>CEP</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="CEP"
                     v-model="caregiverFound.address.cep"
                   />
+                  <label>Logradouro</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="Rua/Avenida"
                     v-model="caregiverFound.address.road"
                   />
+                  <label>Número</label>
                   <input
                     class="input"
                     type="number"
                     placeholder="Número"
                     v-model="caregiverFound.address.houseNumber"
                   />
+                  <label>Bairro</label>
                   <input
                     class="input"
                     type="text"
@@ -316,24 +326,28 @@
             <div class="modal-container column is-6">
               <div class="field columns is-desktop">
                 <div class="column">
+                  <label>Nome</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="Nome"
                     v-model="associateFound.firstName"
                   />
+                  <label>Sobrenome</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="Sobrenome"
                     v-model="associateFound.lastName"
                   />
+                  <label>Telefone</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="Telefone"
                     v-model="associateFound.contact"
                   />
+                  <label>CPF</label>
                   <input
                     class="input"
                     type="text"
@@ -342,24 +356,28 @@
                   />
                 </div>
                 <div class="column">
+                  <label>CEP</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="CEP"
                     v-model="associateFound.address.cep"
                   />
+                  <label>Logradouro</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="Rua/Avenida"
                     v-model="associateFound.address.road"
                   />
+                  <label>Número</label>
                   <input
                     class="input"
                     type="number"
                     placeholder="Número"
                     v-model="associateFound.address.houseNumber"
                   />
+                  <label>Bairro</label>
                   <input
                     class="input"
                     type="text"
@@ -509,24 +527,28 @@
             <div class="modal-container column is-6">
               <div class="field columns is-desktop">
                 <div class="column">
+                  <label>Nome da Empresa</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="Nome da empresa"
                     v-model="providerFound.businessName"
                   />
+                  <label>Nome Fantasia</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="Nome fantasia"
                     v-model="providerFound.fantasyName"
                   />
+                  <label>Telefone</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="Telefone"
                     v-model="providerFound.contact"
                   />
+                  <label>CNPJ</label>
                   <input
                     class="input"
                     type="text"
@@ -535,24 +557,28 @@
                   />
                 </div>
                 <div class="column">
+                  <label>CEP</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="CEP"
                     v-model="providerFound.address.cep"
                   />
+                  <label>Logradouro</label>
                   <input
                     class="input"
                     type="text"
                     placeholder="Rua/Avenida"
                     v-model="providerFound.address.road"
                   />
+                  <label>Número</label>
                   <input
                     class="input"
                     type="number"
                     placeholder="Número"
                     v-model="providerFound.address.houseNumber"
                   />
+                  <label>Endereço</label>
                   <input
                     class="input"
                     type="text"
